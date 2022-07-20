@@ -1,0 +1,50 @@
+
+@include media-breakpoint-up(md) { 
+    h1, .h1 {
+        font-size: 72px;
+    }
+    h2, .h2 {
+        font-size: 36px;
+    }
+    h4, .h4 {
+        font-size: 36px;
+    }
+    h5, .h5 {
+        font-size: 36px;
+    }
+    h6, .h6, .h7 {
+        font-size: 20px;
+    } 
+    body, p {
+        font-size: 20px;
+    }
+ }
+@include media-breakpoint-up(dlg) {
+    h3, .h3 {
+        font-size: 52px;
+    }
+}
+@include media-breakpoint-up(xl) {
+    h1, .h1 {
+        font-size: 84px;
+    }
+    h2, .h2 {
+        font-size: 52px;
+    }
+    h3, .h3 {
+        font-size: 62px;
+    }
+    h4, .h4 {
+        font-size: 52px;
+    }
+    h5, .h5 {
+        font-size: 52px;
+    }
+    h6, .h6, .h7 {
+        font-size: 28px;
+    }
+    body, p {
+        font-size: 28px;
+    }
+}
+
