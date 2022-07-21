@@ -69,7 +69,7 @@
 							array(
 								'theme_location' => 'main-menu',
 								'container'      => '',
-								'menu_class'     => 'navbar-nav me-auto',
+								'menu_class'     => 'navbar-nav ms-auto',
 								'fallback_cb'    => 'WP_Bootstrap_Navwalker::fallback',
 								'walker'         => new WP_Bootstrap_Navwalker(),
 							)
