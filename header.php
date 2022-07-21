@@ -8,10 +8,30 @@
 </head>
 
 <?php
-	$navbar_scheme   = get_theme_mod( 'navbar_scheme', 'navbar-light bg-light' ); // Get custom meta-value.
+
+	$navbar_scheme = '';
+	$navbar_page_scheme = get_field( 'navbar_color_settings' );
+	$navbar_theme_scheme   = get_theme_mod( 'navbar_scheme', 'navbar-light bg-light' ); // Get custom meta-value.
 	$navbar_position = get_theme_mod( 'navbar_position', 'static' ); // Get custom meta-value.
 
 	$search_enabled  = get_theme_mod( 'search_enabled', '1' ); // Get custom meta-value.
+
+	if ( isset( $navbar_page_scheme ) ) {
+		if(strpos($navbar_page_scheme, 'default') !== false){
+			$navbar_scheme = $navbar_theme_scheme;
+		} else {
+			$navbar_scheme .= 'navbar-'.$navbar_page_scheme;
+			$navbar_scheme .= ' bg-'.$navbar_page_scheme;
+		}
+	} else {
+		$navbar_scheme = $navbar_theme_scheme;
+	}
+
+// add algoritim for detecting background color here
+
+
+
+
 ?>
 
 <body <?php body_class(); ?>>
@@ -49,7 +69,7 @@
 							array(
 								'theme_location' => 'main-menu',
 								'container'      => '',
-								'menu_class'     => 'navbar-nav me-auto',
+								'menu_class'     => 'navbar-nav ms-auto',
 								'fallback_cb'    => 'WP_Bootstrap_Navwalker::fallback',
 								'walker'         => new WP_Bootstrap_Navwalker(),
 							)

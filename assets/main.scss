@@ -43,7 +43,7 @@ $font-family-sans-serif: 'TiemposText-Regular';
 $font-family-serif: Georgia, "Times New Roman", Times, serif;
 $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 $font-family-base: $font-family-sans-serif;
-
+$link_font: 'ISOv0.6-Regular';
 // Supply Brand Assets
 $gray-900: #111512;
 $primary: $gray-900;
@@ -58,6 +58,8 @@ $green: #50E3AE;
 $red: #FE0000;
 $blue: #00aeef;
 $cyan: #59caf5;
+$white: #fff;
+$black: #000;
 
 $secondary: $gray-800;
 
@@ -79,7 +81,15 @@ $nav-link-padding-x: 2.25rem;
 $nav-link-padding-y: 2.8125rem;
 $grid-breakpoints: ( xs: 0, smm: 320px, sm: 576px, md: 768px, lg: 992px, dlg: 1024px, xl: 1290px, xxl: 1440px, 3xl: 1920px, 4xl: 2400px  );
 $input-font-family: 'ISOv0.6-Regular';
-
+$nav-link-padding-x: 2.25rem;
+$nav-link-padding-y: 2.8125rem;
+$navbar-nav-link-padding-x: 2.25rem;
+$navbar-dark-color: $white;
+$dark: $black;
+$navbar-light-color: $gray-900;
+$navbar-light-hover-color: $gray-900;
+$navbar-light-active-color: $gray-900;
+$navbar-dark-hover-color: $white;
 // 3. Include remainder of required Bootstrap stylesheets
 @import "../node_modules/bootstrap/scss/variables";
 
@@ -393,5 +403,6 @@ img {
 		margin-top: 60px;
 	}
 }
-@import "scss/_headings.scss";
+@import "scss/_type.scss";
+@import "scss/_navs.scss";
 @import "scss/_responsive.scss";

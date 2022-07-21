@@ -1,0 +1,41 @@
+#navbar {
+    &:hover{
+        .nav-link:hover {
+            color: white;
+            opacity:1;
+        }
+        .nav-link {
+            opacity:0.5;
+        }
+    }
+    .nav-link {
+        position: relative;
+        transition: ease 0.15s;
+        .nav-underline {
+            position: absolute;
+            display: block;
+            left: -2.25rem;
+            width: calc(100% - 4.5rem);
+            height: 1px;
+            -webkit-animation: slide 0.5s forwards;
+            -webkit-animation-delay: 2s;
+            animation: slide 0.5s forwards;
+            animation-delay: 2s;
+            visibility: hidden;
+            opacity: 0;
+            background-color: $white;
+        }
+        &:hover{
+            .nav-underline {
+                transition: ease 0.15s;
+                -moz-transform: translateX(4.5rem) translateY(0px);
+                -webkit-transform: translateX(4.5rem) translateY(0px);
+                -o-transform: translateX(4.5rem) translateY(0px);
+                -ms-transform: translateX(4.5rem) translateY(0px);
+                transform: translateX(4.5rem) translateY(0px);
+                visibility: visible;
+                opacity: 1;
+            }
+        }
+    } 
+}
