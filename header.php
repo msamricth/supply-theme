@@ -70,7 +70,7 @@
 							array(
 								'theme_location' => 'main-menu',
 								'container'      => '',
-								'menu_class'     => 'navbar-nav ms-auto mb-11 mb-md-0',
+								'menu_class'     => 'navbar-nav ms-auto mb-11 supply-underline mb-md-0',
 								'fallback_cb'    => 'WP_Bootstrap_Navwalker::fallback',
 								'walker'         => new WP_Bootstrap_Navwalker(),
 							)

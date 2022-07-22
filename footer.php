@@ -13,7 +13,7 @@
 				endif;
 			?>
 		</main><!-- /#main -->
-		<footer id="footer" class="bg-black footer">
+		<footer id="footer" class="bg-black footer text-white py-6 py-md-8">
 			<div class="container">
 				<div class="row">
 					<?php
@@ -27,32 +27,71 @@
 								array(
 									'theme_location'  => 'footer-menu',
 									'container'       => 'nav',
-									'container_class' => 'col-sm-6 col-md-3',
+									'container_class' => 'col-sm-3 pb-5 pb-md-0',
 									'fallback_cb'     => '',
-									'items_wrap'      => '<ul class="menu nav justify-content-end">%3$s</ul>',
+									'items_wrap'      => '<ul class="menu supply-underline nav d-block justify-content-end">%3$s</ul>',
 									//'fallback_cb'    => 'WP_Bootstrap4_Navwalker_Footer::fallback',
 									'walker'          => new WP_Bootstrap4_Navwalker_Footer(),
 								)
 							);
-						endif;
+						endif; ?>
 
-						if ( is_active_sidebar( 'third_widget_area' ) ) :
-					?>
-						<div class="col-sm-6 col-md-9">
-							<?php
-								dynamic_sidebar( 'third_widget_area' );
+						
+						<div class="col-sm-8">
+							<div class="footer-content supply-underline">
+								<span class="iso-reg footer-label d-block mb-2">
+									<?php the_field( 'new_business_label', 'option' ); ?>
+								</span>
+								<p><?php the_field( 'point_of_contact', 'option' ); 
+								echo '</p><p>';
+								echo '<a href="mailto:';
+								the_field( 'poc_email', 'option' );
+								echo '">';
+								the_field( 'poc_email', 'option' );
+								echo '<span class="nav-underline"></span></a></p><p>';
+								echo '<a href="tel:';
+								the_field( 'poc_number', 'option' ); 
+								echo '">';
+								the_field( 'poc_number', 'option' );
+								echo '<span class="nav-underline"></span></a>';
+								?>
+								</p>
+								<span class="iso-reg footer-label d-block pt-5 mb-2">
+									<?php the_field( 'headquarters_label', 'option' ); ?>
+								</span>
+								<?php the_field( 'headquarters_address', 'option' ); ?>
+							</div>
+							<?php if ( is_active_sidebar( 'third_widget_area' ) ) :
+								?>
+									<?php
+										dynamic_sidebar( 'third_widget_area' );
 
-								if ( current_user_can( 'manage_options' ) ) :
-							?>
-								<span class="edit-link"><a href="<?php echo esc_url( admin_url( 'widgets.php' ) ); ?>" class="badge badge-secondary"><?php esc_html_e( 'Edit', 'supply' ); ?></a></span><!-- Show Edit Widget link -->
+										if ( current_user_can( 'manage_options' ) ) :
+									?>
+										<span class="edit-link"><a href="<?php echo esc_url( admin_url( 'widgets.php' ) ); ?>" class="badge badge-secondary"><?php esc_html_e( 'Edit', 'supply' ); ?></a></span><!-- Show Edit Widget link -->
+									<?php
+										endif;
+									?>
+									<p><?php printf( esc_html__( '&copy; %1$s %2$s. All rights reserved.', 'supply' ), date_i18n( 'Y' ), get_bloginfo( 'name', 'display' ) ); ?></p>
 							<?php
 								endif;
 							?>
-							<p><?php printf( esc_html__( '&copy; %1$s %2$s. All rights reserved.', 'supply' ), date_i18n( 'Y' ), get_bloginfo( 'name', 'display' ) ); ?></p>
 						</div>
-					<?php
-						endif;
-					?>
+						<?php if ( have_rows( 'add_a_social_media_account', 'option' ) ) : ?>
+							<div class="col-md-1">
+								<ul class="social-nav">
+									<?php while ( have_rows( 'add_a_social_media_account', 'option' ) ) : the_row(); $site_title = get_bloginfo( 'name' ); $sm_title = get_sub_field( 'social_media_name' ); ?>
+										<li>
+											<a href="<?php the_sub_field( 'url' ); ?>" alt="<?php echo $site_title ."'s". $sm_title;?>">
+												<?php the_sub_field( 'icon' ); ?>
+											</a>
+										</li>				
+									<?php endwhile; ?>
+								</ul>
+							</div>
+						<?php else : ?>
+							<?php // No rows found ?>
+						<?php endif; ?>	
 				</div><!-- /.row -->
 			</div><!-- /.container -->
 		</footer><!-- /#footer -->

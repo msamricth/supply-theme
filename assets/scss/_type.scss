@@ -10,3 +10,9 @@ a, .nav-link {
     font-family: $link_font;
     transition: color .25s;
 }
+.iso-reg { 
+	font-family: $link_font;
+}
+.nav-link, a {
+    transition: ease 0.15s;
+}

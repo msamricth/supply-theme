@@ -242,6 +242,7 @@ img {
 
 #main {
 	margin-top: $spacer;
+	min-height: 100vh;
 }
 
 /* Footer */
@@ -421,4 +422,5 @@ img {
 @import "scss/_type.scss";
 @import "scss/_navs.scss";
 @import "scss/_footer.scss";
+@import "scss/_underline.scss";
 @import "scss/_responsive.scss";
