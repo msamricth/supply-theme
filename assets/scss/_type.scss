@@ -8,4 +8,5 @@ h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
 }
 a, .nav-link {
     font-family: $link_font;
+    transition: color .25s;
 }

@@ -57,9 +57,10 @@
 						endif;
 					?>
 				</a>
-
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'supply' ); ?>">
-					<span class="navbar-toggler-icon"></span>
+				<button class="navbar-toggler hamburger hamburger--squeeze" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'supply' ); ?>">
+					<span class="hamburger-box">
+						<span class="hamburger-inner"></span>
+					</span>
 				</button>
 
 				<div id="navbar" class="collapse navbar-collapse">
@@ -69,7 +70,7 @@
 							array(
 								'theme_location' => 'main-menu',
 								'container'      => '',
-								'menu_class'     => 'navbar-nav ms-auto',
+								'menu_class'     => 'navbar-nav ms-auto mb-11 mb-md-0',
 								'fallback_cb'    => 'WP_Bootstrap_Navwalker::fallback',
 								'walker'         => new WP_Bootstrap_Navwalker(),
 							)
