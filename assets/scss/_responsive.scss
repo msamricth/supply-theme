@@ -17,6 +17,19 @@
     body, p {
         font-size: 20px;
     }
+    .footer {
+        .nav-link {
+            padding-bottom: 32px;
+        }
+    }
+    .social-nav {
+        li {
+            display: list-item;
+            a {
+                display: block;
+            }
+        }
+    }
  }
 @include media-breakpoint-up(dlg) {
     h3, .h3 {
