@@ -13,13 +13,9 @@
 				endif;
 			?>
 		</main><!-- /#main -->
-		<footer id="footer">
+		<footer id="footer" class="bg-black footer">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6">
-						<p><?php printf( esc_html__( '&copy; %1$s %2$s. All rights reserved.', 'supply' ), date_i18n( 'Y' ), get_bloginfo( 'name', 'display' ) ); ?></p>
-					</div>
-
 					<?php
 						if ( has_nav_menu( 'footer-menu' ) ) : // See function register_nav_menus() in functions.php
 							/*
@@ -31,7 +27,7 @@
 								array(
 									'theme_location'  => 'footer-menu',
 									'container'       => 'nav',
-									'container_class' => 'col-md-6',
+									'container_class' => 'col-sm-6 col-md-3',
 									'fallback_cb'     => '',
 									'items_wrap'      => '<ul class="menu nav justify-content-end">%3$s</ul>',
 									//'fallback_cb'    => 'WP_Bootstrap4_Navwalker_Footer::fallback',
@@ -42,7 +38,7 @@
 
 						if ( is_active_sidebar( 'third_widget_area' ) ) :
 					?>
-						<div class="col-md-12">
+						<div class="col-sm-6 col-md-9">
 							<?php
 								dynamic_sidebar( 'third_widget_area' );
 
@@ -52,6 +48,7 @@
 							<?php
 								endif;
 							?>
+							<p><?php printf( esc_html__( '&copy; %1$s %2$s. All rights reserved.', 'supply' ), date_i18n( 'Y' ), get_bloginfo( 'name', 'display' ) ); ?></p>
 						</div>
 					<?php
 						endif;
