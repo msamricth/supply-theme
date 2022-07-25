@@ -476,6 +476,10 @@ if ( is_readable( $custom_walker_footer ) ) {
 	require_once $custom_walker_footer;
 }
 
+$external_link_function = __DIR__ . '/inc/external_link.php';
+if ( is_readable( $external_link_function ) ) {
+	require_once $external_link_function;
+}
 
 /**
  * Loading All CSS Stylesheets and Javascript Files.
