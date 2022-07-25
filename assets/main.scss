@@ -28,6 +28,66 @@ $enable-deprecation-messages: true;
 $enable-important-utilities: true;
 
 
+
+//Font declaration
+@font-face {
+	font-display: swap;
+	font-family: 'Calibre';
+	font-style: normal;
+	font-weight: 600;
+	src: url('fonts/calibre-web-semibold.woff2') format('woff2'),
+	  url('fonts/calibre-web-semibold.woff') format('woff');
+}
+@font-face {
+	font-display: swap;
+	font-family: 'Calibre';
+	font-style: italic;
+	font-weight: 600;
+	src: url('fonts/calibre-web-semibold-italic.woff2') format('woff2'),
+	  url('fonts/calibre-web-semibold-italic.woff') format('woff');
+}
+@font-face {
+	font-display: swap;
+	font-family: 'Calibre';
+	font-style: normal;
+	font-weight: normal;
+	src: url('fonts/calibre-web-regular.woff2') format('woff2'),
+	  url('fonts/calibre-web-regular.woff') format('woff');
+}  
+@font-face {
+	font-display: swap;
+	font-family: 'Calibre';
+	font-style: normal;
+	font-weight: 500;
+	src: url('fonts/calibre-web-medium.woff2') format('woff2'),
+	  url('fonts/calibre-web-medium.woff') format('woff');
+}
+@font-face {
+	font-display: swap;
+	font-family: 'ISOv';
+	font-style: normal;
+	font-weight: normal;
+	src: url('fonts/ISOv0.6-Regular.woff') format('woff');
+}
+@font-face {
+	font-display: swap;
+	font-family: 'TiemposText-Regular';
+	font-style: normal;
+	font-weight: normal;
+	src: url('fonts/tiempos-text-web-regular.woff2') format('woff2'),
+	  url('fonts/tiempos-text-web-regular.woff') format('woff');
+}
+@font-face {
+	font-display: swap;
+	font-family: 'TiemposText-Regular';
+	font-style: italic;
+	font-weight: normal;
+	src: url('fonts/tiempos-text-web-regular-italic.woff2') format('woff2'),
+	  url('fonts/tiempos-text-web-regular-italic.woff') format('woff');
+}
+
+
+
 // Grayscale vars
 $gray-100: #f8f9fa;
 // Color vars
@@ -43,7 +103,7 @@ $font-family-sans-serif: 'TiemposText-Regular';
 $font-family-serif: Georgia, "Times New Roman", Times, serif;
 $font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 $font-family-base: $font-family-sans-serif;
-$link_font: 'ISOv0.6-Regular';
+$link_font: 'ISOv';
 // Supply Brand Assets
 $gray-900: #111512;
 $primary: $gray-900;
@@ -423,4 +483,5 @@ img {
 @import "scss/_navs.scss";
 @import "scss/_footer.scss";
 @import "scss/_underline.scss";
+@import "scss/_animations.scss";
 @import "scss/_responsive.scss";
