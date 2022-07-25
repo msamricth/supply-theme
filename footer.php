@@ -27,7 +27,7 @@
 								array(
 									'theme_location'  => 'footer-menu',
 									'container'       => 'nav',
-									'container_class' => 'col-sm-3 pb-5 pb-md-0',
+									'container_class' => 'col-sm-3 pb-5 pb-md-0 fadeScroll',
 									'fallback_cb'     => '',
 									'items_wrap'      => '<ul class="menu supply-underline nav d-block justify-content-end">%3$s</ul>',
 									//'fallback_cb'    => 'WP_Bootstrap4_Navwalker_Footer::fallback',
@@ -39,27 +39,34 @@
 						
 						<div class="col-sm-8">
 							<div class="footer-content supply-underline">
-								<span class="iso-reg footer-label d-block mb-2">
-									<?php the_field( 'new_business_label', 'option' ); ?>
-								</span>
-								<p><?php the_field( 'point_of_contact', 'option' ); 
-								echo '</p><p>';
-								echo '<a href="mailto:';
-								the_field( 'poc_email', 'option' );
-								echo '">';
-								the_field( 'poc_email', 'option' );
-								echo '<span class="nav-underline"></span></a></p><p>';
-								echo '<a href="tel:';
-								the_field( 'poc_number', 'option' ); 
-								echo '">';
-								the_field( 'poc_number', 'option' );
-								echo '<span class="nav-underline"></span></a>';
-								?>
-								</p>
-								<span class="iso-reg footer-label d-block pt-5 mb-2">
-									<?php the_field( 'headquarters_label', 'option' ); ?>
-								</span>
-								<?php the_field( 'headquarters_address', 'option' ); ?>
+								<div class="fadeScroll">
+									<span class="iso-reg footer-label d-block mb-2">
+										<?php the_field( 'new_business_label', 'option' ); ?>
+									</span>
+									<p><?php the_field( 'point_of_contact', 'option' ); ?></p>
+								</div>
+								<div class="fadeScroll">
+									<?php
+									echo '<p>';
+									echo '<a href="mailto:';
+									the_field( 'poc_email', 'option' );
+									echo '">';
+									the_field( 'poc_email', 'option' );
+									echo '<span class="nav-underline"></span></a></p><p>';
+									echo '<a href="tel:';
+									the_field( 'poc_number', 'option' ); 
+									echo '">';
+									the_field( 'poc_number', 'option' );
+									echo '<span class="nav-underline"></span></a>';
+									?>
+									</p>
+								</div>
+								<div class="fadeScroll">
+									<span class="iso-reg footer-label d-block pt-5 mb-2">
+										<?php the_field( 'headquarters_label', 'option' ); ?>
+									</span>
+									<?php the_field( 'headquarters_address', 'option' ); ?>
+								</div>
 							</div>
 							<?php if ( is_active_sidebar( 'third_widget_area' ) ) :
 								?>
@@ -79,7 +86,7 @@
 						</div>
 						<?php if ( have_rows( 'add_a_social_media_account', 'option' ) ) : ?>
 							<div class="col-md-1">
-								<ul class="social-nav">
+								<ul class="social-nav fadeScroll">
 									<?php while ( have_rows( 'add_a_social_media_account', 'option' ) ) : the_row(); $site_title = get_bloginfo( 'name' ); $sm_title = get_sub_field( 'social_media_name' ); ?>
 										<li>
 											<a href="<?php the_sub_field( 'url' ); ?>" alt="<?php echo $site_title ."'s". $sm_title;?>">

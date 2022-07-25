@@ -1,0 +1,26 @@
+.fadeScroll {
+    transition: opacity 0.25s linear 0s;
+    opacity: 0;
+    &.in {
+        opacity: 1;
+        transition: ease 0.25s;
+        -moz-transform: translateX(0px) translateY(-10px);
+        -webkit-transform: translateX(0px) translateY(-10px);
+        -o-transform: translateX(0px) translateY(-10px);
+        -ms-transform: translateX(0px) translateY(-10px);
+        transform: translateX(0px) translateY(-10px);
+    }
+}
+.fadeNoScroll {
+    transition: opacity 0.25s linear 0s;
+    opacity: 0;
+    &.in {
+        opacity: 1;
+        transition: ease 0.25s;
+        -moz-transform: translateX(0px) translateY(-10px);
+        -webkit-transform: translateX(0px) translateY(-10px);
+        -o-transform: translateX(0px) translateY(-10px);
+        -ms-transform: translateX(0px) translateY(-10px);
+        transform: translateX(0px) translateY(-10px);
+    }
+}
