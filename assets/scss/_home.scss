@@ -1,0 +1,39 @@
+.page-template-page-home {
+    .home-header {
+        .video-embed {
+            margin-bottom: -66px;
+            z-index: 111;
+            @include media-breakpoint-up(dlg) {
+                padding-right: 60px;
+                padding-left: 60px;
+            }
+        }
+    }
+    .home-main {
+        background-color: $white;
+        position: relative;
+        z-index: 98;
+    }
+    .tagline-section {
+        .row {
+            align-items: center;
+            .carousel {
+                .carousel-item {
+                    padding-left: 60px;
+                    padding-right: 60px;
+                    @include media-breakpoint-up(dlg) {  
+                        padding-left: 125px;
+                        padding-right: 125px;
+                    }
+                    img {
+                        margin-bottom: 58px;
+                        width:100%;
+                    }
+                    img + img {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    } 
+}

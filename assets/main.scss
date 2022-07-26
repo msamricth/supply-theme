@@ -178,8 +178,16 @@ $spacers: (
   7: $spacer * 7.5,
   8: $spacer * 9,
   9: $spacer * 10.5,
-  10: $spacer * 11,
-  11: $spacer * 12.5
+  10: $spacer * 12,
+  11: $spacer * 13.5,
+  12: $spacer * 15,
+  13: $spacer * 17.5,
+  14: $spacer * 19,
+  15: $spacer * 20.5,
+  16: $spacer * 22,
+  17: $spacer * 23.5,
+  18: $spacer * 25,
+  19: $spacer * 26.5,
 );
 // 5. Include remainder of required parts
 @import "../node_modules/bootstrap/scss/maps";
@@ -485,4 +493,5 @@ img {
 @import "scss/_underline.scss";
 @import "scss/_animations.scss";
 @import "scss/_media.scss";
+@import "scss/_home.scss";
 @import "scss/_responsive.scss";
