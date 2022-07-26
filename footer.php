@@ -39,13 +39,13 @@
 						
 						<div class="col-sm-8">
 							<div class="footer-content supply-underline">
-								<div class="fadeScroll">
+								<div class="fadeNoScroll">
 									<span class="iso-reg footer-label d-block mb-2">
 										<?php the_field( 'new_business_label', 'option' ); ?>
 									</span>
 									<p><?php the_field( 'point_of_contact', 'option' ); ?></p>
 								</div>
-								<div class="fadeScroll">
+								<div class="fadeNoScroll">
 									<?php
 									echo '<p>';
 									echo '<a href="mailto:';
@@ -61,7 +61,7 @@
 									?>
 									</p>
 								</div>
-								<div class="fadeScroll">
+								<div class="fadeNoScroll">
 									<span class="iso-reg footer-label d-block pt-5 mb-2">
 										<?php the_field( 'headquarters_label', 'option' ); ?>
 									</span>
