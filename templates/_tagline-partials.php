@@ -22,7 +22,7 @@ $i = 0;
         
         <div class="col-md-6 order-md-1">
         <?php if ( have_rows( 'logos', 'option' ) ) : ?>
-            <div id="logoCarousel" class="carousel  slide" data-bs-ride="carousel">
+            <div id="logoCarousel" class="carousel fadeNoScroll pt-6 pt-md-0 slide" data-bs-ride="carousel">
                 <div class="carousel-inner">               
                     <?php while ( have_rows( 'logos', 'option' ) ) : the_row(); 
                     $active_class = '';

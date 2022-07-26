@@ -19,6 +19,7 @@
             align-items: center;
             .carousel {
                 .carousel-item {
+                    min-height: 200px;
                     padding-left: 60px;
                     padding-right: 60px;
                     @include media-breakpoint-up(dlg) {  
@@ -35,5 +36,10 @@
                 }
             }
         }
-    } 
+    }
+    .call-to-action-section { 
+        align-items: center;
+        @include media-breakpoint-up(md) { 
+        }
+    }
 }

@@ -81,8 +81,10 @@
 									?>
 									<p><?php printf( esc_html__( '&copy; %1$s %2$s. All rights reserved.', 'supply' ), date_i18n( 'Y' ), get_bloginfo( 'name', 'display' ) ); ?></p>
 							<?php
-								endif;
-							?>
+								endif;?>
+							<div class="footer-cta mt-5">
+								<?php echo do_shortcode('[contact-form-7 id="130" title="Stay in touch - FooterCTA"]'); ?>
+							</div>
 						</div>
 						<?php if ( have_rows( 'add_a_social_media_account', 'option' ) ) : ?>
 							<div class="col-md-1">
