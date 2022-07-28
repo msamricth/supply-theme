@@ -14,7 +14,7 @@ $ctaCustumLinkText = get_field( 'cta_link_text' );
         <?php if ( $cta_link ) : 
 	    $post = $cta_link; 
 	    setup_postdata( $post );  ?>
-        <a href="the_permalink();" class="fadeNoScroll">
+        <a href="<?php the_permalink(); ?>" class="fadeNoScroll">
         <?php if ( $ctaCustumLinkText ) : 
             echo $ctaCustumLinkText; 
             else:

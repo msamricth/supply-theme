@@ -40,15 +40,20 @@
     border-top: none;
     border-left: none;
     border-right: none;
+    padding-left: 0;
 }
 .footer {
-    .form-control {
-        padding-left: 0;
-    }
     .footer-btn {
         margin-left: -25px !important;
         border: none;
         position: relative;
         z-index: 99;
     }
+}
+.wpcf7 form.sent .wpcf7-response-output {
+    background-color: $success;
+    border-color: $success;
+    font-size:0.85rem;
+    color: $gray-900
+    display: inline;
 }
