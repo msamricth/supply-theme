@@ -23,14 +23,14 @@ if($scheme){
 ?>
 
 <main class="">
-    <div class="home-header pt-3 pt-dlg-7 pt-xl-9 <?php echo $scheme ?>">
+    <div class="home-header pt-9 pt-dlg-12 pt-xl-15 <?php echo $scheme ?>">
         <div class="container-fluid text-center">
             <div class="row">
                 <div class="col-md-8 mx-md-auto">
                     <?php if($headline) {
-                        echo '<h1 class="entry-title mb-5  mb-dlg-9  mb--xl-13 fadeNoScroll '. $textScheme.'">'.$headline.'</h1>';
+                        echo '<h1 class="entry-title mb-6  mb-dlg-9  mb--xl-13 fadeNoScroll '. $textScheme.'">'.$headline.'</h1>';
                     } else {
-                        echo '<h1 class="entry-title mb-5 mb-dlg-9 mb--xl-13 fadeNoScroll '. $textScheme.'">' .the_title() .'</h1>';
+                        echo '<h1 class="entry-title mb-6 mb-dlg-9 mb--xl-13 fadeNoScroll '. $textScheme.'">' .the_title() .'</h1>';
                     }?>
                 </div>
             </div>
@@ -49,12 +49,11 @@ if($scheme){
                 'after'  => '</div>',
             ) );
             edit_post_link( __( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
+            
+             get_template_part('templates/_cta', 'partials');
         ?>
+        
     </div><!-- /#post-<?php the_ID(); ?> -->
     <?php
-        // If comments are open or we have at least one comment, load up the comment template.
-        if ( comments_open() || get_comments_number() ) :
-            comments_template();
-        endif;
 
 get_footer();

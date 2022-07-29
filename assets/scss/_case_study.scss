@@ -1,0 +1,13 @@
+.single-case-studies {
+    main#main {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+        .header-container {
+            margin-top: -1px;
+        }
+        .fold {
+            min-height: 200vh;
+            position: relative;
+        }
+    }
+}

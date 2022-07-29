@@ -1,0 +1,59 @@
+.bg-dark, .bg-black {
+     .form-control {
+        color: $white;
+        border-color: $white;
+        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: $white;
+            opacity: 0.5;
+        }
+        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: $white;
+            opacity: 0.5;
+        }
+        &::-ms-input-placeholder { /* Microsoft Edge */
+            color: $white;
+            opacity: 0.5;
+        }
+    }
+    .footer-btn {
+        background-color: transparent;
+        font-family: $link_font;
+        color:white;
+        opacity: .5;
+    }
+    .form-control:focus{
+        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: $white;
+            opacity: 0.65;
+        }
+        &::-ms-input-placeholder { /* Microsoft Edge */
+            color: $white;
+            opacity: 0.65;
+        }
+
+    }
+    .form-control:focus + .footer-btn, .input-group:hover .footer-btn {
+        opacity: 1;
+    }
+}
+.form-control {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-left: 0;
+}
+.footer {
+    .footer-btn {
+        margin-left: -25px !important;
+        border: none;
+        position: relative;
+        z-index: 99;
+    }
+}
+.wpcf7 form.sent .wpcf7-response-output {
+    background-color: $success;
+    border-color: $success;
+    font-size:0.85rem;
+    color: $gray-900;
+    display: inline;
+}

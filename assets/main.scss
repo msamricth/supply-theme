@@ -121,6 +121,9 @@ $cyan: #59caf5;
 $white: #fff;
 $black: #000;
 
+$input-placeholder-color: #808080; 
+$input-border-color: $gray-900;
+$input-border-radius: none;
 $secondary: $gray-800;
 
 $font-size-base: 1.125rem;
@@ -138,11 +141,10 @@ $line-height-base: 1.6;
 $grid-gutter-width: 24px;
 $input-font-size: 0.875rem;
 $nav-link-padding-x: 2.25rem;
-$nav-link-padding-y: 2.8125rem;
+$nav-link-padding-y: 1.4125rem;
 $grid-breakpoints: ( xs: 0, smm: 320px, sm: 576px, md: 768px, lg: 992px, dlg: 1024px, xl: 1290px, xxl: 1440px, 3xl: 1920px, 4xl: 2400px  );
-$input-font-family: 'ISOv0.6-Regular';
+$input-font-family: $link_font;
 $nav-link-padding-x: 2.25rem;
-$nav-link-padding-y: 2.8125rem;
 $navbar-nav-link-padding-x: 2.25rem;
 $navbar-dark-color: $white;
 $dark: $black;
@@ -152,6 +154,12 @@ $navbar-light-active-color: $gray-900;
 $navbar-dark-hover-color: $white;
 $hamburger-layer-width         : 24px !default;
 $hamburger-layer-height        : 2px !default;
+$input-bg: transparent;
+$input-color: $gray-900;
+$input-box-shadow: none;
+$input-focus-border-color: transparent;
+$input-focus-box-shadow: none;
+$input-placeholder-color: $gray-900;
 
 // 3. Include remainder of required Bootstrap stylesheets
 @import "../node_modules/bootstrap/scss/variables";
@@ -316,18 +324,9 @@ img {
 /* Footer */
 
 #footer {
-	background-color: #fff;
 
 	p {
 		margin-top: 10px;
-	}
-
-	.menu-item {
-		a {
-			&[aria-current='page'] {
-				color: $link-hover-color;
-			}
-		}
 	}
 }
 
@@ -489,9 +488,11 @@ img {
 }
 @import "scss/_type.scss";
 @import "scss/_navs.scss";
+@import "scss/_forms.scss";
 @import "scss/_footer.scss";
 @import "scss/_underline.scss";
 @import "scss/_animations.scss";
 @import "scss/_media.scss";
 @import "scss/_home.scss";
+@import "scss/_case_study.scss";
 @import "scss/_responsive.scss";

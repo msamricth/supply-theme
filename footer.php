@@ -1,17 +1,3 @@
-			<?php
-				// If Single or Archive (Category, Tag, Author or a Date based page).
-				if ( is_single() || is_archive() ) :
-			?>
-					</div><!-- /.col -->
-
-					<?php
-						get_sidebar();
-					?>
-
-				</div><!-- /.row -->
-			<?php
-				endif;
-			?>
 		</main><!-- /#main -->
 		<footer id="footer" class="bg-black footer text-white py-6 py-md-8">
 			<div class="container">
@@ -81,15 +67,17 @@
 									?>
 									<p><?php printf( esc_html__( '&copy; %1$s %2$s. All rights reserved.', 'supply' ), date_i18n( 'Y' ), get_bloginfo( 'name', 'display' ) ); ?></p>
 							<?php
-								endif;
-							?>
+								endif;?>
+							<div class="footer-cta mt-5">
+								<?php echo do_shortcode('[contact-form-7 id="130" title="Stay in touch - FooterCTA"]'); ?>
+							</div>
 						</div>
 						<?php if ( have_rows( 'add_a_social_media_account', 'option' ) ) : ?>
 							<div class="col-md-1">
 								<ul class="social-nav fadeScroll">
 									<?php while ( have_rows( 'add_a_social_media_account', 'option' ) ) : the_row(); $site_title = get_bloginfo( 'name' ); $sm_title = get_sub_field( 'social_media_name' ); ?>
 										<li>
-											<a href="<?php the_sub_field( 'url' ); ?>" alt="<?php echo $site_title ."'s". $sm_title;?>">
+											<a href="<?php the_sub_field( 'url' ); ?>" target="_blank" alt="<?php echo $site_title ."'s". $sm_title;?>">
 												<?php the_sub_field( 'icon' ); ?>
 											</a>
 										</li>				
