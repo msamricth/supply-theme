@@ -23,7 +23,7 @@ if($scheme){
 ?>
 
 <main class="">
-    <div class="home-header pt-6 pt-dlg-7 pt-xl-9 <?php echo $scheme ?>">
+    <div class="home-header pt-9 pt-dlg-12 pt-xl-15 <?php echo $scheme ?>">
         <div class="container-fluid text-center">
             <div class="row">
                 <div class="col-md-8 mx-md-auto">

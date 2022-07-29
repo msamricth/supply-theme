@@ -17,3 +17,30 @@ function my_acf_settings_url( $url ) {
 function my_acf_settings_show_admin( $show_admin ) {
     return false;
 }
+
+
+add_action('acf/input/admin_head', 'my_acf_admin_head');
+
+function my_acf_admin_head() {
+    
+    ?>
+    <script type="text/javascript">
+    (function($) {
+        
+        $(document).ready(function(){
+            
+            $('.acf-field.acf-field-message.acf-field-62e2d26f3e9b1 .acf-input').append( $('#postdivrich') );
+            
+        });
+        
+    })(jQuery);    
+    </script>
+    <style type="text/css">
+        .acf-field #wp-content-editor-tools {
+            background: transparent;
+            padding-top: 0;
+        }
+    </style>
+    <?php    
+    
+}

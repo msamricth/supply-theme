@@ -8,13 +8,18 @@
 </head>
 
 <?php
-
+	$current_post = get_queried_object();
+	$post_id = $current_post ? $current_post->ID : null;
 	$navbar_scheme = '';
 	$navbar_page_scheme = get_field( 'navbar_color_settings' );
 	$navbar_theme_scheme   = get_theme_mod( 'navbar_scheme', 'navbar-light bg-light' ); // Get custom meta-value.
 	$navbar_position = get_theme_mod( 'navbar_position', 'static' ); // Get custom meta-value.
 
 	$search_enabled  = get_theme_mod( 'search_enabled', '1' ); // Get custom meta-value.
+	
+	if ( get_post_type( $post_id ) === 'case-studies' ) { 
+		$navbar_page_scheme = "transparent";
+	} 
 
 	if ( isset( $navbar_page_scheme ) ) {
 		if(strpos($navbar_page_scheme, 'default') !== false){
@@ -26,12 +31,12 @@
 	} else {
 		$navbar_scheme = $navbar_theme_scheme;
 	}
-
+	if ( get_post_type( $post_id ) === 'case-studies' ) { 
+		$navbar_scheme = '';
+		$navbar_scheme .= ' bg-transparent';
+		$navbar_scheme .= ' navbar-dark';
+	} 
 // add algoritim for detecting background color here
-
-
-
-
 ?>
 
 <body <?php body_class(); ?>>
@@ -92,14 +97,5 @@
 		</nav><!-- /#header -->
 	</header>
 <?php if ( !is_front_page() ) { ?>
-	<main id="main" class="container"<?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' style="padding-top: 100px;"'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' style="padding-bottom: 100px;"'; endif; ?>>
-		<?php
-			// If Single or Archive (Category, Tag, Author or a Date based page).
-			if ( is_single() || is_archive() ) :
-		?>
-			<div class="row">
-				<div class="col-md-8 col-sm-12">
-		<?php
-			endif;
-		?>
+	<main id="main" class="<?php if ( !get_post_type( $post_id ) === 'case-studies' ) { echo 'container'; } ?>"<?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' style="padding-top: 100px;"'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' style="padding-bottom: 100px;"'; endif; ?>>
 <?php } ?>
