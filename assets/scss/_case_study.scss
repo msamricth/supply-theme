@@ -6,8 +6,31 @@
             margin-top: -1px;
         }
         .fold {
-            min-height: 200vh;
+            min-height: 2.5vh;
             position: relative;
         }
+        section.entry {
+            transition: 0.3s all;
+            .specialties {
+                list-style: none;
+            }
+            @include media-breakpoint-only(md) { 
+                .specialties {
+                    -webkit-columns: 40px 2;
+                    -moz-columns: 60px 2;
+                    columns: 60px 2;
+                }
+            }
+       }
+       section { min-height: 100vh;}
+       .client-logo {
+        width: 25%;
+        @include media-breakpoint-up(sm) { 
+            width:15%;
+        }
+        @include media-breakpoint-up(3xl) { 
+            width:10%;
+        }
+       }
     }
 }

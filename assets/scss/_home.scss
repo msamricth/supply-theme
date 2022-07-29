@@ -4,8 +4,6 @@
             margin-bottom: -66px;
             z-index: 111;
             @include media-breakpoint-up(dlg) {
-                padding-right: 60px;
-                padding-left: 60px;
             }
         }
     }

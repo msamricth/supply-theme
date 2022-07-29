@@ -1,10 +1,37 @@
 #header.navbar {
     padding-top:0;
     padding-bottom: 0;
+    transition: 0.15s ease;
     .navbar-toggler {
         box-shadow: none !important;
     }
+    .navbar-collapse.show {
+        transition: transform 0.4s, opacity 0.2s;
+    }
+    &.is-hidden {
+        opacity: 0;
+        transition: transform 0.65s, opacity 0.2s;
+      }
+    &.navbar-dark .navbrand-light {
+        opacity: 0;
+        transition: transform 0.65s, opacity 0.2s;
+        display:none;
+    }
+    &.navbar-light .navbrand-dark {
+        opacity: 0;
+        transition: transform 0.65s, opacity 0.2s;
+        display:none;
+    }
+    &.bg-transparent-dark {
+        background: linear-gradient(-180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0) 100%);
+        background-color: transparent;
+    }
+    &.bg-transparent-light {
+        background:transparent;
+        background-color: transparent;
+    }
 }
+
 .social-nav {
     list-style: none;
     padding: 0;
@@ -24,8 +51,4 @@
             }
         }
     } 
-}
-.navbar.bg-transparent {
-    background: linear-gradient(-180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0) 100%);
-    background-color: transparent;
 }

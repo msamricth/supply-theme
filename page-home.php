@@ -24,9 +24,9 @@ if($scheme){
 
 <main class="">
     <div class="home-header pt-9 pt-dlg-12 pt-xl-15 <?php echo $scheme ?>">
-        <div class="container-fluid text-center">
+        <div class="container text-center">
             <div class="row">
-                <div class="col-md-8 mx-md-auto">
+                <div class="col-md-10 mx-md-auto">
                     <?php if($headline) {
                         echo '<h1 class="entry-title mb-6  mb-dlg-9  mb--xl-13 fadeNoScroll '. $textScheme.'">'.$headline.'</h1>';
                     } else {

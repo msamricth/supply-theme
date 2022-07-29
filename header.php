@@ -11,31 +11,40 @@
 	$current_post = get_queried_object();
 	$post_id = $current_post ? $current_post->ID : null;
 	$navbar_scheme = '';
-	$navbar_page_scheme = get_field( 'navbar_color_settings' );
+	$navbar_page_scheme = get_field( 'navbar_color_settings', $post_id);
 	$navbar_theme_scheme   = get_theme_mod( 'navbar_scheme', 'navbar-light bg-light' ); // Get custom meta-value.
 	$navbar_position = get_theme_mod( 'navbar_position', 'static' ); // Get custom meta-value.
 
 	$search_enabled  = get_theme_mod( 'search_enabled', '1' ); // Get custom meta-value.
-	
-	if ( get_post_type( $post_id ) === 'case-studies' ) { 
-		$navbar_page_scheme = "transparent";
-	} 
+	$nav_dark_image = '';
+	$nav_light_image = '';
+	if ( have_rows( 'nav_logos', 'option' ) ) : 
+		while ( have_rows( 'nav_logos', 'option' ) ) : the_row(); 
+			$nav_dark = get_sub_field( 'nav_dark' ); 
+			if ( $nav_dark ) : 
+			   $nav_dark_image = '<img class="navbrand-dark" src="'.esc_url( $nav_dark['url'] ).' " alt="'.esc_attr( $nav_dark['alt'] ).' " />';
+			endif; 
+			$nav_light = get_sub_field( 'nav_light' ); 
+			if ( $nav_light ) : 
+			   $nav_light_image = '<img class="navbrand-light" src="'. esc_url( $nav_light['url'] ). '" alt="'. esc_attr( $nav_light['alt'] ).' " />';
+			endif; 
+		endwhile; 
+	endif; 
 
-	if ( isset( $navbar_page_scheme ) ) {
 		if(strpos($navbar_page_scheme, 'default') !== false){
 			$navbar_scheme = $navbar_theme_scheme;
+		} elseif(strpos($navbar_page_scheme, 'transparent-dark') !== false){
+			$navbar_scheme .= 'navbar-transparent navbar-dark dark-scheme';
+			$navbar_scheme .= ' bg-'.$navbar_page_scheme;
+		} elseif(strpos($navbar_page_scheme, 'transparent-light') !== false){
+			$navbar_scheme .= 'navbar-transparent navbar-light light-scheme';
+			$navbar_scheme .= ' bg-'.$navbar_page_scheme;
 		} else {
 			$navbar_scheme .= 'navbar-'.$navbar_page_scheme;
 			$navbar_scheme .= ' bg-'.$navbar_page_scheme;
 		}
-	} else {
-		$navbar_scheme = $navbar_theme_scheme;
-	}
-	if ( get_post_type( $post_id ) === 'case-studies' ) { 
-		$navbar_scheme = '';
-		$navbar_scheme .= ' bg-transparent';
-		$navbar_scheme .= ' navbar-dark';
-	} 
+
+	
 // add algoritim for detecting background color here
 ?>
 
@@ -51,12 +60,8 @@
 			<div class="container">
 				<a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
 					<?php
-						$header_logo = get_theme_mod( 'header_logo' ); // Get custom meta-value.
-
-						if ( ! empty( $header_logo ) ) :
-					?>
-						<img src="<?php echo esc_url( $header_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" />
-					<?php
+					if ( have_rows( 'nav_logos', 'option' ) ) : 
+						echo $nav_light_image . $nav_dark_image;
 						else :
 							echo esc_attr( get_bloginfo( 'name', 'display' ) );
 						endif;
