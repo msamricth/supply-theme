@@ -2,6 +2,16 @@
     padding-top:0;
     padding-bottom: 0;
     transition: 0.15s ease;
+    @include media-breakpoint-up(md) { 
+        .nav-link {
+            font-size: 18px;
+        }
+    }
+    @include media-breakpoint-up(md) { 
+        .nav-link {
+            font-size: 18px;
+        }
+    }
     .navbar-toggler {
         box-shadow: none !important;
     }
@@ -51,4 +61,17 @@
             }
         }
     } 
+    .hamburger-box {
+        height: 14px !important;
+        width: 20px;
+      }
+      .hamburger.is-active:hover, .hamburger:hover {
+         opacity: 1; 
+    }
+    .hamburger-inner:before {
+        top: -6px;
+    }
+    .hamburger-inner:after {
+        bottom: -6px;
+    }
 }

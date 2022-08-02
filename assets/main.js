@@ -45,18 +45,29 @@ import * as bootstrap from 'bootstrap';
 				e.target.nextElementSibling.querySelector(".iframe-video").contentWindow.postMessage({method:"play"}, "*"); 
 			})
 		}
-		player.on('play', function() {
-			console.log('played the video!');
-		});
-		player.getVideoTitle().then(function(title) {
-			console.log('title:', title);
-		});
 	}
 	(function($) {
 		const transparentNav = document.querySelector('.navbar-transparent');
 		const caseStudy = document.querySelector('.single-case-studies');
 		var navbar = $('nav#header');
 		$(document).ready(function () {
+			var $contentContainer = $('.fold-container');
+			const sections = document.querySelectorAll('.fold');
+			if($contentContainer) {
+				$('.fold').each(function(i, obj) {
+					//test
+					var foldClass = $(this).data("class") 
+					$(this).on('inview', function(event, isInView) {
+						if (isInView) {
+							$contentContainer.removeClass('bg-dark');
+							$contentContainer.removeClass('bg-light');
+							$contentContainer.addClass(foldClass);
+						} else {
+						}
+					});
+					
+				});
+			}
 			var previousScroll = 0;
 			$(window).scroll(function () {
 				var currentScroll = $(this).scrollTop();
@@ -80,6 +91,7 @@ import * as bootstrap from 'bootstrap';
 				navbar.removeClass("is-hidden").addClass("is-visible").addClass("scrolling");
 			}
 		});
+		
 		if(transparentNav) {
 			const colors = ['bg-white', 'bg-dark']
 
@@ -87,44 +99,29 @@ import * as bootstrap from 'bootstrap';
 			
 		
 			$(document).ready(function () {
-			var headerContainer = $('.header-container');
-			const footer = document.querySelector('.footer');
-			var $contentContainer = $('#content.entry');
-			const sections = document.querySelectorAll('.fold');
-
-			$('.fold').each(function(i, obj) {
-				//test
-				var foldClass = $(this).data("class") 
-				$(this).on('inview', function(event, isInView) {
+				var headerContainer = $('.header-container');
+				const footer = document.querySelector('.footer');
+				
+				headerContainer.on('inview', function(event, isInView) {
+					var scrollObject = $(this);
 					if (isInView) {
-						$contentContainer.removeClass('bg-dark');
-						$contentContainer.removeClass('bg-light');
-						$contentContainer.addClass(foldClass);
+						navbar.removeClass('bg-light navbar-light');
+						if(navbar.hasClass('dark-scheme')){
+							navbar.addClass('navbar-dark bg-transparent-dark');		
+						}
+						if(navbar.hasClass('light-scheme')){
+							navbar.addClass('navbar-light bg-transparent-light');		
+						}
 					} else {
+						if(navbar.hasClass('dark-scheme')){
+							navbar.removeClass('navbar-dark bg-transparent-dark');		
+						}
+						if(navbar.hasClass('light-scheme')){
+							navbar.removeClass('navbar-light bg-transparent-light');		
+						}
+						navbar.addClass('bg-light navbar-light');
 					}
 				});
-				
-			});
-			headerContainer.on('inview', function(event, isInView) {
-				var scrollObject = $(this);
-				if (isInView) {
-					navbar.removeClass('bg-light navbar-light');
-					if(navbar.hasClass('dark-scheme')){
-						navbar.addClass('navbar-dark bg-transparent-dark');		
-					}
-					if(navbar.hasClass('light-scheme')){
-						navbar.addClass('navbar-light bg-transparent-light');		
-					}
-				} else {
-					if(navbar.hasClass('dark-scheme')){
-						navbar.removeClass('navbar-dark bg-transparent-dark');		
-					}
-					if(navbar.hasClass('light-scheme')){
-						navbar.removeClass('navbar-light bg-transparent-light');		
-					}
-					navbar.addClass('bg-light navbar-light');
-				}
-			  });
 			});
 		}
 		$('.fadeScroll').on('inview', function(event, isInView) {

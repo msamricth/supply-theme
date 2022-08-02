@@ -16,11 +16,15 @@ $title_of_work_performed = '';
 $intro_blurb = '';
 $header_image = '';
 $classes .= 'case-study ';
+$prevPost = '';
+$nextPost = '';
 
 // start
 if ( have_posts() ) :
 	while ( have_posts() ) :
 		the_post(); 
+            $prevPost = get_previous_post();
+            $nextPost = get_next_post();
             if ( get_field( 'deep_dive' ) == 1 ) :
                 $deep_dive = 1;
                 $classes .= 'bg-dark text-white';
@@ -56,11 +60,11 @@ if ( have_posts() ) :
 				<?php endif; ?>
                 
 			<?php endif; ?>
-            <section class="entry py-9" id="content">
-                <?php if(!$deep_dive):?><div class="fold" data-class="bg-light"></div><?php endif; ?>
-                <div class="container">
+            <section class="entry fold-container" id="content">
+                <?php if(!$deep_dive):?><div class="fold" data-class="bg-light"></div><?php else:?><div class="fold" data-class="bg-dark"></div><?php endif; ?>
+                <div class="container fold"<?php if(!$deep_dive):?> data-class="bg-light"<?php else: ?> data-class="bg-dark"<?php endif; ?>>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-12 col-xl-10 offset-xl-1">
                             <?php if ( $client_logo ) : ?>
                                 <img class="img-responsive client-logo" src="<?php echo esc_url( $client_logo['url'] ); ?>" alt="<?php echo esc_attr( $client_logo['alt'] ); ?>" />
                             <?php endif; ?>
@@ -72,24 +76,84 @@ if ( have_posts() ) :
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-8 col-3xl-9">         
+                        <div class="col-lg-8 col-xl-7 offset-xl-1 case-study-left">         
                             <?php if ( $intro_blurb ) : ?> 
-                                <p><?php echo $intro_blurb; ?></p>
+                                <div class="intro-content">
+                                    <?php echo $intro_blurb; ?>
+                                </div>
                             <?php endif; ?>
 
                             <?php if ( $url_to_work ) : ?> 
                                 <p><a href="<?php echo $url_to_work; ?>" target="_blank"><?php the_title(); ?></a></p>
                             <?php endif; ?>
                         </div>
-                        <div class="col-lg-4 col-3xl-3">
-                        <?php if ( have_rows( 'add_new_specialty' ) ) : ?>
-                            <ul class="specialties">
-                            <?php while ( have_rows( 'add_new_specialty' ) ) : the_row(); ?>
-                                <li><?php the_sub_field( 'specialty' ); ?></li>
-                            <?php endwhile; ?>
-                        </ul>
-                        <?php else : ?>
-                        <?php endif; ?>
+                        <div class="col-lg-4 col-dlg-3 offset-dlg-1 col-xl-2 case-study-right">
+                            <div class="row mx-sm-0">
+                                <?php $i = 0; $j = count( get_field('add_new_specialty') );?>
+                                <?php if ( have_rows( 'add_new_specialty' ) ) : ?>
+                                <ul class="col-sm-4 specialties col-lg-12 mb-0">
+                                    <?php while ( have_rows( 'add_new_specialty' ) ) : the_row(); ?>
+                                        <li><?php the_sub_field( 'specialty' ); ?></li>
+                                        <?php if ( ( $i + 1 ) == ceil($j / 2) ) echo '</ul><ul class="col-sm-4 mb-0 specialties col-lg-12">'; ?>
+                                    <?php $i++; endwhile; ?>
+                                </ul>
+                                <?php else : ?>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php if($deep_dive):?>
+                    <div class="container editor-content">
+                        <div class="row">
+                            <div class="col-xl-10 offset-xl-1"> 
+                                <?php the_content(); ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
+                <div class="single-case-studies__pagination supply-pagination container">
+                    <div class="row g-0">
+                        <div class="col-md-6 position-relative">
+                            <?php $left_case_study = get_field( 'left_case_study' ); ?>
+                            <?php if ( $left_case_study ) : ?>
+                                    <?php $post = $left_case_study; ?>
+                                    <?php setup_postdata( $post ); 
+                                        $post_type = get_post_type();
+                                        get_template_part('templates/_content', $post_type);
+                                        ?> 
+                                    <?php wp_reset_postdata(); ?>
+                            <?php else: ?>
+                                <?php if ( $prevPost ) : ?>
+                                    <?php $post = $prevPost->ID; ?>
+                                    <?php setup_postdata( $post ); 
+                                        $post_type = get_post_type();
+                                        get_template_part('templates/_content', $post_type);
+                                        ?> 
+                                    <?php wp_reset_postdata(); ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col-md-6 position-relative">
+                            <?php $right_case_study = get_field( 'right_case_study' ); ?>
+                            <?php if ( $right_case_study ) : ?>
+                                <?php $post = $right_case_study; ?>
+                                <?php setup_postdata( $post ); 
+                                    $post_type = get_post_type();
+                                    get_template_part('templates/_content', $post_type);
+                                    ?> 
+                                <?php wp_reset_postdata(); ?>
+                        
+                            <?php else: ?>
+                                <?php if ( $nextPost ) : ?>
+                                    <?php $post = $nextPost->ID; ?>
+                                    <?php setup_postdata( $post ); 
+                                        $post_type = get_post_type();
+                                        get_template_part('templates/_content', $post_type);
+                                        ?> 
+                                    <?php wp_reset_postdata(); ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

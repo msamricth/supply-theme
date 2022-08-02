@@ -17,6 +17,9 @@
     body, p {
         font-size: 20px;
     }
+    .h8 {
+        font-size: 18px;
+    }
     .footer {
         .nav-link {
             padding-bottom: 32px;
@@ -30,11 +33,19 @@
             }
         }
     }
- }
+}
+@include media-breakpoint-up(lg) {
+    blockquote {
+        font-size: 36px;
+    }
+}
 @include media-breakpoint-up(dlg) {
     h3, .h3 {
         font-size: 52px;
     }
+    main a {
+		font-size: 18px;
+	}
 }
 @include media-breakpoint-up(xl) {
     h1, .h1 {
@@ -58,10 +69,30 @@
     body, p {
         font-size: 28px;
     }
+    main a {
+		font-size: 20px;
+	}
+    .h8 {
+        font-size: 20px;
+    }
+    blockquote {
+        font-size: 52px;
+    }
 }
 @include media-breakpoint-down(md) {
     #header.navbar .nav-link {
         padding-top: 1rem;
         padding-bottom: 1rem;
+    }
+    .ratio.ratio-mobile {
+        aspect-ratio: 4 / 3 !important;
+    }
+}
+@include media-breakpoint-down(sm) {   
+.ratio.ratio-mobile {
+        aspect-ratio: 19.5 / 9 !important;
+    }
+    h1, h3 {
+        font-size: 36px ;
     }
 }

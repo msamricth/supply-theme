@@ -2,6 +2,7 @@
     main#main {
         padding-top: 0 !important;
         margin-top: 0 !important;
+        margin-bottom: -1px;
         .header-container {
             margin-top: -1px;
         }
@@ -9,28 +10,101 @@
             min-height: 2.5vh;
             position: relative;
         }
+        p {
+            margin-bottom: 24px;
+            line-height: 30px;
+        }
         section.entry {
             transition: 0.3s all;
             .specialties {
                 list-style: none;
+                padding-inline-start: 0;
+                font-family: $link_font;
+                font-size: 14px;
             }
             @include media-breakpoint-only(md) { 
                 .specialties {
-                    -webkit-columns: 40px 2;
-                    -moz-columns: 60px 2;
-                    columns: 60px 2;
                 }
             }
        }
        section { min-height: 100vh;}
-       .client-logo {
-        width: 25%;
-        @include media-breakpoint-up(sm) { 
-            width:15%;
+       article.case-study {
+            .client-logo {
+                margin-top: 80px;
+                margin-bottom: 44px; 
+                width: 25%;
+                @include media-breakpoint-up(sm) { 
+                    width:15%;
+                }
+                @include media-breakpoint-up(3xl) { 
+                    width:10%;
+                }
+            }        
+            h3.entry-title {
+                font-size: 32px;
+                margin-bottom: 28px;
+            }
+            .intro-content {
+                margin-bottom: 1rem;
+            }
+            .case-study-left {
+                margin-bottom: 34px;
+            }
+            .case-study-right {
+                margin-bottom: 14px;
+            }
+            .block-supply-stats {
+                padding-top: 60px;
+                padding-bottom: 60px;
+                border-top: 1px solid $white;
+                border-bottom: 1px solid $white;
+                margin-bottom:30px;
+                margin-top: 30px;
+                h4.stats {
+                    font-size: 84px;
+                    font-weight: 500;
+                    margin-bottom: 4px;
+                    line-height: 84px;
+                }
+                .col-md {
+                    margin-bottom: 44px;
+                    p {
+                        margin-bottom: 0;
+                    }
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+            blockquote.wp-block-quote {
+                border-left: none!important;
+                margin: 0!important;
+                padding: 30px 0;
+                display: block;
+            }
+            .block-supply-media {
+                margin-top: 30px;
+                padding-top: 40px;
+                padding-bottom: 55px;
+                margin-bottom: 15px;
+            }
+            .block-supply-content-block {
+                padding-top: 30px;
+                padding-bottom: 70px;
+                h5 {
+                    margin-bottom: 28px;
+                    font-size: 32px;
+                }
+            }
         }
-        @include media-breakpoint-up(3xl) { 
-            width:10%;
-        }
-       }
+    }
+    
+    &__pagination {
+    }
+}
+.bg-white {
+    .block-supply-stats {
+        border-top: 1px solid $primary;
+        border-bottom: 1px solid $primary;
     }
 }

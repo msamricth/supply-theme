@@ -1,0 +1,50 @@
+.home-loop-section, .supply-pagination  {
+    .card {
+        margin-bottom: 60px;
+        .card-body {
+            padding: 0;
+        }
+        header {
+            padding-top: 10px;
+        }
+        @include media-breakpoint-up(lg) {
+            margin-bottom: 136px;
+            header {
+                padding-top: 20px;
+            }
+        }
+        @include media-breakpoint-up(3xl) {
+            margin-bottom: 180px;
+            header {
+                padding-top: 36px;
+            }
+        }
+        .card-title{
+            font-size: 24px;
+            padding-top: 8px;
+            @include media-breakpoint-up(lg) {
+                font-size: 36px;
+            }
+            @include media-breakpoint-up(3xl) {
+                font-size: 52px;
+            }
+        } 
+        .post-thumbnail {
+            margin: 0;
+            &.ratio {
+                overflow: hidden;
+            }
+        }
+        a {
+            text-decoration: none;
+        }
+    }
+    .col-md-6 {
+        &:first-child {
+            padding-right: 10px;
+        }
+        &:last-child {
+            padding-left: 10px;
+        }
+    }
+}

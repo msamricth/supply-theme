@@ -1,3 +1,11 @@
+body {
+    h1, h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, .h7, .h8 {
+        a {
+            font-size: inherit;
+            font-family: inherit;
+        }
+    }
+}
 h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     font-family: 'Calibre';
     font-weight: 600;
@@ -15,4 +23,48 @@ a, .nav-link {
 }
 .nav-link, a {
     transition: ease 0.15s;
+}
+.h8 {
+    font-family: $link_font;
+    font-size: 14px;
+}
+.fold-container {
+    p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
+        transition: background-color .35s ease-in-out,color .35s ease-in-out;
+    }
+    &.bg-dark, &.bg-black {
+        color: $white;
+        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
+            color: $white;
+        }
+    }
+    &.bg-light {
+        color: $primary;
+        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
+            color: $primary;
+        }
+    }
+    &:not(.bg-light) {
+        color: $white;
+        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
+            color: $white;
+        }
+    }
+}
+blockquote, blockquote.wp-block-quote {
+    font-style: italic;
+    font-size: 24px;
+    line-height: 32px;
+    p {
+        margin-bottom: 28px;
+    }
+    cite {
+        font-family: Calibre;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 24px;
+        &::before {
+            content: "— ";
+        }
+    }
 }

@@ -1,0 +1,52 @@
+$offsetWidth: 2px;
+.container {
+    max-width: calc(100% - ($offsetWidth * 2));
+} 
+.block-supply-media {
+    margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
+    margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
+}
+@include media-breakpoint-up(sm) {
+}
+@include media-breakpoint-up(md) { 
+    $offsetWidth: 52px;
+    .container {
+        max-width: calc(100% - ($offsetWidth * 2));
+    } 
+}
+@include media-breakpoint-up(lg) { 
+    $offsetWidth: 52px;
+    .container {
+        max-width: calc(100% - ($offsetWidth * 2));
+    } 
+}
+@include media-breakpoint-up(dlg) {
+    $offsetWidth: 72px;
+    .container {
+        max-width: calc(100% - ($offsetWidth * 2));
+    } 
+}
+@include media-breakpoint-up(xl) {
+    $offsetWidth: 84px;
+    .container {
+        max-width: calc(100% - ($offsetWidth * 2));
+    } 
+}
+@include media-breakpoint-up(xxl) {
+    $offsetWidth: 100px;
+    .container {
+        max-width: calc(100% - ($offsetWidth * 2));
+    } 
+}
+@include media-breakpoint-up(3xl) {
+    $offsetWidth: 136px;
+    .container {
+        max-width: calc(100% - ($offsetWidth * 2));
+    } 
+}
+@include media-breakpoint-up(4xl)  {
+    $offsetWidth: 172px;
+    .container {
+        max-width: calc(100% - ($offsetWidth * 2));
+    } 
+}
