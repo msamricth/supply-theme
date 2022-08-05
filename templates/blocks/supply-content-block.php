@@ -24,6 +24,7 @@ if ( ! empty( $block['className'] ) ) {
 if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
+$classes .=' fadeNoScroll';
 ?>
 
 <style type="text/css">

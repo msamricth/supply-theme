@@ -44,7 +44,23 @@ function background_video ($videoURL = null){
         preg_match('/src="(.+?)"/', $videoURL, $matches);
         $video = $matches[1];
     }
-    $embed .= '<iframe src="'. $video.'?h=1fa258310d&amp;title=0&amp;byline=0&amp;portrait=0&amp;playsinline=0&amp;muted=1&amp;autoplay=1&amp;autopause=0&amp;controls=0&amp;loop=1&amp;app_id=122963" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    $embed .= '<iframe src="'. $video.'?&amp;title=0&amp;byline=0&amp;portrait=0&amp;playsinline=0&amp;muted=1&amp;autoplay=1&amp;autopause=0&amp;controls=0&amp;loop=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
     return $embed;
-    
+}
+function video_containers($videoURL, $videoMURL = null, $ratio = null) {
+    $classes = '';
+    $mobileVideo = '';
+    $desktopVideo = '';
+    if($videoMURL){
+        $mobileVideo .= '<div class="d-md-none ratio ratio-mobile">' . background_video($videoMURL) . '</div>';
+        $classes .= "d-none d-md-block";
+    }
+    if($ratio) {
+        $classes .= ' ratio-' . $ratio;
+    } else {
+        $classes .= ' ratio-16x9';
+    }
+    $desktopVideo .= '<div class="ratio ' . $classes .'">' . background_video($videoURL)  . '</div>';
+    $desktopVideo .= $mobileVideo;
+    return $desktopVideo;
 }

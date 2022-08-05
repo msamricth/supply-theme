@@ -26,14 +26,7 @@ if ( ! empty( $block['align'] ) ) {
 }
 $foldColor = get_field('color');
 ?>
-
-<style type="text/css">
-	<?php echo '#' . $id; ?> {
-		/* Add styles that use ACF values here */
-	}
-</style>
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
-    <div class="fold" data-class="bg-<?php the_field( 'color' ); ?>"></div>
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?> fold" data-class="bg-<?php the_field( 'color' ); ?>">
 <?php 
     if ( is_admin() ) {
     // Runs only if this PHP code is in a file that displays outside the admin panels, like the theme template.

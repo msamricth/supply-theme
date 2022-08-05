@@ -51,6 +51,15 @@
             padding-bottom: 29px;
             display: inline-block;
             text-align: center;
+            padding-left: 25px;
+            padding-right: 25px;
+            font-size: 20px;
+        }
+        &:first-child a{
+            padding-left: 0;
+        }
+        &:last-child a{
+            padding-right: 0;
         }
     }
     &:hover{

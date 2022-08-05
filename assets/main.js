@@ -50,6 +50,7 @@ import * as bootstrap from 'bootstrap';
 		const transparentNav = document.querySelector('.navbar-transparent');
 		const caseStudy = document.querySelector('.single-case-studies');
 		var navbar = $('nav#header');
+		var foldContainer = $('.fold-container');
 		$(document).ready(function () {
 			var $contentContainer = $('.fold-container');
 			const sections = document.querySelectorAll('.fold');
@@ -122,6 +123,18 @@ import * as bootstrap from 'bootstrap';
 						navbar.addClass('bg-light navbar-light');
 					}
 				});
+				foldContainer.on('inview', function(event, isInView) {
+					var scrollObject = $(this);
+					if (isInView) {
+						navbar.addClass('bg-light navbar-light');
+						if(navbar.hasClass('dark-scheme')){
+							navbar.removeClass('navbar-dark bg-transparent-dark');		
+						}
+						if(navbar.hasClass('light-scheme')){
+							navbar.removeClass('navbar-light bg-transparent-light');		
+						}
+					}
+				});
 			});
 		}
 		$('.fadeScroll').on('inview', function(event, isInView) {
@@ -136,13 +149,13 @@ import * as bootstrap from 'bootstrap';
 				scrollObject.removeClass('in');
 			}
 		  });
-		  $('.fadeNoScroll').on('inview', function(event, isInView) {
+		  $('.fadeNoScroll, blockquote').on('inview', function(event, isInView) {
 			var scrollObject = $(this);
 			if (isInView) {
 				setTimeout(
 					function() {
 						scrollObject.addClass('in');
-					}, 400);
+					}, 700);
 				
 			} else {
 			}

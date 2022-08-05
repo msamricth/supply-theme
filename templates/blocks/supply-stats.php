@@ -24,19 +24,13 @@ if ( ! empty( $block['className'] ) ) {
 if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
+$classes .=' fadeNoScroll';
 ?>
-
-<style type="text/css">
-	<?php echo '#' . $id; ?> {
-		/* Add styles that use ACF values here */
-	}
-</style>
-
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
 	<?php if ( have_rows( 'supply_stats' ) ) : ?>
         <div class="row">
             <?php while ( have_rows( 'supply_stats' ) ) : the_row(); ?>
-                <div class="col-md">
+                <div class="col-md-4 px-md-0">
                     <h4 class="stats">
                         <?php the_sub_field( 'number' ); ?>
                     </h4>

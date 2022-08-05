@@ -1,4 +1,8 @@
 .single-case-studies {
+    p {
+        margin-bottom: 24px;
+        line-height: 30px;
+    }
     main#main {
         padding-top: 0 !important;
         margin-top: 0 !important;
@@ -7,12 +11,8 @@
             margin-top: -1px;
         }
         .fold {
-            min-height: 2.5vh;
+            min-height: 1px;
             position: relative;
-        }
-        p {
-            margin-bottom: 24px;
-            line-height: 30px;
         }
         section.entry {
             transition: 0.3s all;
@@ -21,6 +21,7 @@
                 padding-inline-start: 0;
                 font-family: $link_font;
                 font-size: 14px;
+                opacity: 0.75;
             }
             @include media-breakpoint-only(md) { 
                 .specialties {
@@ -53,58 +54,9 @@
             .case-study-right {
                 margin-bottom: 14px;
             }
-            .block-supply-stats {
-                padding-top: 60px;
-                padding-bottom: 60px;
-                border-top: 1px solid $white;
-                border-bottom: 1px solid $white;
-                margin-bottom:30px;
-                margin-top: 30px;
-                h4.stats {
-                    font-size: 84px;
-                    font-weight: 500;
-                    margin-bottom: 4px;
-                    line-height: 84px;
-                }
-                .col-md {
-                    margin-bottom: 44px;
-                    p {
-                        margin-bottom: 0;
-                    }
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
-                }
-            }
-            blockquote.wp-block-quote {
-                border-left: none!important;
-                margin: 0!important;
-                padding: 30px 0;
-                display: block;
-            }
-            .block-supply-media {
-                margin-top: 30px;
-                padding-top: 40px;
-                padding-bottom: 55px;
-                margin-bottom: 15px;
-            }
-            .block-supply-content-block {
-                padding-top: 30px;
-                padding-bottom: 70px;
-                h5 {
-                    margin-bottom: 28px;
-                    font-size: 32px;
-                }
-            }
         }
     }
     
     &__pagination {
-    }
-}
-.bg-white {
-    .block-supply-stats {
-        border-top: 1px solid $primary;
-        border-bottom: 1px solid $primary;
     }
 }

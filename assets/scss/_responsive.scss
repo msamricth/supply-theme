@@ -25,18 +25,13 @@
             padding-bottom: 32px;
         }
     }
-    .social-nav {
-        li {
-            display: list-item;
-            a {
-                display: block;
-            }
-        }
-    }
 }
-@include media-breakpoint-up(lg) {
-    blockquote {
-        font-size: 36px;
+@include media-breakpoint-up(md) {
+    blockquote, blockquote.wp-block-quote {
+        p {
+            font-size: 36px;
+            line-height: 52px;
+        }
     }
 }
 @include media-breakpoint-up(dlg) {
@@ -46,6 +41,14 @@
     main a {
 		font-size: 18px;
 	}
+    .social-nav {
+        li {
+            display: list-item;
+            a {
+                display: block;
+            }
+        }
+    }
 }
 @include media-breakpoint-up(xl) {
     h1, .h1 {
@@ -85,13 +88,13 @@
         padding-bottom: 1rem;
     }
     .ratio.ratio-mobile {
-        aspect-ratio: 4 / 3 !important;
+        --bs-aspect-ratio: calc(4 / 3 * 100%);
     }
 }
 @include media-breakpoint-down(sm) {   
-.ratio.ratio-mobile {
-        aspect-ratio: 19.5 / 9 !important;
-    }
+    .ratio.ratio-mobile {
+        --bs-aspect-ratio: calc(19.5 / 9 * 100%);
+   }
     h1, h3 {
         font-size: 36px ;
     }

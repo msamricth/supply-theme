@@ -9,7 +9,7 @@ get_header();
 $classes = '';
 $client_logo = '';
 $deep_dive = '';
-$header_video_desktop = '';
+$header_video = '';
 $header_video_mobile = '';
 $url_to_work = '';
 $title_of_work_performed = '';
@@ -45,11 +45,8 @@ if ( have_posts() ) :
         ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class($classes); ?>>
             <?php if($header_video) : ?>
-                <div class="header-container ratio ratio-16x9 <?php if($header_video_mobile){echo 'd-none d-md-block';} ?>">
-                <?php echo background_video($header_video); ?>
-                </div>
-                <div class="header-container d-md-none ratio ratio-4x3">
-                    <?php echo background_video($header_video_mobile); ?>
+                <div class="header-container">
+                    <?php echo video_containers($header_video, $header_video_mobile, '4x3'); ?>
                 </div>
 
             <?php else : ?>
@@ -66,19 +63,19 @@ if ( have_posts() ) :
                     <div class="row">
                         <div class="col-md-12 col-xl-10 offset-xl-1">
                             <?php if ( $client_logo ) : ?>
-                                <img class="img-responsive client-logo" src="<?php echo esc_url( $client_logo['url'] ); ?>" alt="<?php echo esc_attr( $client_logo['alt'] ); ?>" />
+                                <img class="img-responsive client-logo fadeNoScroll" src="<?php echo esc_url( $client_logo['url'] ); ?>" alt="<?php echo esc_attr( $client_logo['alt'] ); ?>" />
                             <?php endif; ?>
                             <?php if ( $title_of_work_performed ) : ?>
-                                <h3 class="entry-title"><?php echo $title_of_work_performed; ?></h3>
+                                <h3 class="entry-title fadeNoScroll"><?php echo $title_of_work_performed; ?></h3>
                             <?php else :?>
-                                <h3 class="entry-title"><?php the_title(); ?></h3>
+                                <h3 class="entry-title fadeNoScroll"><?php the_title(); ?></h3>
                             <?php endif; ?>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-8 col-xl-7 offset-xl-1 case-study-left">         
+                        <div class="col-lg-8 col-xl-7 offset-xl-1 case-study-left fadeNoScroll">         
                             <?php if ( $intro_blurb ) : ?> 
-                                <div class="intro-content">
+                                <div class="intro-content fadeNoScroll">
                                     <?php echo $intro_blurb; ?>
                                 </div>
                             <?php endif; ?>
@@ -88,12 +85,12 @@ if ( have_posts() ) :
                             <?php endif; ?>
                         </div>
                         <div class="col-lg-4 col-dlg-3 offset-dlg-1 col-xl-2 case-study-right">
-                            <div class="row mx-sm-0">
+                            <div class="row mx-sm-0 g-1 g-sm-0">
                                 <?php $i = 0; $j = count( get_field('add_new_specialty') );?>
                                 <?php if ( have_rows( 'add_new_specialty' ) ) : ?>
                                 <ul class="col-sm-4 specialties col-lg-12 mb-0">
                                     <?php while ( have_rows( 'add_new_specialty' ) ) : the_row(); ?>
-                                        <li><?php the_sub_field( 'specialty' ); ?></li>
+                                        <li class="fadeNoScroll"><?php the_sub_field( 'specialty' ); ?></li>
                                         <?php if ( ( $i + 1 ) == ceil($j / 2) ) echo '</ul><ul class="col-sm-4 mb-0 specialties col-lg-12">'; ?>
                                     <?php $i++; endwhile; ?>
                                 </ul>
@@ -114,7 +111,7 @@ if ( have_posts() ) :
                 <?php endif; ?>
                 <div class="single-case-studies__pagination supply-pagination container">
                     <div class="row g-0">
-                        <div class="col-md-6 position-relative">
+                        <div class="col-md-6 position-relative fadeNoScroll">
                             <?php $left_case_study = get_field( 'left_case_study' ); ?>
                             <?php if ( $left_case_study ) : ?>
                                     <?php $post = $left_case_study; ?>
@@ -134,7 +131,7 @@ if ( have_posts() ) :
                                 <?php endif; ?>
                             <?php endif; ?>
                         </div>
-                        <div class="col-md-6 position-relative">
+                        <div class="col-md-6 position-relative fadeNoScroll">
                             <?php $right_case_study = get_field( 'right_case_study' ); ?>
                             <?php if ( $right_case_study ) : ?>
                                 <?php $post = $right_case_study; ?>
