@@ -22,19 +22,21 @@ if($scheme){
 
 ?>
 
-<main class="">
-    <div class="home-header pt-9 pt-dlg-12 pt-xl-15 <?php echo $scheme ?>">
-        <div class="container-fluid text-center">
-            <div class="row">
-                <div class="col-md-8 mx-md-auto">
+<main class="fold-container  <?php echo $scheme ?>">
+    <div class="home-header">
+        <div class="container text-left">
+            <div class="row fold" data-class="bg-dark">
+                <div class="col-lg-10 col-xl-8 col-3xl-6 col-4xl-5 mx-md-auto">
                     <?php if($headline) {
-                        echo '<h1 class="entry-title mb-6  mb-dlg-9  mb--xl-13 fadeNoScroll '. $textScheme.'">'.$headline.'</h1>';
+                        echo '<h1 class="entry-title fadeNoScroll '. $textScheme.'">'.$headline.'</h1>';
                     } else {
-                        echo '<h1 class="entry-title mb-6 mb-dlg-9 mb--xl-13 fadeNoScroll '. $textScheme.'">' .the_title() .'</h1>';
+                        echo '<h1 class="entry-title fadeNoScroll '. $textScheme.'">' .the_title() .'</h1>';
                     }?>
                 </div>
             </div>
-            <?php echo Video_embed(); ?>
+            <div class="fold" data-class="bg-dark">
+                <?php echo Video_embed(); ?>
+            </div>
         </div>
 
     </div>
@@ -44,6 +46,7 @@ if($scheme){
       
             the_content();
 
+            get_template_part('templates/_home', 'loop');
             wp_link_pages( array(
                 'before' => '<div class="page-links">' . __( 'Pages:', 'supply' ),
                 'after'  => '</div>',

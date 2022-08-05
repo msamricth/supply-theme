@@ -1,42 +1,77 @@
 .page-template-page-home {
     .home-header {
-        .video-embed {
-            margin-bottom: -66px;
-            z-index: 111;
+        padding-top: 77.5px;
+        h1 {
+            margin-top: 80px;
+            margin-bottom: 100px;
+            text-align: center;
+            @include media-breakpoint-up(md) {
+                margin-top: 160px;
+                margin-bottom: 280px;
+            }
             @include media-breakpoint-up(dlg) {
-                padding-right: 60px;
-                padding-left: 60px;
+                margin-top: 160px;
+                margin-bottom: 280px;
+            }
+            
+            @include media-breakpoint-up(xl) { 
+                font-size: 72px;
+            }
+            @include media-breakpoint-up(3xl) {
+                margin-top: 200px;
+                margin-bottom: 332px;
+                font-size: 84px;
             }
         }
     }
     .home-main {
-        background-color: $white;
         position: relative;
         z-index: 98;
     }
     .tagline-section {
+            @include media-breakpoint-up(xl) {
+                h3 {
+                    font-size: 52px;
+                }
+                a {
+                    font-size: 18px;
+                }
+                p {
+                    font-size: 20px;
+                }
+            }
+            @include media-breakpoint-up(3xl) {
+                h3{
+                    font-size: 62px;
+                }
+                a {
+                    font-size: 20px;
+                }
+                p {
+                    font-size: 28px;
+                }
+            }
         .row {
             align-items: center;
             .carousel {
                 .carousel-item {
                     min-height: 200px;
-                    padding-left: 60px;
-                    padding-right: 60px;
-                    @include media-breakpoint-up(dlg) {  
-                        padding-left: 125px;
-                        padding-right: 125px;
+                    .logo-container {
+                        opacity: 0;
+                        transition: opacity 0.15s linear 0s;
+                        margin-left: auto;
+                        margin-right: auto;
                     }
-                    img {
-                        margin-bottom: 58px;
-                        width:100%;
-                    }
-                    img + img {
-                        margin-bottom: 0;
+                    &.active {
+                        .logo-container {
+                            opacity: 1;
+                        }
                     }
                 }
             }
         }
     }
+  
     .call-to-action-section { 
         align-items: center;
         @include media-breakpoint-up(md) { 

@@ -24,3 +24,10 @@
         transform: translateX(0px) translateY(-10px);
     }
 }
+.fold-container {
+    transition: background-color .35s ease-in-out,color .35s ease-in-out;
+    will-change: background-color,color;
+    .card {
+        background-color: transparent;
+    }
+}

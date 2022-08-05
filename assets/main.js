@@ -45,72 +45,103 @@ import * as bootstrap from 'bootstrap';
 				e.target.nextElementSibling.querySelector(".iframe-video").contentWindow.postMessage({method:"play"}, "*"); 
 			})
 		}
-		player.on('play', function() {
-			console.log('played the video!');
-		});
-		player.getVideoTitle().then(function(title) {
-			console.log('title:', title);
-		});
 	}
 	(function($) {
-
+		const transparentNav = document.querySelector('.navbar-transparent');
 		const caseStudy = document.querySelector('.single-case-studies');
-		if(caseStudy) {
-		  $(document).ready(function(){
-				var theFold = $('.fold');
-				var headerContainer = $('.header-container');
-				var footer = $('.footer');
-				
-				var navBar = $('.navbar.bg-transparent');
-				headerContainer.on('inview', function(event, isInView) {
-					var scrollObject = $(this);
-					if (isInView) {
-						if(navBar.hasClass('navbar-light')){
-							navBar.removeClass('navbar-light');
-							navBar.addClass('navbar-dark');
-						} 
-					}
-				});
-
-				theFold.each(function(){
+		var navbar = $('nav#header');
+		var foldContainer = $('.fold-container');
+		$(document).ready(function () {
+			var $contentContainer = $('.fold-container');
+			const sections = document.querySelectorAll('.fold');
+			if($contentContainer) {
+				$('.fold').each(function(i, obj) {
+					//test
+					var foldClass = $(this).data("class") 
 					$(this).on('inview', function(event, isInView) {
-						var scrollObject = $(this);
 						if (isInView) {
-							if($(this).hasClass('light-fold')){
-								navBar.removeClass('navbar-dark');
-								navBar.addClass('navbar-light');
-							} else {
-								navBar.addClass('navbar-dark');
-							}
+							$contentContainer.removeClass('bg-dark');
+							$contentContainer.removeClass('bg-light');
+							$contentContainer.addClass(foldClass);
 						} else {
-							if($(this).hasClass('light-fold')){
-								navBar.removeClass('navbar-light');
-							} else {
-								navBar.removeClass('navbar-dark');
-							}
-						} 
+						}
+					});
+					
 				});
-			});
-			
-			footer.on('inview', function(event, isInView) {
-				var scrollObject = $(this);
-				if (isInView) {
-					if(navBar.hasClass('navbar-light')){
-						navBar.removeClass('navbar-light');
-						navBar.addClass('navbar-dark');
-					} 
+			}
+			var previousScroll = 0;
+			$(window).scroll(function () {
+				var currentScroll = $(this).scrollTop();
+				if (currentScroll < 250) {
+					showNav();
+				} else if (currentScroll > 0 && currentScroll < $(document).height() - $(window).height()) {
+					if (currentScroll > previousScroll) {
+						hideNav();
+					} else {
+						showNav();
+					}
+					previousScroll = currentScroll;
 				}
 			});
 
-		
+			function hideNav() {
+				navbar.removeClass("is-visible").addClass("is-hidden");
+			}
+
+			function showNav() {
+				navbar.removeClass("is-hidden").addClass("is-visible").addClass("scrolling");
+			}
 		});
+		
+		if(transparentNav) {
+			const colors = ['bg-white', 'bg-dark']
+
+			const sections = [...document.getElementsByTagName('section')]
+			
+		
+			$(document).ready(function () {
+				var headerContainer = $('.header-container');
+				const footer = document.querySelector('.footer');
+				
+				headerContainer.on('inview', function(event, isInView) {
+					var scrollObject = $(this);
+					if (isInView) {
+						navbar.removeClass('bg-light navbar-light');
+						if(navbar.hasClass('dark-scheme')){
+							navbar.addClass('navbar-dark bg-transparent-dark');		
+						}
+						if(navbar.hasClass('light-scheme')){
+							navbar.addClass('navbar-light bg-transparent-light');		
+						}
+					} else {
+						if(navbar.hasClass('dark-scheme')){
+							navbar.removeClass('navbar-dark bg-transparent-dark');		
+						}
+						if(navbar.hasClass('light-scheme')){
+							navbar.removeClass('navbar-light bg-transparent-light');		
+						}
+						navbar.addClass('bg-light navbar-light');
+					}
+				});
+				foldContainer.on('inview', function(event, isInView) {
+					var scrollObject = $(this);
+					if (isInView) {
+						navbar.addClass('bg-light navbar-light');
+						if(navbar.hasClass('dark-scheme')){
+							navbar.removeClass('navbar-dark bg-transparent-dark');		
+						}
+						if(navbar.hasClass('light-scheme')){
+							navbar.removeClass('navbar-light bg-transparent-light');		
+						}
+					}
+				});
+			});
 		}
 		$('.fadeScroll').on('inview', function(event, isInView) {
 			var scrollObject = $(this);
 			if (isInView) {
 				setTimeout(
-					function() 
-					{
+					function() {
 						scrollObject.addClass('in');
 					}, 400);
 				
@@ -118,14 +149,13 @@ import * as bootstrap from 'bootstrap';
 				scrollObject.removeClass('in');
 			}
 		  });
-		  $('.fadeNoScroll').on('inview', function(event, isInView) {
+		  $('.fadeNoScroll, blockquote').on('inview', function(event, isInView) {
 			var scrollObject = $(this);
 			if (isInView) {
 				setTimeout(
-					function() 
-					{
+					function() {
 						scrollObject.addClass('in');
-					}, 400);
+					}, 700);
 				
 			} else {
 			}

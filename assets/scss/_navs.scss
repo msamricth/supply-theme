@@ -1,10 +1,47 @@
 #header.navbar {
     padding-top:0;
     padding-bottom: 0;
+    transition: 0.15s ease;
+    @include media-breakpoint-up(md) { 
+        .nav-link {
+            font-size: 18px;
+        }
+    }
+    @include media-breakpoint-up(md) { 
+        .nav-link {
+            font-size: 18px;
+        }
+    }
     .navbar-toggler {
         box-shadow: none !important;
     }
+    .navbar-collapse.show {
+        transition: transform 0.4s, opacity 0.2s;
+    }
+    &.is-hidden {
+        opacity: 0;
+        transition: transform 0.65s, opacity 0.2s;
+      }
+    &.navbar-dark .navbrand-light {
+        opacity: 0;
+        transition: transform 0.65s, opacity 0.2s;
+        display:none;
+    }
+    &.navbar-light .navbrand-dark {
+        opacity: 0;
+        transition: transform 0.65s, opacity 0.2s;
+        display:none;
+    }
+    &.bg-transparent-dark {
+        background: linear-gradient(-180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0) 100%);
+        background-color: transparent;
+    }
+    &.bg-transparent-light {
+        background:transparent;
+        background-color: transparent;
+    }
 }
+
 .social-nav {
     list-style: none;
     padding: 0;
@@ -14,6 +51,15 @@
             padding-bottom: 29px;
             display: inline-block;
             text-align: center;
+            padding-left: 25px;
+            padding-right: 25px;
+            font-size: 20px;
+        }
+        &:first-child a{
+            padding-left: 0;
+        }
+        &:last-child a{
+            padding-right: 0;
         }
     }
     &:hover{
@@ -24,8 +70,17 @@
             }
         }
     } 
-}
-.navbar.bg-transparent {
-    background: linear-gradient(-180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0) 100%);
-    background-color: transparent;
+    .hamburger-box {
+        height: 14px !important;
+        width: 20px;
+      }
+      .hamburger.is-active:hover, .hamburger:hover {
+         opacity: 1; 
+    }
+    .hamburger-inner:before {
+        top: -6px;
+    }
+    .hamburger-inner:after {
+        bottom: -6px;
+    }
 }

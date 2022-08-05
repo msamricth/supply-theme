@@ -17,11 +17,30 @@
     body, p {
         font-size: 20px;
     }
+    .h8 {
+        font-size: 18px;
+    }
     .footer {
         .nav-link {
             padding-bottom: 32px;
         }
     }
+}
+@include media-breakpoint-up(md) {
+    blockquote, blockquote.wp-block-quote {
+        p {
+            font-size: 36px;
+            line-height: 52px;
+        }
+    }
+}
+@include media-breakpoint-up(dlg) {
+    h3, .h3 {
+        font-size: 52px;
+    }
+    main a {
+		font-size: 18px;
+	}
     .social-nav {
         li {
             display: list-item;
@@ -29,11 +48,6 @@
                 display: block;
             }
         }
-    }
- }
-@include media-breakpoint-up(dlg) {
-    h3, .h3 {
-        font-size: 52px;
     }
 }
 @include media-breakpoint-up(xl) {
@@ -58,10 +72,30 @@
     body, p {
         font-size: 28px;
     }
+    main a {
+		font-size: 20px;
+	}
+    .h8 {
+        font-size: 20px;
+    }
+    blockquote {
+        font-size: 52px;
+    }
 }
 @include media-breakpoint-down(md) {
     #header.navbar .nav-link {
         padding-top: 1rem;
         padding-bottom: 1rem;
+    }
+    .ratio.ratio-mobile {
+        --bs-aspect-ratio: calc(4 / 3 * 100%);
+    }
+}
+@include media-breakpoint-down(sm) {   
+    .ratio.ratio-mobile {
+        --bs-aspect-ratio: calc(19.5 / 9 * 100%);
+   }
+    h1, h3 {
+        font-size: 36px ;
     }
 }

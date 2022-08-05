@@ -138,7 +138,7 @@ $font-size-sm: .875rem;
 $link-hover-decoration: none;
 $link-decoration: underline;
 $line-height-base: 1.6;
-$grid-gutter-width: 24px;
+$grid-gutter-width: 20px;
 $input-font-size: 0.875rem;
 $nav-link-padding-x: 2.25rem;
 $nav-link-padding-y: 1.4125rem;
@@ -180,20 +180,19 @@ $spacers: (
   1: $spacer * .25,
   2: $spacer * .5,
   3: $spacer,
-  4: $spacer * 1.5,
-  5: $spacer * 3,
+  4: $spacer * 1.75,
+  5: $spacer * 3.625,
   6: $spacer * 5,
-  7: $spacer * 7.5,
-  8: $spacer * 9,
-  9: $spacer * 10.5,
-  10: $spacer * 12,
-  11: $spacer * 13.5,
+  7: $spacer * 6.25,
+  8: $spacer * 8.5,
+  9: $spacer * 10,
+  10: $spacer * 12.5,
   12: $spacer * 15,
   13: $spacer * 17.5,
   14: $spacer * 19,
   15: $spacer * 20.5,
   16: $spacer * 22,
-  17: $spacer * 23.5,
+  17: $spacer * 23.125,
   18: $spacer * 25,
   19: $spacer * 26.5,
 );
@@ -244,12 +243,18 @@ $spacers: (
  */
 
 body {
+	div#wrapper {
+		width: 100%;
+		overflow-x: hidden;
+	}
 	&.page-template-page-full {
 		#main {
 			max-width: 100%;
 		}
 	}
-
+	a {
+		font-size: 14px;
+	}
 	/* If WP-Adminbar is visible */
 	&.admin-bar {
 		#header.fixed-top {
@@ -295,7 +300,18 @@ img {
 		height: auto;
 	}
 }
-
+img {
+	max-width: 100%;
+}
+.w-10 {
+	width: 10%;
+}
+.w-15 {
+	width: 15%;
+}
+.w-40 {
+	width: 40%;
+}
 /* Header */
 
 #header {
@@ -306,7 +322,7 @@ img {
 
 .navbar-brand {
 	img {
-		height: 20px;
+		height: 18px;
 	}
 }
 
@@ -323,12 +339,6 @@ img {
 
 /* Footer */
 
-#footer {
-
-	p {
-		margin-top: 10px;
-	}
-}
 
 /* Sidebar */
 
@@ -486,6 +496,7 @@ img {
 		margin-top: 60px;
 	}
 }
+@import "scss/_containers.scss";
 @import "scss/_type.scss";
 @import "scss/_navs.scss";
 @import "scss/_forms.scss";
@@ -493,6 +504,9 @@ img {
 @import "scss/_underline.scss";
 @import "scss/_animations.scss";
 @import "scss/_media.scss";
+@import "scss/_cards.scss";
 @import "scss/_home.scss";
 @import "scss/_case_study.scss";
+@import "scss/_logo_garden.scss";
+@import "scss/_blocks.scss";
 @import "scss/_responsive.scss";

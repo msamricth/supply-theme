@@ -1,13 +1,62 @@
 .single-case-studies {
+    p {
+        margin-bottom: 24px;
+        line-height: 30px;
+    }
     main#main {
         padding-top: 0 !important;
         margin-top: 0 !important;
+        margin-bottom: -1px;
         .header-container {
             margin-top: -1px;
         }
         .fold {
-            min-height: 200vh;
+            min-height: 1px;
             position: relative;
         }
+        section.entry {
+            transition: 0.3s all;
+            .specialties {
+                list-style: none;
+                padding-inline-start: 0;
+                font-family: $link_font;
+                font-size: 14px;
+                opacity: 0.75;
+            }
+            @include media-breakpoint-only(md) { 
+                .specialties {
+                }
+            }
+       }
+       section { min-height: 100vh;}
+       article.case-study {
+            .client-logo {
+                margin-top: 80px;
+                margin-bottom: 44px; 
+                width: 25%;
+                @include media-breakpoint-up(sm) { 
+                    width:15%;
+                }
+                @include media-breakpoint-up(3xl) { 
+                    width:10%;
+                }
+            }        
+            h3.entry-title {
+                font-size: 32px;
+                margin-bottom: 28px;
+            }
+            .intro-content {
+                margin-bottom: 1rem;
+            }
+            .case-study-left {
+                margin-bottom: 34px;
+            }
+            .case-study-right {
+                margin-bottom: 14px;
+            }
+        }
+    }
+    
+    &__pagination {
     }
 }
