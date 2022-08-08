@@ -13,7 +13,7 @@
 								array(
 									'theme_location'  => 'footer-menu',
 									'container'       => 'nav',
-									'container_class' => 'col-md-6 col-3xl-4 pb-6 pb-md-0 fadeScroll',
+									'container_class' => 'col-md-6 col-lg-3 col-3xl-4 pb-6 pb-md-0 fadeScroll',
 									'fallback_cb'     => '',
 									'items_wrap'      => '<ul class="menu supply-underline nav d-block justify-content-end">%3$s</ul>',
 									//'fallback_cb'    => 'WP_Bootstrap4_Navwalker_Footer::fallback',

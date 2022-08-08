@@ -525,6 +525,10 @@ $theme_videoEmbeds = __DIR__ . '/inc/video_embeds.php';
 if ( is_readable( $theme_videoEmbeds ) ) {
 	require_once $theme_videoEmbeds;
 }
+$theme_tweaks = __DIR__ . '/inc/tweaks.php';
+if ( is_readable( $theme_tweaks ) ) {
+	require_once $theme_tweaks;
+}
 function enable_svg_upload( $upload_mimes ) {
     $upload_mimes['svg'] = 'image/svg+xml';
     $upload_mimes['svgz'] = 'image/svg+xml';

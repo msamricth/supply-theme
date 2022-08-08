@@ -58,5 +58,10 @@
     }
     
     &__pagination {
+        padding-top: 135px;
+        @include media-breakpoint-up(lg) {
+            padding-top: 280px;
+        }
+
     }
 }

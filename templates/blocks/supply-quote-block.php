@@ -29,6 +29,7 @@ $cite = get_field( 'cite' );
 if(get_field( 'positioning' )){
     $classes .= get_field( 'positioning' );
 } 
+$extra_cite_details = get_field( 'extra_cite_details' ); 
 ?>
 
 <style type="text/css">
@@ -41,7 +42,10 @@ if(get_field( 'positioning' )){
         <div class="col-lg-10 mx-auto">
             <p>&ldquo;<?php the_field( 'quote' ); ?>&rdquo;</p>
             <?php if($cite) {?> 
-                <cite><?php the_field( 'cite' ); ?></cite>
+                <cite>
+                    <strong><?php the_field( 'cite' ); ?></strong>
+                    <?php if($extra_cite_details){ echo '<span>'.$extra_cite_details.'</span>';} ?>
+                </cite>
             <?php } ?>
         </div>
     </div>

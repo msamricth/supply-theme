@@ -52,21 +52,6 @@
                     width: 100%;
                 }
             }
-            .nav-link, a {
-                display: inline-block;
-                &:hover{
-                    .nav-underline {
-                        transition: ease 0.15s;
-                        -moz-transform: translateX(2.25rem) translateY(0px);
-                        -webkit-transform: translateX(2.25rem) translateY(0px);
-                        -o-transform: translateX(2.25rem) translateY(0px);
-                        -ms-transform: translateX(2.25rem) translateY(0px);
-                        transform: translateX(2.25rem) translateY(0px);
-                        visibility: visible;
-                        opacity: 1;
-                    }
-                }
-            }
         }
     }
 }

@@ -18,7 +18,7 @@ $header_image = '';
 $classes .= 'case-study ';
 $prevPost = '';
 $nextPost = '';
-
+$subClasses = 'bg-dark text-white';
 // start
 if ( have_posts() ) :
 	while ( have_posts() ) :
@@ -27,7 +27,7 @@ if ( have_posts() ) :
             $nextPost = get_next_post();
             if ( get_field( 'deep_dive' ) == 1 ) :
                 $deep_dive = 1;
-                $classes .= 'bg-dark text-white';
+                $classes .= ' ' . $subClasses;
             endif;
             $client_logo = get_field( 'client_logo' );
 
@@ -41,7 +41,8 @@ if ( have_posts() ) :
             $url_to_work = get_field( 'url_to_work' );
             $title_of_work_performed = get_field( 'title_of_work_performed' );
             $intro_blurb = get_field( 'intro' );
-
+            if ( $url_to_work ) : 
+            endif;
         ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class($classes); ?>>
             <?php if($header_video) : ?>
@@ -57,7 +58,7 @@ if ( have_posts() ) :
 				<?php endif; ?>
                 
 			<?php endif; ?>
-            <section class="entry fold-container" id="content">
+            <section class="entry fold-container <?php echo $subClasses; ?>" id="content">
                 <?php if(!$deep_dive):?><div class="fold" data-class="bg-light"></div><?php else:?><div class="fold" data-class="bg-dark"></div><?php endif; ?>
                 <div class="container fold"<?php if(!$deep_dive):?> data-class="bg-light"<?php else: ?> data-class="bg-dark"<?php endif; ?>>
                     <div class="row">
@@ -80,8 +81,13 @@ if ( have_posts() ) :
                                 </div>
                             <?php endif; ?>
 
-                            <?php if ( $url_to_work ) : ?> 
-                                <p><a href="<?php echo $url_to_work; ?>" target="_blank"><?php the_title(); ?></a></p>
+                            <?php if ( $url_to_work ) : ?>  
+                                <p>
+                                    <a href="<?php echo $url_to_work; ?>" target="_blank" class="link-up">
+                                        <?php the_title(); ?>
+                                        <span class="nav-underline"></span>
+                                    </a>
+                                </p>
                             <?php endif; ?>
                         </div>
                         <div class="col-lg-4 col-dlg-3 offset-dlg-1 col-xl-2 case-study-right">
