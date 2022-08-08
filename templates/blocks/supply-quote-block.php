@@ -1,8 +1,8 @@
 <?php
 /**
- * Block template file: templates/blocks/supply-content-block.php
+ * Block template file: templates/blocks/supply-quote-block.php
  *
- * Supply Content Block Block Template.
+ * Supply Quotes Block Template.
  *
  * @param   array $block The block settings and attributes.
  * @param   string $content The block inner HTML (empty).
@@ -11,20 +11,24 @@
  */
 
 // Create id attribute allowing for custom "anchor" value.
-$id = 'supply-content-block-' . $block['id'];
+$id = 'supply-quotes-' . $block['id'];
 if ( ! empty($block['anchor'] ) ) {
     $id = $block['anchor'];
 }
 
 // Create class attribute allowing for custom "className" and "align" values.
-$classes = 'block-supply-content-block row';
+$classes = 'block-supply-quotes';
 if ( ! empty( $block['className'] ) ) {
     $classes .= ' ' . $block['className'];
 }
 if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
-$classes .=' fadeNoScroll';
+$classes .= ' wp-block-quote ';
+$cite = get_field( 'cite' ); 
+if(get_field( 'positioning' )){
+    $classes .= get_field( 'positioning' );
+} 
 ?>
 
 <style type="text/css">
@@ -32,10 +36,13 @@ $classes .=' fadeNoScroll';
 		/* Add styles that use ACF values here */
 	}
 </style>
-
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
-    <div class="col-md-10 col-lg-8 mx-auto">
-    	<h5><?php the_field( 'title' ); ?></h5>
-	    <?php the_field( 'content' ); ?>
+<blockquote id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <p>&ldquo;<?php the_field( 'quote' ); ?>&rdquo;</p>
+            <?php if($cite) {?> 
+                <cite><?php the_field( 'cite' ); ?></cite>
+            <?php } ?>
+        </div>
     </div>
-</div>
+</blockquote>
