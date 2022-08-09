@@ -31,12 +31,6 @@ if(get_field( 'positioning' )){
 } 
 $extra_cite_details = get_field( 'extra_cite_details' ); 
 ?>
-
-<style type="text/css">
-	<?php echo '#' . $id; ?> {
-		/* Add styles that use ACF values here */
-	}
-</style>
 <blockquote id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
     <div class="row">
         <div class="col-lg-10 mx-auto">

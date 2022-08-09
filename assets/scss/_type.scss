@@ -45,6 +45,7 @@ blockquote, blockquote.wp-block-quote {
         }
         &::before {
             content: "— ";
+            font-weight: 600;
         }
     }
 }

@@ -85,7 +85,6 @@ if ( have_posts() ) :
                                 <p>
                                     <a href="<?php echo $url_to_work; ?>" target="_blank" class="link-up">
                                         <?php the_title(); ?>
-                                        <span class="nav-underline"></span>
                                     </a>
                                 </p>
                             <?php endif; ?>
@@ -114,7 +113,10 @@ if ( have_posts() ) :
                             </div>
                         </div>
                     </div>
-                <?php endif; ?>
+                    <?php endif;
+                    if(!$deep_dive):
+                        get_template_part('templates/case-studies/_light', 'content');
+                    endif; ?>
                 <div class="single-case-studies__pagination supply-pagination container">
                     <div class="row g-0">
                         <div class="col-md-6 position-relative fadeNoScroll">
