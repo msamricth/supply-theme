@@ -33,6 +33,7 @@ blockquote.wp-block-quote {
     margin: 0 0 70px;
     padding: 30px 0;
     display: block;
+    border-bottom: 1px solid rgb($white,.39) !important;
 }
 .block-supply-content-block {
     margin-top: 70px;
@@ -49,7 +50,7 @@ blockquote.wp-block-quote {
         border-bottom: 1px solid rgb($primary,.39);
     }
     blockquote.wp-block-quote {
-        border-bottom: 1px solid rgb($primary,.39);
+        border-bottom: 1px solid rgb($primary,.39) !important;
     }
 }
 @include media-breakpoint-up(md) {
@@ -63,7 +64,6 @@ blockquote.wp-block-quote {
         padding-top: 30px;
         padding-bottom: 80px;
         margin-bottom: 136px;
-        border-bottom: 1px solid rgb($white,.39);
     }
     .block-supply-media {
     }

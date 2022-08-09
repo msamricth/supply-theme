@@ -34,7 +34,7 @@ $classes .=' fadeNoScroll';
 </style>
 
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
-    <div class="col-md-10 offset-md-1">
+    <div class="col-md-10 col-lg-8 mx-auto">
     	<h5><?php the_field( 'title' ); ?></h5>
 	    <?php the_field( 'content' ); ?>
     </div>

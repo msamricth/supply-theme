@@ -32,7 +32,7 @@ endif; ?>
 $the_query = new WP_Query( $args ); ?>
 
 <?php if ( $the_query->have_posts() ) : ?>
-    <div class="container home-loop-section fold" data-class="bg-light">
+    <div class="container home-loop-section fold" data-class="bg-pattern">
         <div class="row">
             <div class="col-dlg-10 offset-dlg-1">
                 <?php while ( $the_query->have_posts() ) : $the_query->the_post(); 

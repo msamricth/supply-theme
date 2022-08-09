@@ -57,16 +57,27 @@ import * as bootstrap from 'bootstrap';
 			if($contentContainer) {
 				$('.fold').each(function(i, obj) {
 					//test
-					var foldClass = $(this).data("class") 
+					var foldClass = $(this).data("class"); 
 					$(this).on('inview', function(event, isInView) {
 						if (isInView) {
-							$contentContainer.removeClass('bg-dark');
-							$contentContainer.removeClass('bg-light');
-							$contentContainer.addClass(foldClass);
+							if($contentContainer.hasClass(foldClass)){
+							} else {
+								$contentContainer.removeClass('bg-dark');
+								$contentContainer.removeClass('bg-light');
+								$contentContainer.removeClass('bg-pattern');
+								if(foldClass == 'bg-pattern') {
+									$contentContainer.addClass('bg-light');
+									setTimeout(
+										function() {
+											$contentContainer.addClass(foldClass);
+									}, 700);
+								} else {
+									$contentContainer.addClass(foldClass);
+								}
+							}
 						} else {
 						}
 					});
-					
 				});
 			}
 			var previousScroll = 0;

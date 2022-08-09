@@ -12,7 +12,7 @@ $i = 0;
             <?php if ( $tagline_title ) : 
                 echo '<h3 class="mb-4  fadeNoScroll">' . $tagline_title . '</h3>';
              endif; ?>
-             <div class="fold" data-class="bg-light"></div>
+             <div class="fold" data-class="bg-pattern"></div>
              <div class="row">
                 <div class="col-dlg-11 col-3xl-10">
                     <?php if ( $tagline_content ) : 

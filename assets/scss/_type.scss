@@ -28,29 +28,7 @@ a, .nav-link {
     font-family: $link_font;
     font-size: 14px;
 }
-.fold-container {
-    p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-        transition: background-color .35s ease-in-out,color .35s ease-in-out;
-    }
-    &.bg-dark, &.bg-black {
-        color: $white;
-        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-            color: $white;
-        }
-    }
-    &.bg-light {
-        color: $primary;
-        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-            color: $primary;
-        }
-    }
-    &:not(.bg-light) {
-        color: $white;
-        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-            color: $white;
-        }
-    }
-}
+
 blockquote, blockquote.wp-block-quote {
     font-style: italic;
     font-size: 24px;
@@ -61,10 +39,13 @@ blockquote, blockquote.wp-block-quote {
     cite {
         font-family: Calibre;
         font-size: 16px;
-        font-weight: 600;
         line-height: 24px;
+        strong {
+            font-weight: 600;
+        }
         &::before {
             content: "— ";
+            font-weight: 600;
         }
     }
 }

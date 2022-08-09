@@ -123,3 +123,29 @@ function register_supply_content_block_block() {
 	}
 
 }
+add_action( 'acf/init', 'register_supply_quotes_block' );
+function register_supply_quotes_block() {
+
+	if ( function_exists( 'acf_register_block_type' ) ) {
+
+		// Register Supply Quotes block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-quotes',
+			'title' 				=> __( 'Supply Quotes' ),
+			'description' 			=> __( 'A custom Supply Quotes block.' ),
+            'category' 				=> 'Supply Blocks',
+			'icon'					=> 'welcome-write-blog',
+			'keywords'				=> array( 'supply', 'quotes' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-quote-block.php',
+			// 'render_callback'	=> 'supply_quotes_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-quotes/supply-quotes.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-quotes/supply-quotes.js',
+			// 'enqueue_assets' 	=> 'supply_quotes_block_enqueue_assets',
+		));
+
+	}
+
+}
