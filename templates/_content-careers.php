@@ -3,7 +3,7 @@ $location_checked_values = get_field( 'location' );
 $position_status_checked_values = get_field( 'position_status' );
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( ' cp2' ); ?>>
-    <div class="card border-0 position-relative">
+    <div class="card border-0 rounded-0 position-relative">
         <div class="card-body p-0 cp2">
             <div class="d-md-flex align-items-end justify-content-between  cp1">
                 <h5 class="card-title mb-0 fadeNoScroll">
@@ -30,7 +30,9 @@ $position_status_checked_values = get_field( 'position_status' );
             <div class="entry-summary cp2 fadeNoScroll">
                 <?php the_excerpt(); ?>
             </div><!-- /.entry-summary -->
-            <a href="<?php the_permalink(); ?>" class="stretched-link link-in cp2 fadeNoScroll">Learn More</a>
+            <span class="fadeNoScroll">
+                <a href="<?php the_permalink(); ?>" class="stretched-link link-in cp2">Learn More</a>
+            </span>
         </div><!-- /.card-body -->
     </div><!-- /.col -->
 </article><!-- /#post-<?php the_ID(); ?> -->
