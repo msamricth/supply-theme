@@ -31,6 +31,16 @@
         background-color: transparent;
     }
 }
+.link-in {
+    text-decoration: none;
+    opacity: 0.65;
+    line-height: 1.1;
+    -webkit-transition: .15s ease;
+    transition: opacity .15s ease-in-out, color .15s ease-in-out, border-color .15s ease-in-out;
+    &:hover {
+        opacity: 1;
+    }
+}
 .link-up {
     display: inline-block;
     position: relative;
@@ -92,7 +102,6 @@
                 animation-delay: 2s;
                 visibility: hidden;
                 opacity: 0;
-                width: 100%;
             } 
             &:hover{
                 .nav-underline {
@@ -109,6 +118,15 @@
         } 
     }
 }
+.link-up, .link-in {
+    border-bottom: 1px solid rgba($color: $primary, $alpha: 0.85);
+    &:hover {
+        border-bottom: 1px solid rgba($color: $primary, $alpha: 1);
+    }
+}
+.navbar-collapse .supply-underline .nav-link .nav-underline {
+    left:0;
+}
 .navbar-dark, .bg-black, .bg-dark {
     .nav-underline {
         background-color: $white;
@@ -122,7 +140,7 @@
             }
         }
     }
-    .link-up {
+    .link-up, .link-in  {
         border-bottom: 1px solid rgba($color: $white, $alpha: 0.85);
         &:hover {
             border-bottom: 1px solid rgba($color: $white, $alpha: 1);
@@ -140,12 +158,6 @@
             &::after {
                 background-color: $primary;
             }
-        }
-    }
-    .link-up {
-        border-bottom: 1px solid rgba($color: $primary, $alpha: 0.85);
-        &:hover {
-            border-bottom: 1px solid rgba($color: $primary, $alpha: 1);
         }
     }
 }

@@ -8,8 +8,11 @@
 </head>
 
 <?php
-	$current_post = get_queried_object();
-	$post_id = $current_post ? $current_post->ID : null;
+	$post_id = '';
+	if(!is_archive()):
+		$current_post = get_queried_object();
+		$post_id = $current_post ? $current_post->ID : null;
+	endif;
 	$navbar_scheme = '';
 	$navbar_page_scheme = get_field( 'navbar_color_settings', $post_id);
 	$navbar_theme_scheme   = get_theme_mod( 'navbar_scheme', 'navbar-light bg-light' ); // Get custom meta-value.

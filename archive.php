@@ -10,6 +10,10 @@ if ( have_posts() ) :
 <header class="page-header">
 	<h1 class="page-title">
 		<?php
+		if( is_post_type_archive('careers') )
+		{
+			echo '<h3>Careers</h3>';
+		} else {
 			if ( is_day() ) :
 				printf( esc_html__( 'Daily Archives: %s', 'supply' ), get_the_date() );
 			elseif ( is_month() ) :
@@ -19,7 +23,7 @@ if ( have_posts() ) :
 			else :
 				esc_html_e( 'Blog Archives', 'supply' );
 			endif;
-		?>
+		} ?>
 	</h1>
 </header>
 <?php

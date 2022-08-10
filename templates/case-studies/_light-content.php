@@ -7,7 +7,7 @@ if(get_field( 'positioning' )){
     $quoteClasses .= get_field( 'positioning' );
 } 
 $extra_cite_details = get_field( 'extra_cite_details' ); ?>
-<div class="single-case-studies__light-content container fold" data-class="bg-light">
+<div class="single-case-studies__light-content container fold nav-catch" data-class="bg-light">
     <?php if($quote){ ?>
         <blockquote class="<?php echo esc_attr( $quoteClasses ); ?>">
             <div class="row">
