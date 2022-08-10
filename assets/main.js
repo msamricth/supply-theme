@@ -93,6 +93,7 @@ import * as bootstrap from 'bootstrap';
 					}
 					previousScroll = currentScroll;
 				}
+				hideGRecaptcha();
 			});
 
 			function hideNav() {
@@ -103,7 +104,29 @@ import * as bootstrap from 'bootstrap';
 				navbar.removeClass("is-hidden").addClass("is-visible").addClass("scrolling");
 			}
 		});
-		
+		function hideGRecaptcha() {
+			var $cf7Form = $('.wpcf7-form'),
+			$gREC = $('.grecaptcha-badge'),
+			$gRECParent = $gREC.parent().closest('div');
+			$(document).ready(function () {
+				if($cf7Form) {
+					if($gRECParent.hasClass('gre-loaded')) {} else {
+						$gRECParent.addClass('d-none gre-loaded');
+					}
+				}
+			});
+			$cf7Form.on('inview', function(event, isInView) {
+				if (isInView) {
+					setTimeout(
+						function() {
+							$gRECParent.removeClass('d-none');
+						}, 400);
+					
+				} else {
+					$gRECParent.addClass('d-none');
+				}
+			});
+		}
 		if(transparentNav) {
 			const colors = ['bg-white', 'bg-dark']
 
@@ -141,6 +164,7 @@ import * as bootstrap from 'bootstrap';
 				});
 			});
 		}
+	
 		$('.fadeScroll').on('inview', function(event, isInView) {
 			var scrollObject = $(this);
 			if (isInView) {

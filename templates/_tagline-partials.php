@@ -34,6 +34,7 @@ $cl_class = '';
                     if ($i == 0) {
                         $active_class = ' active';
                     }
+                    if ($i <= 11)   { 
                     ?>
                         <?php if($i%2 == 0) : ?><div class="carousel-item <?php echo $active_class ?>"><?php endif; ?>
                         <?php $client_logo = get_sub_field( 'client_logo' ); 
@@ -51,7 +52,8 @@ $cl_class = '';
                             <?php endif; ?>
                             
                          <?php if($i % 2 == 0){} else {?></div><?php } ?>
-                            <?php $i++; ?> 
+                            <?php
+                    }else{} $i++; ?> 
                     <?php endwhile; ?>
                 </div>
                 <?php else : ?>

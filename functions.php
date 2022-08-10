@@ -510,7 +510,6 @@ function supply_scripts_loader() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'supply_scripts_loader' );
-
 /**
  * Include Support for Advance Custom Fields Pro.
  * 
