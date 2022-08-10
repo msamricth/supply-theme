@@ -26,7 +26,7 @@ else :
     $args = array(
         'post_type' => array('post', 'external-link', 'case-studies'),
         'posts_per_page' => 4
-    );
+    );   
 endif; ?>
 <?php
 $the_query = new WP_Query( $args ); ?>

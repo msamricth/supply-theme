@@ -1,0 +1,17 @@
+.single-careers {
+    &__sections {
+        border-top: 1px solid rgb($primary,.39) !important;
+        &__section {
+            .section-content {
+                p:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+.page-template-careers {
+    .card {
+        border-bottom: 1px solid rgb($primary,.39) !important;
+    }
+}

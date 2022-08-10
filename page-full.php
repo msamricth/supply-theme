@@ -10,7 +10,7 @@ get_header();
 the_post();
 ?>
 <div id="post-<?php the_ID(); ?>" <?php post_class( 'content' ); ?>>
-	<h1 class="entry-title"><?php the_title(); ?></h1>
+	<?php get_template_part('templates/_header', 'partials'); ?>
 	<?php
 		the_content();
 

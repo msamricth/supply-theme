@@ -106,7 +106,7 @@ if ( have_posts() ) :
                     </div>
                 </div>
                 <?php if($deep_dive):?>
-                    <div class="container editor-content">
+                    <div class="container editor-content nav-catch">
                         <div class="row">
                             <div class="col-xl-10 offset-xl-1"> 
                                 <?php the_content(); ?>
@@ -168,6 +168,6 @@ if ( have_posts() ) :
     endwhile;
 endif;
 
-wp_reset_postdata();
-
-get_footer();
+wp_reset_postdata();?>
+<div>
+<?php get_footer();

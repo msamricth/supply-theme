@@ -70,7 +70,7 @@ import * as bootstrap from 'bootstrap';
 									setTimeout(
 										function() {
 											$contentContainer.addClass(foldClass);
-									}, 700);
+									}, 400);
 								} else {
 									$contentContainer.addClass(foldClass);
 								}
@@ -112,6 +112,7 @@ import * as bootstrap from 'bootstrap';
 		
 			$(document).ready(function () {
 				var headerContainer = $('.header-container');
+				var navCatch = $('.nav-catch');
 				const footer = document.querySelector('.footer');
 				
 				headerContainer.on('inview', function(event, isInView) {
@@ -124,17 +125,9 @@ import * as bootstrap from 'bootstrap';
 						if(navbar.hasClass('light-scheme')){
 							navbar.addClass('navbar-light bg-transparent-light');		
 						}
-					} else {
-						if(navbar.hasClass('dark-scheme')){
-							navbar.removeClass('navbar-dark bg-transparent-dark');		
-						}
-						if(navbar.hasClass('light-scheme')){
-							navbar.removeClass('navbar-light bg-transparent-light');		
-						}
-						navbar.addClass('bg-light navbar-light');
-					}
+					} 
 				});
-				foldContainer.on('inview', function(event, isInView) {
+				navCatch.on('inview', function(event, isInView) {
 					var scrollObject = $(this);
 					if (isInView) {
 						navbar.addClass('bg-light navbar-light');

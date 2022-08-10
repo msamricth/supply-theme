@@ -59,3 +59,4 @@ function bg_pattern() {
         endif;
 }
 add_action('wp_head', 'bg_pattern', 100);
+add_filter( 'excerpt_more', '__return_empty_string' ); 

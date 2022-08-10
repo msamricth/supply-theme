@@ -39,6 +39,12 @@ $BA_hide_media = '';
 $row_class = "";
 $sub_classes = '';
 $classes .=' fadeNoScroll';
+
+if ( get_field( 'add_fold' ) == 1 ) : 
+    $classes .= " fold";
+else : 
+    // echo 'false'; 
+endif; 
 if ( have_rows( 'desktop_settings' ) ) : 
     while ( have_rows( 'desktop_settings' ) ) : the_row(); 
         $width_in_columns = get_sub_field( 'width_in_columns' ); 
@@ -96,7 +102,7 @@ else :
     // No rows found 
 endif; 
 ?>
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>" <?php if ( get_field( 'add_fold' ) == 1 ) : ?> data-class="bg-<?php the_field( 'color' );?>"<?php endif; ?>>
     <div class="<?php echo $row_class; ?>">
         <div class="row g-0">
             <div class="<?php echo $sub_classes; ?>">

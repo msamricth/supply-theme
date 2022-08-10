@@ -1,3 +1,4 @@
+	</div>
 		</main><!-- /#main -->
 		<footer id="footer" class="bg-black footer text-white pt-6 pt-md-8">
 			<div class="container">
