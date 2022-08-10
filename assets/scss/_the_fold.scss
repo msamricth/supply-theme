@@ -1,3 +1,10 @@
+.light-logo, .dark-logo {
+    transition:opacity 0.15s linear;
+}
+.light-logo {
+    opacity: 0;
+    display: none;
+}
 .fold-container {
     p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
         transition: background-color .35s ease-in-out,color .35s ease-in-out;
@@ -9,6 +16,14 @@
             a {
                 color: $white;
             }
+        }
+        .dark-logo {
+            display: none;
+            opacity: 0;
+        }
+        .light-logo {
+            opacity: 1;
+            display: inline;
         }
     }
     &.bg-light, &.bg-pattern{
@@ -25,6 +40,15 @@
                 color: $white;
             }
         }
+        .dark-logo {
+            display: none;
+            opacity: 0;
+        }
+        .light-logo {
+            opacity: 1;
+            display: inline;
+        }
+        
     }
 }
 .bg-pattern {

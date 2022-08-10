@@ -5,6 +5,7 @@ $tagline_title = get_field( 'tagline_header' );
 $tagline_content = get_field( 'tagline_content' ); 
 $tagline_link = get_field( 'tagline_link' ); 
 $i = 0;
+$cl_class = '';
 ?>
 <div class="container tagline-section">
     <div class="row py-8 py-md-13 py-dlg-13 py-3xl-17">
@@ -34,12 +35,20 @@ $i = 0;
                         $active_class = ' active';
                     }
                     ?>
-                    
-                         <?php if($i%2 == 0) : ?><div class="carousel-item <?php echo $active_class ?>"><?php endif; ?>
-                        <?php $client_logo = get_sub_field( 'client_logo' ); ?>
+                        <?php if($i%2 == 0) : ?><div class="carousel-item <?php echo $active_class ?>"><?php endif; ?>
+                        <?php $client_logo = get_sub_field( 'client_logo' ); 
+                        $client_logo_light = get_sub_field( 'client_logo_light' );
+                        if ( $client_logo_light ) : 
+                            $cl_class .= "dark-logo";
+                        endif; ?>
+                        
+                        ?>
                             <?php if ( $client_logo ) : ?>
                                 <div class="logo-container">
-                                    <img src="<?php echo esc_url( $client_logo['url'] ); ?>" alt="<?php echo esc_attr( $client_logo['alt'] ); ?>" />
+                                    <img src="<?php echo esc_url( $client_logo['url'] ); ?>" class="<?php echo $cl_class; ?>" alt="<?php the_sub_field( 'client_name' ); ?>" />
+                                    <?php if ( $client_logo_light ) : ?>
+                                        <img src="<?php echo esc_url( $client_logo_light['url'] ); ?>" class="light-logo" alt="<?php the_sub_field( 'client_name' ); ?>" />
+                                    <?php endif; ?>
                                 </div>
                             <?php endif; ?>
                             
