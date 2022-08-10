@@ -39,10 +39,8 @@ $cl_class = '';
                         <?php $client_logo = get_sub_field( 'client_logo' ); 
                         $client_logo_light = get_sub_field( 'client_logo_light' );
                         if ( $client_logo_light ) : 
-                            $cl_class .= "dark-logo";
+                            $cl_class = "dark-logo";
                         endif; ?>
-                        
-                        ?>
                             <?php if ( $client_logo ) : ?>
                                 <div class="logo-container">
                                     <img src="<?php echo esc_url( $client_logo['url'] ); ?>" class="<?php echo $cl_class; ?>" alt="<?php the_sub_field( 'client_name' ); ?>" />
