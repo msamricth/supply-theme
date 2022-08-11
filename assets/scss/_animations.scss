@@ -41,6 +41,16 @@
         opacity: 1;
     }
 }
+input.link-in {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    background-color: transparent;
+    outline: none;
+    box-shadow: none;
+    display: inline;
+    padding: 0;
+}
 .link-up {
     display: inline-block;
     position: relative;

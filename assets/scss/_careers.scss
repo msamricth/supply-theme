@@ -1,6 +1,7 @@
 .single-careers {
     &__sections {
         border-top: 1px solid rgb($primary,.39) !important;
+        border-bottom: 1px solid rgb($primary,.39) !important;
         &__section {
             .section-content {
                 p:last-child {
@@ -8,6 +9,9 @@
                 }
             }
         }
+    }
+    &__application {
+
     }
 }
 .page-template-careers {
