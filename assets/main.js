@@ -46,12 +46,24 @@ import * as bootstrap from 'bootstrap';
 			})
 		}
 	}
+	function expandTextarea(id) {
+		document.getElementById(id).addEventListener('keyup', function() {
+			this.style.overflow = 'hidden';
+			this.style.height = 0;
+			this.style.height = this.scrollHeight + 'px';
+		}, false);
+	}
+	
 	(function($) {
 		const transparentNav = document.querySelector('.navbar-transparent');
 		const caseStudy = document.querySelector('.single-case-studies');
 		var navbar = $('nav#header');
 		var foldContainer = $('.fold-container');
 		$(document).ready(function () {
+			var $message = $('#message');
+				if($message) {
+					expandTextarea('message');
+				}			
 			var $contentContainer = $('.fold-container');
 			const sections = document.querySelectorAll('.fold');
 			if($contentContainer) {

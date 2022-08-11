@@ -1,7 +1,7 @@
 .bg-dark, .bg-black {
      .form-control {
         color: $white;
-        border-color: $white;
+        border-color: rgba($white, 0.75);
         &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
             color: $white;
             opacity: 0.5;
@@ -22,6 +22,7 @@
         opacity: .5;
     }
     .form-control:focus{
+        border-color: rgba($white, 1);
         &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
             color: $white;
             opacity: 0.65;
@@ -37,10 +38,43 @@
     }
 }
 .form-control {
+    opacity: 0.75;
+    &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: $primary;
+        opacity: 0.75;
+    }
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: $primary;
+        opacity: 0.75;
+    }
+    &::-ms-input-placeholder { /* Microsoft Edge */
+        color: $primary;
+        opacity: 0.75;
+    }
+    &:focus {
+        opacity: 1;
+        border-color: $primary;
+        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: $primary;
+            opacity: 0.95;
+        }
+        &::-ms-input-placeholder { /* Microsoft Edge */
+            color: $primary;
+            opacity: 0.95;
+        }
+    }
+}
+textarea.form-control {
+    height: 1.75rem;
+}
+.form-control {
+    box-shadow: none;
     border-top: none;
     border-left: none;
     border-right: none;
     padding-left: 0;
+    outline: none;
+    transition: opacity 0.15s linear;
 }
 .footer {
     .footer-btn {
