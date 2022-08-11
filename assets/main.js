@@ -61,7 +61,7 @@ import * as bootstrap from 'bootstrap';
 		var foldContainer = $('.fold-container');
 		$(document).ready(function () {
 			var $message = $('#message');
-				if($message) {
+				if(($message).length) {
 					expandTextarea('message');
 				}			
 			var $contentContainer = $('.fold-container');
