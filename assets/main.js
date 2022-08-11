@@ -42,7 +42,6 @@ import * as bootstrap from 'bootstrap';
 				e.preventDefault();
 				player.play();
 				document.querySelector(".video-embed").className += " video-iframe-container";
-				e.target.nextElementSibling.querySelector(".iframe-video").contentWindow.postMessage({method:"play"}, "*"); 
 			})
 		}
 	}
