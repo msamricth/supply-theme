@@ -4,7 +4,7 @@ $ctaTitle = get_field( 'cta_title' );
 $cta_link = get_field( 'cta_link' ); 
 $ctaCustumLinkText = get_field( 'cta_link_text' ); 
 ?>
-<div class="container-fluid call-to-action-section fold" data-class="bg-pattern">
+<div class="container-fluid fadeNoScroll call-to-action-section fold" data-class="bg-pattern">
     <div class="row">
         <div class="col-md-10 mx-auto text-center py-8 py-md-10 py-lg-14">
             <?php if ( $ctaTitle ) : 
@@ -13,7 +13,7 @@ $ctaCustumLinkText = get_field( 'cta_link_text' );
         <?php if ( $cta_link ) : 
 	    $post = $cta_link; 
 	    setup_postdata( $post );  ?>
-        <a href="<?php the_permalink(); ?>" class="fadeNoScroll">
+        <a href="<?php the_permalink(); ?>">
         <?php if ( $ctaCustumLinkText ) : 
             echo $ctaCustumLinkText; 
             else:

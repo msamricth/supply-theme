@@ -7,9 +7,9 @@
         text-decoration: none;
     }
     .footer-content {
-        line-height: 30px;
+        line-height: 1.875;
         p {
-            line-height: 30px;
+            line-height: 1.875;
             margin-bottom: 0;
             margin-top: 0;
             @include media-breakpoint-up(md) { 

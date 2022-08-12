@@ -121,7 +121,11 @@ if($advanceHeader) {
 <?php } else { ?>
 <div class="container nav-catch">
     <header class="page-header">
-        <h1 class="page-title"><?php the_title(); ?></h1>
+        <?php if($header_text){ ?>
+            <h1 class="page-title fadeNoScroll cp3"><?php echo $header_text; ?></h1>
+        <?php } else { ?>
+            <h1 class="page-title fadeNoScroll cp3"><?php the_title(); ?></h1>
+        <?php } ?>
     </header>
 <?php
 } ?>

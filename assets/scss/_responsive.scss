@@ -30,7 +30,7 @@
     blockquote, blockquote.wp-block-quote {
         p {
             font-size: 36px;
-            line-height: 52px;
+            line-height: 1.44;
         }
     }
 }
@@ -50,7 +50,7 @@
         }
     }
 }
-@include media-breakpoint-up(xl) {
+@include media-breakpoint-up(3xl) {
     h1, .h1 {
         font-size: 84px;
     }
