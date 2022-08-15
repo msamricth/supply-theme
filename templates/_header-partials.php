@@ -91,7 +91,7 @@ if($vimeoVideo){
 if($advanceHeader) {
 ?>
 <div id="header-<?php the_ID(); ?>" class="<?php echo esc_attr( $classes ); ?>">
-    <header class="page-header">
+    <header class="page-header navuncatch">
         <div class="container">
             <div class="row">
                 <div class="col-dlg-10 mx-auto col-xl-8">
@@ -118,14 +118,19 @@ if($advanceHeader) {
     </div>
 </div>
 <div class="container nav-catch">
+    <div class="row">
+        <div class="col-md-10 mx-auto col-dlg-12 col-xl-10">
 <?php } else { ?>
-<div class="container nav-catch">
-    <header class="page-header">
-        <?php if($header_text){ ?>
-            <h1 class="page-title fadeNoScroll cp3"><?php echo $header_text; ?></h1>
-        <?php } else { ?>
-            <h1 class="page-title fadeNoScroll cp3"><?php the_title(); ?></h1>
-        <?php } ?>
-    </header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 mx-auto col-dlg-12 col-xl-10">
+            <div class="spacer navuncatch cp2 cp5"></div>
+            <header class="page-header">
+                <?php if($header_text){ ?>
+                    <h1 class="page-title fadeNoScroll cp3"><?php echo $header_text; ?></h1>
+                <?php } else { ?>
+                    <h1 class="page-title fadeNoScroll cp3"><?php the_title(); ?></h1>
+                <?php } ?>
+            </header>
 <?php
 } ?>

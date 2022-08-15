@@ -1,26 +1,12 @@
 .footer {
     min-height: 805px;
+}
+.footer {
     span.wpcf7-not-valid-tip {
         display: none;
     }
     a {
         text-decoration: none;
-    }
-    .footer-content {
-        line-height: 1.875;
-        p {
-            line-height: 1.875;
-            margin-bottom: 0;
-            margin-top: 0;
-            @include media-breakpoint-up(md) { 
-                line-height: 36px;
-            }
-        }
-        .footer-label {
-            font-size: 14px;
-            opacity: 0.75;
-            margin-bottom: 18px;
-        }
     }
     .footer-cta {
         .input-group {

@@ -162,7 +162,19 @@ import * as bootstrap from 'bootstrap';
 				var headerContainer = $('.header-container');
 				var navCatch = $('.nav-catch');
 				const footer = document.querySelector('.footer');
-				
+				var navHeader = $('.navuncatch');
+				navHeader.on('inview', function(event, isInView) {
+					var scrollObject = $(this);
+					if (isInView) {
+						navbar.removeClass('bg-light navbar-light');
+						if(navbar.hasClass('dark-scheme')){
+							navbar.addClass('navbar-dark bg-transparent-dark');		
+						}
+						if(navbar.hasClass('light-scheme')){
+							navbar.addClass('navbar-light bg-transparent-light');		
+						}
+					} 
+				});
 				headerContainer.on('inview', function(event, isInView) {
 					var scrollObject = $(this);
 					if (isInView) {
@@ -178,12 +190,22 @@ import * as bootstrap from 'bootstrap';
 				navCatch.on('inview', function(event, isInView) {
 					var scrollObject = $(this);
 					if (isInView) {
-						navbar.addClass('bg-light navbar-light');
-						if(navbar.hasClass('dark-scheme')){
-							navbar.removeClass('navbar-dark bg-transparent-dark');		
-						}
-						if(navbar.hasClass('light-scheme')){
-							navbar.removeClass('navbar-light bg-transparent-light');		
+						if(window.scrollY==0){
+							navbar.removeClass('bg-light navbar-light');
+							if(navbar.hasClass('dark-scheme')){
+								navbar.addClass('navbar-dark bg-transparent-dark');		
+							}
+							if(navbar.hasClass('light-scheme')){
+								navbar.addClass('navbar-light bg-transparent-light');		
+							}
+						} else {
+							navbar.addClass('bg-light navbar-light');
+							if(navbar.hasClass('dark-scheme')){
+								navbar.removeClass('navbar-dark bg-transparent-dark');		
+							}
+							if(navbar.hasClass('light-scheme')){
+								navbar.removeClass('navbar-light bg-transparent-light');		
+							}
 						}
 					}
 				});

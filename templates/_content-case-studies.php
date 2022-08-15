@@ -17,7 +17,7 @@
                 <?php wp_link_pages( array( 'before' => '<div class="page-link"><span>' . esc_html__( 'Pages:', 'supply' ) . '</span>', 'after' => '</div>' ) ); ?>
             </div><!-- /.card-text -->
             <header>
-            <span class="h8"> <a href="<?php the_permalink(); ?>" class="stretched-link" title="<?php printf( esc_attr__( 'Permalink to %s', 'supply' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
+            <span class="h8"> <a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'supply' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
             </span>
             <h5 class="card-title">
                 <?php the_field( 'title_of_work_performed' ); ?>

@@ -49,6 +49,12 @@
 
 	
 // add algoritim for detecting background color here
+$container_class = '';
+if ( get_field( 'dots_on' ) == 1 ) : 
+    $container_class .= 'bg-light bg-pattern';
+else : 
+    // echo 'false'; 
+endif; 
 ?>
 
 <body <?php body_class(); ?>>
@@ -57,8 +63,8 @@
 
 <a href="#main" class="visually-hidden-focusable"><?php esc_html_e( 'Skip to main content', 'supply' ); ?></a>
 
-<div id="wrapper">
-	<header>
+<div id="wrapper" class="<?php echo $container_class; ?>">
+	<header id="nav-header">
 		<nav id="header" class="navbar navbar-expand-md <?php echo esc_attr( $navbar_scheme ); if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' fixed-top'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' fixed-bottom'; endif; if ( is_home() || is_front_page() ) : echo ' home'; endif; ?>">
 			<div class="container">
 				<a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
@@ -105,5 +111,5 @@
 		</nav><!-- /#header -->
 	</header>
 <?php if ( !is_front_page() ) { ?>
-	<main id="main" class="<?php if ( !get_post_type( $post_id ) === 'case-studies' ) { echo 'container'; } ?>"<?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' style="padding-top: 100px;"'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' style="padding-bottom: 100px;"'; endif; ?>>
+	<main id="main" class="<?php if ( !get_post_type( $post_id ) === 'case-studies' ) { echo 'container'; } ?>"<?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' style="padding-bottom: 100px;"'; endif; ?>>
 <?php } ?>

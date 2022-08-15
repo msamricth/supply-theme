@@ -1,3 +1,10 @@
+<?php 
+
+$post_type = get_post_type();
+if ( (!is_front_page() ) && ($post_type == 'page')){ ?>
+</div>
+</div>
+<?php } ?>
 	</div>
 		</main><!-- /#main -->
 		<footer id="footer" class="bg-black footer text-white pt-6 pt-md-8 fadeNoScroll">
@@ -22,7 +29,7 @@
 								)
 							);
 						endif; ?>
-						<div class="col-md-6 col-lg-8 col-3xl-7">
+						<div class="col-md-6 col-lg-8 col-3xl-7 block-supply-contact-block ">
 							<div class="footer-content supply-underline">
 								<div class="">
 									<span class="iso-reg footer-label d-block">

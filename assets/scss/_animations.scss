@@ -1,3 +1,55 @@
+@keyframes basic-link {
+    0%    { 
+        opacity: 1;
+        visibility: visible;
+        -webkit-transform: translateX(2.25rem) translateY(0);
+        transform: translateX(2.25rem) translateY(0);
+     }
+    50%   { opacity: 0; visibility: hidden; }
+    100%  { 
+        opacity: 1;
+        visibility: visible;
+        -webkit-transform: translateX(2.25rem) translateY(0);
+        transform: translateX(2.25rem) translateY(0);
+    }
+}
+main {
+    .fold-container {
+        a {
+            &:not(.link-in) &:not(.link-up) {
+                overflow: hidden;
+                text-decoration:
+                none;
+                position:
+                relative;
+                display: inline-block;
+                &::after {
+                    position: absolute;
+                    content:'';
+                    min-width: 100%;
+                    width: inherit;
+                    display: inline-block;
+                    height:1px;
+                    border-bottom:1px solid black;
+                    bottom: 0;
+                    left: 0;
+                    opacity:0;
+                    visibility:hidden;
+                    -webkit-animation: slide .5s forwards;
+                    -webkit-animation-delay: 2s;
+                    animation: slide .5s forwards;
+                    animation-delay: 2s;
+                    left: -2.25rem;
+                }
+                &:hover {
+                    &::after {
+                        animation:  basic-link 1s;
+                    }
+                }
+            }
+        }
+    }
+}
 .fadeScroll {
     transition: opacity 0.25s linear 0s;
     opacity: 0;

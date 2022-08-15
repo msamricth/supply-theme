@@ -10,6 +10,9 @@
 }
 .cp4 {
     margin-bottom: 136px;
+    article.cp2:last-child {
+        margin-bottom: 0;
+    }
 }
 .cp4, .cp3, .cp2, .cpt1 {
     > p:last-child{
@@ -25,6 +28,9 @@
         }
     .cp2 {
             margin-bottom: 80px;
+        &.cp5 {
+            margin-bottom: 160px;
+        }
     }
     .cp3 {
         margin-bottom: 136px;
@@ -33,5 +39,14 @@
         margin-bottom: 280px;
     }
 }
-@include media-breakpoint-up(dlg) {
+@include media-breakpoint-up(3xl) {
+    .cp2 {
+        margin-bottom: 100px;
+        &.cp5 {
+            margin-bottom: 200px;
+        }
+    }
+    .cp4 {
+        margin-bottom: 370px;
+    }
 }
