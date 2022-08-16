@@ -4,11 +4,11 @@ $ctaTitle = get_field( 'cta_title' );
 $cta_link = get_field( 'cta_link' ); 
 $ctaCustumLinkText = get_field( 'cta_link_text' ); 
 ?>
-<div class="container-fluid fadeNoScroll call-to-action-section fold" data-class="bg-pattern">
+<div class="container-fluid fadeNoScroll call-to-action-section">
     <div class="row">
-        <div class="col-md-10 mx-auto text-center py-8 py-md-10 py-lg-14">
+        <div class="col-md-10 col-dlg-8 col-xl-6 col-3xl-4 mx-auto text-center cp4">
             <?php if ( $ctaTitle ) : 
-                echo '<h2 class="mb-2 mb-lg-5  fadeNoScroll">' . $ctaTitle . '</h2>';
+                echo '<h1 class="cp1 fadeNoScroll">' . $ctaTitle . '</h1>';
              endif; ?>
         <?php if ( $cta_link ) : 
 	    $post = $cta_link; 

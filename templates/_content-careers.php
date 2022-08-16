@@ -17,7 +17,7 @@ $position_status_checked_values = get_field( 'position_status' );
                 <?php the_excerpt(); ?>
             </div><!-- /.entry-summary -->
             <span class="">
-                <a href="<?php the_permalink(); ?>" class="stretched-link link-in cp2">Learn More</a>
+                <a href="<?php the_permalink(); ?>" class="link-in cp2">Learn More</a>
             </span>
         </div><!-- /.card-body -->
     </div><!-- /.col -->
