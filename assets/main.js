@@ -154,10 +154,7 @@ import * as bootstrap from 'bootstrap';
 		}
 		if(transparentNav) {
 			const colors = ['bg-white', 'bg-dark']
-
 			const sections = [...document.getElementsByTagName('section')]
-			
-		
 			$(document).ready(function () {
 				var headerContainer = $('.header-container');
 				var navCatch = $('.nav-catch');

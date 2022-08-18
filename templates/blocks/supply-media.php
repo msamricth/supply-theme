@@ -17,7 +17,7 @@ if ( ! empty($block['anchor'] ) ) {
 }
 
 // Create class attribute allowing for custom "className" and "align" values.
-$classes = 'block-supply-media';
+$classes = 'block-supply-media-a';
 if ( ! empty( $block['className'] ) ) {
     $classes .= ' ' . $block['className'];
 }
@@ -30,89 +30,20 @@ $vimeoVideo = get_field('vimeo_video');
 $image = get_field( 'image' );
 $video_ratio = get_field('video_ratio');
 $vimeo_video_mobile = get_field('vimeo_video_mobile');
-$width_in_columns = ''; 
-$offset_in_columns = ''; 
-$breakpoint_aspect = ''; 
-$BA_width_in_columns = ''; 
-$BA_offset_in_columns = ''; 
-$BA_hide_media = ''; 
-$row_class = "";
-$sub_classes = '';
-$classes .=' fadeNoScroll';
-
-if ( get_field( 'add_fold' ) == 1 ) : 
-    $classes .= " fold";
-else : 
-    // echo 'false'; 
-endif; 
-if ( have_rows( 'desktop_settings' ) ) : 
-    while ( have_rows( 'desktop_settings' ) ) : the_row(); 
-        $width_in_columns = get_sub_field( 'width_in_columns' ); 
-        $offset_in_columns = get_sub_field( 'offset_in_columns' ); 
-        if($width_in_columns) {
-            
-            if(strpos($width_in_columns, 'container') !== false){
-              
-            } else {
-                $sub_classes .= ' col-dlg-' . $width_in_columns;
-                if($offset_in_columns) {
-                    if(strpos($offset_in_columns, 'Center') !== false){
-                        $sub_classes .= ' mx-dlg-auto';
-                    } else {
-                        $sub_classes .= ' offset-dlg-' . $BA_offset_in_columns;
-                    }
-                }
-            }
-        } else {
-            $sub_classes .= ' col-dlg-12';
-        }
-        if ( get_sub_field( 'display_guttercontainer_offset' ) == 1 ) : 
-            $row_class .= 'container-dlg mx-auto';
-        else : 
-            // echo 'false'; 
-        endif; 
-    endwhile; 
-endif; 
-if ( have_rows( 'breakpoints_optional' ) ) : 
-    while ( have_rows( 'breakpoints_optional' ) ) : the_row(); 
-        $breakpoint_aspect = get_sub_field( 'breakpoint_aspect' ); 
-        $BA_width_in_columns = get_sub_field( 'width_in_columns' ); 
-        $BA_offset_in_columns = get_sub_field( 'offset_in_columns' ); 
-        $BA_hide_media = get_sub_field( 'hide_media' ); 
-        $sub_classes .= ' col-' . $breakpoint_aspect . '-' . $BA_width_in_columns;
-        
-        if($BA_offset_in_columns) {
-            if(strpos($BA_offset_in_columns, 'Center') !== false){
-                $sub_classes .= ' mx-'. $breakpoint_aspect . '-auto';
-            } else {
-                $sub_classes .= ' offset-'. $breakpoint_aspect . $BA_offset_in_columns;
-            }
-        }
-        if ( get_sub_field( 'display_guttercontainer_offset' ) == 1 ) : 
-            if(strpos($breakpoint_aspect, 'xs') !== false){
-                $row_class .=  ' container';
-            } else {
-                $row_class .=  ' container-'. $breakpoint_aspect . '  mx-auto';
-            }
-        else : 
-            // echo 'false'; 
-        endif; 
-    endwhile; 
-else : 
-    // No rows found 
-endif; 
+$classes .= ' fadeNoScroll';
+$blockContent = '';
 ?>
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>" <?php if ( get_field( 'add_fold' ) == 1 ) : ?> data-class="bg-<?php the_field( 'color' );?>"<?php endif; ?>>
-    <div class="<?php echo $row_class; ?>">
-        <div class="row g-0">
-            <div class="<?php echo $sub_classes; ?>">
-                <?php if ( $image ) : ?>    
-                    <img src="<?php echo esc_url( $image['url'] ); ?>" class="img-responsive" alt="<?php echo esc_attr( $image['alt'] ); ?>" />
-                <?php endif; ?>
-                <?php if ( $vimeoVideo ) : ?> 
-                    <?php echo video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio); ?>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
+    <?php if ( $image ) : 
+        $blockContent ='<img src="'. esc_url( $image['url'] ) .'" class="img-responsive" alt="'.esc_attr( $image['alt'] ) .'" />';
+    endif;
+    if ( $vimeoVideo ) : 
+            $blockContent = video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio);
+    endif;
+    if ( have_rows( 'column_placement' ) ) :
+        while ( have_rows( 'column_placement' ) ) : the_row();
+            echo supply_grid($blockContent, 'col-dlg-12');
+        endwhile;
+    endif;
+    ?>
 </div>

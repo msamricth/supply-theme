@@ -2,7 +2,7 @@ $offsetWidth: 2px;
 .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
     max-width: calc(100% - ($offsetWidth * 2));
 } 
-.block-supply-media {
+.block-supply-media, .full-width-row, .full-width-row-xs {
     margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
     margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
 }
@@ -13,7 +13,7 @@ $offsetWidth: 2px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media {
+    .block-supply-media, .full-width-row-md, .full-width-row{
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
@@ -23,7 +23,7 @@ $offsetWidth: 2px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media {
+    .block-supply-media, .full-width-row, .full-width-row-lg {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
@@ -33,7 +33,7 @@ $offsetWidth: 2px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media {
+    .block-supply-media, .full-width-row, .full-width-row-dlg {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
@@ -43,7 +43,7 @@ $offsetWidth: 2px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media {
+    .block-supply-media, .full-width-row, .full-width-row-xl {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
@@ -53,7 +53,7 @@ $offsetWidth: 2px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media {
+    .block-supply-media, .full-width-row, .full-width-row-xxl {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
@@ -63,7 +63,7 @@ $offsetWidth: 2px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media {
+    .block-supply-media, .full-width-row, .full-width-row-3xl {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
@@ -73,7 +73,7 @@ $offsetWidth: 2px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media {
+    .block-supply-media, .full-width-row, .full-width-row-4xl {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }

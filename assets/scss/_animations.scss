@@ -1,14 +1,10 @@
-@keyframes basic-linkin {
-    
-}
-
 @keyframes basic-linkout {
     0% {
         
         -webkit-transform: translateX(0px) translateY(0);
         transform: translateX(0px) translateY(0);
     }
-    50%{
+    25%{
         
         -webkit-transform: translateX(-100px) translateY(0);
         transform: translateX(-100px) translateY(0);
@@ -18,11 +14,10 @@
         -webkit-transform: translateX(0px) translateY(0);
         transform: translateX(0px) translateY(0);
     }
-    
 }
 main {
-    a {
-        &:not(.link-up) &:not(.streched-link) {
+    > .container {
+        a:not(.link-up):not(.stretched-link) {
             overflow: hidden;
             text-decoration: none;
             position:relative;
@@ -48,9 +43,10 @@ main {
                 opacity: 1;
                 &::after {
                     animation:
-                    basic-linkout .35s;
+                    basic-linkout 1s;
                 }
             }
+            
         }
     }
 }
@@ -229,7 +225,7 @@ input.link-in:hover {
         }
     }
 }
-.navbar-light, .bg-white, .bg-light, .bg-pattern {
+.navbar-light {
     .nav-underline {
         background-color: $primary;
     }

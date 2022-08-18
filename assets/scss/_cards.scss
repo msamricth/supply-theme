@@ -53,10 +53,12 @@
     }
 }
 .card {
+    background-color: transparent;
     .post-thumbnail {
         overflow: hidden;
     }
     a {
+        opacity: 1;
         text-decoration: none;
     }
 }

@@ -14,6 +14,19 @@
                     font-size: 36px;
                 }
             }
+            .h8 {
+                font-size: 14px;
+                @include media-breakpoint-up(md) {
+                    font-size: 14px;
+                }
+                @include media-breakpoint-up(3xl) {
+                    font-size: 18px;
+                }
+            }
+            a {
+                opacity: 1;
+                text-decoration: none;
+            }
         }
         &.cp2 {
             @include media-breakpoint-up(md) {

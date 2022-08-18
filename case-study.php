@@ -107,11 +107,7 @@ if ( have_posts() ) :
                 </div>
                 <?php if($deep_dive):?>
                     <div class="container editor-content nav-catch">
-                        <div class="row">
-                            <div class="col-xl-10 offset-xl-1"> 
-                                <?php the_content(); ?>
-                            </div>
-                        </div>
+                        <?php the_content(); ?>
                     </div>
                     <?php endif;
                     if(!$deep_dive):
