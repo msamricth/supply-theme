@@ -215,44 +215,31 @@ endif;
  *
  * @since v1.0
  */
-function supply_widgets_init() {
-	// Area 1.
-	register_sidebar(
-		array(
-			'name'          => 'Primary Widget Area (Sidebar)',
-			'id'            => 'primary_widget_area',
-			'before_widget' => '',
-			'after_widget'  => '',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
-		)
-	);
-
-	// Area 2.
-	register_sidebar(
-		array(
-			'name'          => 'Secondary Widget Area (Header Navigation)',
-			'id'            => 'secondary_widget_area',
-			'before_widget' => '',
-			'after_widget'  => '',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
-		)
-	);
-
-	// Area 3.
-	register_sidebar(
-		array(
-			'name'          => 'Third Widget Area (Footer)',
-			'id'            => 'third_widget_area',
-			'before_widget' => '',
-			'after_widget'  => '',
-			'before_title'  => '<h3 class="widget-title">',
-			'after_title'   => '</h3>',
-		)
-	);
+function myTheme_registerWidgetAreas() {
+    // Grab all pages except trashed
+    $pages = new WP_Query(Array(
+        'post_type' => 'page',
+        'post_status' => array('publish', 'pending', 'draft', 'auto-draft', 'future', 'private', 'inherit'),
+        'posts_per_page'=>-1
+    ));
+    // Step through each page
+    while ( $pages->have_posts() ) {
+        $pages->the_post();
+        // Ignore pages with no slug
+        if ($pages->post->post_name == '') continue;
+        // Register the sidebar for the page. Note that the id has
+        // to match the name given in the theme template
+        register_sidebar( array(
+            'name'          => $pages->post->post_name,
+            'id'            => 'widget_area_for_page_'.$pages->post->post_name,
+            'before_widget' => '',
+            'after_widget'  => '',
+            'before_title'  => '',
+            'after_title'   => '',
+        ) );
+    }
 }
-add_action( 'widgets_init', 'supply_widgets_init' );
+add_action( 'widgets_init', 'myTheme_registerWidgetAreas' );
 
 
 if ( ! function_exists( 'supply_article_posted_on' ) ) :

@@ -40,11 +40,17 @@
     }
 }
 @include media-breakpoint-up(3xl) {
+    .cp1 {
+        margin-bottom: 52px;
+    }
     .cp2 {
         margin-bottom: 100px;
         &.cp5 {
             margin-bottom: 200px;
         }
+    }
+    .cp3 {
+        margin-bottom: 180px;
     }
     .cp4 {
         margin-bottom: 370px;

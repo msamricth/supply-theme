@@ -256,3 +256,55 @@ function register_supply_separator_block() {
 	}
 
 }
+add_action( 'acf/init', 'register_supply_logo_garden_block' );
+function register_supply_logo_garden_block() {
+
+	if ( function_exists( 'acf_register_block_type' ) ) {
+
+		// Register Supply Logo Garden block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-logo-garden',
+			'title' 				=> __( 'Supply Logo Garden' ),
+			'description' 			=> __( 'A custom Supply Logo Garden block.' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'groups',
+			'keywords'				=> array( 'supply', 'logo', 'garden' ),
+			'post_types'			=> array( 'post', 'page' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-logo-garden.php',
+			// 'render_callback'	=> 'supply_logo_garden_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-logo-garden/supply-logo-garden.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-logo-garden/supply-logo-garden.js',
+			// 'enqueue_assets' 	=> 'supply_logo_garden_block_enqueue_assets',
+		));
+
+	}
+
+}
+add_action( 'acf/init', 'register_supply_call_to_action_block' );
+function register_supply_call_to_action_block() {
+
+	if ( function_exists( 'acf_register_block_type' ) ) {
+
+		// Register Supply Call to Action block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-call-to-action',
+			'title' 				=> __( 'Supply Call to Action' ),
+			'description' 			=> __( 'A custom Supply Call to Action block.' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'buddicons-activity',
+			'keywords'				=> array( 'supply', 'call', 'to', 'action' ),
+			'post_types'			=> array( 'post', 'page' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-call-to-action.php',
+			// 'render_callback'	=> 'supply_call_to_action_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-call-to-action/supply-call-to-action.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-call-to-action/supply-call-to-action.js',
+			// 'enqueue_assets' 	=> 'supply_call_to_action_block_enqueue_assets',
+		));
+
+	}
+
+}
