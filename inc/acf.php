@@ -145,6 +145,30 @@ function register_supply_quotes_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-quotes/supply-quotes.js',
 			// 'enqueue_assets' 	=> 'supply_quotes_block_enqueue_assets',
 		));
+	}
+}
+add_action( 'acf/init', 'register_supply_contact_block' );
+function register_supply_contact_block() {
+
+	if ( function_exists( 'acf_register_block_type' ) ) {
+
+		// Register Supply Contact block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-contact',
+			'title' 				=> __( 'Supply Contact Block' ),
+			'description' 			=> __( 'A custom Supply Contact block.' ),
+			'category' 				=> 'formatting',
+			'icon'					=> 'layout',
+			'keywords'				=> array( 'supply', 'contact' ),
+			'post_types'			=> array( 'post', 'page' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-contact-block.php',
+			// 'render_callback'	=> 'supply_contact_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-contact/supply-contact.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-contact/supply-contact.js',
+			// 'enqueue_assets' 	=> 'supply_contact_block_enqueue_assets',
+		));
 
 	}
 

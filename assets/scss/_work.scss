@@ -1,0 +1,50 @@
+.page-template-work {
+    .col-md-6  {
+        .card {
+            .card-body {
+                padding: 0px;
+            }
+            .card-title {
+                margin-top: 4px;
+                font-size: 24px;
+                @include media-breakpoint-up(dlg) {
+                    font-size: 24px;
+                }
+                @include media-breakpoint-up(3xl) {
+                    font-size: 36px;
+                }
+            }
+            .h8 {
+                font-size: 14px;
+                @include media-breakpoint-up(md) {
+                    font-size: 14px;
+                }
+                @include media-breakpoint-up(3xl) {
+                    font-size: 18px;
+                }
+            }
+            a {
+                opacity: 1;
+                text-decoration: none;
+            }
+        }
+        &.cp2 {
+            @include media-breakpoint-up(md) {
+                margin-bottom: 36px;
+            }
+            @include media-breakpoint-up(3xl) {
+                margin-bottom: 60px;
+            }
+            &:nth-last-of-type(-n+2) {
+                margin-bottom: 0 !important;
+            }
+        }
+    }
+    #main {
+        padding-top: 80px;
+        margin-top: 0;
+        @include media-breakpoint-up(md) {
+            padding-top: 120px;
+        }
+    }
+}

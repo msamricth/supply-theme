@@ -60,7 +60,7 @@ if ( have_posts() ) :
 			<?php endif; ?>
             <section class="entry fold-container <?php echo $subClasses; ?>" id="content">
                 <?php if(!$deep_dive):?><div class="fold" data-class="bg-light"></div><?php else:?><div class="fold" data-class="bg-dark"></div><?php endif; ?>
-                <div class="container fold"<?php if(!$deep_dive):?> data-class="bg-light"<?php else: ?> data-class="bg-dark"<?php endif; ?>>
+                <div class="container fadeNoScroll fold"<?php if(!$deep_dive):?> data-class="bg-light"<?php else: ?> data-class="bg-dark"<?php endif; ?>>
                     <div class="row">
                         <div class="col-md-12 col-xl-10 offset-xl-1">
                             <?php if ( $client_logo ) : ?>
@@ -74,9 +74,9 @@ if ( have_posts() ) :
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-8 col-xl-7 offset-xl-1 case-study-left fadeNoScroll">         
+                        <div class="col-lg-8 col-xl-7 offset-xl-1 case-study-left">         
                             <?php if ( $intro_blurb ) : ?> 
-                                <div class="intro-content fadeNoScroll">
+                                <div class="intro-content">
                                     <?php echo $intro_blurb; ?>
                                 </div>
                             <?php endif; ?>
@@ -95,7 +95,7 @@ if ( have_posts() ) :
                                 <?php if ( have_rows( 'add_new_specialty' ) ) : ?>
                                 <ul class="col-sm-4 specialties col-lg-12 mb-0">
                                     <?php while ( have_rows( 'add_new_specialty' ) ) : the_row(); ?>
-                                        <li class="fadeNoScroll"><?php the_sub_field( 'specialty' ); ?></li>
+                                        <li><?php the_sub_field( 'specialty' ); ?></li>
                                         <?php if ( ( $i + 1 ) == ceil($j / 2) ) echo '</ul><ul class="col-sm-4 mb-0 specialties col-lg-12">'; ?>
                                     <?php $i++; endwhile; ?>
                                 </ul>
@@ -107,19 +107,15 @@ if ( have_posts() ) :
                 </div>
                 <?php if($deep_dive):?>
                     <div class="container editor-content nav-catch">
-                        <div class="row">
-                            <div class="col-xl-10 offset-xl-1"> 
-                                <?php the_content(); ?>
-                            </div>
-                        </div>
+                        <?php the_content(); ?>
                     </div>
                     <?php endif;
                     if(!$deep_dive):
                         get_template_part('templates/case-studies/_light', 'content');
                     endif; ?>
-                <div class="single-case-studies__pagination supply-pagination container">
+                <div class="single-case-studies__pagination supply-pagination container  fadeNoScroll">
                     <div class="row g-0">
-                        <div class="col-md-6 position-relative fadeNoScroll">
+                        <div class="col-md-6 position-relative">
                             <?php $left_case_study = get_field( 'left_case_study' ); ?>
                             <?php if ( $left_case_study ) : ?>
                                     <?php $post = $left_case_study; ?>
@@ -139,7 +135,7 @@ if ( have_posts() ) :
                                 <?php endif; ?>
                             <?php endif; ?>
                         </div>
-                        <div class="col-md-6 position-relative fadeNoScroll">
+                        <div class="col-md-6 position-relative">
                             <?php $right_case_study = get_field( 'right_case_study' ); ?>
                             <?php if ( $right_case_study ) : ?>
                                 <?php $post = $right_case_study; ?>

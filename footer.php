@@ -1,6 +1,13 @@
+<?php 
+
+$post_type = get_post_type();
+if ( (!is_front_page() ) && ($post_type == 'page')){ ?>
+</div>
+</div>
+<?php } ?>
 	</div>
 		</main><!-- /#main -->
-		<footer id="footer" class="bg-black footer text-white pt-6 pt-md-8">
+		<footer id="footer" class="bg-black footer text-white pt-6 pt-md-8 fadeNoScroll">
 			<div class="container">
 				<div class="row">
 					<?php
@@ -14,7 +21,7 @@
 								array(
 									'theme_location'  => 'footer-menu',
 									'container'       => 'nav',
-									'container_class' => 'col-md-6 col-lg-3 col-3xl-4 pb-6 pb-md-0 fadeScroll',
+									'container_class' => 'col-md-6 col-lg-3 col-3xl-4 pb-6 pb-md-0 ',
 									'fallback_cb'     => '',
 									'items_wrap'      => '<ul class="menu supply-underline nav d-block justify-content-end">%3$s</ul>',
 									//'fallback_cb'    => 'WP_Bootstrap4_Navwalker_Footer::fallback',
@@ -22,15 +29,15 @@
 								)
 							);
 						endif; ?>
-						<div class="col-md-6 col-lg-8 col-3xl-7">
+						<div class="col-md-6 col-lg-8 col-3xl-7 block-supply-contact-block ">
 							<div class="footer-content supply-underline">
-								<div class="fadeNoScroll">
+								<div class="">
 									<span class="iso-reg footer-label d-block">
 										<?php the_field( 'new_business_label', 'option' ); ?>
 									</span>
 									<p><?php the_field( 'point_of_contact', 'option' ); ?></p>
 								</div>
-								<div class="fadeNoScroll">
+								<div class="">
 									<?php
 									echo '<p>';
 									echo '<a href="mailto:';
@@ -46,7 +53,7 @@
 									?>
 									</p>
 								</div>
-								<div class="fadeNoScroll pt-4 mt-2">
+								<div class="pt-4 mt-2">
 									<span class="iso-reg footer-label d-block">
 										<?php the_field( 'headquarters_label', 'option' ); ?>
 									</span>
@@ -72,7 +79,7 @@
 						</div>
 						<?php if ( have_rows( 'add_a_social_media_account', 'option' ) ) : ?>
 							<div class="col-lg-1 col-md-6 offset-md-6 offset-lg-0">
-								<ul class="social-nav fadeScroll">
+								<ul class="social-nav ">
 									<?php while ( have_rows( 'add_a_social_media_account', 'option' ) ) : the_row(); $site_title = get_bloginfo( 'name' ); $sm_title = get_sub_field( 'social_media_name' ); ?>
 										<li>
 											<a class="px-lg-0" href="<?php the_sub_field( 'url' ); ?>" target="_blank" alt="<?php echo $site_title ."'s". $sm_title;?>">

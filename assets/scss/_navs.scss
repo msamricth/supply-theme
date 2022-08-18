@@ -4,12 +4,9 @@
     transition: 0.15s ease;
     @include media-breakpoint-up(md) { 
         .nav-link {
+            padding-top: 45px;
             font-size: 18px;
-        }
-    }
-    @include media-breakpoint-up(md) { 
-        .nav-link {
-            font-size: 18px;
+            padding-bottom: 45px;
         }
     }
     .navbar-toggler {
@@ -41,7 +38,18 @@
         background-color: transparent;
     }
 }
-
+#main {
+    margin-top: 80px;
+    @include media-breakpoint-up(md) { 
+        margin-top: 120px;
+    }
+    .under-nav {
+        margin-top: -80px;
+        @include media-breakpoint-up(md) { 
+            margin-top: -120px;
+        }
+    }
+}
 .social-nav {
     list-style: none;
     padding: 0;

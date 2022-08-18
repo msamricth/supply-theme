@@ -45,16 +45,19 @@ if($scheme){
       <?php get_template_part('templates/_tagline', 'partials');
       
             the_content();
-
-            get_template_part('templates/_home', 'loop');
-            wp_link_pages( array(
-                'before' => '<div class="page-links">' . __( 'Pages:', 'supply' ),
-                'after'  => '</div>',
-            ) );
-            edit_post_link( __( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
-            
-             get_template_part('templates/_cta', 'partials');
-        ?>
+            ?>
+            <div class="fold" data-class="bg-pattern">
+                <?php
+                get_template_part('templates/_home', 'loop');
+                wp_link_pages( array(
+                    'before' => '<div class="page-links">' . __( 'Pages:', 'supply' ),
+                    'after'  => '</div>',
+                ) );
+                edit_post_link( __( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
+                
+                get_template_part('templates/_cta', 'partials');
+            ?>
+            </div>
         
     </div><!-- /#post-<?php the_ID(); ?> -->
     <div>

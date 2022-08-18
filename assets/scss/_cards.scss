@@ -1,6 +1,10 @@
-.home-loop-section, .supply-pagination  {
+.home-loop-section, .supply-pagination {
     .card {
         margin-bottom: 60px;
+        a {
+            &::after {display: none;
+            }
+        }
         .card-body {
             padding: 0;
         }
@@ -46,5 +50,15 @@
         &:last-child {
             padding-left: 10px;
         }
+    }
+}
+.card {
+    background-color: transparent;
+    .post-thumbnail {
+        overflow: hidden;
+    }
+    a {
+        opacity: 1;
+        text-decoration: none;
     }
 }

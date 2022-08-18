@@ -14,6 +14,13 @@
             color: $white;
             opacity: 0.5;
         }
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover, 
+        &:-webkit-autofill:focus, 
+        &:-webkit-autofill:active{
+            -webkit-box-shadow: 0 0 0 30px $black inset !important;
+            -webkit-text-fill-color: $white !important;
+        }
     }
     .footer-btn {
         background-color: transparent;
@@ -51,9 +58,10 @@
         color: $primary;
         opacity: 0.75;
     }
-    &:focus {
+    &:focus, &:-internal-autofill-selected {
         opacity: 1;
         border-color: $primary;
+        background-color: transparent !important;
         &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
             color: $primary;
             opacity: 0.95;
@@ -61,6 +69,13 @@
         &::-ms-input-placeholder { /* Microsoft Edge */
             color: $primary;
             opacity: 0.95;
+        }
+        &:-webkit-autofill,
+        &:-webkit-autofill:hover, 
+        &:-webkit-autofill:focus, 
+        &:-webkit-autofill:active{
+            -webkit-box-shadow: 0 0 0 30px $white inset !important;
+            -webkit-text-fill-color: $primary !important;
         }
     }
 }

@@ -26,15 +26,11 @@ $args = array(
 $the_query = new WP_Query( $args ); ?>
 
 <?php if ( $the_query->have_posts() ) : ?>
-    <div class="container">
-        <div class="row">
-            <div class="col-dlg-10 offset-dlg-1 cp3">
-                <?php while ( $the_query->have_posts() ) : $the_query->the_post(); 
-                    $post_type = get_post_type();
-                    get_template_part('templates/_content', $post_type);
-                endwhile; ?>
-            </div>
-        </div>
+    <div class="cp4">
+        <?php while ( $the_query->have_posts() ) : $the_query->the_post(); 
+            $post_type = get_post_type();
+            get_template_part('templates/_content', $post_type);
+        endwhile; ?>
     </div>
     <?php wp_reset_postdata(); ?>
 <?php endif; 
