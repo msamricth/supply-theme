@@ -25,20 +25,31 @@ if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
 $classes .=' fadeNoScroll';
+$blockContent = '';
+$i = 0;
+
+$blockContent .= '<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes ) .'">';
+    if ( have_rows( 'supply_stats' ) ) : 
+        $blockContent .= '<div class="row justify-content-between">';
+            while ( have_rows( 'supply_stats' ) ) : the_row();
+                $blockContent .= '<div class="col-md-4 px-md-0 col-xxl-3">';
+                    $blockContent .= '<h4 class="stats">';
+                        $blockContent .= get_sub_field( 'number' );
+                    $blockContent .= '</h4>';
+                    $blockContent .= '<p>'.get_sub_field( 'statement' ).'</p>';
+                $blockContent .= '</div>';
+                $i++;
+            endwhile;
+        $blockContent .= '</div>';
+        else :
+    endif;
+$blockContent .= '</div>';
+if ( have_rows( 'container_+_column_settings' ) ) :
+    while ( have_rows( 'container_+_column_settings' ) ) : the_row();   
+        echo supply_grid($blockContent, 'col-md-10 mx-auto col-dlg-12 col-xl-10');
+    endwhile;
+else:
+    echo supply_grid_sh($blockContent, 'col-md-10 mx-auto col-dlg-12 col-xl-10');
+endif;
 ?>
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
-	<?php if ( have_rows( 'supply_stats' ) ) : ?>
-        <div class="row">
-            <?php while ( have_rows( 'supply_stats' ) ) : the_row(); ?>
-                <div class="col-md-4 px-md-0">
-                    <h4 class="stats">
-                        <?php the_sub_field( 'number' ); ?>
-                    </h4>
-                    <p><?php the_sub_field( 'statement' ); ?></p>
-                </div>
-            <?php endwhile; ?>
-        </div>
-	<?php else : ?>
-		<?php // No rows found ?>
-	<?php endif; ?>
-</div>
+

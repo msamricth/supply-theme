@@ -18,7 +18,38 @@ function my_acf_settings_show_admin( $show_admin ) {
     return false;
 }
 
+ 
+function filter_block_categories_when_post_provided( $block_categories, $editor_context ) {
+    if ( ! empty( $editor_context->post ) ) {
+        array_push(
+            $block_categories,
+            array(
+                'slug'  => 'supply-blocks',
+                'title' => __( 'Supply Blocks', 'Work With Supply' ),
+                'icon'  => null,
+            )
+        );
+    }
+    return $block_categories;
+}
+ 
+add_filter( 'block_categories_all', 'filter_block_categories_when_post_provided', 10, 2 );
+function custom_block_category( $categories ) {
+    $custom_block = array(
+		'slug'  => 'supply-blocks',
+		'title' => __( 'Supply Blocks', 'Work With Supply' ),
+    );
 
+    $categories_sorted = array();
+    $categories_sorted[0] = $custom_block;
+
+    foreach ($categories as $category) {
+        $categories_sorted[] = $category;
+    }
+
+    return $categories_sorted;
+}
+add_filter( 'block_categories', 'custom_block_category', 10, 2);
 add_action( 'acf/init', 'register_supply_stats_block' );
 function register_supply_stats_block() {
 
@@ -29,7 +60,7 @@ function register_supply_stats_block() {
 			'name' 					=> 'supply-stats',
 			'title' 				=> __( 'Supply Stats Block' ),
 			'description' 			=> __( 'Block for providing stats on Case Studies.' ),
-			'category' 				=> 'Supply Blocks',
+			'category' 				=> 'supply-blocks',
 			'icon'					=> 'analytics',
 			'keywords'				=> array( 'supply', 'stats' ),
 			'post_types'			=> array( 'post', 'page', 'case-studies' ),
@@ -55,7 +86,7 @@ function register_supply_fold_block() {
 			'name' 					=> 'supply-fold',
 			'title' 				=> __( 'Supply Fold' ),
 			'description' 			=> __( 'A custom Supply Fold block.' ),
-            'category' 				=> 'Supply Blocks',
+			'category' 				=> 'supply-blocks',
 			'icon'					=> 'image-flip-vertical',
 			'keywords'				=> array( 'supply', 'fold' ),
 			'post_types'			=> array( 'post', 'page', 'case-studies' ),
@@ -81,7 +112,7 @@ function register_supply_media_block() {
 			'name' 					=> 'supply-media',
 			'title' 				=> __( 'Supply media' ),
 			'description' 			=> __( 'A custom Supply media block.' ),
-            'category' 				=> 'Supply Blocks',
+			'category' 				=> 'supply-blocks',
 			'icon'					=> 'format-video',
 			'keywords'				=> array( 'supply', 'media' ),
 			'post_types'			=> array( 'post', 'page', 'case-studies' ),
@@ -107,7 +138,7 @@ function register_supply_content_block_block() {
 			'name' 					=> 'supply-content-block',
 			'title' 				=> __( 'Supply Content Block' ),
 			'description' 			=> __( 'A custom Supply Content Block block.' ),
-            'category' 				=> 'Supply Blocks',
+			'category' 				=> 'supply-blocks',
 			'icon'					=> 'welcome-write-blog',
 			'keywords'				=> array( 'supply', 'media' ),
 			'post_types'			=> array( 'post', 'page', 'case-studies' ),
@@ -133,8 +164,8 @@ function register_supply_quotes_block() {
 			'name' 					=> 'supply-quotes',
 			'title' 				=> __( 'Supply Quotes' ),
 			'description' 			=> __( 'A custom Supply Quotes block.' ),
-            'category' 				=> 'Supply Blocks',
-			'icon'					=> 'welcome-write-blog',
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'format-quote',
 			'keywords'				=> array( 'supply', 'quotes' ),
 			'post_types'			=> array( 'post', 'page', 'case-studies' ),
 			'mode'					=> 'auto',
@@ -157,8 +188,8 @@ function register_supply_contact_block() {
 			'name' 					=> 'supply-contact',
 			'title' 				=> __( 'Supply Contact Block' ),
 			'description' 			=> __( 'A custom Supply Contact block.' ),
-			'category' 				=> 'formatting',
-			'icon'					=> 'layout',
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'phone',
 			'keywords'				=> array( 'supply', 'contact' ),
 			'post_types'			=> array( 'post', 'page' ),
 			'mode'					=> 'auto',
@@ -168,6 +199,58 @@ function register_supply_contact_block() {
 			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-contact/supply-contact.css',
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-contact/supply-contact.js',
 			// 'enqueue_assets' 	=> 'supply_contact_block_enqueue_assets',
+		));
+
+	}
+
+}
+add_action( 'acf/init', 'register_supply_list_block' );
+function register_supply_list_block() {
+
+	if ( function_exists( 'acf_register_block_type' ) ) {
+
+		// Register Supply List Block block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-list-block',
+			'title' 				=> __( 'Supply List Block' ),
+			'description' 			=> __( 'A custom Supply List Block block.' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'editor-ul',
+			'keywords'				=> array( 'supply', 'list', 'block' ),
+			'post_types'			=> array( 'post', 'page' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-list-block.php',
+			// 'render_callback'	=> 'supply_list_block_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-list-block/supply-list-block.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-list-block/supply-list-block.js',
+			// 'enqueue_assets' 	=> 'supply_list_block_block_enqueue_assets',
+		));
+
+	}
+
+}
+add_action( 'acf/init', 'register_supply_separator_block' );
+function register_supply_separator_block() {
+
+	if ( function_exists( 'acf_register_block_type' ) ) {
+
+		// Register Supply Separator Block block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-separator-block',
+			'title' 				=> __( 'Supply Separator Block' ),
+			'description' 			=> __( 'A custom Supply Separator Block block.' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'ellipsis',
+			'keywords'				=> array( 'supply', 'separator', 'block' ),
+			'post_types'			=> array( 'post', 'page' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-separator-block.php',
+			// 'render_callback'	=> 'supply_separator_block_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-separator-block/supply-separator-block.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-separator-block/supply-separator-block.js',
+			// 'enqueue_assets' 	=> 'supply_separator_block_block_enqueue_assets',
 		));
 
 	}

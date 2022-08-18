@@ -53,7 +53,16 @@ blockquote.wp-block-quote {
         border-bottom: 1px solid rgb($primary,.39) !important;
     }
 }
+.block-supply-separator-block {
+    border-bottom: 1px solid currentColor !important;
+    opacity: 0.39;
 
+}
+.block-supply-list-block {
+    .cp2:last-child {
+        margin-bottom: 0 !important;
+    }
+}
 .header-partial {
     header.page-header {
         display: flex;
@@ -63,7 +72,6 @@ blockquote.wp-block-quote {
         padding: 60px 0;
     }
 }
-
 .block-supply-contact-block {
     .footer-content {
         line-height: 1.875;
@@ -117,4 +125,11 @@ blockquote.wp-block-quote {
         padding-bottom: 112px;
     }
 
+}
+@include media-breakpoint-up(4xl) {
+    .block-supply-list-block {
+        .cp2 {
+            margin-bottom: 0 !important;
+        }
+    }
 }

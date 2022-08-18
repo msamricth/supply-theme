@@ -66,7 +66,7 @@ function enqueue_footer_markup($markup){
 	}, 99, 1);
 }
 
-//Supply Grid function
+//Supply Grid functions
 function supply_grid($content, $defaults = null){
     $row = 'row';
     $classes = '';
@@ -150,4 +150,58 @@ function supply_grid($content, $defaults = null){
         $container ."<h3>Something seems wrong here - this function requires for the fields for this component to define this function within a loop";
     endif; 
     return $container;
+}
+function supply_grid_sh($content, $defaults=null){
+    $row = 'row';
+    $classes = '';
+    $container ='';
+        if($defaults){
+            $classes = $defaults;
+        } else {
+            $classes .= 'col-md-10 mx-auto col-dlg-12 col-xl-10';
+        }
+        $container .= '<div class="' . $row . '">';
+        $container .= '<div class="' . $classes . '">';
+            if($content) {$container .= $content; } else {
+                $container .= '<h3>Something seems wrong here - this function requires the <i>"$content"</i> variable to have content</h3>';
+            }
+        $container .= '</div>';
+        $container .= '</div>';
+
+    return $container;
+}
+
+add_filter( 'allowed_block_types', 'theme_allowed_block_types' );
+  
+function theme_allowed_block_types( $allowed_blocks ) {
+  
+    return array(
+        'core/paragraph',
+        'core/gallery',
+        'core/cover',
+        'core/table',
+        'core/verse',
+        'core/code',
+        'core/freeform ',
+        'core/html',
+        'core/more',
+        'core/nextpage ',
+        'core/shortcode',
+        'core/archives',
+        'core/categories',
+        'core/latest-posts',
+        'core/calendar',
+        'core/search',
+        'core/tag-cloud',
+        'acf/supply-stats',
+        'acf/supply-stats',
+        'acf/supply-media',
+        'acf/supply-fold',
+        'acf/supply-content-block',
+        'acf/supply-quotes',
+        'acf/supply-contact',
+        'acf/supply-list-block',
+        'acf/supply-separator-block',
+    );
+  
 }
