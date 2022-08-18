@@ -63,7 +63,6 @@ import * as bootstrap from 'bootstrap';
 			this.style.height = this.scrollHeight + 'px';
 		}, false);
 	}
-	
 	(function($) {
 		const transparentNav = document.querySelector('.navbar-transparent');
 		const caseStudy = document.querySelector('.single-case-studies');
