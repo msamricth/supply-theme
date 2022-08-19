@@ -170,38 +170,11 @@ function supply_grid_sh($content, $defaults=null){
 
     return $container;
 }
-
-add_filter( 'allowed_block_types', 'theme_allowed_block_types' );
-  
-function theme_allowed_block_types( $allowed_blocks ) {
-  
-    return array(
-        'core/paragraph',
-        'core/gallery',
-        'core/cover',
-        'core/table',
-        'core/verse',
-        'core/code',
-        'core/freeform ',
-        'core/html',
-        'core/more',
-        'core/nextpage ',
-        'core/shortcode',
-        'core/archives',
-        'core/categories',
-        'core/latest-posts',
-        'core/calendar',
-        'core/search',
-        'core/tag-cloud',
-        'acf/supply-stats',
-        'acf/supply-stats',
-        'acf/supply-media',
-        'acf/supply-fold',
-        'acf/supply-content-block',
-        'acf/supply-quotes',
-        'acf/supply-contact',
-        'acf/supply-list-block',
-        'acf/supply-separator-block',
-    );
-  
+/**
+ * Gutenberg scripts and styles
+ *
+ */
+function be_gutenberg_scripts() {
+	wp_enqueue_script( 'theme-editor', get_template_directory_uri() . '/assets/js/editor.js', array( 'wp-blocks', 'wp-dom' ), filemtime( get_template_directory() . '/assets/js/editor.js' ), true );
 }
+add_action( 'enqueue_block_editor_assets', 'be_gutenberg_scripts' );

@@ -16,7 +16,7 @@
     }
 }
 main {
-    > .container {
+    > .container, .status-publish {
         a:not(.link-up):not(.stretched-link) {
             overflow: hidden;
             text-decoration: none;
