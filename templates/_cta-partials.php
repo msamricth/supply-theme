@@ -8,7 +8,7 @@ $ctaCustumLinkText = get_field( 'cta_link_text' );
     <div class="row">
         <div class="col-md-10 col-dlg-8 col-xl-6 col-xxl-5 col-3xl-4 mx-auto text-center cp4">
             <?php if ( $ctaTitle ) : 
-                echo '<h1 class="cp1 fadeNoScroll">' . $ctaTitle . '</h1>';
+                echo '<h1 class="cp1">' . $ctaTitle . '</h1>';
              endif; ?>
         <?php if ( $cta_link ) : 
 	    $post = $cta_link; 

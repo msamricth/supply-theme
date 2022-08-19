@@ -48,10 +48,9 @@
             opacity: 1;
             display: inline;
         }
-        
     }
 }
-.bg-pattern {
+.bg-pattern:not(.bg-black) {
     background-position: center center;
     background-repeat: repeat;
 }
