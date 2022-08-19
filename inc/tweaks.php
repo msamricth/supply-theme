@@ -66,7 +66,7 @@ function enqueue_footer_markup($markup){
 	}, 99, 1);
 }
 
-//Supply Grid function
+//Supply Grid functions
 function supply_grid($content, $defaults = null){
     $row = 'row';
     $classes = '';
@@ -151,3 +151,30 @@ function supply_grid($content, $defaults = null){
     endif; 
     return $container;
 }
+function supply_grid_sh($content, $defaults=null){
+    $row = 'row';
+    $classes = '';
+    $container ='';
+        if($defaults){
+            $classes = $defaults;
+        } else {
+            $classes .= 'col-md-10 mx-auto col-dlg-12 col-xl-10';
+        }
+        $container .= '<div class="' . $row . '">';
+        $container .= '<div class="' . $classes . '">';
+            if($content) {$container .= $content; } else {
+                $container .= '<h3>Something seems wrong here - this function requires the <i>"$content"</i> variable to have content</h3>';
+            }
+        $container .= '</div>';
+        $container .= '</div>';
+
+    return $container;
+}
+/**
+ * Gutenberg scripts and styles
+ *
+ */
+function be_gutenberg_scripts() {
+	wp_enqueue_script( 'theme-editor', get_template_directory_uri() . '/assets/js/editor.js', array( 'wp-blocks', 'wp-dom' ), filemtime( get_template_directory() . '/assets/js/editor.js' ), true );
+}
+add_action( 'enqueue_block_editor_assets', 'be_gutenberg_scripts' );

@@ -23,10 +23,11 @@ the_post();
 			);
 			edit_post_link( esc_html__( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
 		?>
-		<?php
-			get_sidebar();
-		?>
 	</div>
 </div><!-- /#post-<?php the_ID(); ?> -->
+
+<?php
+			get_sidebar();
+		?>
 <?php
 get_footer();

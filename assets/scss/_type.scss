@@ -49,3 +49,13 @@ blockquote, blockquote.wp-block-quote {
         }
     }
 }
+//Bootstrap's version of stretched link isn't working - to investigate why later.
+.stretched-link::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+    content: "";
+}

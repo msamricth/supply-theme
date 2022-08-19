@@ -2,7 +2,11 @@
     .card {
         margin-bottom: 60px;
         a {
-            &::after {display: none;
+            opacity: 1;
+            text-decoration: none;
+            &:not(.stretched-link){
+                &::after {display: none;
+                }
             }
         }
         .card-body {
@@ -56,9 +60,5 @@
     background-color: transparent;
     .post-thumbnail {
         overflow: hidden;
-    }
-    a {
-        opacity: 1;
-        text-decoration: none;
     }
 }

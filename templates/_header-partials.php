@@ -8,7 +8,7 @@ $classes ='header-container header-partial fadeNoScroll cp3';
 $header_text = '';
 $column_class = '';
 if ( get_field( 'full_width_page' ) == 1 ) : 
-    $column_class = 'col-md-12';
+    $column_class = 'col-md-12 mx-auto';
 else : 
     $column_class = 'col-md-10 mx-auto col-dlg-12 col-xl-10';
 endif;
