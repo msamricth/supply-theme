@@ -30,6 +30,8 @@ $tagline_link = get_field( 'tagline_link' );
 $i = 0;
 $cl_class = '';
 $foldUtils = '';
+$row = '';
+$container = '';
 if ( get_field( 'add_fold' ) == 1 ) : 
     $classes .= ' fold';
     if(get_field( 'custom_bg_color' )){
@@ -42,7 +44,7 @@ if ( get_field( 'add_fold' ) == 1 ) :
             $foldUtils .=' data-class="'. $foldClass .'"';
     }
 endif; 
-endwhile;
+
 $container .= '<div class="' . $row . '"'.$foldUtils.'>';
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>"<?php echo $foldUtils; ?>>
@@ -64,7 +66,7 @@ $container .= '<div class="' . $row . '"'.$foldUtils.'>';
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 order-md-1 col-xl-5 offset-xl-1">
+            <div class="col-md-6 order-md-1 col-xl-5 offset-xl-1" <?php if ( is_admin() ) {?> style="display:none"<?php }?>>
             <?php if ( have_rows( 'logos', 'option' ) ) : ?>
                 <div id="logoCarousel" class="carousel  carousel-fade pt-5 mt-1 pt-md-0 slide" data-bs-ride="carousel">
                     <div class="carousel-inner">               

@@ -42,20 +42,16 @@ if($scheme){
     </div>
 
     <div id="post-<?php the_ID(); ?>" <?php post_class('home-main' ); ?>>
-    <?php the_content();
-            ?>
-            <div class="fold" data-class="bg-pattern">
-                <?php
-                get_template_part('templates/_home', 'loop');
-                wp_link_pages( array(
-                    'before' => '<div class="page-links">' . __( 'Pages:', 'supply' ),
-                    'after'  => '</div>',
-                ) );
-                edit_post_link( __( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
-                
-                get_template_part('templates/_cta', 'partials');
-            ?>
-            </div>
+        <div class="fold" data-class="bg-pattern">
+            <?php the_content();
+            wp_link_pages( array(
+                'before' => '<div class="page-links">' . __( 'Pages:', 'supply' ),
+                'after'  => '</div>',
+            ) );
+            edit_post_link( __( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
+            
+        ?>
+        </div>
         
     </div><!-- /#post-<?php the_ID(); ?> -->
     <div>

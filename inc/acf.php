@@ -334,3 +334,30 @@ function register_supply_feature_block() {
 	}
 
 }
+
+add_action( 'acf/init', 'register_supply_posts_block' );
+function register_supply_posts_block() {
+
+	if ( function_exists( 'acf_register_block_type' ) ) {
+
+		// Register Supply Feature Block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-posts-block',
+			'title' 				=> __( 'Supply Posts Block' ),
+			'description' 			=> __( 'This block displays a loop of Supplys` posts(pages, case studies, ecternal links, etc)' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'admin-post',
+			'keywords'				=> array( 'supply', 'posts', 'block' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-posts-block.php',
+			// 'render_callback'	=> 'supply_feature_block_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.js',
+			// 'enqueue_assets' 	=> 'supply_feature_block_block_enqueue_assets',
+		));
+
+	}
+
+}

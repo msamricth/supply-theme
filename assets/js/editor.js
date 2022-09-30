@@ -12,7 +12,6 @@ wp.domReady( () => {
     wp.blocks.unregisterBlockType( 'core/latest-posts');
     wp.blocks.unregisterBlockType( 'core/group');
     wp.blocks.unregisterBlockType( 'core/heading');
-    wp.blocks.unregisterBlockType( 'core/html');
     wp.blocks.unregisterBlockType( 'core/list');
     wp.blocks.unregisterBlockType( 'core/media-text');
     wp.blocks.unregisterBlockType( 'core/navigation');
@@ -26,6 +25,5 @@ wp.domReady( () => {
     wp.blocks.unregisterBlockType( 'core/social-link');
     wp.blocks.unregisterBlockType( 'core/social-links');
     wp.blocks.unregisterBlockType( 'core/spacer');
-    wp.blocks.unregisterBlockType( 'core/text-columns');
     wp.blocks.unregisterBlockType( 'core/video');
   } );  

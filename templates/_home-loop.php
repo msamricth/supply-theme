@@ -19,14 +19,14 @@ endif; ?>
 <?php if ( get_field( 'use_default_loop' ) == 1 ) : 
     $args = array(
         'post_type' => array('post', 'external-link', 'case-studies'),
-        'posts_per_page' => 4,
-        'post__in' => [$post_IDs]
-    );
+        'posts_per_page' => 4
+    );   
 else :
     $args = array(
         'post_type' => array('post', 'external-link', 'case-studies'),
-        'posts_per_page' => 4
-    );   
+        'posts_per_page' => 4,
+        'post__in' => [$post_IDs]
+    );
 endif; ?>
 <?php
 $the_query = new WP_Query( $args ); ?>
