@@ -42,9 +42,7 @@ if($scheme){
     </div>
 
     <div id="post-<?php the_ID(); ?>" <?php post_class('home-main' ); ?>>
-      <?php get_template_part('templates/_tagline', 'partials');
-      
-            the_content();
+    <?php the_content();
             ?>
             <div class="fold" data-class="bg-pattern">
                 <?php

@@ -100,6 +100,52 @@ blockquote.wp-block-quote {
         }
     }
 }
+.block-supply-feature-block {
+    .tagline-section {
+        @include media-breakpoint-up(xl) {
+            h3 {
+                font-size: 52px;
+            }
+            a {
+                font-size: 18px;
+            }
+            p {
+                font-size: 20px;
+            }
+        }
+        @include media-breakpoint-up(3xl) {
+            h3{
+                font-size: 62px;
+            }
+            a {
+                font-size: 20px;
+            }
+            p {
+                font-size: 28px;
+            }
+        }
+        .row {
+            align-items: center;
+            .carousel {
+                .carousel-item {
+                    min-height: 200px;
+                    .logo-container {
+                        opacity: 0;
+                        transition: opacity 0.15s linear 0s;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+                    &.active {
+                        .logo-container {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 @include media-breakpoint-up(md) {
     .header-partial {
         header.page-header {

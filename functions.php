@@ -11,15 +11,6 @@ if ( is_readable( $theme_customizer ) ) {
 }
 
 
-/**
- * Include Support for wordpress.com-specific functions.
- * 
- * @since v1.0
- */
-$theme_wordpresscom = __DIR__ . '/inc/wordpresscom.php';
-if ( is_readable( $theme_wordpresscom ) ) {
-	require_once $theme_wordpresscom;
-}
 
 
 /**
@@ -37,53 +28,62 @@ if ( ! isset( $content_width ) ) {
  *
  * @since v1.0
  */
-if ( ! function_exists( 'supply_setup_theme' ) ) :
-	function supply_setup_theme() {
-		// Make theme available for translation: Translations can be filed in the /languages/ directory.
-		load_theme_textdomain( 'supply', __DIR__ . '/languages' );
-
-		// Theme Support.
-		add_theme_support( 'title-tag' );
-		add_theme_support( 'automatic-feed-links' );
-		add_theme_support( 'post-thumbnails' );
-		add_theme_support(
-			'html5',
-			array(
-				'search-form',
-				'comment-form',
-				'comment-list',
-				'gallery',
-				'caption',
-				'script',
-				'style',
-				'navigation-widgets',
-			)
-		);
-
-		// Add support for Block Styles.
-		add_theme_support( 'wp-block-styles' );
-		// Add support for full and wide alignment.
-		add_theme_support( 'align-wide' );
-		// Add support for editor styles.
-		add_theme_support( 'editor-styles' );
-		// Enqueue editor styles.
-		add_editor_style( 'style-editor.css' );
-
-		// Default Attachment Display Settings.
-		update_option( 'image_default_align', 'none' );
-		update_option( 'image_default_link_type', 'none' );
-		update_option( 'image_default_size', 'large' );
-
-		// Custom CSS-Styles of Wordpress Gallery.
-		add_filter( 'use_default_gallery_style', '__return_false' );
+	if ( ! function_exists( 'supply_setup_theme' ) ) {
+		function themes_starter_setup_theme() {
+			// Make theme available for translation: Translations can be filed in the /languages/ directory.
+			load_theme_textdomain( 'my-theme', __DIR__ . '/languages' );
+	
+			/**
+			 * Set the content width based on the theme's design and stylesheet.
+			 *
+			 * @since v1.0
+			 */
+			global $content_width;
+			if ( ! isset( $content_width ) ) {
+				$content_width = 800;
+			}
+	
+			// Theme Support.
+			add_theme_support( 'title-tag' );
+			add_theme_support( 'automatic-feed-links' );
+			add_theme_support( 'post-thumbnails' );
+			add_theme_support(
+				'html5',
+				array(
+					'search-form',
+					'comment-form',
+					'comment-list',
+					'gallery',
+					'caption',
+					'script',
+					'style',
+					'navigation-widgets',
+				)
+			);
+	
+			// Add support for Block Styles.
+			add_theme_support( 'wp-block-styles' );
+			// Add support for full and wide alignment.
+			add_theme_support( 'align-wide' );
+			// Add support for editor styles.
+			add_theme_support( 'editor-styles' );
+			// Enqueue editor styles.
+			add_editor_style( 'style-editor.css' );
+	
+			// Default Attachment Display Settings.
+			update_option( 'image_default_align', 'none' );
+			update_option( 'image_default_link_type', 'none' );
+			update_option( 'image_default_size', 'large' );
+	
+			// Custom CSS-Styles of Wordpress Gallery.
+			add_filter( 'use_default_gallery_style', '__return_false' );
+		}
+		add_action( 'after_setup_theme', 'themes_starter_setup_theme' );
+	
+		// Disable Block Directory: https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/editor-filters.md#block-directory
+		remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets' );
+		remove_action( 'enqueue_block_editor_assets', 'gutenberg_enqueue_block_editor_assets_block_directory' );
 	}
-	add_action( 'after_setup_theme', 'supply_setup_theme' );
-
-	// Disable Block Directory: https://github.com/WordPress/gutenberg/blob/trunk/docs/reference-guides/filters/editor-filters.md#block-directory
-	remove_action( 'enqueue_block_editor_assets', 'wp_enqueue_editor_block_directory_assets' );
-	remove_action( 'enqueue_block_editor_assets', 'gutenberg_enqueue_block_editor_assets_block_directory' );
-endif;
-
 
 /**
  * Fire the wp_body_open action.
@@ -288,154 +288,6 @@ function supply_password_form() {
 add_filter( 'the_password_form', 'supply_password_form' );
 
 
-if ( ! function_exists( 'supply_comment' ) ) :
-	/**
-	 * Style Reply link.
-	 *
-	 * @since v1.0
-	 */
-	function supply_replace_reply_link_class( $class ) {
-		return str_replace( "class='comment-reply-link", "class='comment-reply-link btn btn-outline-secondary", $class );
-	}
-	add_filter( 'comment_reply_link', 'supply_replace_reply_link_class' );
-
-	/**
-	 * Template for comments and pingbacks:
-	 * add function to comments.php ... wp_list_comments( array( 'callback' => 'supply_comment' ) );
-	 *
-	 * @since v1.0
-	 */
-	function supply_comment( $comment, $args, $depth ) {
-		$GLOBALS['comment'] = $comment;
-		switch ( $comment->comment_type ) :
-			case 'pingback':
-			case 'trackback':
-	?>
-		<li class="post pingback">
-			<p><?php esc_html_e( 'Pingback:', 'supply' ); ?> <?php comment_author_link(); ?><?php edit_comment_link( esc_html__( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' ); ?></p>
-	<?php
-				break;
-			default:
-	?>
-		<li <?php comment_class(); ?> id="li-comment-<?php comment_ID(); ?>">
-			<article id="comment-<?php comment_ID(); ?>" class="comment">
-				<footer class="comment-meta">
-					<div class="comment-author vcard">
-						<?php
-							$avatar_size = ( '0' !== $comment->comment_parent ? 68 : 136 );
-							echo get_avatar( $comment, $avatar_size );
-
-							/* translators: 1: comment author, 2: date and time */
-							printf(
-								wp_kses_post( __( '%1$s, %2$s', 'supply' ) ),
-								sprintf( '<span class="fn">%s</span>', get_comment_author_link() ),
-								sprintf( '<a href="%1$s"><time datetime="%2$s">%3$s</time></a>',
-									esc_url( get_comment_link( $comment->comment_ID ) ),
-									get_comment_time( 'c' ),
-									/* translators: 1: date, 2: time */
-									sprintf( esc_html__( '%1$s ago', 'supply' ), human_time_diff( (int) get_comment_time( 'U' ), current_time( 'timestamp' ) ) )
-								)
-							);
-
-							edit_comment_link( esc_html__( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
-						?>
-					</div><!-- .comment-author .vcard -->
-
-					<?php if ( '0' === $comment->comment_approved ) : ?>
-						<em class="comment-awaiting-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.', 'supply' ); ?></em>
-						<br />
-					<?php endif; ?>
-				</footer>
-
-				<div class="comment-content"><?php comment_text(); ?></div>
-
-				<div class="reply">
-					<?php
-						comment_reply_link(
-							array_merge(
-								$args,
-								array(
-									'reply_text' => esc_html__( 'Reply', 'supply' ) . ' <span>&darr;</span>',
-									'depth'      => $depth,
-									'max_depth'  => $args['max_depth'],
-								)
-							)
-						);
-					?>
-				</div><!-- /.reply -->
-			</article><!-- /#comment-## -->
-		<?php
-				break;
-		endswitch;
-	}
-
-	/**
-	 * Custom Comment form.
-	 *
-	 * @since v1.0
-	 * @since v1.1: Added 'submit_button' and 'submit_field'
-	 * @since v2.0.2: Added '$consent' and 'cookies'
-	 */
-	function supply_custom_commentform( $args = array(), $post_id = null ) {
-		if ( null === $post_id ) {
-			$post_id = get_the_ID();
-		}
-
-		$commenter     = wp_get_current_commenter();
-		$user          = wp_get_current_user();
-		$user_identity = $user->exists() ? $user->display_name : '';
-
-		$args = wp_parse_args( $args );
-
-		$req      = get_option( 'require_name_email' );
-		$aria_req = ( $req ? " aria-required='true' required" : '' );
-		$consent  = ( empty( $commenter['comment_author_email'] ) ? '' : ' checked="checked"' );
-		$fields   = array(
-			'author'  => '<div class="form-floating mb-3">
-							<input type="text" id="author" name="author" class="form-control" value="' . esc_attr( $commenter['comment_author'] ) . '" placeholder="' . esc_html__( 'Name', 'supply' ) . ( $req ? '*' : '' ) . '"' . $aria_req . ' />
-							<label for="author">' . esc_html__( 'Name', 'supply' ) . ( $req ? '*' : '' ) . '</label>
-						</div>',
-			'email'   => '<div class="form-floating mb-3">
-							<input type="email" id="email" name="email" class="form-control" value="' . esc_attr( $commenter['comment_author_email'] ) . '" placeholder="' . esc_html__( 'Email', 'supply' ) . ( $req ? '*' : '' ) . '"' . $aria_req . ' />
-							<label for="email">' . esc_html__( 'Email', 'supply' ) . ( $req ? '*' : '' ) . '</label>
-						</div>',
-			'url'     => '',
-			'cookies' => '<p class="form-check mb-3 comment-form-cookies-consent">
-							<input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" class="form-check-input" type="checkbox" value="yes"' . $consent . ' />
-							<label class="form-check-label" for="wp-comment-cookies-consent">' . esc_html__( 'Save my name, email, and website in this browser for the next time I comment.', 'supply' ) . '</label>
-						</p>',
-		);
-
-		$defaults = array(
-			'fields'               => apply_filters( 'comment_form_default_fields', $fields ),
-			'comment_field'        => '<div class="form-floating mb-3">
-											<textarea id="comment" name="comment" class="form-control" aria-required="true" required placeholder="' . esc_attr__( 'Comment', 'supply' ) . ( $req ? '*' : '' ) . '"></textarea>
-											<label for="comment">' . esc_html__( 'Comment', 'supply' ) . '</label>
-										</div>',
-			/** This filter is documented in wp-includes/link-template.php */
-			'must_log_in'          => '<p class="must-log-in">' . sprintf( wp_kses_post( __( 'You must be <a href="%s">logged in</a> to post a comment.', 'supply' ) ), wp_login_url( apply_filters( 'the_permalink', get_the_permalink( get_the_ID() ) ) ) ) . '</p>',
-			/** This filter is documented in wp-includes/link-template.php */
-			'logged_in_as'         => '<p class="logged-in-as">' . sprintf( wp_kses_post( __( 'Logged in as <a href="%1$s">%2$s</a>. <a href="%3$s" title="Log out of this account">Log out?</a>', 'supply' ) ), get_edit_user_link(), $user->display_name, wp_logout_url( apply_filters( 'the_permalink', get_the_permalink( get_the_ID() ) ) ) ) . '</p>',
-			'comment_notes_before' => '<p class="small comment-notes">' . esc_html__( 'Your Email address will not be published.', 'supply' ) . '</p>',
-			'comment_notes_after'  => '',
-			'id_form'              => 'commentform',
-			'id_submit'            => 'submit',
-			'class_submit'         => 'btn btn-primary',
-			'name_submit'          => 'submit',
-			'title_reply'          => '',
-			'title_reply_to'       => esc_html__( 'Leave a Reply to %s', 'supply' ),
-			'cancel_reply_link'    => esc_html__( 'Cancel reply', 'supply' ),
-			'label_submit'         => esc_html__( 'Post Comment', 'supply' ),
-			'submit_button'        => '<input type="submit" id="%2$s" name="%1$s" class="%3$s" value="%4$s" />',
-			'submit_field'         => '<div class="form-submit">%1$s %2$s</div>',
-			'format'               => 'html5',
-		);
-
-		return $defaults;
-	}
-	add_filter( 'comment_form_defaults', 'supply_custom_commentform' );
-
-endif;
 
 
 /**
@@ -492,9 +344,7 @@ function supply_scripts_loader() {
 	// 2. Scripts.
 	wp_enqueue_script( 'mainjs', get_theme_file_uri( 'assets/js/main.bundle.js' ), array(), $theme_version, true );
 
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
+
 }
 add_action( 'wp_enqueue_scripts', 'supply_scripts_loader' );
 /**
