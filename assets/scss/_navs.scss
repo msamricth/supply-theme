@@ -37,6 +37,42 @@
         background:transparent;
         background-color: transparent;
     }
+
+    @include media-breakpoint-down(md) { 
+        .navbar-collapse {
+            background-color: $black;
+            margin-left: -20px;
+            margin-right: -20px;
+            color: $white;
+            height: 568px !important;
+            position: absolute;
+            width: calc(100% + 40px);
+            top:0;
+            transition: margin 700ms !important;
+            margin-left: -120%;
+            &.show {
+                margin-left:-20px;
+                animation: 700ms slide-right;
+            
+            }
+            .navbar-nav {
+                padding: 80px 27px;
+                a.nav-link, a.nav-link.active {
+                    color: $white;
+                }
+            }
+        
+            &.collapsing {
+                margin-left: -115%;
+                transition: margin 400ms !important;
+            }
+        }
+        button.navbar-toggler.hamburger {
+            position: relative;
+            z-index: 9;
+        }
+    }
+
 }
 #main {
     margin-top: 80px;
@@ -92,3 +128,11 @@
         bottom: -6px;
     }
 }
+@keyframes slide-right {
+    from {
+      margin-left: -100%;
+    }
+    to {
+      margin-left: -20px;
+    }
+  }

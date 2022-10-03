@@ -241,7 +241,10 @@ function myTheme_registerWidgetAreas() {
 }
 add_action( 'widgets_init', 'myTheme_registerWidgetAreas' );
 
-
+$theme_functions = __DIR__ . '/inc/theme_functions.php';
+if ( is_readable( $theme_functions ) ) {
+	require_once $theme_functions;
+}
 if ( ! function_exists( 'supply_article_posted_on' ) ) :
 	/**
 	 * "Theme posted on" pattern.
