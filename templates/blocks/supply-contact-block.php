@@ -47,12 +47,12 @@ $classes .=' fadeNoScroll';
         </div>
         <div class="">
             <?php
-            echo '<p>';
+            echo '<p class="fl">';
             echo '<a href="mailto:';
             the_field( 'poc_email', 'option' );
             echo '">';
             the_field( 'poc_email', 'option' );
-            echo '<span class="nav-underline"></span></a></p><p>';
+            echo '<span class="nav-underline"></span></a></p><p class="fl">';
             echo '<a href="tel:';
             the_field( 'poc_number', 'option' ); 
             echo '">';

@@ -21,9 +21,8 @@ if($scheme){
 
 
 ?>
-
 <main class="fold-container  <?php echo $scheme ?>">
-    <div class="home-header">
+    <div class="home-header header-container">
         <div class="container text-left">
             <div class="row fold" data-class="bg-dark">
                 <div class="col-lg-10 col-xl-8 col-3xl-6 col-4xl-5 mx-md-auto">

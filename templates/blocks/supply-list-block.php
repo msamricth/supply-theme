@@ -34,7 +34,7 @@ $i = 0;
 $blockContent .= '<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes ) .'">';
 if ( have_rows( 'lists' ) ) : 
     while ( have_rows( 'lists' ) ) : the_row(); $i++;   
-        $blockContent .='<div class="col-11 col-md-4 col-dlg-3 cp2 pe-4xl-5">';
+        $blockContent .='<div class="col-11 col-md-4 col-dlg-3 cp2 pe-4xl-5 supply-list">';
         if ( have_rows( 'list_item_header' ) ) : 
             while ( have_rows( 'list_item_header' ) ) : the_row(); 
                 $type = get_sub_field( 'type' ); 

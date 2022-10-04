@@ -62,6 +62,11 @@ blockquote.wp-block-quote {
     .cp2:last-child {
         margin-bottom: 0 !important;
     }
+    .supply-list {
+        p {
+            font-family: $link_font;
+        }
+    }
 }
 .header-partial {
     header.page-header {
