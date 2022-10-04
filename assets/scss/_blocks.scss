@@ -192,3 +192,9 @@ blockquote.wp-block-quote {
         }
     }
 }
+
+@include media-breakpoint-down(md) {
+    blockquote.wp-block-quote p, blockquote.wp-block-quote cite strong, blockquote.wp-block-quote cite span {
+        text-align: left;
+    }
+}

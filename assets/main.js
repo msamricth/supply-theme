@@ -110,11 +110,17 @@ import * as bootstrap from 'bootstrap';
 						const winPos = window.scrollY;
 						if(entry.isIntersecting){
 							const contentContainer = document.querySelector('.fold-container');
-						
-						contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
 						contentContainer.style.color = '';
 						contentContainer.style.background = '';
 						const foldClass = entry.target.dataset.class; // identify which element is visible in the viewport at 75%
+						const containerClasses = contentContainer.classList;
+						if(foldClass == 'bg-pattern' && containerClasses.contains('bg-pattern')) {
+							if(containerClasses.contains('bg-dark')) {
+								contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern");
+							}
+						} else {
+							contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
+						}
 						if(foldClass == 'bg-custom') {
 							const foldBG = entry.target.dataset.bg;
 							const foldColor = entry.target.dataset.color;
@@ -126,12 +132,14 @@ import * as bootstrap from 'bootstrap';
 							contentContainer.style.background = foldBG;
 						}
 						if(foldClass == 'bg-pattern') {
+							if(containerClasses.contains('bg-dark')){
+							} else {
 								contentContainer.classList.add('bg-light');
 								setTimeout(
 									function() {
 										contentContainer.classList.add(`${foldClass}`);
 								}, 800);
-								
+							}								
 							} else {
 								contentContainer.classList.add(`${foldClass}`);
 							}
