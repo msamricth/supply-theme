@@ -191,11 +191,13 @@ input.link-in:hover {
         opacity: 1;
     }
 }
-.footer-content.supply-underline:hover span, .footer-content.supply-underline:hover p, .footer-content.supply-underline:hover .fl,  .footer-content.supply-underline:hover .pt-4.mt-2 {
-    opacity:0.5;
+.footer-content.hovered { 
+    span, p, .pt-4.mt-2 {
+        opacity:0.5;
+    }
 } 
 
-.footer-content.supply-underline:hover .fl:hover{
+.footer-content.hovered .fl:hover{
     opacity:1;
 }
 .link-up {

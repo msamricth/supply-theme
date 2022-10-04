@@ -67,6 +67,17 @@ import * as bootstrap from 'bootstrap';
 		const caseStudy = document.querySelector('.single-case-studies');
 		var navbar = $('nav#header');
 		var foldContainer = $('.fold-container');
+		var footerContent =$('.footer-content');
+		var footerLinks = $('.footer-content .fl a');
+		
+		footerLinks.each(function(i, obj) {
+			var footerLink = $(this);
+			footerLink.on("mouseenter", function(){     
+				footerContent.addClass('hovered');    
+			}), footerLink.on("mouseleave", function(){    
+				footerContent.removeClass('hovered');     
+			});
+		});
 		$(document).ready(function () {
 			var $message = $('#message');
 				if(($message).length) {
