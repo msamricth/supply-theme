@@ -5,6 +5,9 @@
     opacity: 0;
     display: none;
 }
+.bg-dark.bg-pattern {
+    background-image: none !important;
+}
 .fold-container {
     p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
         transition: background-color .4s ease-in-out,color .4s ease-in-out;
