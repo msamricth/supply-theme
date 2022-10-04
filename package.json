@@ -1,13 +1,13 @@
 {
-  "name": "themes-starter",
+  "name": "Supply-Theme",
   "version": "3.0.0",
   "license": "GPL-2.0",
   "description": "A WordPress Starter Theme built with Bootstrap 5.",
-  "homepage": "https://them.es",
-  "author": "them.es",
+  "homepage": "https://workwithsupply.com",
+  "author": "msamricth",
   "repository": {
     "type": "git",
-    "url": "git://github.com/them-es/themes-starter.git"
+    "url": "git://github.com/work-with-supply/supply-theme.git"
   },
   "scripts": {
     "watch": "gulp watch"

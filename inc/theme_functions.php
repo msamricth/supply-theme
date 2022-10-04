@@ -57,10 +57,19 @@ function supply_grid($content, $defaults = null){
                         if(strpos($columns, 'container') !== false){
                             $classes .= ' col-' . $breakpoint_aspect . '-12';
                         } else {
-                            $classes .= ' col-' . $breakpoint_aspect . '-' . $columns;
+                            
+                            if(strpos($breakpoint_aspect, 'xs') !== false){
+                                $classes .= ' col-' . $columns;
+                            } else {
+                                $classes .= ' col-' . $breakpoint_aspect . '-' . $columns;
+                            }
                             if($offset) {
                                 if(strpos($offset, 'Center') !== false){
-                                    $classes .= ' mx-'. $breakpoint_aspect .'-auto';
+                                    if(strpos($breakpoint_aspect, 'xs') !== false){
+                                        $classes .= ' mx-auto';
+                                    } else {
+                                        $classes .= ' mx-'. $breakpoint_aspect .'-auto';
+                                    }
                                 } else {
                                     $classes .= ' offset-'.$breakpoint_aspect. '-' . $offset;
                                 }

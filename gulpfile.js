@@ -97,9 +97,9 @@ function build_css() {
 gulp.task( 'watch',
 	function () {
 		// Modify "dev_url" constant and uncomment "server.init()" to use browser sync
-		/*server.init({
+	server.init({
 			proxy: dev_url,
-		} );*/
+		} );
 
 		gulp.watch( paths.scripts.src, build_js );
 		gulp.watch( [ paths.styles.src, './assets/scss/*.scss' ], build_css );

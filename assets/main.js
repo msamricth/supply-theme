@@ -1,6 +1,5 @@
 // Webpack Imports
 import * as bootstrap from 'bootstrap';
-
 ( function () {
 	'use strict';
 
@@ -22,7 +21,7 @@ import * as bootstrap from 'bootstrap';
 			trigger: 'focus',
 		} );
 	} );
-	!function(a){"function"==typeof define&&define.amd?define(["jquery"],a):"object"==typeof exports?module.exports=a(require("jquery")):a(jQuery)}(function(a){function i(){var b,c,d={height:f.innerHeight,width:f.innerWidth};return d.height||(b=e.compatMode,(b||!a.support.boxModel)&&(c="CSS1Compat"===b?g:e.body,d={height:c.clientHeight,width:c.clientWidth})),d}function j(){return{top:f.pageYOffset||g.scrollTop||e.body.scrollTop,left:f.pageXOffset||g.scrollLeft||e.body.scrollLeft}}function k(){if(b.length){var e=0,f=a.map(b,function(a){var b=a.data.selector,c=a.$element;return b?c.find(b):c});for(c=c||i(),d=d||j();e<b.length;e++)if(a.contains(g,f[e][0])){var h=a(f[e]),k={height:h[0].offsetHeight,width:h[0].offsetWidth},l=h.offset(),m=h.data("inview");if(!d||!c)return;l.top+k.height>d.top&&l.top<d.top+c.height&&l.left+k.width>d.left&&l.left<d.left+c.width?m||h.data("inview",!0).trigger("inview",[!0]):m&&h.data("inview",!1).trigger("inview",[!1])}}}var c,d,h,b=[],e=document,f=window,g=e.documentElement;a.event.special.inview={add:function(c){b.push({data:c,$element:a(this),element:this}),!h&&b.length&&(h=setInterval(k,250))},remove:function(a){for(var c=0;c<b.length;c++){var d=b[c];if(d.element===this&&d.data.guid===a.guid){b.splice(c,1);break}}b.length||(clearInterval(h),h=null)}},a(f).bind("scroll resize scrollstop",function(){c=d=null}),!g.addEventListener&&g.attachEvent&&g.attachEvent("onfocusin",function(){d=null})});
+
 
 	const cf7Form = document.querySelector('.wpcf7-form');
 	const currentURL= document.getElementById('currentURL');
@@ -72,32 +71,41 @@ import * as bootstrap from 'bootstrap';
 					expandTextarea('message');
 				}			
 			var $contentContainer = $('.fold-container');
-			const sections = document.querySelectorAll('.fold');
 			if($contentContainer) {
-				$('.fold').each(function(i, obj) {
-					//test
-					var foldClass = $(this).data("class"); 
-					$(this).on('inview', function(event, isInView) {
-						if (isInView) {
-							if($contentContainer.hasClass(foldClass)){
-							} else {
-								$contentContainer.removeClass('bg-dark');
-								$contentContainer.removeClass('bg-light');
-								$contentContainer.removeClass('bg-pattern');
-								if(foldClass == 'bg-pattern') {
-									$contentContainer.addClass('bg-light');
-									setTimeout(
-										function() {
-											$contentContainer.addClass(foldClass);
-									}, 400);
-								} else {
-									$contentContainer.addClass(foldClass);
-								}
-							}
+				// list of elements to be observed
+				const targets = document.getElementsByClassName('fold')
+
+				const options = {
+				root: null, // null means root is viewport
+				rootMargin: '0px',
+				threshold: 0.5 // trigger callback when 50% of the element is visible
+				}
+
+				function callback(entries, observer) { 
+				entries.forEach(entry => {
+
+					if(entry.isIntersecting){
+						const contentContainer = document.querySelector('.fold-container');
+					
+					contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern", "bg-black");
+					const foldClass = entry.target.dataset.class; // identify which element is visible in the viewport at 50%
+					if(foldClass == 'bg-pattern') {
+								contentContainer.classList.add('bg-light');
+						setTimeout(
+														function() {
+															contentContainer.classList.add(`${foldClass}`);
+													}, 400);
+								
 						} else {
+							contentContainer.classList.add(`${foldClass}`);
 						}
-					});
+					}
 				});
+				};
+				let observer = new IntersectionObserver(callback, options);
+
+				[...targets].forEach(target => observer.observe(target));
+
 			}
 			var previousScroll = 0;
 			$(window).scroll(function () {
