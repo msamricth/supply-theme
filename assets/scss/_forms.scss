@@ -46,6 +46,9 @@
 }
 .form-control {
     opacity: 0.75;
+    @include media-breakpoint-up(xl) {
+        font-size: 18px;
+    }
     &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
         color: $primary;
         opacity: 0.75;

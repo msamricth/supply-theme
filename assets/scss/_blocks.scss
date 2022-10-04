@@ -150,7 +150,34 @@ blockquote.wp-block-quote {
         }
     }
 }
-
+.block-posts-content-block, .posts-loop {
+    .card {
+        transition: opacity .3s ease-in-out;
+            .post-thumbnail {
+                background-color: #000;
+                transition: opacity .3s ease-in-out;
+                position: relative;
+                &:after{
+                    transition: opacity .3s ease-in-out;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left:0;
+                    top:0;
+                    content:'';
+                    background-color: #000;
+                    opacity:0;
+                }
+            }
+        &:hover {
+            .post-thumbnail {
+                &:after{
+                    opacity:.25;
+                }
+            }
+        }
+    }
+}
 @include media-breakpoint-up(md) {
     .header-partial {
         header.page-header {

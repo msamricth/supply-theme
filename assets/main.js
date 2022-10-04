@@ -116,7 +116,7 @@ import * as bootstrap from 'bootstrap';
 						const containerClasses = contentContainer.classList;
 						if(foldClass == 'bg-pattern' && containerClasses.contains('bg-pattern')) {
 							if(containerClasses.contains('bg-dark')) {
-								contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern");
+								checkHeader();
 							}
 						} else {
 							contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
