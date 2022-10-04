@@ -102,7 +102,7 @@ import * as bootstrap from 'bootstrap';
 				const options = {
 				root: null, // null means root is viewport
 				rootMargin: '0px',
-				threshold: 0.75 // trigger callback when 75% of the element is visible
+				threshold: 0.5 // trigger callback when 75% of the element is visible
 				}
 
 				function callback(entries, observer) { 
@@ -114,12 +114,16 @@ import * as bootstrap from 'bootstrap';
 						contentContainer.style.background = '';
 						const foldClass = entry.target.dataset.class; // identify which element is visible in the viewport at 75%
 						const containerClasses = contentContainer.classList;
-						if(foldClass == 'bg-pattern' && containerClasses.contains('bg-pattern')) {
+						if(foldClass == 'bg-pattern' && containerClasses.contains('bg-pattern-fold')) {
 							if(containerClasses.contains('bg-dark')) {
-								checkHeader();
+								if(winPos === 0){
+									checkHeader();
+								} else {
+									contentContainer.classList.remove("bg-dark");
+								}
 							}
 						} else {
-							contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
+							contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern-fold", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
 						}
 						if(foldClass == 'bg-custom') {
 							const foldBG = entry.target.dataset.bg;
@@ -137,7 +141,7 @@ import * as bootstrap from 'bootstrap';
 								contentContainer.classList.add('bg-light');
 								setTimeout(
 									function() {
-										contentContainer.classList.add(`${foldClass}`);
+										contentContainer.classList.add('bg-pattern-fold');
 								}, 800);
 							}								
 							} else {

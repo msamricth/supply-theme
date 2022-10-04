@@ -55,5 +55,4 @@ if($scheme){
     </div><!-- /#post-<?php the_ID(); ?> -->
     <div>
     <?php
-
 get_footer();
