@@ -24,9 +24,32 @@ if ( ! empty( $block['className'] ) ) {
 if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
+$Utils = '';
 $classes .=' fadeNoScroll';
-?>
-
+$row = '';
+if ( get_field( 'add_fold' ) == 1 ) : 
+    $row.= ' fold';
+    if ( have_rows( 'fold_settings' ) ) :
+        while ( have_rows( 'fold_settings' ) ) : the_row(); 
+            if(get_sub_field( 'custom_bg_color' )){
+                    $customColor = get_sub_field( 'custom_bg_color' );
+                    $customText = get_sub_field('custom_text_color');
+                    if($customText) {
+                        $customText = 'data-color="'.$customText.'"';
+                    } else {
+                        $customText = 'data-color="default"';
+                    }
+                    $row .= ' fold-custom';
+                    $Utils .=' data-bg="'.$customColor.'" '. $customText;
+            }
+            if(get_sub_field( 'color' )){
+                    $foldClass = 'bg-' . get_sub_field( 'color' );
+                    $Utils .=' data-class="'. $foldClass .'"';
+            }
+            
+        endwhile;
+	endif; 
+endif; ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
 <?php 
 $post_IDs = '';
@@ -60,12 +83,17 @@ endif; ?>
 $the_query = new WP_Query( $args ); ?>
 
 <?php if ( $the_query->have_posts() ) : ?>
-    <div class="container home-loop-section fold fadeNoScroll cp4" data-class="bg-pattern">
+    <div class="container home-loop-section fadeNoScroll cp4">
         <div class="row">
             <div class="col-dlg-10 offset-dlg-1">
                 <?php while ( $the_query->have_posts() ) : $the_query->the_post(); 
                     $post_type = get_post_type();
-                    get_template_part('templates/_content', $post_type);
+                    $pclasses = 'cp4 fadeNoScroll ' . $row;
+                    get_template_part('templates/_content', $post_type, array( 
+                        'classes' => $pclasses,
+                        'utilities' => $Utils,
+                        ) 
+                       );
                 endwhile; ?>
             </div>
         </div>

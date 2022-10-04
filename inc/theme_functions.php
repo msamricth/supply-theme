@@ -31,6 +31,7 @@ function supply_grid($content, $defaults = null){
     $foldUtils = '';
     $container = '';
     $fullWidthAll = '';
+    $customText = '';
     if ( have_rows( 'column_settings' ) ) : 
         while ( have_rows( 'column_settings' ) ) : the_row(); 
             if ( get_sub_field( 'full_width_content_container' ) == 1 ) : 
@@ -94,11 +95,17 @@ function supply_grid($content, $defaults = null){
                 $row .= ' fold';
                 if(get_sub_field( 'custom_bg_color' )){
                         $customColor = get_sub_field( 'custom_bg_color' );
+                        $customText = get_sub_field('custom_text_color');
+                        if($customText) {
+                            $customText = 'data-color="'.$customText.'"';
+                        } else {
+                            $customText = 'data-color="default"';
+                        }
                         $row .= ' fold-custom';
-                        $foldUtils .= ' data-color="'. $customColor .'"';
+                        $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
                 }
                 if(get_sub_field( 'color' )){
-                        $foldClass = get_sub_field( 'color' );
+                        $foldClass = 'bg-' . get_sub_field( 'color' );
                         $foldUtils .=' data-class="'. $foldClass .'"';
                 }
             endif; 

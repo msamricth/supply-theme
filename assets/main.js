@@ -78,50 +78,14 @@ import * as bootstrap from 'bootstrap';
 				footerContent.removeClass('hovered');     
 			});
 		});
-		$(document).ready(function () {
+		jQuery(function() {
 			var $message = $('#message');
 				if(($message).length) {
 					expandTextarea('message');
 				}			
 			var $contentContainer = $('.fold-container');
 			var homeHeader = $('.home-header');
-			if($contentContainer) {
-				// list of elements to be observed
-				const targets = document.getElementsByClassName('fold')
-
-				const options = {
-				root: null, // null means root is viewport
-				rootMargin: '0px',
-				threshold: 0.5 // trigger callback when 50% of the element is visible
-				}
-
-				function callback(entries, observer) { 
-				entries.forEach(entry => {
-
-					if(entry.isIntersecting){
-						const contentContainer = document.querySelector('.fold-container');
-					
-					contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern", "bg-black");
-					const foldClass = entry.target.dataset.class; // identify which element is visible in the viewport at 50%
-					if(foldClass == 'bg-pattern') {
-								contentContainer.classList.add('bg-light');
-						setTimeout(
-														function() {
-															contentContainer.classList.add(`${foldClass}`);
-													}, 400);
-								
-						} else {
-							contentContainer.classList.add(`${foldClass}`);
-						}
-					}
-				});
-				};
-				let observer = new IntersectionObserver(callback, options);
-
-				[...targets].forEach(target => observer.observe(target));
-
-			}
-			if(homeHeader) {
+			function checkHeader(){
 				homeHeader.on('inview', function(event, isInView) {
 					var scrollObject = $(this);
 					if (isInView) {
@@ -129,6 +93,94 @@ import * as bootstrap from 'bootstrap';
 							$contentContainer.removeClass('bg-pattern');
 					} 
 				});
+			}
+			
+			if($contentContainer) {
+				// list of elements to be observed
+				const targets = document.getElementsByClassName('fold')
+
+				const options = {
+				root: null, // null means root is viewport
+				rootMargin: '0px',
+				threshold: 0.75 // trigger callback when 75% of the element is visible
+				}
+
+				function callback(entries, observer) { 
+					entries.forEach(entry => {
+						const winPos = window.scrollY;
+						if(entry.isIntersecting){
+							const contentContainer = document.querySelector('.fold-container');
+						
+						contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
+						contentContainer.style.color = '';
+						contentContainer.style.background = '';
+						const foldClass = entry.target.dataset.class; // identify which element is visible in the viewport at 75%
+						if(foldClass == 'bg-custom') {
+							const foldBG = entry.target.dataset.bg;
+							const foldColor = entry.target.dataset.color;
+							if(foldColor == 'default'){
+								checkFoldColor(foldColor);
+							} else {
+								contentContainer.style.color = foldColor;
+							}
+							contentContainer.style.background = foldBG;
+						}
+						if(foldClass == 'bg-pattern') {
+								contentContainer.classList.add('bg-light');
+								setTimeout(
+									function() {
+										contentContainer.classList.add(`${foldClass}`);
+								}, 800);
+								
+							} else {
+								contentContainer.classList.add(`${foldClass}`);
+							}
+						}	
+						if(winPos === 0){
+							checkHeader();
+						} 
+					});
+				};
+				let observer = new IntersectionObserver(callback, options);
+
+				[...targets].forEach(target => observer.observe(target));
+
+	
+				function checkFoldColor(){
+					//extract R G and B from element background color
+					var contentContainer = $('.fold-container');
+					let backgroundColor = contentContainer.css("background-color");
+					backgroundColor =  backgroundColor.split(',')
+					let R = parseInt(backgroundColor[0].split('(')[1])
+					let G = parseInt(backgroundColor[1])
+					let B = parseInt(backgroundColor[2].split(')')[0])
+			
+					//Convert RGB to HSL
+					
+					//The R,G,B values are divided by 255 to change the range from 0..255 to 0..1
+					let rPrime = R/255
+					let gPrime = G/255
+					let bPrime = B/255
+					//Then we extract max and min values
+					let cMax = Math.max(rPrime, gPrime, bPrime)
+					let cMin = Math.min(rPrime, gPrime, bPrime)
+					/*
+					HSL is Hue, saturation and lightness.
+					We need only lightness to determine if the color is bright or dark.
+					So we gonna calculate only the last value with formula: L = (Cmax + Cmin) / 2
+					*/
+				   let lightness = (cMax + cMin)/2
+				   /*
+				   Now we gonna check if our lightness is >50% or < 50%.
+				   If it is >50% we are goin to change text color to black
+				   otherwise, we gonna set text color to white.
+				   */
+				  	var contentContainer = $('.fold-container');
+					lightness >= 0.50 ? contentContainer.addClass('fold-text-dark') : contentContainer.addClass('fold-text-white');
+				}
+			}
+			if(homeHeader) {
+				checkHeader();
 			}
 			var previousScroll = 0;
 			$(window).scroll(function () {

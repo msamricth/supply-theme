@@ -14,7 +14,7 @@ $textScheme ='';
 $headline = get_field('headline');
 if($scheme){
     if (strpos($scheme, 'ark') !== false) {
-        $textScheme = "text-white";
+ 
     }
     $scheme = 'bg-'. $scheme . ' ' . $textScheme;
 } 
@@ -41,7 +41,7 @@ if($scheme){
     </div>
 
     <div id="post-<?php the_ID(); ?>" <?php post_class('home-main' ); ?>>
-        <div class="fold" data-class="bg-pattern">
+        <div class="fold" data-class="bg-light">
             <?php the_content();
             wp_link_pages( array(
                 'before' => '<div class="page-links">' . __( 'Pages:', 'supply' ),

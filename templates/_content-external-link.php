@@ -1,4 +1,11 @@
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'fadeNoScroll' ); ?>>
+<?php
+if (isset($args['classes'])) {
+    $classes = $args['classes'];
+} else {
+$classes = 'fadeNoScroll';
+}
+?>
+<article id="post-<?php the_ID(); ?>" <?php post_class( $classes ); ?>>
     <div class="card border-0">
         <div class="card-body">
             <div class="card-text entry-content">
