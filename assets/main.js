@@ -143,8 +143,20 @@ import * as bootstrap from 'bootstrap';
 				};
 				let observer = new IntersectionObserver(callback, options);
 
-				[...targets].forEach(target => observer.observe(target));
-
+				if(homeHeader.length > 0) {
+					homeHeader.on('inview', function(event, isInView) {
+						var scrollObject = $(this);
+						if (isInView) {
+								$contentContainer.removeClass('bg-light');
+								$contentContainer.removeClass('bg-pattern');
+								$contentContainer.addClass('bg-dark');
+						} else {
+							[...targets].forEach(target => observer.observe(target));
+						}
+					});
+				} else {
+					[...targets].forEach(target => observer.observe(target));
+				}
 	
 				function checkFoldColor(){
 					//extract R G and B from element background color
@@ -178,9 +190,6 @@ import * as bootstrap from 'bootstrap';
 				  	var contentContainer = $('.fold-container');
 					lightness >= 0.50 ? contentContainer.addClass('fold-text-dark') : contentContainer.addClass('fold-text-white');
 				}
-			}
-			if(homeHeader) {
-				checkHeader();
 			}
 			var previousScroll = 0;
 			$(window).scroll(function () {
