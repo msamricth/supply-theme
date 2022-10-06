@@ -14,16 +14,15 @@ $textScheme ='';
 $headline = get_field('headline');
 if($scheme){
     if (strpos($scheme, 'ark') !== false) {
-        $textScheme = "text-white";
+ 
     }
     $scheme = 'bg-'. $scheme . ' ' . $textScheme;
 } 
 
 
 ?>
-
 <main class="fold-container  <?php echo $scheme ?>">
-    <div class="home-header">
+    <div class="home-header header-container">
         <div class="container text-left">
             <div class="row fold" data-class="bg-dark">
                 <div class="col-lg-10 col-xl-8 col-3xl-6 col-4xl-5 mx-md-auto">
@@ -42,25 +41,28 @@ if($scheme){
     </div>
 
     <div id="post-<?php the_ID(); ?>" <?php post_class('home-main' ); ?>>
-      <?php get_template_part('templates/_tagline', 'partials');
-      
-            the_content();
-            ?>
-            <div class="fold" data-class="bg-pattern">
-                <?php
-                get_template_part('templates/_home', 'loop');
-                wp_link_pages( array(
-                    'before' => '<div class="page-links">' . __( 'Pages:', 'supply' ),
-                    'after'  => '</div>',
-                ) );
-                edit_post_link( __( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
-                
-                get_template_part('templates/_cta', 'partials');
-            ?>
-            </div>
+        <div class="fold" data-class="bg-light">
+            <?php the_content();
+            wp_link_pages( array(
+                'before' => '<div class="page-links">' . __( 'Pages:', 'supply' ),
+                'after'  => '</div>',
+            ) );
+            edit_post_link( __( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
+            
+        ?>
+        </div>
         
     </div><!-- /#post-<?php the_ID(); ?> -->
     <div>
-    <?php
 
+    <?php
+    
+$script = <<<EOT
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js">
+</script>
+EOT;
+
+
+enqueue_footer_markup($script);
+    
 get_footer();

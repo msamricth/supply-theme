@@ -5,11 +5,14 @@
     opacity: 0;
     display: none;
 }
+.bg-dark.bg-pattern {
+    background-image: none !important;
+}
 .fold-container {
     p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-        transition: background-color .35s ease-in-out,color .35s ease-in-out;
+        transition: background-color .4s ease-in-out,color .4s ease-in-out;
     }
-    &.bg-dark, &.bg-black {
+    &.bg-dark, &.bg-black, &.fold-text-white, &.bg-dark.bg-pattern {
         color: $white;
         p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
             color: $white;
@@ -26,11 +29,15 @@
             display: inline;
         }
     }
-    &.bg-light, &.bg-pattern{
+    &.bg-light, &.bg-pattern, &.fold-text-dark{
         color: $primary;
         p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small, li {
             color: $primary;
         }
+    }
+    &.bg-pattern-fold.bg-light {
+        background-color: transparent !important;
+        background: transparent;
     }
     &:not(.bg-light) &:not(.bg-pattern) {
         color: $white;
@@ -48,10 +55,9 @@
             opacity: 1;
             display: inline;
         }
-        
     }
 }
-.bg-pattern {
+.bg-pattern:not(.bg-black) {
     background-position: center center;
     background-repeat: repeat;
 }

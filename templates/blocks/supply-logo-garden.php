@@ -28,7 +28,7 @@ $i = 0;
 $classes .= ' fadeNoScroll';
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>" style="background-color:<?php the_field( 'background_color' ); ?>;">
-    <div class="spacer cp3 clearfix">
+    <div class="spacer cp3 clearfix"><p>&nbsp;</p>
         <?php 
             if ( is_admin() ) {
             // Runs only if this PHP code is in a file that displays outside the admin panels, like the theme template.
@@ -36,15 +36,14 @@ $classes .= ' fadeNoScroll';
         }  ?>
     </div>
 	<div class="container" <?php if ( is_admin() ) {?>style="display:none;"<?php } ?>>
-        <div class="row justify-content-between">
-            <div class="col-sm-12 w-100"><div class="spacer cp3 clearfix"></div></div>
+        <div class="row justify-content-between gx-dlg-8 gy-dlg-4">
             <?php if ( have_rows( 'logos', 'option' ) ) : ?>
                 <?php while ( have_rows( 'logos', 'option' ) ) : the_row();
                     $client_logo = get_sub_field( 'client_logo' ); 
                         if ( $client_logo ) : 
                             if($i <= 10) {?>
                                 <div class="logo-container col-6 col-md-4 text-center">
-                                    <img src="<?php echo esc_url( $client_logo['url'] ); ?>" class="cp2" alt="<?php the_sub_field( 'client_name' ); ?>" />
+                                    <img src="<?php echo esc_url( $client_logo['url'] ); ?>" class="" alt="<?php the_sub_field( 'client_name' ); ?>" />
                                 </div>
                             <?php }
                             if($i === 11){ ?>

@@ -4,18 +4,14 @@ wp.domReady( () => {
     wp.blocks.unregisterBlockType( 'core/button');
     wp.blocks.unregisterBlockType( 'core/buttons');
     wp.blocks.unregisterBlockType( 'core/categories');
-    wp.blocks.unregisterBlockType( 'core/classic');
     wp.blocks.unregisterBlockType( 'core/column');
     wp.blocks.unregisterBlockType( 'core/columns');
     wp.blocks.unregisterBlockType( 'core/cover');
     wp.blocks.unregisterBlockType( 'core/file');
     wp.blocks.unregisterBlockType( 'core/latest-comments');
     wp.blocks.unregisterBlockType( 'core/latest-posts');
-    wp.blocks.unregisterBlockType( 'core/legacy-widget');
     wp.blocks.unregisterBlockType( 'core/group');
     wp.blocks.unregisterBlockType( 'core/heading');
-    wp.blocks.unregisterBlockType( 'core/html');
-    wp.blocks.unregisterBlockType( 'core/image');
     wp.blocks.unregisterBlockType( 'core/list');
     wp.blocks.unregisterBlockType( 'core/media-text');
     wp.blocks.unregisterBlockType( 'core/navigation');
@@ -29,7 +25,5 @@ wp.domReady( () => {
     wp.blocks.unregisterBlockType( 'core/social-link');
     wp.blocks.unregisterBlockType( 'core/social-links');
     wp.blocks.unregisterBlockType( 'core/spacer');
-    wp.blocks.unregisterBlockType( 'core/text-columns');
     wp.blocks.unregisterBlockType( 'core/video');
-    wp.blocks.unregisterBlockType( 'core/widget-area');
   } );  
