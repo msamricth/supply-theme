@@ -68,41 +68,36 @@ $container .= '<div class="' . $row . '"'.$foldUtils.'>';
             </div>
             <div class="col-md-6 order-md-1 col-xl-5 offset-xl-1" <?php if ( is_admin() ) {?> style="display:none"<?php }?>>
             <?php if ( have_rows( 'logos', 'option' ) ) : ?>
-                <div id="logoCarousel" class="carousel  carousel-fade pt-5 mt-1 pt-md-0 slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">               
+                <section class="splide" aria-label="Supply's Logo Carousel fader">
+                    <div class="splide__track">
+                        <ul class="splide__list">
                         <?php while ( have_rows( 'logos', 'option' ) ) : the_row(); 
-                        $active_class = '';
-                        if ($i == 0) {
-                            $active_class = ' active';
-                        }
-                        if ($i <= 11)   { 
                         ?>
-                            <?php if($i%2 == 0) : ?><div class="carousel-item <?php echo $active_class ?>"><?php endif; ?>
                             <?php $client_logo = get_sub_field( 'client_logo' ); 
                             $client_logo_light = get_sub_field( 'client_logo_light' );
                             if ( $client_logo_light ) : 
                                 $cl_class = "dark-logo";
                             endif; ?>
                                 <?php if ( $client_logo ) : ?>
-                                    <div class="logo-container">
-                                        <img src="<?php echo esc_url( $client_logo['url'] ); ?>" class="<?php echo $cl_class; ?>" alt="<?php the_sub_field( 'client_name' ); ?>" />
-                                        <?php if ( $client_logo_light ) : ?>
-                                            <img src="<?php echo esc_url( $client_logo_light['url'] ); ?>" class="light-logo" alt="<?php the_sub_field( 'client_name' ); ?>" />
-                                        <?php endif; ?>
-                                    </div>
-                                <?php endif; ?>
-                                
-                            <?php if($i % 2 == 0){} else {?></div><?php } ?>
-                                <?php
-                        }else{} $i++; ?> 
+                                    <li class="splide__slide">
+                                        <div class="logo-container">
+                                            <img src="<?php echo esc_url( $client_logo['url'] ); ?>" class="<?php echo $cl_class; ?>" alt="<?php the_sub_field( 'client_name' ); ?>" />
+                                            <?php if ( $client_logo_light ) : ?>
+                                                <img src="<?php echo esc_url( $client_logo_light['url'] ); ?>" class="light-logo" alt="<?php the_sub_field( 'client_name' ); ?>" />
+                                            <?php endif; ?>
+                                        </div>
+                                    </li>
+                                    <?php endif; ?>
                         <?php endwhile; ?>
+                        </ul>
                     </div>
-                    <?php else : ?>
-                        <?php // No rows found ?>
-                    <?php endif; ?>
-                </div>
-
+                </section>
+            <?php else : ?>
+                <?php // No rows found ?>
+            <?php endif; ?>
             </div>
         </div>
     </div>
 </div>
+
+

@@ -1,4 +1,4 @@
-$offsetWidth: 2px;
+$offsetWidth: 14px;
 .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
     max-width: calc(100% - ($offsetWidth * 2));
 } 

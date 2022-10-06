@@ -54,5 +54,15 @@ if($scheme){
         
     </div><!-- /#post-<?php the_ID(); ?> -->
     <div>
+
     <?php
+    
+$script = <<<EOT
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js">
+</script>
+EOT;
+
+
+enqueue_footer_markup($script);
+    
 get_footer();
