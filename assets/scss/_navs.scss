@@ -140,11 +140,13 @@
       .hamburger.is-active:hover, .hamburger:hover {
          opacity: 1; 
     }
-    .hamburger-inner:before {
-        top: -6px !important;
-    }
-    .hamburger-inner:after {
-        bottom: -6px !important;
+    #header.navbar:not(.mobile-nav-open) {
+        .hamburger-inner:before {
+            top: -6px !important;
+        }
+        .hamburger-inner:after {
+            bottom: -6px !important;
+        }
     }
 @keyframes slide-right {
     from {
