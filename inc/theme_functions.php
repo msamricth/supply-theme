@@ -15,11 +15,6 @@ function bg_pattern() {
 }
 add_action('wp_head', 'bg_pattern', 100);
 add_filter( 'excerpt_more', '__return_empty_string' ); 
-function enqueue_footer_markup($markup){
-	add_action('wp_footer', function () use ($markup){
-		echo $markup;
-	}, 99, 1);
-}
 
 //Supply Grid functions
 function supply_grid($content, $defaults = null){

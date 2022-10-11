@@ -1,7 +1,11 @@
 #header.navbar {
     padding-top:0;
     padding-bottom: 0;
-    transition: 0.15s ease;
+    transition: background-color .4s ease-in-out,color .4s ease-in-out, opacity .4s ease-in-out;
+    li .nav-link {
+        text-shadow: none;
+        outline: none;
+    }
     @include media-breakpoint-up(md) { 
         .nav-link {
             padding-top: 45px;
@@ -32,10 +36,20 @@
     &.bg-transparent-dark {
         background: linear-gradient(-180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0) 100%);
         background-color: transparent;
+        .navbrand-light {
+            opacity: 0;
+            transition: transform 0.65s, opacity 0.2s;
+            display:none;
+        }
     }
     &.bg-transparent-light {
         background:transparent;
         background-color: transparent;
+        .navbrand-dark {
+            opacity: 0;
+            transition: transform 0.65s, opacity 0.2s;
+            display:none;
+        }
     }
 
     @include media-breakpoint-down(md) { 
@@ -74,6 +88,9 @@
     }
 
 }
+.footer .nav li:last-child .nav-link {
+    padding-bottom: 0;
+}
 #main {
     margin-top: 80px;
     @include media-breakpoint-up(md) { 
@@ -89,6 +106,7 @@
 .social-nav {
     list-style: none;
     padding: 0;
+    margin-bottom: 51px;
     li {
         display: inline;
         a {
@@ -97,7 +115,7 @@
             text-align: center;
             padding-left: 25px;
             padding-right: 25px;
-            font-size: 20px;
+            font-size: 22px;
         }
         &:first-child a{
             padding-left: 0;
@@ -136,3 +154,15 @@
       margin-left: -20px;
     }
   }
+  @include media-breakpoint-down(md) { 
+    .mobile-nav-open {
+        &.navbar-light, 
+        &.navbar-dark  {
+            .navbar-toggler:not(.collapsed) {
+            .hamburger-inner, .hamburger-inner:after, .hamburger-inner:before {
+                    background-color: white;
+                }
+            }
+        }
+    }
+}

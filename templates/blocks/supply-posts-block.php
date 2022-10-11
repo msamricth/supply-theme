@@ -49,6 +49,8 @@ if ( get_field( 'add_fold' ) == 1 ) :
             
         endwhile;
 	endif; 
+    
+    echo '<div class="fold"'. $Utils . '></div>';
 endif; ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
 <?php 
@@ -88,7 +90,7 @@ $the_query = new WP_Query( $args ); ?>
             <div class="col-dlg-10 offset-dlg-1">
                 <?php while ( $the_query->have_posts() ) : $the_query->the_post(); 
                     $post_type = get_post_type();
-                    $pclasses = 'cp4 fadeNoScroll ' . $row;
+                    $pclasses = 'cp3 fadeNoScroll ' . $row;
                     get_template_part('templates/_content', $post_type, array( 
                         'classes' => $pclasses,
                         'utilities' => $Utils,

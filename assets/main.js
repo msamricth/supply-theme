@@ -61,7 +61,7 @@ import Splide from '@splidejs/splide';
 			perMove: 1,
 			arrows: false,
 			speed:400,
-			gap: '48px',
+			gap: 48,
 			type  : 'loop',
 			padding: { top: '60px'},
 			updateOnMove: true,
@@ -70,7 +70,17 @@ import Splide from '@splidejs/splide';
 			pauseOnHover: false,
 			perPage: 2,
 			breakpoints: {
+				  100: {
+					gap:48
+				  },
+				  600: {
+					gap:48
+				  },
 				  768: {
+					  gap:58,
+					  padding: { top: '0px'}
+				  },
+				  992: {
 					  gap:58,
 					  padding: { top: '0px'}
 				  },
@@ -102,7 +112,12 @@ import Splide from '@splidejs/splide';
 		var foldContainer = $('.fold-container');
 		var footerContent =$('.footer-content');
 		var footerLinks = $('.footer-content .fl a');
-		
+		navbar.on('shown.bs.collapse', function () {
+			navbar.addClass('mobile-nav-open');
+		  });		  
+		  navbar.on('hidden.bs.collapse', function () {
+			navbar.removeClass('mobile-nav-open');
+		  })
 		footerLinks.each(function(i, obj) {
 			var footerLink = $(this);
 			footerLink.on("mouseenter", function(){     
@@ -118,78 +133,76 @@ import Splide from '@splidejs/splide';
 				}			
 			var $contentContainer = $('.fold-container');
 			var homeHeader = $('.home-header');
-			function checkHeader(){
-				homeHeader.on('inview', function(event, isInView) {
-					var scrollObject = $(this);
-					if (isInView) {
-							$contentContainer.removeClass('bg-light');
-							$contentContainer.removeClass('bg-pattern');
-					} 
-				});
-			}
+			
 			
 			if($contentContainer) {
-				// list of elements to be observed
-				const targets = document.getElementsByClassName('fold');
-				
+			
+	
 				const header = document.querySelector('#header');
-
+				const targets = document.getElementsByClassName('fold');
 				const options = {
 				root: null, // null means root is viewport
 				rootMargin: '0px',
 				threshold: 0.5 // trigger callback when 75% of the element is visible
 				}
-
 				function callback(entries, observer) { 
 					entries.forEach(entry => {
 						const winPos = window.scrollY;
 						if(entry.isIntersecting){
 							const contentContainer = document.querySelector('.fold-container');
-						contentContainer.style.color = '';
-						contentContainer.style.background = '';
-						const foldClass = entry.target.dataset.class; // identify which element is visible in the viewport at 75%
-						const containerClasses = contentContainer.classList;
-						if(foldClass == 'bg-pattern' && containerClasses.contains('bg-pattern-fold')) {
-							if(containerClasses.contains('bg-dark')) {
-								if(winPos === 0){
-									checkHeader();
-								} else {
-									contentContainer.classList.remove("bg-dark");
+							contentContainer.style.color = '';
+							contentContainer.style.background = '';
+							const foldClass = entry.target.dataset.class; // identify which element is visible in the viewport at 75%
+							const containerClasses = contentContainer.classList;
+							//for troubleshooting 
+							console.log("The current fold theme is in the view port:" + foldClass);
+							if(foldClass == 'bg-pattern' && containerClasses.contains('bg-pattern-fold')) {
+								if(containerClasses.contains('bg-dark')) {
+									if(winPos === 0){
+									} else {
+										contentContainer.classList.remove("bg-dark");
+									}
 								}
 							}
-						} else {
-							contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern-fold", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
-						}
-						if(foldClass == 'bg-custom') {
-							const foldBG = entry.target.dataset.bg;
-							const foldColor = entry.target.dataset.color;
-							if(foldColor == 'default'){
-								checkFoldColor(foldColor);
+							if(foldClass == 'header') {
+								transparentNavFold();
 							} else {
-								contentContainer.style.color = foldColor;
+								
+								if(foldClass == 'bg-custom') {
+									contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern-fold", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
+									const foldBG = entry.target.dataset.bg;
+									const foldColor = entry.target.dataset.color;
+									if(foldColor == 'default'){
+										checkFoldColor(foldColor);
+									} else {
+										contentContainer.style.color = foldColor;
+									}
+									contentContainer.style.background = foldBG;
+								} else if(foldClass == 'bg-pattern') {
+									checkNavAgainstFold('bg-light');
+									if(containerClasses.contains('bg-dark')){
+									} else {
+										if(containerClasses.contains('bg-pattern-fold')){ 
+										} else {
+											contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern-fold", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
+											contentContainer.classList.add('bg-light');
+											setTimeout(
+												function() {
+													contentContainer.classList.add('bg-pattern-fold');
+											}, 800);
+										}
+									}							
+								} else {
+									contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern-fold", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
+									contentContainer.classList.add(`${foldClass}`);
+									checkNavAgainstFold(foldClass);
+								}
 							}
-							contentContainer.style.background = foldBG;
+								
 						}
-						if(foldClass == 'bg-pattern') {
-							if(containerClasses.contains('bg-dark')){
-							} else {
-								contentContainer.classList.add('bg-light');
-								setTimeout(
-									function() {
-										contentContainer.classList.add('bg-pattern-fold');
-								}, 800);
-							}								
-							} else {
-								contentContainer.classList.add(`${foldClass}`);
-							}
-						}	
-						if(winPos === 0){
-							checkHeader();
-						} 
 					});
 				};
 				let observer = new IntersectionObserver(callback, options);
-
 				if(homeHeader.length > 0) {
 					homeHeader.on('inview', function(event, isInView) {
 						var scrollObject = $(this);
@@ -204,7 +217,41 @@ import Splide from '@splidejs/splide';
 				} else {
 					[...targets].forEach(target => observer.observe(target));
 				}
-	
+				function transparentNavFold (){
+					if(navbar.hasClass('dark-scheme')){
+						var scheme = 'dark';
+					} else {
+						if(navbar.hasClass('light-scheme')){
+							var scheme = 'light';
+						} else {
+							var scheme = 'error';
+						}
+					}
+					var classTransparentVar = 'bg-transparent-'+ scheme +' navbar-'+scheme;
+					var headerContainer = $('.header-container');
+					var headerSize = headerContainer.outerHeight();
+					checkNavAgainstFold('clear');
+					navbar.addClass(classTransparentVar);
+				}
+				function checkNavAgainstFold(functionColor){
+					var foldClass = functionColor;
+					var lightClass = 'bg-light navbar-light';
+					var lightTransparentClass = 'navbar-light bg-transparent-light';
+					var darkClass = 'bg-dark navbar-dark';
+					var darkTransparentClass = 'navbar-dark bg-transparent-dark';
+					var theme = foldClass.replace('bg-', '');
+		 
+					var classVar = foldClass +' navbar-'+theme;
+					var classPossibilities = lightClass + lightTransparentClass + darkClass + darkTransparentClass;
+					navbar.removeClass(darkClass);
+					navbar.removeClass(lightClass);	
+					navbar.removeClass(lightTransparentClass);
+					navbar.removeClass(darkTransparentClass);
+					if(foldClass.indexOf('clear') !== -1){
+					} else {
+						navbar.addClass(classVar);
+					}
+				};
 				function checkFoldColor(){
 					//extract R G and B from element background color
 					var contentContainer = $('.fold-container');
@@ -223,11 +270,7 @@ import Splide from '@splidejs/splide';
 					//Then we extract max and min values
 					let cMax = Math.max(rPrime, gPrime, bPrime)
 					let cMin = Math.min(rPrime, gPrime, bPrime)
-					/*
-					HSL is Hue, saturation and lightness.
-					We need only lightness to determine if the color is bright or dark.
-					So we gonna calculate only the last value with formula: L = (Cmax + Cmin) / 2
-					*/
+
 				   let lightness = (cMax + cMin)/2
 				   /*
 				   Now we gonna check if our lightness is >50% or < 50%.
@@ -237,7 +280,9 @@ import Splide from '@splidejs/splide';
 				  	var contentContainer = $('.fold-container');
 					lightness >= 0.50 ? contentContainer.addClass('fold-text-dark') : contentContainer.addClass('fold-text-white');
 				}
-			}
+			} 
+			
+
 			var previousScroll = 0;
 			$(window).scroll(function () {
 				var currentScroll = $(this).scrollTop();
@@ -288,63 +333,6 @@ import Splide from '@splidejs/splide';
 				});
 			}
 		}
-		if(transparentNav) {
-			const colors = ['bg-white', 'bg-dark']
-			const sections = [...document.getElementsByTagName('section')]
-			$(document).ready(function () {
-				var headerContainer = $('.header-container');
-				var navCatch = $('.nav-catch');
-				const footer = document.querySelector('.footer');
-				var navHeader = $('.navuncatch');
-				navHeader.on('inview', function(event, isInView) {
-					var scrollObject = $(this);
-					if (isInView) {
-						navbar.removeClass('bg-light navbar-light');
-						if(navbar.hasClass('dark-scheme')){
-							navbar.addClass('navbar-dark bg-transparent-dark');		
-						}
-						if(navbar.hasClass('light-scheme')){
-							navbar.addClass('navbar-light bg-transparent-light');		
-						}
-					} 
-				});
-				headerContainer.on('inview', function(event, isInView) {
-					var scrollObject = $(this);
-					if (isInView) {
-						navbar.removeClass('bg-light navbar-light');
-						if(navbar.hasClass('dark-scheme')){
-							navbar.addClass('navbar-dark bg-transparent-dark');		
-						}
-						if(navbar.hasClass('light-scheme')){
-							navbar.addClass('navbar-light bg-transparent-light');		
-						}
-					} 
-				});
-				navCatch.on('inview', function(event, isInView) {
-					var scrollObject = $(this);
-					if (isInView) {
-						if(window.scrollY==0){
-							navbar.removeClass('bg-light navbar-light');
-							if(navbar.hasClass('dark-scheme')){
-								navbar.addClass('navbar-dark bg-transparent-dark');		
-							}
-							if(navbar.hasClass('light-scheme')){
-								navbar.addClass('navbar-light bg-transparent-light');		
-							}
-						} else {
-							navbar.addClass('bg-light navbar-light');
-							if(navbar.hasClass('dark-scheme')){
-								navbar.removeClass('navbar-dark bg-transparent-dark');		
-							}
-							if(navbar.hasClass('light-scheme')){
-								navbar.removeClass('navbar-light bg-transparent-light');		
-							}
-						}
-					}
-				});
-			});
-		}
-	
 		$('.fadeScroll').on('inview', function(event, isInView) {
 			var scrollObject = $(this);
 			if (isInView) {

@@ -56,3 +56,26 @@ function be_gutenberg_scripts() {
 	wp_enqueue_script( 'theme-editor', get_template_directory_uri() . '/assets/js/editor.js', array( 'wp-blocks', 'wp-dom' ), filemtime( get_template_directory() . '/assets/js/editor.js' ), true );
 }
 add_action( 'enqueue_block_editor_assets', 'be_gutenberg_scripts' );
+/**
+ * Enqueue footer markup in WP at lowest priority.
+ * Convenience function!
+ *
+ * @param $markup
+ */
+function enqueue_footer_markup($markup){
+	add_action('wp_footer', function () use ($markup){
+		echo $markup;
+	}, 99, 1);
+}
+
+/**
+ * Enqueue footer markup in WP at lowest priority.
+ * Convenience function!
+ *
+ * @param $markup
+ */
+function enqueue_header_markup($markup){
+	add_action('wp_head', function () use ($markup){
+		echo $markup;
+	}, 10, 1);
+}
