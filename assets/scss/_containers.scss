@@ -3,8 +3,8 @@ $offsetWidth: 14px;
     max-width: calc(100% - ($offsetWidth * 2));
 } 
 .block-supply-media, .full-width-row, .full-width-row-xs {
-    margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
-    margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
+    margin-left: calc(0px - $grid-gutter-width - $offsetWidth - 4px);
+    margin-right: calc(0px - $grid-gutter-width - $offsetWidth - 4px);
 }
 @include media-breakpoint-up(sm) {
 }

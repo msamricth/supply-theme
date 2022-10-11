@@ -85,6 +85,15 @@
 textarea.form-control {
     height: 1.75rem;
 }
+input.wpcf7-form-control.wpcf7-submit.footer-btn {
+    font-size: 14px;
+    @include media-breakpoint-up(md) {
+        font-size: 18px;
+    }
+}
+input.wpcf7-submit {
+    border:0;
+}
 .form-control {
     box-shadow: none;
     border-top: none;

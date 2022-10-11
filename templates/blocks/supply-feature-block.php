@@ -32,21 +32,33 @@ $cl_class = '';
 $foldUtils = '';
 $row = '';
 $container = '';
-if ( get_field( 'add_fold' ) == 1 ) : 
-    $classes .= ' fold';
-    if(get_field( 'custom_bg_color' )){
-            $customColor = get_sub_field( 'custom_bg_color' );
-            $classes .= ' fold-custom';
-            $foldUtils .= ' data-color="'. $customColor .'"';
-    }
-    if(get_field( 'color' )){
-            $foldClass = get_sub_field( 'color' );
-            $foldUtils .=' data-class="'. $foldClass .'"';
-    }
-endif; 
 
-$container .= '<div class="' . $row . '"'.$foldUtils.'>';
+if ( get_field( 'add_fold' ) == 1 ) : 
+    $classes.= ' fold';
+    if ( have_rows( 'fold_settings' ) ) :
+        while ( have_rows( 'fold_settings' ) ) : the_row(); 
+            if(get_sub_field( 'custom_bg_color' )){
+                    $customColor = get_sub_field( 'custom_bg_color' );
+                    $customText = get_sub_field('custom_text_color');
+                    if($customText) {
+                        $customText = 'data-color="'.$customText.'"';
+                    } else {
+                        $customText = 'data-color="default"';
+                    }
+                    $classes .= ' fold-custom';
+                    $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
+            }
+            if(get_sub_field( 'color' )){
+                    $foldClass = 'bg-' . get_sub_field( 'color' );
+                    $foldUtils .=' data-class="'. $foldClass .'"';
+            }
+            
+        endwhile;
+	endif; 
+    echo '<div class="fold"'. $foldUtils . '></div>';
+endif; 
 ?>
+
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>"<?php echo $foldUtils; ?>>
     <div class="container tagline-section fadeNoScroll">
         <div class="row py-8 py-md-13 py-dlg-13 py-3xl-17">

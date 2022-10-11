@@ -28,8 +28,34 @@ $classes .= ' fadeNoScroll';
 $ctaTitle = get_field( 'cta_title' ); 
 $cta_link = get_field( 'cta_link' ); 
 $ctaCustumLinkText = get_field( 'cta_link_text' ); 
+
+$foldUtils = '';
+if ( get_field( 'add_fold' ) == 1 ) : 
+    $classes.= ' fold';
+    if ( have_rows( 'fold_settings' ) ) :
+        while ( have_rows( 'fold_settings' ) ) : the_row(); 
+            if(get_sub_field( 'custom_bg_color' )){
+                    $customColor = get_sub_field( 'custom_bg_color' );
+                    $customText = get_sub_field('custom_text_color');
+                    if($customText) {
+                        $customText = 'data-color="'.$customText.'"';
+                    } else {
+                        $customText = 'data-color="default"';
+                    }
+                    $classes .= ' fold-custom';
+                    $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
+            }
+            if(get_sub_field( 'color' )){
+                    $foldClass = 'bg-' . get_sub_field( 'color' );
+                    $foldUtils .=' data-class="'. $foldClass .'"';
+            }
+            
+        endwhile;
+	endif; 
+    echo '<div class="fold"'. $foldUtils . '></div>';
+endif; 
 ?>
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>"<?php echo $foldUtils; ?>>
     <div class="spacer cp4"></div>
     <?php get_template_part('templates/_cta', 'partials'); ?>
 </div>

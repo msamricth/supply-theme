@@ -42,15 +42,18 @@ if($scheme){
 
     <div id="post-<?php the_ID(); ?>" <?php post_class('home-main' ); ?>>
         <div class="fold" data-class="bg-light">
-            <?php the_content();
-            wp_link_pages( array(
+        </div>
+            <?php the_content();?>
+
+            <div class="fold" data-class="bg-light">
+        </div>            
+           <?php wp_link_pages( array(
                 'before' => '<div class="page-links">' . __( 'Pages:', 'supply' ),
                 'after'  => '</div>',
             ) );
             edit_post_link( __( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
             
         ?>
-        </div>
         
     </div><!-- /#post-<?php the_ID(); ?> -->
     <div>

@@ -43,7 +43,7 @@ if ( have_rows( 'lists' ) ) :
                 }
                 $listTitle = get_sub_field('title');
                 if($listTitle){
-                    $listTitle = '<'.$type.' class="cp1 pe-4">'.$listTitle.'</'.$type.'> ';
+                    $listTitle = '<'.$type.' class="pe-dlg-4">'.$listTitle.'</'.$type.'> ';
                     $blockContent .= $listTitle;
                 }
             endwhile; 
@@ -54,7 +54,7 @@ if ( have_rows( 'lists' ) ) :
         }
         $blockContent .='</div>';
         if ($i % 3 == 0) {
-            $blockContent .= '<div class="w-100 d-none d-dlg-block d-4xl-none"></div>';
+           // $blockContent .= '<div class="w-100 d-none d-dlg-block d-4xl-none"></div>';
         }
     endwhile; 
 else : 

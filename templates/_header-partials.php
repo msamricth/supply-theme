@@ -4,9 +4,16 @@ $vimeo_video_mobile = '';
 $vimeoVideo = '';
 $image = '';
 $video_ratio = '';
-$classes ='header-container header-partial fadeNoScroll cp3';
+$classes ='header-container header-partial fadeNoScroll';
 $header_text = '';
 $column_class = '';
+$foldData = '';
+if ( get_field( 'dots_on' ) == 1 ) : 
+    $foldData = 'bg-pattern';
+else:
+    $foldData = 'bg-light';
+endif;
+
 if ( get_field( 'full_width_page' ) == 1 ) : 
     $column_class = 'col-md-12 mx-auto';
 else : 
@@ -35,7 +42,7 @@ if($vimeoVideo){
 if($advanceHeader) {
 ?>
 <div id="header-<?php the_ID(); ?>" class="<?php echo esc_attr( $classes ); ?>">
-    <header class="page-header navuncatch">
+    <header class="page-header fold" data-class="header">
         <div class="container">
             <div class="row">
                 <div class="col-dlg-10 mx-auto col-xl-8">
@@ -49,27 +56,30 @@ if($advanceHeader) {
         </div>
     </header>
         <div class="row g-0">
-            <?php if ( $image ) : ?>    
-                <img src="<?php echo esc_url( $image['url'] ); ?>" class="img-responsive" alt="<?php echo esc_attr( $image['alt'] ); ?>" />
-            <?php endif; ?>
+            
             <?php if ( $vimeoVideo ) : ?> 
-                <?php echo video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio); ?>
+                <?php echo video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio); 
+                else:?>
+                <?php if ( $image ) : ?>    
+                    <img src="<?php echo esc_url( $image['url'] ); ?>" class="img-responsive" alt="<?php echo esc_attr( $image['alt'] ); ?>" />
+                <?php endif; ?>
             <?php endif; ?>
     </div>
+    <div class=" fold" data-class="header"></div>
 </div>
-<div class="container nav-catch">
+<div class="container nav-catch fold" data-class="<?php echo $foldData; ?>">
     <div class="row">
         <div class="<?php echo $column_class; ?>">
+        <div class="fold" data-class="<?php echo $foldData; ?>"></div>
 <?php } else { ?>
 <div class="container">
     <div class="row">
         <div class="<?php echo $column_class; ?>">
-            <div class="spacer navuncatch cp2 cp5"></div>
             <header class="page-header">
                 <?php if($header_text){ ?>
-                    <h1 class="page-title fadeNoScroll cp3"><?php echo $header_text; ?></h1>
+                    <h1 class="page-title fadeNoScroll"><?php echo $header_text; ?></h1>
                 <?php } else { ?>
-                    <h1 class="page-title fadeNoScroll cp3"><?php the_title(); ?></h1>
+                    <h1 class="page-title fadeNoScroll"><?php the_title(); ?></h1>
                 <?php } ?>
             </header>
 <?php

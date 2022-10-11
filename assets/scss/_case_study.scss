@@ -1,7 +1,7 @@
 .single-case-studies {
     p {
         margin-bottom: 24px;
-        line-height: 1.875;
+        line-height: 1.667;
     }
     main#main {
         padding-top: 0 !important;
@@ -21,6 +21,7 @@
                 padding-inline-start: 0;
                 font-family: $link_font;
                 font-size: 14px;
+                line-height: 1.741;
                 opacity: 0.75;
             }
             @include media-breakpoint-only(md) { 
@@ -33,9 +34,10 @@
             .client-logo {
                 margin-top: 80px;
                 margin-bottom: 44px; 
-                width: 25%;
+                height: 45px;
                 @include media-breakpoint-up(sm) { 
                     width:15%;
+                    height: auto;
                 }
                 @include media-breakpoint-up(3xl) { 
                     width:10%;
@@ -59,6 +61,7 @@
     
     &__pagination {
         padding-top: 135px;
+        padding-bottom: 72px;
         @include media-breakpoint-up(lg) {
             padding-top: 280px;
         }

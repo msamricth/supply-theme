@@ -1,7 +1,42 @@
 #header.navbar {
     padding-top:0;
     padding-bottom: 0;
-    transition: 0.15s ease;
+    transition: background-color .4s ease-in-out,color .4s ease-in-out, opacity .4s ease-in-out;
+    
+    .hamburger--squeeze {
+        .hamburger-inner {
+        transition-duration: 0.075s; 
+        transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+        transition-delay: 0.2s !important;
+        &::before {
+            transition-delay: .32s !important;
+            top:-6px;
+        }
+
+        &::after {
+            bottom: -6px;
+            transition-delay: .32s !important;
+        }
+        }
+        &.is-active, &[aria-expanded='true'] {
+            .hamburger-inner {
+            transition-delay: 1.32s !important;
+                &::before {
+                    top: 0;
+                    transition-delay: 1.2s !important;
+                }
+        
+                &::after {
+                    bottom: 0;
+                    transition-delay: 1.2s !important;
+                }
+            }
+        }
+    }
+    li .nav-link {
+        text-shadow: none;
+        outline: none;
+    }
     @include media-breakpoint-up(md) { 
         .nav-link {
             padding-top: 45px;
@@ -32,10 +67,20 @@
     &.bg-transparent-dark {
         background: linear-gradient(-180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0) 100%);
         background-color: transparent;
+        .navbrand-light {
+            opacity: 0;
+            transition: transform 0.65s, opacity 0.2s;
+            display:none;
+        }
     }
     &.bg-transparent-light {
         background:transparent;
         background-color: transparent;
+        .navbrand-dark {
+            opacity: 0;
+            transition: transform 0.65s, opacity 0.2s;
+            display:none;
+        }
     }
 
     @include media-breakpoint-down(md) { 
@@ -49,7 +94,7 @@
             width: calc(100% + 40px);
             top:0;
             transition: margin 700ms !important;
-            margin-left: -120%;
+            margin-left: -124%;
             &.show {
                 margin-left:-20px;
                 animation: 700ms slide-right;
@@ -63,8 +108,8 @@
             }
         
             &.collapsing {
-                margin-left: -115%;
-                transition: margin 400ms !important;
+                margin-left: -130%;
+                transition: margin 400ms ease !important;
             }
         }
         button.navbar-toggler.hamburger {
@@ -74,13 +119,16 @@
     }
 
 }
+.footer .nav li:last-child .nav-link {
+    padding-bottom: 0;
+}
 #main {
     margin-top: 80px;
     @include media-breakpoint-up(md) { 
         margin-top: 120px;
     }
     .under-nav {
-        margin-top: -80px;
+        // margin-top: -80px; deleting once i figure out why I added this here in the first place
         @include media-breakpoint-up(md) { 
             margin-top: -120px;
         }
@@ -89,6 +137,7 @@
 .social-nav {
     list-style: none;
     padding: 0;
+    margin-bottom: 51px;
     li {
         display: inline;
         a {
@@ -97,7 +146,7 @@
             text-align: center;
             padding-left: 25px;
             padding-right: 25px;
-            font-size: 20px;
+            font-size: 22px;
         }
         &:first-child a{
             padding-left: 0;
@@ -114,6 +163,7 @@
             }
         }
     } 
+}
     .hamburger-box {
         height: 14px !important;
         width: 20px;
@@ -121,18 +171,24 @@
       .hamburger.is-active:hover, .hamburger:hover {
          opacity: 1; 
     }
-    .hamburger-inner:before {
-        top: -6px;
-    }
-    .hamburger-inner:after {
-        bottom: -6px;
-    }
-}
 @keyframes slide-right {
     from {
-      margin-left: -100%;
+      margin-left: -130%;
     }
     to {
       margin-left: -20px;
     }
   }
+  @include media-breakpoint-down(md) { 
+    .mobile-nav-open {
+        &.navbar-light, 
+        &.navbar-dark  {
+            .navbar-toggler:not(.collapsed) {
+            .hamburger-inner, .hamburger-inner:after, .hamburger-inner:before {
+                    transition: .5 background-color ease !important;
+                    background-color: white;
+                }
+            }
+        }
+    }
+}

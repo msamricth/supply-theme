@@ -35,7 +35,10 @@
         }
         .card-title{
             font-size: 24px;
-            padding-top: 8px;
+            padding-top: 4px;
+            @include media-breakpoint-up(dlg) {
+                padding-top: 8px;
+            }
             @include media-breakpoint-up(lg) {
                 font-size: 36px;
             }
@@ -54,11 +57,18 @@
         }
     }
     .col-md-6 {
-        &:first-child {
-            padding-right: 10px;
+        @include media-breakpoint-down(md) {
+            &:first-child {
+                    margin-bottom: 35px;
+                }
         }
-        &:last-child {
-            padding-left: 10px;
+        @include media-breakpoint-up(md) {
+            &:first-child {
+                padding-right: 10px;
+            }
+            &:last-child {
+                padding-left: 10px;
+            }
         }
     }
 }

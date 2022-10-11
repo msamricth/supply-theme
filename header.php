@@ -9,10 +9,8 @@
 
 <?php
 	$post_id = '';
-	if(!is_archive()):
-		$current_post = get_queried_object();
-		$post_id = $current_post ? $current_post->ID : null;
-	endif;
+	$current_post = get_queried_object();
+	$post_id = $current_post ? $current_post->ID : null;
 	$navbar_scheme = '';
 	$navbar_page_scheme = get_field( 'navbar_color_settings', $post_id);
 	$navbar_theme_scheme   = get_theme_mod( 'navbar_scheme', 'navbar-light bg-light' ); // Get custom meta-value.
@@ -21,6 +19,7 @@
 	$search_enabled  = get_theme_mod( 'search_enabled', '1' ); // Get custom meta-value.
 	$nav_dark_image = '';
 	$nav_light_image = '';
+	$fold_class = '';
 	if ( have_rows( 'nav_logos', 'option' ) ) : 
 		while ( have_rows( 'nav_logos', 'option' ) ) : the_row(); 
 			$nav_dark = get_sub_field( 'nav_dark' ); 
@@ -47,6 +46,9 @@
 			$navbar_scheme .= ' bg-'.$navbar_page_scheme;
 		}
 
+		if ( get_field( 'deep_dive', $post_id ) == 1 ) :
+			$fold_class = 'bg-dark';
+		endif; 
 	
 // add algoritim for detecting background color here
 $container_class = '';
@@ -111,5 +113,5 @@ endif;
 		</nav><!-- /#header -->
 	</header>
 <?php if ( !is_front_page() ) { ?>
-	<main id="main" class=" <?php if ( !get_post_type( $post_id ) === 'case-studies' ) { echo 'fold-container container'; } ?>"<?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' style="padding-bottom: 100px;"'; endif; ?>>
+	<main id="main" class="fold-container <?php echo $fold_class; if ( !get_post_type( $post_id ) === 'case-studies' ) { echo ' container'; } ?>"<?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' style="padding-bottom: 100px;"'; endif; ?>>
 <?php } ?>

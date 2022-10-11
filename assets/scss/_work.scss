@@ -35,8 +35,11 @@
             @include media-breakpoint-up(3xl) {
                 margin-bottom: 60px;
             }
-            &:nth-last-of-type(-n+2) {
-                margin-bottom: 0 !important;
+            
+            @include media-breakpoint-up(md) {
+                &:nth-last-of-type(-n+2) {
+                    margin-bottom: 0 !important;
+                }
             }
         }
     }
