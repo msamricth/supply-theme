@@ -36,6 +36,12 @@ function supply_grid($content, $defaults = null){
             if ( have_rows( 'breakpoints_optional' ) ) : 
                 while ( have_rows( 'breakpoints_optional' ) ) : the_row();
                 $breakpoint_aspect = get_sub_field( 'breakpoint_aspect' ); 
+                $varBA = '';
+                if(strpos($breakpoint_aspect, 'xs') !== false){
+                    $varBA = '-';
+                } else {
+                    $varBA = '-'.$breakpoint_aspect.'-';
+                }
                     if ( get_sub_field( 'hide_media' ) == 1 ) : 
                         // echo 'true'; 
                         $row .=' d-'. $breakpoint_aspect.'-none';
@@ -45,7 +51,7 @@ function supply_grid($content, $defaults = null){
                     $offset = get_sub_field( 'offset_in_columns' ); 
                     if(empty($fullWidthAll)){
                         if ( get_sub_field( 'full_width' ) == 1 ) : 
-                            $row .=' full-width-row-'. $breakpoint_aspect;
+                            $row .=' full-width-row-'. $breakpoint_aspect .' g'.$varBA.'0';
                         else : 
                         endif;
                     }

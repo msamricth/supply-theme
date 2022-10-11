@@ -75,12 +75,11 @@ if($advanceHeader) {
 <div class="container">
     <div class="row">
         <div class="<?php echo $column_class; ?>">
-            <div class="spacer navuncatch cp2 cp5"></div>
             <header class="page-header">
                 <?php if($header_text){ ?>
-                    <h1 class="page-title fadeNoScroll cp3"><?php echo $header_text; ?></h1>
+                    <h1 class="page-title fadeNoScroll"><?php echo $header_text; ?></h1>
                 <?php } else { ?>
-                    <h1 class="page-title fadeNoScroll cp3"><?php the_title(); ?></h1>
+                    <h1 class="page-title fadeNoScroll"><?php the_title(); ?></h1>
                 <?php } ?>
             </header>
 <?php

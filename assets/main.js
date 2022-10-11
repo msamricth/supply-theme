@@ -113,10 +113,16 @@ import Splide from '@splidejs/splide';
 		var footerContent =$('.footer-content');
 		var footerLinks = $('.footer-content .fl a');
 		navbar.on('shown.bs.collapse', function () {
-			navbar.addClass('mobile-nav-open');
+			setTimeout(
+				function() {
+					navbar.addClass('mobile-nav-open');
+			}, 600);
 		  });		  
 		  navbar.on('hidden.bs.collapse', function () {
-			navbar.removeClass('mobile-nav-open');
+			setTimeout(
+				function() {
+					navbar.removeClass('mobile-nav-open');
+			}, 600);
 		  })
 		footerLinks.each(function(i, obj) {
 			var footerLink = $(this);
@@ -133,11 +139,7 @@ import Splide from '@splidejs/splide';
 				}			
 			var $contentContainer = $('.fold-container');
 			var homeHeader = $('.home-header');
-			
-			
 			if($contentContainer) {
-			
-	
 				const header = document.querySelector('#header');
 				const targets = document.getElementsByClassName('fold');
 				const options = {

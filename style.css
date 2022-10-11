@@ -203,3 +203,7 @@ a img.aligncenter {
 	width: auto;
 	z-index: 100000; /* Above WP toolbar. */
 }
+
+.ratio.ratio-mobile {
+	--bs-aspect-ratio: calc(4 / 3 * 100%);
+}

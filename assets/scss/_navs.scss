@@ -2,6 +2,37 @@
     padding-top:0;
     padding-bottom: 0;
     transition: background-color .4s ease-in-out,color .4s ease-in-out, opacity .4s ease-in-out;
+    
+    .hamburger--squeeze {
+        .hamburger-inner {
+        transition-duration: 0.075s; 
+        transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+        transition-delay: 0.2s !important;
+        &::before {
+            transition-delay: .32s !important;
+            top:-6px;
+        }
+
+        &::after {
+            bottom: -6px;
+            transition-delay: .32s !important;
+        }
+        }
+        &.is-active, &[aria-expanded='true'] {
+            .hamburger-inner {
+            transition-delay: 1.32s !important;
+                &::before {
+                    top: 0;
+                    transition-delay: 1.2s !important;
+                }
+        
+                &::after {
+                    bottom: 0;
+                    transition-delay: 1.2s !important;
+                }
+            }
+        }
+    }
     li .nav-link {
         text-shadow: none;
         outline: none;
@@ -77,8 +108,8 @@
             }
         
             &.collapsing {
-                margin-left: -120%;
-                transition: margin 400ms !important;
+                margin-left: -130%;
+                transition: margin 400ms ease !important;
             }
         }
         button.navbar-toggler.hamburger {
@@ -140,19 +171,9 @@
       .hamburger.is-active:hover, .hamburger:hover {
          opacity: 1; 
     }
-    #header.navbar:not(.mobile-nav-open) {
-        [aria-expanded="false"] {
-            .hamburger-inner:before {
-                top: -6px !important;
-            }
-            .hamburger-inner:after {
-                bottom: -6px !important;
-            }
-        }
-    }
 @keyframes slide-right {
     from {
-      margin-left: -120%;
+      margin-left: -130%;
     }
     to {
       margin-left: -20px;
@@ -164,6 +185,7 @@
         &.navbar-dark  {
             .navbar-toggler:not(.collapsed) {
             .hamburger-inner, .hamburger-inner:after, .hamburger-inner:before {
+                    transition: .5 background-color ease !important;
                     background-color: white;
                 }
             }

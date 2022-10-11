@@ -13,13 +13,16 @@
             }
         }
     }
-    &__application {
-
+    &__label {
+        opacity: 0.75;
     }
 }
 .page-template-careers {
     .card {
         border-bottom: 1px solid rgb($primary,.39) !important;
+        .entry-summary {
+            margin-bottom: 24px;
+        }
     }
     .header-container.header-partial {
         margin-bottom: 100px;
