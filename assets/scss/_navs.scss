@@ -63,7 +63,7 @@
             width: calc(100% + 40px);
             top:0;
             transition: margin 700ms !important;
-            margin-left: -120%;
+            margin-left: -124%;
             &.show {
                 margin-left:-20px;
                 animation: 700ms slide-right;
@@ -77,7 +77,7 @@
             }
         
             &.collapsing {
-                margin-left: -115%;
+                margin-left: -120%;
                 transition: margin 400ms !important;
             }
         }
@@ -97,7 +97,7 @@
         margin-top: 120px;
     }
     .under-nav {
-        margin-top: -80px;
+        // margin-top: -80px; deleting once i figure out why I added this here in the first place
         @include media-breakpoint-up(md) { 
             margin-top: -120px;
         }
@@ -141,16 +141,18 @@
          opacity: 1; 
     }
     #header.navbar:not(.mobile-nav-open) {
-        .hamburger-inner:before {
-            top: -6px !important;
-        }
-        .hamburger-inner:after {
-            bottom: -6px !important;
+        [aria-expanded="false"] {
+            .hamburger-inner:before {
+                top: -6px !important;
+            }
+            .hamburger-inner:after {
+                bottom: -6px !important;
+            }
         }
     }
 @keyframes slide-right {
     from {
-      margin-left: -100%;
+      margin-left: -120%;
     }
     to {
       margin-left: -20px;

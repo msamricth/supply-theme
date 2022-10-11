@@ -21,4 +21,13 @@
     .card {
         border-bottom: 1px solid rgb($primary,.39) !important;
     }
+    .header-container.header-partial {
+        margin-bottom: 100px;
+        @include media-breakpoint-up(md) {
+            margin-bottom: 136px;
+        }
+        @include media-breakpoint-up(3xl) {
+            margin-bottom: 180px;
+        }
+    }
 }

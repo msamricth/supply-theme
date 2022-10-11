@@ -28,13 +28,13 @@ $i = 0;
 $classes .= ' fadeNoScroll';
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>" style="background-color:<?php the_field( 'background_color' ); ?>;">
-    <div class="spacer cp3 clearfix"><p>&nbsp;</p>
-        <?php 
-            if ( is_admin() ) {
-            // Runs only if this PHP code is in a file that displays outside the admin panels, like the theme template.
-            echo '<div style="text-align: center">This is where on the front-end the logo garden will appear. <a>Click here,</a> to change the settings for this block.</div>';
-        }  ?>
-    </div>
+
+    <?php 
+        if ( is_admin() ) {
+        // Runs only if this PHP code is in a file that displays outside the admin panels, like the theme template.
+        echo '<div style="text-align: center">This is where on the front-end the logo garden will appear. <a>Click here,</a> to change the settings for this block.</div>';
+    }  ?>
+
 	<div class="container" <?php if ( is_admin() ) {?>style="display:none;"<?php } ?>>
         <div class="row justify-content-between gx-dlg-8 gy-dlg-4">
             <?php if ( have_rows( 'logos', 'option' ) ) : ?>

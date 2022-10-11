@@ -24,7 +24,7 @@ if ( ! empty( $block['className'] ) ) {
 if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
-$classes .= " fadeNoScroll";
+$classes .= " ";
 $blockContent = '';
 $blockContent .='<div class="spacer '. get_field( 'padding_top' ) .'"></div>';
 $blockContent .='<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes ) .'"></div>';
@@ -32,10 +32,10 @@ $blockContent .='<div class="spacer '. get_field( 'padding_bottom' ) .'"></div>'
 if ( have_rows( 'container_settings' ) ) : 
     while ( have_rows( 'container_settings' ) ) : the_row(); 
 			
-        echo supply_grid($blockContent, 'col-dlg-12');
+        echo supply_grid($blockContent, 'col-dlg-12 fadeNoScroll');
     endwhile;
 else:
-    echo supply_grid_sh($blockContent, 'col-dlg-12');
+    echo supply_grid_sh($blockContent, 'col-dlg-12 fadeNoScroll');
 endif;
 if ( is_admin() ) {
     // Runs only if this PHP code is in a file that displays outside the admin panels, like the theme template.
