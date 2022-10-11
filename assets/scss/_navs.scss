@@ -132,6 +132,7 @@
             }
         }
     } 
+}
     .hamburger-box {
         height: 14px !important;
         width: 20px;
@@ -140,12 +141,11 @@
          opacity: 1; 
     }
     .hamburger-inner:before {
-        top: -6px;
+        top: -6px !important;
     }
     .hamburger-inner:after {
-        bottom: -6px;
+        bottom: -6px !important;
     }
-}
 @keyframes slide-right {
     from {
       margin-left: -100%;
