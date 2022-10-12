@@ -54,6 +54,20 @@ blockquote, blockquote.wp-block-quote {
         }
     }
 }
+p {
+    line-height: 1.667;
+    @include media-breakpoint-up(md) {
+        line-height: 1.8;
+    }
+    @include media-breakpoint-up(3xl) {
+        line-height: 1.86;
+    }
+    span {
+        font-size: inherit;
+        line-height: inherit;
+    }
+
+}
 //Bootstrap's version of stretched link isn't working - to investigate why later.
 .stretched-link::after {
     position: absolute;

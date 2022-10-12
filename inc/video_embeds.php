@@ -74,6 +74,8 @@ function image_containers( $imageObject,  $imageObjectMobile = null) {
     if( $imageObjectMobile){
         $mobileImage .= '<img class="d-dlg-none" src="'.esc_url( $imageObjectMobile['url'] ).'" alt="'. esc_attr( $imageObjectMobile['alt'] ).'" />';
         $classes .= "d-none d-dlg-block";
+    } else {
+        $classes .= "main-image";
     }
     $desktopImage .= '<img class="'.$classes.'" src="'.esc_url( $imageObject['url'] ).'" alt="'. esc_attr( $imageObject['alt'] ).'" />';
     $desktopImage .= $mobileImage;

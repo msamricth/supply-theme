@@ -18,7 +18,7 @@ endif;
 if ( get_field( 'full_width_page' ) == 1 ) : 
     $column_class = 'col-md-12 mx-auto';
 else : 
-    $column_class = 'col-md-10 mx-auto col-dlg-12 col-xl-10';
+    $column_class = 'col-md-12 mx-auto col-dlg-12 col-xl-10';
 endif;
 if ( have_rows( 'header' ) ) : 
 	while ( have_rows( 'header' ) ) : the_row(); 
@@ -44,7 +44,7 @@ if($vimeoVideo){
 if($advanceHeader) {
 ?>
 <div id="header-<?php the_ID(); ?>" class="<?php echo esc_attr( $classes ); ?>">
-    <header class="page-header fold" data-class="header">
+    <header class="page-header page-header fold" data-class="header">
         <div class="container">
             <div class="row">
                 <div class="col-dlg-10 mx-auto col-xl-8">
@@ -57,16 +57,13 @@ if($advanceHeader) {
             </div>
         </div>
     </header>
-        <div class="row g-0">
-            
-            <?php if ( $vimeoVideo ) : ?> 
-                <?php echo video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio); 
-                else:?>
-                <?php if ( $image ) : 
-                    echo image_containers($image, $image_mobile);
-                endif; ?>
-            <?php endif; ?>
-    </div>
+    <?php if ( $vimeoVideo ) : ?> 
+        <?php echo video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio); 
+        else:?>
+        <?php if ( $image ) : 
+            echo image_containers($image, $image_mobile);
+        endif; ?>
+    <?php endif; ?>
     <div class=" fold" data-class="header"></div>
 </div>
 <div class="container nav-catch fold" data-class="<?php echo $foldData; ?>">

@@ -40,9 +40,11 @@ $classes .=' fadeNoScroll';
         } 
         ?>
         <div class="">
+            <p class="md-0">
             <span class="iso-reg footer-label d-block">
                 <?php the_field( 'new_business_label', 'option' ); ?>
             </span>
+            </p>
             <p><?php the_field( 'point_of_contact', 'option' ); ?></p>
         </div>
         <div class="">
@@ -62,9 +64,11 @@ $classes .=' fadeNoScroll';
             </p>
         </div>
         <div class="pt-4 mt-2 mt-md-4">
-            <span class="iso-reg footer-label d-block">
-                <?php the_field( 'headquarters_label', 'option' ); ?>
-            </span>
+            <p class="md-0">
+                <span class="iso-reg footer-label d-block">
+                    <?php the_field( 'headquarters_label', 'option' ); ?>
+                </span>
+            </p>
             <?php the_field( 'headquarters_address', 'option' ); ?>
         </div>
     </div>

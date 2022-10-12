@@ -26,9 +26,11 @@
 					<div class="col-md-6 col-lg-8 col-3xl-7 block-supply-contact-block ">
 						<div class="footer-content supply-underline">
 							<div class="">
-								<span class="iso-reg footer-label d-block">
-									<?php the_field( 'new_business_label', 'option' ); ?>
-								</span>
+								<p class="md-0">
+									<span class="iso-reg footer-label d-block">
+										<?php the_field( 'new_business_label', 'option' ); ?>
+									</span>
+								</p>
 								<p><?php the_field( 'point_of_contact', 'option' ); ?></p>
 							</div>
 							<div class="">
@@ -48,9 +50,12 @@
 								</p>
 							</div>
 							<div class="pt-4 mt-2 mt-md-4">
+								
+							<p class="md-0">
 								<span class="iso-reg footer-label d-block">
 									<?php the_field( 'headquarters_label', 'option' ); ?>
 								</span>
+							</p>
 								<?php the_field( 'headquarters_address', 'option' ); ?>
 							</div>
 						</div>

@@ -46,14 +46,6 @@ blockquote.wp-block-quote {
         margin-bottom: 28px;
         line-height: 1.125;
     }
-    p {
-        line-height: 1.667;
-        span {
-            font-size: inherit;
-            line-height: inherit;
-        }
-    
-    }
 }
 .bg-light {
     .block-supply-stats {
@@ -85,11 +77,18 @@ blockquote.wp-block-quote {
         }
     }
 }
+.under-nav {
+    header.page-header {
+        @include media-breakpoint-up(md) {
+            padding-top: 280px;
+        }
+    }
+}
 header.page-header {
     padding-top: 80px;
     padding-bottom: 60px;
     @include media-breakpoint-up(md) {
-        padding-top: 280px;
+        padding-top: 160px;
     }
     h1 {
         @include media-breakpoint-down(md) {
@@ -98,6 +97,21 @@ header.page-header {
     }
 }
 .header-partial {
+    .main-image {
+        height: 100% !important;
+    }
+    @include media-breakpoint-up(md) {
+        height: 930px;
+    }   
+    @include media-breakpoint-up(3xl) { 
+        height: 1057px;
+    }
+    @include media-breakpoint-up(4xl) { 
+        height: 1350px;
+    }
+    .main-image {
+        height: 100% !important;
+    }
     header.page-header {
         display: flex;
         align-items: center;
@@ -112,6 +126,10 @@ header.page-header {
     padding-top: 84px;
     @include media-breakpoint-up(md) {
         padding-top: 136px;
+       img {
+            height: 45px;
+            margin-bottom: 95px;
+        }
     }
     @include media-breakpoint-up(3xl) {
         padding-top: 180px;
@@ -127,13 +145,11 @@ header.page-header {
 }
 .block-supply-contact-block {
     .footer-content {
-        line-height: 1.67;
         a {
             font-size: inherit;
             font-family: inherit;
         }
         p {
-            line-height: 1.67;
             margin-bottom: 0;
             margin-top: 0;
         }
@@ -332,12 +348,10 @@ header.page-header {
     }
     .block-supply-content-block {
         padding-top: 66px;
-        padding-bottom: 112px;
+        padding-bottom: 80px;
     }
     
-    .block-supply-list-block.cp3 {
-        margin-bottom: 56px;
-    }
+   // will delete or unmute when I determine why this is here - .block-supply-list-block.cp3 {  margin-bottom: 56px; }
 
 }
 @include media-breakpoint-up(4xl) {
