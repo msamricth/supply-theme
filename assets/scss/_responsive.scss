@@ -1,6 +1,7 @@
 @include media-breakpoint-up(md) { 
     h1, .h1 {
         font-size: 72px;
+        line-height: 1.28;
     }
     h2, .h2 {
         font-size: 36px;
@@ -25,8 +26,15 @@
             padding-bottom: 32px;
         }
     }
+
 }
 @include media-breakpoint-up(md) {
+    a, .form-control,.wpcf7-form-control, .wpcf7-submit {
+        font-size: 18px;
+    }
+    .wpcf7-submit.footer-btn {
+        font-size: 16px;
+    }
     blockquote, blockquote.wp-block-quote {
         p {
             font-size: 36px;
@@ -37,6 +45,7 @@
 @include media-breakpoint-up(dlg) {
     h3, .h3 {
         font-size: 52px;
+        line-height: 1.23;
     }
     main a {
 		font-size: 18px;

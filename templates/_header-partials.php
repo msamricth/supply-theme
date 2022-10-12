@@ -3,6 +3,7 @@ $advanceHeader = '';
 $vimeo_video_mobile = '';
 $vimeoVideo = '';
 $image = '';
+$image_mobile = '';
 $video_ratio = '';
 $classes ='header-container header-partial fadeNoScroll';
 $header_text = '';
@@ -28,6 +29,7 @@ if ( have_rows( 'header' ) ) :
         endif; 
         $vimeoVideo = get_sub_field('vimeo_video');
         $image = get_sub_field( 'image' );
+        $image_mobile = get_sub_field( 'image_mobile' );
         $video_ratio = get_sub_field('video_ratio');
         $vimeo_video_mobile = get_sub_field('vimeo_video_mobile');
         
@@ -60,9 +62,9 @@ if($advanceHeader) {
             <?php if ( $vimeoVideo ) : ?> 
                 <?php echo video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio); 
                 else:?>
-                <?php if ( $image ) : ?>    
-                    <img src="<?php echo esc_url( $image['url'] ); ?>" class="img-responsive" alt="<?php echo esc_attr( $image['alt'] ); ?>" />
-                <?php endif; ?>
+                <?php if ( $image ) : 
+                    echo image_containers($image, $image_mobile);
+                endif; ?>
             <?php endif; ?>
     </div>
     <div class=" fold" data-class="header"></div>

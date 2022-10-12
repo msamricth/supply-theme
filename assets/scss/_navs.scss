@@ -147,6 +147,9 @@
             padding-left: 25px;
             padding-right: 25px;
             font-size: 22px;
+            @include media-breakpoint-up(md) { 
+                font-size: 24px;
+            }
         }
         &:first-child a{
             padding-left: 0;

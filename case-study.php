@@ -49,7 +49,7 @@ if ( have_posts() ) :
         <article id="post-<?php the_ID(); ?>" <?php post_class($classes); ?>>
             <?php if($header_video) : ?>
                 <div class="header-container fold" data-class="header">
-                    <?php echo video_containers($header_video, $header_video_mobile, '4x3'); ?>
+                    <?php echo video_containers($header_video, $header_video_mobile, '4x3', '1x1'); ?>
                 </div>
 
             <?php else : ?>

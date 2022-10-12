@@ -47,13 +47,16 @@ function background_video ($videoURL = null){
     $embed .= '<iframe src="'. $video.'?&amp;title=0&amp;byline=0&amp;portrait=0&amp;playsinline=0&amp;muted=1&amp;autoplay=1&amp;autopause=0&amp;controls=0&amp;loop=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
     return $embed;
 }
-function video_containers($videoURL, $videoMURL = null, $ratio = null) {
+function video_containers($videoURL, $videoMURL = null, $ratio = null, $mobile_ratio = null) {
     $classes = '';
     $mobileVideo = '';
     $desktopVideo = '';
     if($videoMURL){
-        $mobileVideo .= '<div class="d-md-none ratio ratio-mobile">' . background_video($videoMURL) . '</div>';
-        $classes .= "d-none d-md-block";
+        if($mobile_ratio){}else{
+            $mobile_ratio = 'mobile';
+        }
+        $mobileVideo .= '<div class="d-dlg-none ratio ratio-'. $mobile_ratio . '">' . background_video($videoMURL) . '</div>';
+        $classes .= "d-none d-dlg-block";
     }
     if($ratio) {
         $classes .= ' ratio-' . $ratio;
@@ -64,3 +67,16 @@ function video_containers($videoURL, $videoMURL = null, $ratio = null) {
     $desktopVideo .= $mobileVideo;
     return $desktopVideo;
 }
+function image_containers( $imageObject,  $imageObjectMobile = null) {
+    $classes = '';
+    $mobileImage = '';
+    $desktopImage = '';
+    if( $imageObjectMobile){
+        $mobileImage .= '<img class="d-dlg-none" src="'.esc_url( $imageObjectMobile['url'] ).'" alt="'. esc_attr( $imageObjectMobile['alt'] ).'" />';
+        $classes .= "d-none d-dlg-block";
+    }
+    $desktopImage .= '<img class="'.$classes.'" src="'.esc_url( $imageObject['url'] ).'" alt="'. esc_attr( $imageObject['alt'] ).'" />';
+    $desktopImage .= $mobileImage;
+    return $desktopImage;
+}
+
