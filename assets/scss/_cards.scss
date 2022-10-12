@@ -1,3 +1,18 @@
+.home-loop-section {
+    .card-title{
+        font-size: 24px;
+        padding-top: 4px;
+        @include media-breakpoint-up(md) {
+            font-size: 36px;
+        }
+        @include media-breakpoint-up(lg) {
+            font-size: 36px;
+        }
+        @include media-breakpoint-up(3xl) {
+            font-size: 52px;
+        }
+    } 
+}
 .home-loop-section, .supply-pagination {
     .card {
         &:not(:last-child) {
@@ -37,18 +52,10 @@
         .card-title{
             font-size: 24px;
             padding-top: 4px;
-            @include media-breakpoint-up(md) {
-                font-size: 36px;
-            }
             @include media-breakpoint-up(dlg) {
                 padding-top: 8px;
             }
-            @include media-breakpoint-up(lg) {
-                font-size: 36px;
-            }
-            @include media-breakpoint-up(3xl) {
-                font-size: 52px;
-            }
+           
         } 
         .post-thumbnail {
             margin: 0;

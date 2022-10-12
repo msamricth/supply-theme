@@ -47,9 +47,9 @@ $blockContent .= '</div>';
 $blockContent .= '</blockquote>';
 if ( have_rows( 'column_placement' ) ) :
     while ( have_rows( 'column_placement' ) ) : the_row(); 
-        echo supply_grid($blockContent, 'col-md-10 mx-auto col-dlg-12 col-xl-10');
+        echo supply_grid($blockContent, 'mx-auto col-dlg-12 col-xl-10');
     endwhile;
 else:
-    echo supply_grid_sh($blockContent, 'col-md-10 mx-auto col-dlg-12 col-xl-10');
+    echo supply_grid_sh($blockContent, 'mx-auto col-dlg-12 col-xl-10');
 endif;
 

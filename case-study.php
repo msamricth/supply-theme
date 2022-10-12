@@ -64,7 +64,7 @@ if ( have_posts() ) :
             <section class="entry " id="content">
                 <div class="container fadeNoScroll fold"<?php if(!$deep_dive):?> data-class="bg-light"<?php else: ?> data-class="bg-dark"<?php endif; ?>>
                     <div class="row">
-                        <div class="col-md-12 col-xl-10 offset-xl-1">
+                        <div class="col-md-10 col-xl-10 offset-xl-1">
                             <?php if ( $client_logo ) : ?>
                                 <img class="img-responsive client-logo fadeNoScroll" src="<?php echo esc_url( $client_logo['url'] ); ?>" alt="<?php echo esc_attr( $client_logo['alt'] ); ?>" />
                             <?php endif; ?>
@@ -76,7 +76,7 @@ if ( have_posts() ) :
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-8 col-xl-7 offset-xl-1 case-study-left">         
+                        <div class="col-md-10 col-lg-8 col-xl-7 offset-xl-1 case-study-left">         
                             <?php if ( $intro_blurb ) : ?> 
                                 <div class="intro-content">
                                     <?php echo $intro_blurb; ?>
