@@ -54,7 +54,7 @@ if ( have_rows( 'lists' ) ) :
         }
         $blockContent .='</div>';
         if ($i % 3 == 0) {
-           // $blockContent .= '<div class="w-100 d-none d-dlg-block d-4xl-none"></div>';
+           $blockContent .= '<span class="w-100 d-none d-dlg-block d-4xl-none"></span>';
         }
     endwhile; 
 else : 

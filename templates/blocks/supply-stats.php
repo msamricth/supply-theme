@@ -30,7 +30,7 @@ $i = 0;
 
 $blockContent .= '<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes ) .'">';
     if ( have_rows( 'supply_stats' ) ) : 
-        $blockContent .= '<div class="row justify-content-between">';
+        $blockContent .= '<div class="row g-0 justify-content-between">';
             while ( have_rows( 'supply_stats' ) ) : the_row();
                 $blockContent .= '<div class="col-md-4 px-md-0 col-xxl-3">';
                     $blockContent .= '<h4 class="stats">';

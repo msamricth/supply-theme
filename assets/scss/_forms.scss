@@ -84,6 +84,8 @@
 }
 textarea.form-control {
     height: 1.75rem;
+    overflow: hidden;
+    resize: both;
 }
 input.wpcf7-form-control.wpcf7-submit.footer-btn {
     font-size: 14px;

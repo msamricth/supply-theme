@@ -5,6 +5,17 @@ body {
             font-family: inherit;
         }
     }
+    .wpcf7-not-valid-tip {
+        font-family: var(--bs-body-font-family);
+        font-size: var(--bs-body-font-size);
+        font-weight: var(--bs-body-font-weight);
+        line-height: var(--bs-body-line-height);
+        color: inherit;
+        opacity: .75;
+    }
+    .wpcf7-response-output {
+        display: none;
+    }
 }
 h3 {
     line-height: 1.22 ;

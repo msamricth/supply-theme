@@ -7,6 +7,7 @@ $image_mobile = '';
 $video_ratio = '';
 $classes ='header-container header-partial fadeNoScroll';
 $header_text = '';
+$no_headerText = '';
 $column_class = '';
 $foldData = '';
 if ( get_field( 'dots_on' ) == 1 ) : 
@@ -25,6 +26,10 @@ if ( have_rows( 'header' ) ) :
         $header_text = get_sub_field( 'header_text' ); 
         if ( get_sub_field( 'under_nav' ) == 1 ) : 
             $classes .= ' under-nav';
+        else : 
+        endif; 
+        if ( get_sub_field( 'disable_header_text') == 1 ) : 
+            $no_headerText .= 'true';
         else : 
         endif; 
         $vimeoVideo = get_sub_field('vimeo_video');
@@ -48,11 +53,14 @@ if($advanceHeader) {
         <div class="container">
             <div class="row">
                 <div class="col-dlg-10 mx-auto col-xl-8">
-                    <?php if($header_text){ ?>
-                        <h1 class="page-title fadeNoScroll"><?php echo $header_text; ?></h1>
-                    <?php } else { ?>
-                        <h1 class="page-title fadeNoScroll"><?php the_title(); ?></h1>
-                    <?php } ?>
+                    <?php if (empty($no_headerText)) {
+                        if($header_text){ ?>
+                            <h1 class="page-title fadeNoScroll"><?php echo $header_text; ?></h1>
+                        <?php } else { ?>
+                            <h1 class="page-title fadeNoScroll"><?php the_title(); ?></h1>
+                        <?php } 
+                    }
+                    ?>
                 </div>
             </div>
         </div>
@@ -74,12 +82,16 @@ if($advanceHeader) {
 <div class="container">
     <div class="row">
         <div class="<?php echo $column_class; ?>">
+            <?php if (empty($no_headerText)) {?>
             <header class="page-header">
-                <?php if($header_text){ ?>
-                    <h1 class="page-title fadeNoScroll"><?php echo $header_text; ?></h1>
-                <?php } else { ?>
-                    <h1 class="page-title fadeNoScroll"><?php the_title(); ?></h1>
-                <?php } ?>
+                <?php 
+                    if($header_text){ ?>
+                        <h1 class="page-title fadeNoScroll"><?php echo $header_text; ?></h1>
+                    <?php } else { ?>
+                        <h1 class="page-title fadeNoScroll"><?php the_title(); ?></h1>
+                    <?php } 
+                ?>
             </header>
+            <?php } ?>
 <?php
 } ?>

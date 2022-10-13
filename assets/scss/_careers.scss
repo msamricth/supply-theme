@@ -26,6 +26,9 @@
         border-bottom: 1px solid rgb($primary,.39) !important;
         .entry-summary {
             margin-bottom: 24px;
+            @include media-breakpoint-up(lg) {
+                max-width: 70%;
+            }
         }
     }
     .header-container.header-partial {
