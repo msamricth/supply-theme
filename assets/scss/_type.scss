@@ -5,6 +5,20 @@ body {
             font-family: inherit;
         }
     }
+    .wpcf7-not-valid-tip {
+        font-family: var(--bs-body-font-family);
+        font-size: var(--bs-body-font-size);
+        font-weight: var(--bs-body-font-weight);
+        line-height: var(--bs-body-line-height);
+        color: inherit;
+        opacity: .75;
+    }
+    .wpcf7-response-output {
+        display: none;
+    }
+}
+h3 {
+    line-height: 1.22 ;
 }
 h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     font-family: 'Calibre';
@@ -28,7 +42,9 @@ a, .nav-link {
     font-family: $link_font;
     font-size: 14px;
 }
-
+a {
+    font-size: 14px;
+}
 blockquote, blockquote.wp-block-quote {
     font-style: italic;
     font-size: 24px;
@@ -48,6 +64,20 @@ blockquote, blockquote.wp-block-quote {
             font-weight: 600;
         }
     }
+}
+p {
+    line-height: 1.667;
+    @include media-breakpoint-up(md) {
+        line-height: 1.8;
+    }
+    @include media-breakpoint-up(3xl) {
+        line-height: 1.86;
+    }
+    span {
+        font-size: inherit;
+        line-height: inherit;
+    }
+
 }
 //Bootstrap's version of stretched link isn't working - to investigate why later.
 .stretched-link::after {

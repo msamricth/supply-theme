@@ -245,8 +245,8 @@ body {
 			max-width: 100%;
 		}
 	}
-	a {
-		font-size: 14px;
+	p > a {
+		font-size: inherit;
 	}
 	/* If WP-Adminbar is visible */
 	&.admin-bar {

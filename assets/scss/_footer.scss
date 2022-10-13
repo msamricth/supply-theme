@@ -1,12 +1,10 @@
 .footer {
-    min-height: 805px;
-}
-.footer {
+    min-height: 667px;
+    @include media-breakpoint-up(md) { 
+        padding-bottom: 48px;
+    }
     span.wpcf7-not-valid-tip {
         display: none;
-    }
-    .footer-content {
-        line-height: 1.67;
     }
     a {
         text-decoration: none;
@@ -25,6 +23,10 @@
             padding-top: 0;
             padding-bottom: 32px;
             padding-left: 0;
+            line-height: 1.11;
+            @include media-breakpoint-up(md) { 
+                font-size: 36px;
+            }
         }
     }
     @include media-breakpoint-up(md) { 

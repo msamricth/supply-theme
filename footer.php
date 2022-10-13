@@ -26,9 +26,11 @@
 					<div class="col-md-6 col-lg-8 col-3xl-7 block-supply-contact-block ">
 						<div class="footer-content supply-underline">
 							<div class="">
-								<span class="iso-reg footer-label d-block">
-									<?php the_field( 'new_business_label', 'option' ); ?>
-								</span>
+								<p class="md-0">
+									<span class="iso-reg footer-label d-block">
+										<?php the_field( 'new_business_label', 'option' ); ?>
+									</span>
+								</p>
 								<p><?php the_field( 'point_of_contact', 'option' ); ?></p>
 							</div>
 							<div class="">
@@ -47,10 +49,13 @@
 								?>
 								</p>
 							</div>
-							<div class="pt-4 mt-2">
+							<div class="pt-4 mt-2 mt-md-4">
+								
+							<p class="md-0">
 								<span class="iso-reg footer-label d-block">
 									<?php the_field( 'headquarters_label', 'option' ); ?>
 								</span>
+							</p>
 								<?php the_field( 'headquarters_address', 'option' ); ?>
 							</div>
 						</div>
@@ -67,7 +72,7 @@
 								<p><?php printf( esc_html__( '&copy; %1$s %2$s. All rights reserved.', 'supply' ), date_i18n( 'Y' ), get_bloginfo( 'name', 'display' ) ); ?></p>
 						<?php
 							endif;?>
-						<div class="footer-cta my-5">
+						<div class="footer-cta my-5 mt-md-6">
 							<?php echo do_shortcode('[contact-form-7 id="130" title="Stay in touch - FooterCTA"]'); ?>
 						</div>
 					</div>

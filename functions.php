@@ -244,10 +244,21 @@ function myTheme_registerWidgetAreas() {
             'before_title'  => '',
             'after_title'   => '',
         ) );
+		
     }
+	register_sidebar(
+		array(
+			'id'            => 'primary',
+			'name'          => __( 'Primary Sidebar' ),
+			'description'   => __( 'A short description of the sidebar.' ),
+			'before_widget' => '<div id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h3 class="widget-title">',
+			'after_title'   => '</h3>',
+		)
+	);
 }
 add_action( 'widgets_init', 'myTheme_registerWidgetAreas' );
-
 $theme_functions = __DIR__ . '/inc/theme_functions.php';
 if ( is_readable( $theme_functions ) ) {
 	require_once $theme_functions;

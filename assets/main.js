@@ -15,7 +15,19 @@ import Splide from '@splidejs/splide';
 			}
 		} );
 	} );
-	
+	function calcHeight(value) {
+		let numberOfLineBreaks = (value.match(/\n/g) || []).length;
+		// min-height + lines x line-height + padding + border
+		let heightVar = 30;
+		let newHeight = heightVar + numberOfLineBreaks * heightVar + 12 + 2;
+		return newHeight;
+	  }
+	let textareaEX = document.querySelector("textarea.form-control");
+	if(textareaEX){
+		textareaEX.addEventListener("keyup", () => {
+			textareaEX.style.height = calcHeight(textareaEX.value) + "px";
+		});
+	}
 	// Initialize Popovers: https://getbootstrap.com/docs/5.0/components/popovers
 	var popoverTriggerList = [].slice.call( document.querySelectorAll( '[data-bs-toggle="popover"]' ) );
 	var popoverList = popoverTriggerList.map( function ( popoverTriggerEl ) {
@@ -85,9 +97,13 @@ import Splide from '@splidejs/splide';
 					  padding: { top: '0px'}
 				  },
 				  1024: {
-					  gap:105
+					  gap:105,
+					  padding: { top: '60px'},
+					  height   : '16rem',
 				  },
 				  1290: {
+					padding: { top: '50px'},
+					height: '28rem',
 					gap:58
 				},
 				  1920: {
@@ -112,6 +128,11 @@ import Splide from '@splidejs/splide';
 		var foldContainer = $('.fold-container');
 		var footerContent =$('.footer-content');
 		var footerLinks = $('.footer-content .fl a');
+		var animatedInput = $('input.link-up');
+
+		if(animatedInput.length){
+			animatedInput.after('<span class="linked-up">></span>');
+		}
 		navbar.on('shown.bs.collapse', function () {
 			setTimeout(
 				function() {

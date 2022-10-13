@@ -35,16 +35,27 @@
                 margin-top: 80px;
                 margin-bottom: 44px; 
                 height: 45px;
+
                 @include media-breakpoint-up(sm) { 
                     width:15%;
                     height: auto;
+                }
+                @include media-breakpoint-up(md) {
+                    margin-top: 106px;
+                    width:103px;
+                }
+                @include media-breakpoint-up(xl) {
+                    margin-top: 100px;
+                    width:211px;
                 }
                 @include media-breakpoint-up(3xl) { 
                     width:10%;
                 }
             }        
             h3.entry-title {
-                font-size: 32px;
+                @include media-breakpoint-down(sm) { 
+                    font-size: 32px;
+                }
                 margin-bottom: 28px;
             }
             .intro-content, .outro-content {
@@ -52,6 +63,9 @@
             }
             .case-study-left {
                 margin-bottom: 34px;
+                @include media-breakpoint-up(md) {
+                    margin-bottom: 80px;
+                }
             }
             .case-study-right {
                 margin-bottom: 14px;
@@ -62,8 +76,9 @@
     &__pagination {
         padding-top: 135px;
         padding-bottom: 72px;
-        @include media-breakpoint-up(lg) {
+        @include media-breakpoint-up(md) {
             padding-top: 280px;
+            padding-bottom: 136px;
         }
     }
     &__light-content {

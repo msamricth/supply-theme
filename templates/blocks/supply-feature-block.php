@@ -68,7 +68,7 @@ endif;
                 endif; ?>
                 <div class="fold" data-class="bg-pattern"></div>
                 <div class="row">
-                    <div class="col-dlg-11 col-3xl-10">
+                    <div class="col-dlg-11 col-3xl-10 col-md-10">
                         <?php if ( $tagline_content ) : 
                             echo '<p class="mb-4 pb-1 mb-lg-5 ">' . $tagline_content . '</p>';
                             endif; ?>

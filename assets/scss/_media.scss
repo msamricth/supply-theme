@@ -64,3 +64,9 @@
         }
     }
 }
+.ratio-3x4 {
+    --bs-aspect-ratio: 125%; 
+    @include media-breakpoint-up(dlg) {
+    --bs-aspect-ratio: 56.25%; 
+    }
+}

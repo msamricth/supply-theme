@@ -49,7 +49,7 @@ if ( have_posts() ) :
         <article id="post-<?php the_ID(); ?>" <?php post_class($classes); ?>>
             <?php if($header_video) : ?>
                 <div class="header-container fold" data-class="header">
-                    <?php echo video_containers($header_video, $header_video_mobile, '4x3'); ?>
+                    <?php echo video_containers($header_video, $header_video_mobile, '4x3', '1x1'); ?>
                 </div>
 
             <?php else : ?>
@@ -64,19 +64,20 @@ if ( have_posts() ) :
             <section class="entry " id="content">
                 <div class="container fadeNoScroll fold"<?php if(!$deep_dive):?> data-class="bg-light"<?php else: ?> data-class="bg-dark"<?php endif; ?>>
                     <div class="row">
-                        <div class="col-md-12 col-xl-10 offset-xl-1">
+                        <div class="col-md-10 col-xl-10 offset-xl-1">
                             <?php if ( $client_logo ) : ?>
                                 <img class="img-responsive client-logo fadeNoScroll" src="<?php echo esc_url( $client_logo['url'] ); ?>" alt="<?php echo esc_attr( $client_logo['alt'] ); ?>" />
-                            <?php endif; ?>
-                            <?php if ( $title_of_work_performed ) : ?>
-                                <h3 class="entry-title fadeNoScroll"><?php echo $title_of_work_performed; ?></h3>
-                            <?php else :?>
-                                <h3 class="entry-title fadeNoScroll"><?php the_title(); ?></h3>
                             <?php endif; ?>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-8 col-xl-7 offset-xl-1 case-study-left">         
+                        <div class="col-md-10 col-lg-8 col-xl-7 offset-xl-1 case-study-left">  
+                            
+                        <?php if ( $title_of_work_performed ) : ?>
+                                <h4 class="entry-title fadeNoScroll"><?php echo $title_of_work_performed; ?></h4>
+                            <?php else :?>
+                                <h4 class="entry-title fadeNoScroll"><?php the_title(); ?></h4>
+                            <?php endif; ?>       
                             <?php if ( $intro_blurb ) : ?> 
                                 <div class="intro-content">
                                     <?php echo $intro_blurb; ?>
