@@ -14,6 +14,11 @@
     } 
 }
 .home-loop-section, .supply-pagination {
+    @include media-breakpoint-up(3xl) {
+        article.cp3:not(:last-child) {
+            margin-bottom: 180px;
+        }
+    }
     .card {
         &:not(:last-child) {
             margin-bottom: 60px;
@@ -54,6 +59,9 @@
             padding-top: 4px;
             @include media-breakpoint-up(dlg) {
                 padding-top: 8px;
+            }
+            @include media-breakpoint-up(3xl) {
+                padding-top: 0px;
             }
            
         } 

@@ -64,6 +64,7 @@ import Splide from '@splidejs/splide';
 				e.preventDefault();
 				player.play();
 				document.querySelector(".video-embed").className += " video-iframe-container";
+				iframe.classList.remove("d-none");
 			})
 		}
 		var splide = new Splide( '.splide', {
@@ -102,11 +103,19 @@ import Splide from '@splidejs/splide';
 					  height   : '16rem',
 				  },
 				  1290: {
-					padding: { top: '50px'},
-					height: '28rem',
+					padding: { top: '0px'},
+					height: '280px',
 					gap:58
 				},
 				  1920: {
+					padding: { top: '0px'},
+					height: '298px',
+					gap:79
+				},
+				
+				2900: {
+					padding: { top: '0px'},
+					height: '298px',
 					gap:79
 				},
 			}
@@ -157,10 +166,16 @@ import Splide from '@splidejs/splide';
 			var $message = $('#message');
 				if(($message).length) {
 					expandTextarea('message');
-				}			
-			var $contentContainer = $('.fold-container');
+				}		
+				
+			const screenWidth  = window.innerWidth;
+			const screenHeight = window.innerHeight;	
+			const contentContainer = document.querySelector('.fold-container');
 			var homeHeader = $('.home-header');
-			if($contentContainer) {
+			const headerContainer = document.querySelector('.header-container');
+			var homeMain = $('.home-main');
+			if(contentContainer) {
+				
 				const header = document.querySelector('#header');
 				const targets = document.getElementsByClassName('fold');
 				const options = {
@@ -170,76 +185,154 @@ import Splide from '@splidejs/splide';
 				}
 				function callback(entries, observer) { 
 					entries.forEach(entry => {
-						const winPos = window.scrollY;
 						if(entry.isIntersecting){
-							const contentContainer = document.querySelector('.fold-container');
 							contentContainer.style.color = '';
 							contentContainer.style.background = '';
 							const foldClass = entry.target.dataset.class; // identify which element is visible in the viewport at 75%
 							const containerClasses = contentContainer.classList;
-							//for troubleshooting 
-							console.log("The current fold theme is in the view port:" + foldClass);
-							if(foldClass == 'bg-pattern' && containerClasses.contains('bg-pattern-fold')) {
-								if(containerClasses.contains('bg-dark')) {
-									if(winPos === 0){
-									} else {
-										contentContainer.classList.remove("bg-dark");
-									}
-								}
-							}
-							if(foldClass == 'header') {
-								transparentNavFold();
-							} else {
-								
-								if(foldClass == 'bg-custom') {
-									contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern-fold", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
-									const foldBG = entry.target.dataset.bg;
-									const foldColor = entry.target.dataset.color;
-									if(foldColor == 'default'){
-										checkFoldColor(foldColor);
-									} else {
-										contentContainer.style.color = foldColor;
-									}
-									contentContainer.style.background = foldBG;
-								} else if(foldClass == 'bg-pattern') {
-									checkNavAgainstFold('bg-light');
-									if(containerClasses.contains('bg-dark')){
-									} else {
-										if(containerClasses.contains('bg-pattern-fold')){ 
-										} else {
-											contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern-fold", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
-											contentContainer.classList.add('bg-light');
-											setTimeout(
-												function() {
-													contentContainer.classList.add('bg-pattern-fold');
-											}, 800);
-										}
-									}							
-								} else {
-									contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern-fold", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
-									contentContainer.classList.add(`${foldClass}`);
-									checkNavAgainstFold(foldClass);
-								}
-							}
+							foldCheck(foldClass, containerClasses, entry);
+							
+							console.log('fold inview:' + foldClass);
 								
 						}
 					});
 				};
 				let observer = new IntersectionObserver(callback, options);
-				if(homeHeader.length > 0) {
-					homeHeader.on('inview', function(event, isInView) {
-						var scrollObject = $(this);
-						if (isInView) {
-								$contentContainer.removeClass('bg-light');
-								$contentContainer.removeClass('bg-pattern');
-								$contentContainer.addClass('bg-dark');
-						} else {
-							[...targets].forEach(target => observer.observe(target));
-						}
-					});
-				} else {
+				window.addEventListener('resize', function(event) {
 					[...targets].forEach(target => observer.observe(target));
+				}, true);
+				
+				[...targets].forEach(target => observer.observe(target));
+				function foldCheck(foldClass, containerClasses, entry){
+					
+					if(homeHeader.length > 0) {
+						if(screenHeight > screenWidth) {
+							window.addEventListener("scroll", function() {
+								var elementTarget = document.querySelector('.home-header');
+								if (window.scrollY < (elementTarget.offsetTop + elementTarget.offsetHeight)) {
+									contentContainer.classList.remove('bg-light', 'bg-pattern', 'bg-pattern-fold');
+										contentContainer.addClass('bg-dark');
+										checkNavAgainstFold("bg-dark");
+										console.log('header inview');
+								} else {
+									foldChanger(foldClass, containerClasses, entry);
+									if(foldClass == 'bg-pattern' && containerClasses.contains('bg-pattern-fold')) {
+										if(containerClasses.contains('bg-dark')) {
+											contentContainer.classList.remove("bg-dark");
+											
+										console.log('header else script');
+										}
+									}
+								} 
+								if (window.scrollY > (elementTarget.offsetTop + elementTarget.offsetHeight)) {
+									foldChanger(foldClass, containerClasses, entry);
+									if(foldClass == 'bg-pattern' && containerClasses.contains('bg-pattern-fold')) {
+										if(containerClasses.contains('bg-dark')) {
+											contentContainer.classList.remove("bg-dark");
+											
+										console.log('fold inview');
+										}
+									}
+								}
+							});
+						} else {
+							foldChanger(foldClass, containerClasses, entry);
+							if(foldClass == 'bg-pattern' && containerClasses.contains('bg-pattern-fold')) {
+								if(containerClasses.contains('bg-dark')) {
+									contentContainer.classList.remove("bg-dark");
+									
+								console.log('fold inview');
+								}
+							}
+						}
+						
+					} else if(headerContainer) { 
+
+						if(screenHeight > screenWidth) {
+
+							let headerOptions = {
+								rootMargin: '0px',
+								threshold: 0.5
+							}
+							let headerCallback = (hentries, observer) => { 
+								hentries.forEach(hentry => {
+								
+									if (hentry.intersectionRatio === 0) {
+										console.log('Header is NOT in viewport');
+										checkNavAgainstFold('bg-light');
+										foldChanger(foldClass, containerClasses, entry);
+									} else {
+										if (hentry.intersectionRatio > 0.5) {
+											transparentNavFold();
+											console.log('Header is in viewport');
+										}
+										
+									}
+								});
+							};
+							let headerObserver = new IntersectionObserver(headerCallback, headerOptions);
+							
+							let target = headerContainer; //document.querySelector('#oneElement') or document.querySelectorAll('.multiple-elements')
+							headerObserver.observe(target); // if you have multiple elements, loop through them to add observer
+						} else {
+							foldChanger(foldClass, containerClasses, entry);		
+						}		
+					} else {
+						foldChanger(foldClass, containerClasses, entry)
+					}  
+
 				}
+				function foldChanger(foldClass, containerClasses, entry){
+					
+				
+					switch (foldClass) {
+						case 'bg-custom':
+							contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern-fold", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
+							const foldBG = entry.target.dataset.bg;
+							const foldColor = entry.target.dataset.color;
+							if(foldColor == 'default'){
+								checkFoldColor(foldColor);
+							} else {
+								contentContainer.style.color = foldColor;
+							}
+							contentContainer.style.background = foldBG;
+							break;
+						case 'bg-pattern':
+							checkNavAgainstFold('bg-light');
+								if(containerClasses.contains('bg-pattern-fold')){ 
+								} else {
+									contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern-fold", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
+									contentContainer.classList.add('bg-light');
+									setTimeout(
+										function() {
+											contentContainer.classList.add('bg-pattern-fold');
+									}, 800);
+							}							
+							// code block
+							break;
+						case 'header':
+							if(transparentNav) {
+								transparentNavFold();
+							} else {
+								if(homeHeader.length > 0) {
+									contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern-fold", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
+									contentContainer.classList.add("bg-dark");
+									checkNavAgainstFold("bg-dark");
+								}
+							}
+							// code block
+							break;
+						default:
+							contentContainer.classList.remove("bg-dark", "bg-light", "bg-pattern-fold", "bg-black", "adjust-text","fold-text-white","fold-text-dark","bg-custom");
+							contentContainer.classList.add(`${foldClass}`);
+							checkNavAgainstFold(foldClass);
+						// code block
+					}
+					
+							//for troubleshooting 
+							console.log("The current fold theme is in the view port:" + foldClass);
+				}
+				
 				function transparentNavFold (){
 					if(navbar.hasClass('dark-scheme')){
 						var scheme = 'dark';

@@ -56,7 +56,7 @@
 									<?php the_field( 'headquarters_label', 'option' ); ?>
 								</span>
 							</p>
-								<?php the_field( 'headquarters_address', 'option' ); ?>
+								<p class="mb-0"><?php the_field( 'headquarters_address', 'option' ); ?></p>
 							</div>
 						</div>
 						<?php if ( is_active_sidebar( 'third_widget_area' ) ) :

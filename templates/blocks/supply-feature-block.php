@@ -64,13 +64,13 @@ endif;
         <div class="row py-8 py-md-13 py-dlg-13 py-3xl-17">
             <div class="col-md-6 order-md-2 col-xl-5 col-xxl-4">
                 <?php if ( $tagline_title ) : 
-                    echo '<h3 class="mb-4">' . $tagline_title . '</h3>';
+                    echo '<h3>' . $tagline_title . '</h3>';
                 endif; ?>
                 <div class="fold" data-class="bg-pattern"></div>
                 <div class="row">
                     <div class="col-dlg-11 col-3xl-10 col-md-10">
                         <?php if ( $tagline_content ) : 
-                            echo '<p class="mb-4 pb-1 mb-lg-5 ">' . $tagline_content . '</p>';
+                            echo '<p class="cp1">' . $tagline_content . '</p>';
                             endif; ?>
                         <?php if ( $tagline_link ) : ?>
                             <a href="<?php echo get_permalink( $tagline_link ); ?>">Learn More</a>

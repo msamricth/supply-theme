@@ -74,7 +74,7 @@ if($advanceHeader) {
     <?php endif; ?>
     <div class=" fold" data-class="header"></div>
 </div>
-<div class="container nav-catch fold" data-class="<?php echo $foldData; ?>">
+<div class="container nav-catch">
     <div class="row">
         <div class="<?php echo $column_class; ?>">
         <div class="fold" data-class="<?php echo $foldData; ?>"></div>

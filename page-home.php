@@ -22,7 +22,7 @@ if($scheme){
 
 ?>
 <main class="fold-container  <?php echo $scheme ?>">
-    <div class="home-header header-container">
+    <div class="home-header fold" data-class="header">
         <div class="container text-left">
             <div class="row fold" data-class="bg-dark">
                 <div class="col-lg-10 col-xl-8 col-3xl-6 col-4xl-5 mx-md-auto">
@@ -33,13 +33,11 @@ if($scheme){
                     }?>
                 </div>
             </div>
-            <div class="fold" data-class="bg-dark">
+            <div class="fold" data-class="header">
                 <?php echo Video_embed(); ?>
             </div>
         </div>
-
     </div>
-
     <div id="post-<?php the_ID(); ?>" <?php post_class('home-main' ); ?>>
         <div class="fold" data-class="bg-light">
         </div>
