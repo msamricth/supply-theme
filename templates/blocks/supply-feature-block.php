@@ -57,8 +57,41 @@ if ( get_field( 'add_fold' ) == 1 ) :
 	endif; 
     echo '<div class="fold"'. $foldUtils . '></div>';
 endif; 
-?>
-
+if ( have_rows( 'logos', 'option' ) ) : 
+    $logoCount = 0;
+    $logoListA = '';
+    $logoListB = '';
+    $logoCarousel ='';
+    while ( have_rows( 'logos', 'option' ) ) : the_row(); 
+        $client_logo = get_sub_field( 'client_logo' ); 
+        $client_logo_light = get_sub_field( 'client_logo_light' );
+        if ( $client_logo_light ) : 
+            $cl_class = "dark-logo";
+        endif; 
+        if ( $client_logo ) : 
+            if($logoCount % 2 == 0){
+                $logoListB .= '<li class="logo-container">';
+                $logoListB .= '<img src="'. esc_url( $client_logo['url'] ).'" class="'.$cl_class.'" alt="'. get_sub_field( 'client_name' ).'" />';
+                if ( $client_logo_light ) : 
+                    $logoListB .= '<img src="'. esc_url( $client_logo_light['url'] ).'" class="light-logo" alt="'. get_sub_field( 'client_name' ).'" />';
+                endif;
+                $logoListB .= '</li>';
+            } else {
+                $logoListA .= '<li class="logo-container">';
+                $logoListA .= '<img src="'. esc_url( $client_logo['url'] ).'" class="'.$cl_class.'" alt="'. get_sub_field( 'client_name' ).'" />';
+                if ( $client_logo_light ) : 
+                    $logoListA .= '<img src="'. esc_url( $client_logo_light['url'] ).'" class="light-logo" alt="'. get_sub_field( 'client_name' ).'" />';
+                endif;
+                $logoListA .= '</li>';
+            }
+            $logoCarousel = '<ul class="swap">'.$logoListA .'</ul>';
+            $logoCarousel .= '<ul class="swap1">'.$logoListB .'</ul>';
+        endif; 
+        $logoCount++;
+    endwhile;
+else : 
+    // No rows found  
+endif; ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>"<?php echo $foldUtils; ?>>
     <div class="container tagline-section fadeNoScroll">
         <div class="row py-8 py-md-13 py-dlg-13 py-3xl-17">
@@ -78,31 +111,10 @@ endif;
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 order-md-1 col-xl-5 offset-xl-1" <?php if ( is_admin() ) {?> style="display:none"<?php }?>>
+            <div class="col-md-6 order-md-1 col-xl-5 offset-xl-1 logo-carousel" <?php if ( is_admin() ) {?> style="display:none"<?php }?>>
             <?php if ( have_rows( 'logos', 'option' ) ) : ?>
-                <section class="splide" aria-label="Supply's Logo Carousel fader">
-                    <div class="splide__track">
-                        <ul class="splide__list">
-                        <?php while ( have_rows( 'logos', 'option' ) ) : the_row(); 
-                        ?>
-                            <?php $client_logo = get_sub_field( 'client_logo' ); 
-                            $client_logo_light = get_sub_field( 'client_logo_light' );
-                            if ( $client_logo_light ) : 
-                                $cl_class = "dark-logo";
-                            endif; ?>
-                                <?php if ( $client_logo ) : ?>
-                                    <li class="splide__slide">
-                                        <div class="logo-container">
-                                            <img src="<?php echo esc_url( $client_logo['url'] ); ?>" class="<?php echo $cl_class; ?>" alt="<?php the_sub_field( 'client_name' ); ?>" />
-                                            <?php if ( $client_logo_light ) : ?>
-                                                <img src="<?php echo esc_url( $client_logo_light['url'] ); ?>" class="light-logo" alt="<?php the_sub_field( 'client_name' ); ?>" />
-                                            <?php endif; ?>
-                                        </div>
-                                    </li>
-                                    <?php endif; ?>
-                        <?php endwhile; ?>
-                        </ul>
-                    </div>
+                <section class="box" aria-label="Supply's Logo Carousel fader">
+                   <?php echo $logoCarousel;?>
                 </section>
             <?php else : ?>
                 <?php // No rows found ?>

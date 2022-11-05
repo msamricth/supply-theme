@@ -74,9 +74,9 @@ if ( have_posts() ) :
                         <div class="col-md-10 col-lg-8 col-xl-7 offset-xl-1 case-study-left">  
                             
                         <?php if ( $title_of_work_performed ) : ?>
-                                <h4 class="entry-title fadeNoScroll"><?php echo $title_of_work_performed; ?></h4>
+                                <h5 class="entry-title fadeNoScroll"><?php echo $title_of_work_performed; ?></h5>
                             <?php else :?>
-                                <h4 class="entry-title fadeNoScroll"><?php the_title(); ?></h4>
+                                <h5 class="entry-title fadeNoScroll"><?php the_title(); ?></h5>
                             <?php endif; ?>       
                             <?php if ( $intro_blurb ) : ?> 
                                 <div class="intro-content">

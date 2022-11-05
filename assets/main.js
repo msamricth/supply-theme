@@ -1,7 +1,7 @@
 // Webpack Imports
 import * as bootstrap from 'bootstrap';
 !function(a){"function"==typeof define&&define.amd?define(["jquery"],a):"object"==typeof exports?module.exports=a(require("jquery")):a(jQuery)}(function(a){function i(){var b,c,d={height:f.innerHeight,width:f.innerWidth};return d.height||(b=e.compatMode,(b||!a.support.boxModel)&&(c="CSS1Compat"===b?g:e.body,d={height:c.clientHeight,width:c.clientWidth})),d}function j(){return{top:f.pageYOffset||g.scrollTop||e.body.scrollTop,left:f.pageXOffset||g.scrollLeft||e.body.scrollLeft}}function k(){if(b.length){var e=0,f=a.map(b,function(a){var b=a.data.selector,c=a.$element;return b?c.find(b):c});for(c=c||i(),d=d||j();e<b.length;e++)if(a.contains(g,f[e][0])){var h=a(f[e]),k={height:h[0].offsetHeight,width:h[0].offsetWidth},l=h.offset(),m=h.data("inview");if(!d||!c)return;l.top+k.height>d.top&&l.top<d.top+c.height&&l.left+k.width>d.left&&l.left<d.left+c.width?m||h.data("inview",!0).trigger("inview",[!0]):m&&h.data("inview",!1).trigger("inview",[!1])}}}var c,d,h,b=[],e=document,f=window,g=e.documentElement;a.event.special.inview={add:function(c){b.push({data:c,$element:a(this),element:this}),!h&&b.length&&(h=setInterval(k,250))},remove:function(a){for(var c=0;c<b.length;c++){var d=b[c];if(d.element===this&&d.data.guid===a.guid){b.splice(c,1);break}}b.length||(clearInterval(h),h=null)}},a(f).bind("scroll resize scrollstop",function(){c=d=null}),!g.addEventListener&&g.attachEvent&&g.attachEvent("onfocusin",function(){d=null})});
-import Splide from '@splidejs/splide';
+
 ( function () {
 	'use strict';
 
@@ -67,61 +67,7 @@ import Splide from '@splidejs/splide';
 				iframe.classList.remove("d-none");
 			})
 		}
-		var splide = new Splide( '.splide', {
-			direction: 'ttb',
-			height   : '16rem',
-			autoplay: true,
-			perMove: 1,
-			arrows: false,
-			speed:400,
-			gap: 48,
-			type  : 'loop',
-			padding: { top: '60px'},
-			updateOnMove: true,
-			pagination: false,
-			pauseOnFocus: false,
-			pauseOnHover: false,
-			perPage: 2,
-			breakpoints: {
-				  100: {
-					gap:48
-				  },
-				  600: {
-					gap:48
-				  },
-				  768: {
-					  gap:58,
-					  padding: { top: '0px'}
-				  },
-				  992: {
-					  gap:58,
-					  padding: { top: '0px'}
-				  },
-				  1024: {
-					  gap:105,
-					  padding: { top: '60px'},
-					  height   : '16rem',
-				  },
-				  1290: {
-					padding: { top: '0px'},
-					height: '280px',
-					gap:58
-				},
-				  1920: {
-					padding: { top: '0px'},
-					height: '298px',
-					gap:79
-				},
-				
-				2900: {
-					padding: { top: '0px'},
-					height: '298px',
-					gap:79
-				},
-			}
-		  } );
-		  
-		  splide.mount();
+		
 	}
 	function expandTextarea(id) {
 		document.getElementById(id).addEventListener('keyup', function() {
@@ -133,24 +79,144 @@ import Splide from '@splidejs/splide';
 	(function($) {
 		const transparentNav = document.querySelector('.navbar-transparent');
 		const caseStudy = document.querySelector('.single-case-studies');
+		const logoCarousel = document.querySelector('.logo-carousel');
 		var navbar = $('nav#header');
+		var navbarCollapse = $('.navbar-collapse');
+		var pBody = $('body');
 		var foldContainer = $('.fold-container');
 		var footerContent =$('.footer-content');
 		var footerLinks = $('.footer-content .fl a');
 		var animatedInput = $('input.link-up');
 
+
+		if(logoCarousel){
+			function loop ($swap) {
+				var secLastLiA = $('.box .swap li').eq(-2);
+				var nextIndex1 = $swap.index() + 1;
+				if(secLastLiA.hasClass('visible')){cloneLogoA(nextIndex1);}
+				
+				var next = $swap.find("li.visible").removeClass("visible").index() + 1;
+				
+				if(next >= $swap.find("li").length) {
+				}
+				$swap.width($($swap.find("li").get(next)).addClass("visible").outerWidth());
+				
+				const element1 = document.querySelector('.box .swap li.visible');
+				let pos = element1.offsetTop;
+				let posRem1 = pos / 16;
+				$swap.css({ "transform" : "translateY(-" + posRem1 + "rem)"});
+				setTimeout(function () { loop($swap); }, 3000);
+			};
+			
+			$(function () {
+				$(".swap").each(function () {
+				var $this = $(this);
+				
+				$this.find("li").each(function () {
+					$(this).css({ top: $(this).index() * 2 + "rem" });
+				});
+				
+				loop($this);
+				});
+			});
+			function loop2 ($swap1) {
+				var secLastLiB = $('.box .swap1 li').eq(-2);
+				var nextIndex = $swap1.index() + 1;
+				if(secLastLiB.hasClass('visible')){cloneLogoB(nextIndex);}
+				
+				var next = $swap1.find("li.visible").removeClass("visible").index() + 1;
+				
+				if(next >= $swap1.find("li").length) {
+				}
+				$swap1.width($($swap1.find("li").get(next)).addClass("visible").outerWidth());
+				
+				const element = document.querySelector('.box .swap1 li.visible');
+				let pos = element.offsetTop;
+				let posRem = pos / 16;
+				$swap1.css({ "transform" : "translateY(-" + posRem + "rem)"});
+				
+				setTimeout(function () { loop2($swap1); }, 3000);
+			};
+			
+			$(function () {
+				$(".swap1").each(function () {
+				var $this = $(this);
+				
+				$this.find("li").each(function () {
+					$(this).css({ top: $(this).index() * 2 + "rem" });
+				});
+				
+				loop2($this);
+				});
+			});
+			function cloneLogoA(nextIndex){
+				const element1 = document.querySelector('.box .swap li:last-child');
+				let pos = element1.offsetTop;
+				let posRem = pos / 16;
+				var $el = $('.box .swap li:first-child');
+				var $elCont = $('.box .swap');
+				$el.css({ "top":  posRem + 2 + "rem" });
+				$elCont.css({ "transform" : ""});
+				$elCont.css({ "transform" : "translateY(-" + nextIndex + 2 + "rem)"});
+				$el.clone(true).appendTo('.box .swap');
+				$el.remove();
+			}
+			function cloneLogoB(nextIndex){
+				
+				const element2 = document.querySelector('.box .swap1 li:last-child');
+				let pos = element2.offsetTop;
+				let posRem = pos / 16;
+				var $el = $('.box .swap1 li:first-child');
+				var $elCont = $('.box .swap1');
+				$el.css({ "top":  posRem + 2 + "rem" });
+				$elCont.css({ "transform" : ""});
+				$elCont.css({ "transform" : "translateY(-" + nextIndex + 2 + "rem)"});
+				$el.clone(true).appendTo('.box .swap1');
+				$el.remove();
+			}
+		}
+
+		const caseStudyPage = document.querySelector('.deep-dive-CS');
+		
+		if(caseStudyPage){
+			const videos = document.querySelectorAll(".videofx"); // Select ALL the Videos
+			const observer = new IntersectionObserver((entries) => {
+			  entries.forEach((entry) => {
+				if (!entry.isIntersecting) {
+				  var data = { method: "pause" };
+				} else {
+				  var data = { method: "play" };
+				}
+				entry.target.contentWindow.postMessage(JSON.stringify(data), "*");
+			  });
+			}, {});
+			for (const video of videos) observer.observe(video); // Observe EACH video
+			const onVisibilityChange = () => {
+			  if (document.hidden) {
+				
+				var data = { method: "pause" };
+				for (const video of videos) video.contentWindow.postMessage(JSON.stringify(data), "*"); // Pause EACH video
+			  } else {
+				var data = { method: "play" };
+				for (const video of videos) video.contentWindow.postMessage(JSON.stringify(data), "*"); // Play EACH video
+			  }
+			};
+			document.addEventListener("visibilitychange", onVisibilityChange);
+		}
 		if(animatedInput.length){
 			animatedInput.after('<span class="linked-up">></span>');
 		}
-		navbar.on('shown.bs.collapse', function () {
+		navbar.on('show.bs.collapse', function () {
 			setTimeout(
 				function() {
+					pBody.addClass('nd-open');
 					navbar.addClass('mobile-nav-open');
 			}, 600);
 		  });		  
-		  navbar.on('hidden.bs.collapse', function () {
+		  navbar.on('hide.bs.collapse', function () {
 			setTimeout(
 				function() {
+					pBody.removeClass('nd-open');
 					navbar.removeClass('mobile-nav-open');
 			}, 600);
 		  })
@@ -199,6 +265,11 @@ import Splide from '@splidejs/splide';
 				};
 				let observer = new IntersectionObserver(callback, options);
 				window.addEventListener('resize', function(event) {
+					if(navbarCollapse.hasClass('show')){
+						pBody.removeClass('nd-open');
+						navbar.removeClass('mobile-nav-open');
+						navbarCollapse.collapse('hide');
+					}
 					[...targets].forEach(target => observer.observe(target));
 				}, true);
 				
