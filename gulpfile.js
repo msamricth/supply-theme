@@ -2,6 +2,7 @@ const gulp = require( 'gulp' ),
 	fancylog = require( 'fancy-log' ),
 	browserSync = require( 'browser-sync' ),
 	server = browserSync.create(),
+	minify = require('gulp-minify'),
 	dev_url = 'http://workwithsupply.local/';
 
 
@@ -39,6 +40,7 @@ function build_js() {
 				compiler
 			)
 		)
+		.pipe(minify())
 		.pipe(
 			gulp.dest( paths.scripts.dest )
 		)
@@ -46,7 +48,6 @@ function build_js() {
 			server.stream() // Browser Reload
 		)*/;
 }
-
 
 /**
  * SASS-CSS compilation: https://www.npmjs.com/package/gulp-sass

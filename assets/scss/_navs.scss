@@ -178,12 +178,18 @@
                 height: 100vh !important;
                 transition: opacity .6s ease;
             }
-            .collapsing, .collapse, .collapse.show{
+            .collapsing, .collapse, .collapse.show {
                 opacity: 0;
                 visibility: hidden;
             }
         } 
 
+    }
+    .nd-closing {
+        .fold-container, .navbar-brand {
+            -webkit-animation: fade-in .3s ease-out both;
+            animation: fade-in .3s ease-out both;
+        }
     }
     .nd-open {
         height: 100vh;
