@@ -46,8 +46,32 @@
         if(CcurrentURL){CcurrentURL.value = window.location.href;}
         if(CcurrentTitle){CcurrentTitle.value = document.title;}
     }
-    
-
+    function hideGRecaptcha() {
+        var $cf7Form = $('.wpcf7-form'),
+        $gREC = $('.grecaptcha-badge');
+        
+        if($gREC.length){
+            var $gRECParent = $gREC.parent().closest('div');
+            $(document).ready(function () {
+                if($cf7Form) {
+                    if($gRECParent.hasClass('gre-loaded')) {} else {
+                        $gRECParent.addClass('d-none gre-loaded');
+                    }
+                }
+            });
+            $cf7Form.on('inview', function(event, isInView) {
+                if (isInView) {
+                    setTimeout(
+                        function() {
+                            $gRECParent.removeClass('d-none');
+                        }, 400);
+                    
+                } else {
+                    $gRECParent.addClass('d-none');
+                }
+            });
+        }
+    }
     var $message = $('#message');
     if(($message).length) {
         expandTextarea('message');

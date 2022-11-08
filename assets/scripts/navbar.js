@@ -6,7 +6,7 @@ navbar.on('show.bs.collapse', function () {
     setTimeout(
         function() {
             pBody.addClass('nd-open');
-            navbar.addClass('mobile-nav-open');
+            navbar.addClass('mobile-nav-open is-active');
     }, 300);
 });		  
 navbar.on('hide.bs.collapse', function () {
@@ -14,7 +14,7 @@ navbar.on('hide.bs.collapse', function () {
         function() {
             pBody.removeClass('nd-open');
             pBody.addClass('nd-closing');
-            navbar.removeClass('mobile-nav-open');
+            navbar.removeClass('mobile-nav-open is-active');
     }, 300);
 });
 navbar.on('hidden.bs.collapse', function () {

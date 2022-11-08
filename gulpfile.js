@@ -19,6 +19,7 @@ var paths = {
 		src: './assets/*.js',
 		dest: './assets/js'
 	}
+
 };
 
 
@@ -101,8 +102,7 @@ gulp.task( 'watch',
 	server.init({
 			proxy: dev_url,
 		} );
-
-		gulp.watch( paths.scripts.src, build_js );
+		gulp.watch( [ paths.scripts.src, './assets/scripts/*.js'], build_js );
 		gulp.watch( [ paths.styles.src, './assets/scss/*.scss' ], build_css );
 	}
 );

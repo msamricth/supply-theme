@@ -247,6 +247,9 @@ header.page-header {
 }
 .tagline-section {
     .logo-carousel{
+        @include media-breakpoint-down(md) {
+            margin-top: 60px;
+        }
         .logo-container {
             text-align: center;
             img {
