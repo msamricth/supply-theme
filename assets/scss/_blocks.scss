@@ -1,6 +1,4 @@
-
 .block-supply-stats {
-    padding-top: 60px;
     padding-bottom: 60px;
     border-top: 1px solid rgb($white,.39);
     border-bottom: 1px solid rgb($white,.39);
@@ -140,13 +138,11 @@ header.page-header {
     .main-image {
         height: 100% !important;
     }
+
     header.page-header {
-        display: flex;
-        align-items: center;
         @include media-breakpoint-up(md) {
             text-align: center;
         }
-        justify-content: center;
     }
     
 }
@@ -373,7 +369,6 @@ header.page-header {
     .header-partial {
         header.page-header {
             position: absolute;
-            min-height: 100%;
         }
     }
     .block-supply-stats {

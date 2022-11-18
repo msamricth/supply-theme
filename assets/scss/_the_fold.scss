@@ -1,3 +1,36 @@
+//weird dom workaround for intersection observer/fold function to work - ideally I would like to find a way to remove this
+body.fold_on {
+    overflow:hidden;
+    .scroller {
+        height: 100vh;
+        width: 100%;
+        overflow-y: auto;
+        overflow-x:hidden;
+    }
+}
+
+body.fold_on {
+     .navbar.fixed-top {
+        right: 17px;
+    }
+    main {
+        position: relative;
+    }
+    @media
+    only screen and (-webkit-min-device-pixel-ratio: 2),
+    only screen and (min--moz-device-pixel-ratio: 2),
+    only screen and (-o-min-device-pixel-ratio: 2/1),
+    only screen and (min-device-pixel-ratio: 2),
+    only screen and (min-resolution: 192dpi),
+    only screen and (min-resolution: 2dppx) { 
+        nav#header.navbar.fixed-top {
+            right: 0px;
+        }
+    }
+}
+// /end werid workaround
+
+
 .light-logo, .dark-logo {
     transition:opacity 0.15s linear;
 }
@@ -8,22 +41,26 @@
 .bg-dark.bg-pattern {
     background-image: none !important;
 }
-.fold-container {   
+#wrapper {   
     -webkit-transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
     transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
     will-change: background-color,color, opacity;
-    .card {
-        background-color: transparent;
-    }
-    p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-        transition: background-color .4s ease-in-out,color .4s ease-in-out;
+    main, header > nav {
+        .card {
+            background-color: transparent;
+        }
+        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
+            transition: background-color .4s ease-in-out,color .4s ease-in-out;
+        }
     }
     &.bg-dark, &.bg-black, &.fold-text-white, &.bg-dark.bg-pattern {
         color: $white;
-        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-            color: $white;
-            a {
+        main, header > nav {
+            p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
                 color: $white;
+                a {
+                    color: $white;
+                }
             }
         }
         .dark-logo {
@@ -37,8 +74,10 @@
     }
     &.bg-light, &.bg-pattern, &.fold-text-dark{
         color: $primary;
-        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small, li {
-            color: $primary;
+        main, header > nav {
+            p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small, li {
+                color: $primary;
+            }
         }
     }
     &.bg-pattern-fold.bg-light {
@@ -47,10 +86,12 @@
     }
     &:not(.bg-light) &:not(.bg-pattern) {
         color: $white;
-        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-            color: $white;
-            a {
+        main, header > nav {
+            p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
                 color: $white;
+                a {
+                    color: $white;
+                }
             }
         }
         .dark-logo {

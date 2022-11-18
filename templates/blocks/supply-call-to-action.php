@@ -52,7 +52,6 @@ if ( get_field( 'add_fold' ) == 1 ) :
             
         endwhile;
 	endif; 
-    echo '<div class="fold"'. $foldUtils . '></div>';
 endif; 
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>"<?php echo $foldUtils; ?>>

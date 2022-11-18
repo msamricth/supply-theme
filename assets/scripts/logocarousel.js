@@ -4,13 +4,8 @@ if(logoCarousel){
         var secLastLiA = $('.box .swap li').eq(-2);
         var nextIndex1 = $swap.index() + 1;
         if(secLastLiA.hasClass('visible')){cloneLogoA(nextIndex1);}
-        
         var next = $swap.find("li.visible").removeClass("visible").index() + 1;
-        
-        if(next >= $swap.find("li").length) {
-        }
-        $swap.width($($swap.find("li").get(next)).addClass("visible").outerWidth());
-        
+        $($swap.find("li").get(next)).addClass("visible");
         const element1 = document.querySelector('.box .swap li.visible');
         let pos = element1.offsetTop;
         let posRem1 = pos / 16;
@@ -21,11 +16,9 @@ if(logoCarousel){
     $(function () {
         $(".swap").each(function () {
         var $this = $(this);
-        
         $this.find("li").each(function () {
             $(this).css({ top: $(this).index() * 2 + "rem" });
         });
-        
         loop($this);
         });
     });
@@ -38,7 +31,7 @@ if(logoCarousel){
         
         if(next >= $swap1.find("li").length) {
         }
-        $swap1.width($($swap1.find("li").get(next)).addClass("visible").outerWidth());
+        $($swap1.find("li").get(next)).addClass("visible");
         
         const element = document.querySelector('.box .swap1 li.visible');
         let pos = element.offsetTop;

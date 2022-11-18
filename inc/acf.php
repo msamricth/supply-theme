@@ -334,7 +334,38 @@ function register_supply_feature_block() {
 	}
 
 }
+if( function_exists('acf_register_block_type') ):
 
+	acf_register_block_type(array(
+		'name' => 'case-study-intro',
+		'title' => 'Case Study Intro',
+		'description' => 'Introduction Block for Case Studies',
+		'category' => 'supply-blocks',
+		'keywords' => array(
+		),
+		'post_types' => array(
+			0 => 'case-studies',
+		),
+		'mode' => 'preview',
+		'align' => '',
+		'align_content' => NULL,
+		'render_template' => 'templates/blocks/supply-case-study-intro.php',
+		'render_callback' => '',
+		'enqueue_style' => '',
+		'enqueue_script' => '',
+		'enqueue_assets' => '',
+		'icon' => 'id-alt',
+		'supports' => array(
+			'align' => true,
+			'mode' => true,
+			'multiple' => true,
+			'jsx' => false,
+			'align_content' => false,
+			'anchor' => false,
+		),
+	));
+	
+	endif;
 add_action( 'acf/init', 'register_supply_posts_block' );
 function register_supply_posts_block() {
 

@@ -9,7 +9,7 @@ get_header();
 
 the_post();
 ?>
-<div class="spacer cp2 cp5  navuncatch">
+<div class="spacer cp2 cp5  fold" data-class="header">
 </div>
 <div class="container">
     <div class="row">

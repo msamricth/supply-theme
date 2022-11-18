@@ -12,14 +12,15 @@
 	$current_post = get_queried_object();
 	$post_id = $current_post ? $current_post->ID : null;
 	$navbar_scheme = '';
+	$bodyClasses ='';
+	$wrapperClasses ='';
+	$ogClass ='';
 	$navbar_page_scheme = get_field( 'navbar_color_settings', $post_id);
 	$navbar_theme_scheme   = get_theme_mod( 'navbar_scheme', 'navbar-light bg-light' ); // Get custom meta-value.
 	$navbar_position = get_theme_mod( 'navbar_position', 'static' ); // Get custom meta-value.
-
 	$search_enabled  = get_theme_mod( 'search_enabled', '1' ); // Get custom meta-value.
 	$nav_dark_image = '';
 	$nav_light_image = '';
-	$fold_class = '';
 	if ( have_rows( 'nav_logos', 'option' ) ) : 
 		while ( have_rows( 'nav_logos', 'option' ) ) : the_row(); 
 			$nav_dark = get_sub_field( 'nav_dark' ); 
@@ -37,81 +38,98 @@
 			$navbar_scheme = $navbar_theme_scheme;
 		} elseif(strpos($navbar_page_scheme, 'transparent-dark') !== false){
 			$navbar_scheme .= 'navbar-transparent navbar-dark dark-scheme';
-			$navbar_scheme .= ' bg-'.$navbar_page_scheme;
+			$navbar_scheme .= ' nav-bg-'.$navbar_page_scheme;
 		} elseif(strpos($navbar_page_scheme, 'transparent-light') !== false){
 			$navbar_scheme .= 'navbar-transparent navbar-light light-scheme';
-			$navbar_scheme .= ' bg-'.$navbar_page_scheme;
+			$navbar_scheme .= ' nav-bg-'.$navbar_page_scheme;
 		} else {
 			$navbar_scheme .= 'navbar-'.$navbar_page_scheme;
-			$navbar_scheme .= ' bg-'.$navbar_page_scheme;
+			$navbar_scheme .= ' nav-bg-'.$navbar_page_scheme;
 		}
 
-		if ( get_field( 'deep_dive', $post_id ) == 1 ) :
-			$fold_class = 'bg-dark';
+	$bodyClasses .= $navbar_scheme;
+	if ( get_field( 'dots_on' ) == 1 ) : 
+		$bodyClasses .= ' dots_on ';
+	else : 
+		// echo 'false'; 
+	endif; 
+	if ( get_field( 'fold_on' ) == 1 ) :
+	else : 
+		$bodyClasses .= ' fold_on ';
+	endif; 
+	$scheme = get_field('background_color');
+	if($scheme){
+		$scheme = 'bg-'. $scheme . ' ';
+	} else {
+		$scheme = 'bg-light';
+	}
+
+
+	if(strpos($scheme, 'light') !== false){
+		if ( get_field( 'dots_on' ) == 1 ) : 
+			$scheme .= ' bg-pattern';
 		endif; 
-	
-// add algoritim for detecting background color here
-$container_class = '';
-if ( get_field( 'dots_on' ) == 1 ) : 
-    $container_class .= 'bg-light bg-pattern';
-else : 
-    // echo 'false'; 
-endif; 
+	}
+
+
+	$ogClass = $scheme;
+	$wrapperClasses .= $scheme;
+
 ?>
 
-<body <?php body_class(); ?>>
+<body <?php body_class($bodyClasses ); ?>>
 
 <?php wp_body_open(); ?>
 
 <a href="#main" class="visually-hidden-focusable"><?php esc_html_e( 'Skip to main content', 'supply' ); ?></a>
+<div class="scroller" data-scroller>
+	<div id="wrapper" class="<?php echo $wrapperClasses; ?>" data-og_class="<?php echo $ogClass; ?>"> 
+		<header id="nav-header">
+			<nav id="header" class="navbar navbar-expand-md <?php  if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' fixed-top'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' fixed-bottom'; endif; if ( is_home() || is_front_page() ) : echo ' home'; endif; ?>">
+				<div class="container">
+					<a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
+						<?php
+						if ( have_rows( 'nav_logos', 'option' ) ) : 
+							echo $nav_light_image . $nav_dark_image;
+							else :
+								echo esc_attr( get_bloginfo( 'name', 'display' ) );
+							endif;
+						?>
+					</a>
+					<button class="navbar-toggler hamburger hamburger--squeeze" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'supply' ); ?>">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
 
-<div id="wrapper" class="<?php echo $container_class; ?>">
-	<header id="nav-header">
-		<nav id="header" class="navbar navbar-expand-md <?php echo esc_attr( $navbar_scheme ); if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' fixed-top'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' fixed-bottom'; endif; if ( is_home() || is_front_page() ) : echo ' home'; endif; ?>">
-			<div class="container">
-				<a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-					<?php
-					if ( have_rows( 'nav_logos', 'option' ) ) : 
-						echo $nav_light_image . $nav_dark_image;
-						else :
-							echo esc_attr( get_bloginfo( 'name', 'display' ) );
-						endif;
-					?>
-				</a>
-				<button class="navbar-toggler hamburger hamburger--squeeze" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="<?php esc_attr_e( 'Toggle navigation', 'supply' ); ?>">
-					<span class="hamburger-box">
-						<span class="hamburger-inner"></span>
-					</span>
-				</button>
+					<div id="navbar" class="collapse navbar-collapse">
+						<?php
+							// Loading WordPress Custom Menu (theme_location).
+							wp_nav_menu(
+								array(
+									'theme_location' => 'main-menu',
+									'container'      => '',
+									'menu_class'     => 'navbar-nav ms-auto mb-11 supply-underline mb-md-0',
+									'fallback_cb'    => 'WP_Bootstrap_Navwalker::fallback',
+									'walker'         => new WP_Bootstrap_Navwalker(),
+								)
+							);
 
-				<div id="navbar" class="collapse navbar-collapse">
-					<?php
-						// Loading WordPress Custom Menu (theme_location).
-						wp_nav_menu(
-							array(
-								'theme_location' => 'main-menu',
-								'container'      => '',
-								'menu_class'     => 'navbar-nav ms-auto mb-11 supply-underline mb-md-0',
-								'fallback_cb'    => 'WP_Bootstrap_Navwalker::fallback',
-								'walker'         => new WP_Bootstrap_Navwalker(),
-							)
-						);
-
-						if ( '1' === $search_enabled ) :
-					?>
-							<form class="search-form my-2 my-lg-0" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-								<div class="input-group">
-									<input type="text" name="s" class="form-control" placeholder="<?php esc_attr_e( 'Search', 'supply' ); ?>" title="<?php esc_attr_e( 'Search', 'supply' ); ?>" />
-									<button type="submit" name="submit" class="btn btn-outline-secondary"><?php esc_html_e( 'Search', 'supply' ); ?></button>
-								</div>
-							</form>
-					<?php
-						endif;
-					?>
-				</div><!-- /.navbar-collapse -->
-			</div><!-- /.container -->
-		</nav><!-- /#header -->
-	</header>
-<?php if ( !is_front_page() ) { ?>
-	<main id="main" class="fold-container <?php echo $fold_class; if ( !get_post_type( $post_id ) === 'case-studies' ) { echo ' container'; } ?>"<?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' style="padding-bottom: 100px;"'; endif; ?>>
-<?php } ?>
+							if ( '1' === $search_enabled ) :
+						?>
+								<form class="search-form my-2 my-lg-0" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+									<div class="input-group">
+										<input type="text" name="s" class="form-control" placeholder="<?php esc_attr_e( 'Search', 'supply' ); ?>" title="<?php esc_attr_e( 'Search', 'supply' ); ?>" />
+										<button type="submit" name="submit" class="btn btn-outline-secondary"><?php esc_html_e( 'Search', 'supply' ); ?></button>
+									</div>
+								</form>
+						<?php
+							endif;
+						?>
+					</div><!-- /.navbar-collapse -->
+				</div><!-- /.container -->
+			</nav><!-- /#header -->
+		</header>
+	<?php if ( !is_front_page() ) { ?>
+		<main id="main" class=" <?php if ( !get_post_type( $post_id ) === 'case-studies' ) { echo ' container'; } ?>"<?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' style="padding-bottom: 100px;"'; endif; ?>>
+	<?php } ?>

@@ -30,11 +30,13 @@ $tagline_link = get_field( 'tagline_link' );
 $i = 0;
 $cl_class = '';
 $foldUtils = '';
+$foldClass = '';
 $row = '';
 $container = '';
 
 if ( get_field( 'add_fold' ) == 1 ) : 
-    $classes.= ' fold';
+    $foldClass.= ' fold';
+    $classes .= ' fold';
     if ( have_rows( 'fold_settings' ) ) :
         while ( have_rows( 'fold_settings' ) ) : the_row(); 
             if(get_sub_field( 'custom_bg_color' )){
@@ -45,7 +47,7 @@ if ( get_field( 'add_fold' ) == 1 ) :
                     } else {
                         $customText = 'data-color="default"';
                     }
-                    $classes .= ' fold-custom';
+                    $foldClass .= ' fold-custom';
                     $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
             }
             if(get_sub_field( 'color' )){
@@ -55,7 +57,7 @@ if ( get_field( 'add_fold' ) == 1 ) :
             
         endwhile;
 	endif; 
-    echo '<div class="fold"'. $foldUtils . '></div>';
+
 endif; 
 if ( have_rows( 'logos', 'option' ) ) : 
     $logoCount = 0;
@@ -92,14 +94,14 @@ if ( have_rows( 'logos', 'option' ) ) :
 else : 
     // No rows found  
 endif; ?>
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>"<?php echo $foldUtils; ?>>
+
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>" <?php echo $foldUtils; ?>>
     <div class="container tagline-section fadeNoScroll">
         <div class="row py-8 py-md-13 py-dlg-13 py-3xl-17">
             <div class="col-md-6 order-md-2 col-xl-5 col-xxl-4">
                 <?php if ( $tagline_title ) : 
                     echo '<h3>' . $tagline_title . '</h3>';
                 endif; ?>
-                <div class="fold" data-class="bg-pattern"></div>
                 <div class="row">
                     <div class="col-dlg-11 col-3xl-10 col-md-10">
                         <?php if ( $tagline_content ) : 
@@ -123,5 +125,4 @@ endif; ?>
         </div>
     </div>
 </div>
-
 

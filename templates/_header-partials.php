@@ -21,17 +21,17 @@ if ( get_field( 'full_width_page' ) == 1 ) :
 else : 
     $column_class = 'col-md-12 mx-auto col-dlg-12 col-xl-10';
 endif;
+$header_text = get_field( 'header_text' ); 
+if ( get_field( 'under_nav' ) == 1 ) : 
+    $classes .= ' under-nav';
+else : 
+endif; 
+if ( get_field( 'disable_header_text') == 1 ) : 
+    $no_headerText .= 'true';
+else : 
+endif; 
 if ( have_rows( 'header' ) ) : 
 	while ( have_rows( 'header' ) ) : the_row(); 
-        $header_text = get_sub_field( 'header_text' ); 
-        if ( get_sub_field( 'under_nav' ) == 1 ) : 
-            $classes .= ' under-nav';
-        else : 
-        endif; 
-        if ( get_sub_field( 'disable_header_text') == 1 ) : 
-            $no_headerText .= 'true';
-        else : 
-        endif; 
         $vimeoVideo = get_sub_field('vimeo_video');
         $image = get_sub_field( 'image' );
         $image_mobile = get_sub_field( 'image_mobile' );
@@ -74,10 +74,9 @@ if($advanceHeader) {
     <?php endif; ?>
     <div class=" fold" data-class="header"></div>
 </div>
-<div class="container nav-catch">
+<div class="container fold" data-class="<?php echo $foldData; ?>">
     <div class="row">
         <div class="<?php echo $column_class; ?>">
-        <div class="fold" data-class="<?php echo $foldData; ?>"></div>
 <?php } else { ?>
 <div class="container">
     <div class="row">

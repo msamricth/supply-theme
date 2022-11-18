@@ -37,7 +37,7 @@ endif;
     <div class="row">
         <div class="<?php echo $column_class; ?>">
 				
-			<div class="nav-catch row">
+			<div class="row">
 				<?php if (empty($no_headerText)) {?>
 					<header class="page-header d-dlg-none fadeNoScroll">
 						<?php 

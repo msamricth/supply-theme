@@ -1,7 +1,81 @@
+body {
+    &.navbar-dark {
+        #header.navbar .navbrand-light {
+            opacity: 0;
+            transition: transform 0.65s, opacity 0.2s;
+            display:none;
+        }
+    }
+    &.navbar-light #header.navbar .navbrand-dark {
+        opacity: 0;
+        transition: transform 0.65s, opacity 0.2s;
+        display:none;
+    }
+    &.bg-transparent-dark #header.navbar {
+        background: linear-gradient(-180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0) 100%);
+        background-color: transparent;
+        .navbrand-light {
+            opacity: 0;
+            transition: transform 0.65s, opacity 0.2s;
+            display:none;
+        }
+    }
+    &.bg-transparent-light #header.navbar {
+        background:transparent;
+        background-color: transparent;
+        .navbrand-dark {
+            opacity: 0;
+            transition: transform 0.65s, opacity 0.2s;
+            display:none;
+        }
+    }
+    &.nav-bg-dark #header.navbar {
+        background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;
+    }
+    &.nav-bg-light #header.navbar {   
+        --bs-bg-opacity: 1;
+        background-color: rgba(var(--bs-light-rgb),var(--bs-bg-opacity))!important;
+    }
+    #wrapper {
+        &.bg-dark:not(.bg-header) {
+            & > header {
+                & > .navbar {
+                    background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;
+                    .navbrand-light {
+                        opacity: 0;
+                        transition: transform 0.65s, opacity 0.2s;
+                        display:none;
+                    }
+                    .navbrand-dark {
+                        opacity: 1;
+                        display:initial;
+                    }
+                }
+            }
+
+        }
+        &.bg-light:not(.bg-header) {
+            & > header > .navbar {
+                background-color: rgba(var(--bs-light-rgb),var(--bs-bg-opacity))!important;
+                    .navbrand-dark {
+                    opacity: 0;
+                    transition: transform 0.65s, opacity 0.2s;
+                    display:none;
+                }
+                .navbrand-light {
+                    opacity: 1;
+                    display:initial;
+                }
+            }
+        }
+    }
+}
 #header.navbar {
     padding-top:0;
-    padding-bottom: 0;
-    transition: background-color .4s ease-in-out,color .4s ease-in-out, opacity .4s ease-in-out;
+    padding-bottom: 0; 
+    -webkit-transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
+    transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
+    will-change: background-color,color, opacity;
         li .nav-link {
         text-shadow: none;
         outline: none;
@@ -23,34 +97,6 @@
         opacity: 0;
         transition: transform 0.65s, opacity 0.2s;
       }
-    &.navbar-dark .navbrand-light {
-        opacity: 0;
-        transition: transform 0.65s, opacity 0.2s;
-        display:none;
-    }
-    &.navbar-light .navbrand-dark {
-        opacity: 0;
-        transition: transform 0.65s, opacity 0.2s;
-        display:none;
-    }
-    &.bg-transparent-dark {
-        background: linear-gradient(-180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0) 100%);
-        background-color: transparent;
-        .navbrand-light {
-            opacity: 0;
-            transition: transform 0.65s, opacity 0.2s;
-            display:none;
-        }
-    }
-    &.bg-transparent-light {
-        background:transparent;
-        background-color: transparent;
-        .navbrand-dark {
-            opacity: 0;
-            transition: transform 0.65s, opacity 0.2s;
-            display:none;
-        }
-    }
 
 }
 .footer .nav li:last-child .nav-link {
@@ -117,17 +163,6 @@
     }
   }
   @include media-breakpoint-down(md) { 
-    .mobile-nav-open {
-        &.navbar-light, 
-        &.navbar-dark  {
-            .navbar-toggler:not(.collapsed) {
-            .hamburger-inner, .hamburger-inner:after, .hamburger-inner:before {
-                 // think this whole thing can be deleted  transition: .5 background-color ease !important;
-
-                }
-            }
-        }
-    }
     #header.navbar {
         li {
             opacity:0;
@@ -175,8 +210,8 @@
             animation: fade-out .3s ease-out both;
         }
         .navbar-brand {
-            -webkit-animation: fade-out .3s ease-out both;
-            animation: fade-out .3s ease-out both;
+            -webkit-animation: fade-out .2s ease-out both;
+            animation: fade-out .2s ease-out both;
         }
         #header.navbar { 
             &.bg-transparent-light {
@@ -184,14 +219,14 @@
                 background: $white;
             }   
             .collapse.show {
-                    -webkit-animation: fade-in 1.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-                    animation: fade-in 1.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+                    -webkit-animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+                    animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
                 .navbar-nav {
                     -webkit-animation: slide-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s both;
                     animation: slide-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) 0s both;
                     li {  
-                        -webkit-animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-                        animation: fade-in 2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+                        -webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+                        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
                         opacity:1;
                         visibility:visible;
                     }
