@@ -61,15 +61,6 @@
             .intro-content, .outro-content {
                 margin-bottom: 1rem;
             }
-            .case-study-left {
-                margin-bottom: 34px;
-                @include media-breakpoint-up(md) {
-                    margin-bottom: 80px;
-                }
-            }
-            .case-study-right {
-                margin-bottom: 14px;
-            }
         }
     }
     

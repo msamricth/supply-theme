@@ -1,28 +1,28 @@
 body {
     &.navbar-dark {
-        #header.navbar .navbrand-light {
+        #header.navbar .navbrand-dark {
             opacity: 0;
             transition: transform 0.65s, opacity 0.2s;
             display:none;
         }
     }
-    &.navbar-light #header.navbar .navbrand-dark {
+    &.navbar-light #header.navbar .navbrand-light {
         opacity: 0;
         transition: transform 0.65s, opacity 0.2s;
         display:none;
     }
-    &.bg-transparent-dark #header.navbar {
+    &.nav-bg-transparent-dark #header.navbar, &.nav-bg-transparent-dark .bg-header #header.navbar {
         background: linear-gradient(-180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0) 100%);
         background-color: transparent;
-        .navbrand-light {
+        .navbrand-dark {
             opacity: 0;
             transition: transform 0.65s, opacity 0.2s;
             display:none;
         }
     }
-    &.bg-transparent-light #header.navbar {
+    &.nav-bg-transparent-light #header.navbar, &.nav-bg-transparent-light .bg-header #header.navbar {
         background:transparent;
-        background-color: transparent;
+        background-color: transparent !important;
         .navbrand-dark {
             opacity: 0;
             transition: transform 0.65s, opacity 0.2s;
@@ -41,6 +41,7 @@ body {
             & > header {
                 & > .navbar {
                     background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;
+                    background: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;
                     .navbrand-light {
                         opacity: 0;
                         transition: transform 0.65s, opacity 0.2s;
@@ -57,6 +58,7 @@ body {
         &.bg-light:not(.bg-header) {
             & > header > .navbar {
                 background-color: rgba(var(--bs-light-rgb),var(--bs-bg-opacity))!important;
+                background: rgba(var(--bs-light-rgb),var(--bs-bg-opacity))!important;
                     .navbrand-dark {
                     opacity: 0;
                     transition: transform 0.65s, opacity 0.2s;
@@ -70,35 +72,61 @@ body {
         }
     }
 }
-#header.navbar {
-    padding-top:0;
-    padding-bottom: 0; 
-    -webkit-transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
-    transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
-    will-change: background-color,color, opacity;
-        li .nav-link {
-        text-shadow: none;
-        outline: none;
-    }
-    .nav-link {
-        font-size: 24px;
-    }
-    @include media-breakpoint-up(md) { 
-        .nav-link {
-            padding-top: 45px;
-            font-size: 18px;
-            padding-bottom: 45px;
+header#nav-header {
+	-webkit-animation: fade-in .6s cubic-bezier(0.390, 0.575, 0.565, 1.000) .36s both;
+	        animation: fade-in .6s cubic-bezier(0.390, 0.575, 0.565, 1.000) .36s both;
+    opacity: 1;
+    position: relative;
+    z-index: 1040;
+    #header.navbar {
+        padding-top:0;
+        padding-bottom: 0; 
+        -webkit-transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
+        transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
+        will-change: background-color,color, opacity;
+            li .nav-link {
+            text-shadow: none;
+            outline: none;
         }
-    }
-    .navbar-toggler {
-        box-shadow: none !important;
-    }
-    &.is-hidden {
-        opacity: 0;
-        transition: transform 0.65s, opacity 0.2s;
-      }
+        .nav-link {
+            font-size: 24px;
+        }
+        .navbar-brand g > path {
+            fill: currentColor;
+        }
+        @include media-breakpoint-up(md) { 
+            .nav-link {
+                padding-top: 45px;
+                font-size: 18px;
+                padding-bottom: 45px;
+            }
+        }
+        .navbar-toggler {
+            box-shadow: none !important;
+        }
+        &.is-hidden {
+            opacity: 0;
+            transition: transform 0.65s, opacity 0.2s;
+        }
 
+    }
 }
+@-webkit-keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 .footer .nav li:last-child .nav-link {
     padding-bottom: 0;
 }
@@ -205,7 +233,7 @@ body {
     .nd-open {
         height: 100vh;
         overflow: hidden;
-         .fold-container {
+         main {
             -webkit-animation: fade-out .3s ease-out both;
             animation: fade-out .3s ease-out both;
         }

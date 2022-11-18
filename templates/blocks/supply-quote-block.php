@@ -43,6 +43,7 @@ if($cite) {
     $blockContent .= '</cite>';
 }
 $blockContent .= '</div>';
+$blockContent .= '<div class="col-md-12 col-xl-10 mx-auto"><div class="seperator"></div></div>';
 $blockContent .= '</div>';
 $blockContent .= '</blockquote>';
 if ( have_rows( 'column_placement' ) ) :

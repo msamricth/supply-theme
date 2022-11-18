@@ -128,6 +128,7 @@ $specialties = get_field( 'specialties' );
                 <?php endif; ?>
             </div>
         </div>
+        <div class="col-md-12 col-xl-10 mx-auto"><div class="seperator"></div></div>
     </div>
 </div>
 <div class="fold" <?php echo $foldUtils; ?>></div>

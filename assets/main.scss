@@ -255,8 +255,8 @@ body {
 		}
 
 		.edit-link a {
-			color: #fff !important;
-			font-weight: normal !important;
+			color: currentColor!important;
+			font-weight: bold !important;
 			text-decoration: none !important;
 
 			&::before {

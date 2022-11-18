@@ -15,6 +15,7 @@
 	$bodyClasses ='';
 	$wrapperClasses ='';
 	$ogClass ='';
+	$bugtest = '';
 	$navbar_page_scheme = get_field( 'navbar_color_settings', $post_id);
 	$navbar_theme_scheme   = get_theme_mod( 'navbar_scheme', 'navbar-light bg-light' ); // Get custom meta-value.
 	$navbar_position = get_theme_mod( 'navbar_position', 'static' ); // Get custom meta-value.
@@ -31,9 +32,9 @@
 			if ( $nav_light ) : 
 			   $nav_light_image = '<img class="navbrand-light" src="'. esc_url( $nav_light['url'] ). '" alt="'. esc_attr( $nav_light['alt'] ).' " />';
 			endif; 
+			$nav_svg = get_sub_field( 'svg' ); 
 		endwhile; 
 	endif; 
-
 		if(strpos($navbar_page_scheme, 'default') !== false){
 			$navbar_scheme = $navbar_theme_scheme;
 		} elseif(strpos($navbar_page_scheme, 'transparent-dark') !== false){
@@ -89,8 +90,12 @@
 				<div class="container">
 					<a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
 						<?php
-						if ( have_rows( 'nav_logos', 'option' ) ) : 
-							echo $nav_light_image . $nav_dark_image;
+						if ( have_rows( 'nav_logos', 'option' ) ) :  
+							if($nav_svg){
+								echo $nav_svg;
+							} else {
+								echo $nav_light_image . $nav_dark_image;
+							}
 							else :
 								echo esc_attr( get_bloginfo( 'name', 'display' ) );
 							endif;

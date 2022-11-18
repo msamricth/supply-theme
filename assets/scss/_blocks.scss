@@ -1,9 +1,7 @@
 .block-supply-stats {
     padding-bottom: 60px;
-    border-top: 1px solid rgb($white,.39);
     border-bottom: 1px solid rgb($white,.39);
     margin-bottom:30px;
-    margin-top: 30px;
     h4.stats {
         font-size: 84px;
         font-weight: 500;
@@ -53,13 +51,46 @@ blockquote.wp-block-quote {
         line-height: 1.125;
     }
 }
+blockquote.wp-block-quote {
+    .seperator {
+        opacity: 0.6; // suppose to be .39 but .39 here shows up ligher then if it was rgb,.39
+        padding-bottom: 60px;
+        border-bottom: 1px solid currentColor;
+    }
+    @include media-breakpoint-up(md) {    
+        .seperator {
+            padding-bottom: 80px;
+        }
+    }
+    @include media-breakpoint-up(3xl) {
+        .seperator {     
+            padding-bottom: 100px;
+        }
+    }
+}
+.block-case-study-intro {
+    margin-bottom: 60px;
+    .seperator {
+        opacity: 0.6;
+        padding-bottom: 60px;
+        border-bottom: 1px solid currentColor;
+    }
+    @include media-breakpoint-up(md) {    
+        .seperator {
+            padding-bottom: 80px;
+        }
+        margin-bottom: 80px;
+    }
+    @include media-breakpoint-up(3xl) {
+        .seperator {     
+            padding-bottom: 100px;
+        }
+        margin-bottom: 100px;
+    }
+}
 .bg-light {
     .block-supply-stats {
-        border-top: 1px solid rgb($primary,.39);
         border-bottom: 1px solid rgb($primary,.39);
-    }
-    blockquote.wp-block-quote {
-        border-bottom: 1px solid rgb($primary,.39) !important;
     }
 }
 .block-supply-separator-block {
@@ -372,15 +403,11 @@ header.page-header {
         }
     }
     .block-supply-stats {
-        margin-top: 66px;
-        padding-top: 80px;
         margin-bottom: 50px;
         padding-bottom: 36px;
     }
     blockquote.wp-block-quote {
-        border-bottom: 1px solid rgb($white,.39) !important;
         padding-top: 30px;
-        padding-bottom: 80px;
         margin-bottom: 136px;
     }
     .block-supply-content-block {

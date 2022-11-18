@@ -27,6 +27,7 @@ if ( ! empty( $block['align'] ) ) {
 $tagline_title = get_field( 'tagline_header' ); 
 $tagline_content = get_field( 'tagline_content' ); 
 $tagline_link = get_field( 'tagline_link' ); 
+$custom_link_label = get_field('custom_link_label');
 $i = 0;
 $cl_class = '';
 $foldUtils = '';
@@ -108,7 +109,7 @@ endif; ?>
                             echo '<p class="cp1">' . $tagline_content . '</p>';
                             endif; ?>
                         <?php if ( $tagline_link ) : ?>
-                            <a href="<?php echo get_permalink( $tagline_link ); ?>">Learn More</a>
+                            <a href="<?php echo get_permalink( $tagline_link ); ?>"><?php if($custom_link_label){ echo $custom_link_label; } else { echo 'Learn More';} ?></a>
                         <?php endif; ?>
                     </div>
                 </div>
