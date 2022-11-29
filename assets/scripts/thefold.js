@@ -13,7 +13,7 @@ let prevYPosition = 0
 let direction = 'up'
 
 const options = {
-	root: scrollRoot,
+	root: null,
 	rootMargin: `${header.offsetHeight * -1}px`,
 	threshold: 0
 }
@@ -85,13 +85,13 @@ const onIntersect = (entries, observer) => {
 	entries.forEach((entry) => {
 
 
-		if (scrollRoot.scrollTop > prevYPosition) {
+		if (document.body.scrollTop > prevYPosition) {
 			direction = 'down';
 		} else {
 			direction = 'up';
 		}
 		
-		prevYPosition = scrollRoot.scrollTop
+		prevYPosition = document.body.scrollTop
 		
 		const target = direction === 'down' ? getTargetSection(entry) : entry.target
 		

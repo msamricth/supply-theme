@@ -11,13 +11,26 @@ body {
         transition: transform 0.65s, opacity 0.2s;
         display:none;
     }
-    &.nav-bg-transparent-dark #header.navbar, &.nav-bg-transparent-dark .bg-header #header.navbar {
-        background: linear-gradient(-180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0) 100%);
-        background-color: transparent;
-        .navbrand-dark {
-            opacity: 0;
-            transition: transform 0.65s, opacity 0.2s;
-            display:none;
+    &.nav-bg-transparent-dark, &.nav-bg-transparent-dark #wrapper.bg-header {
+        header > nav {
+            background: linear-gradient(-180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0) 100%);
+            background-color: transparent;
+            .navbrand-dark {
+                opacity: 0;
+                transition: transform 0.65s, opacity 0.2s;
+                display:none;
+            }
+            a {
+                color: $white;
+            }
+            .navbar-nav {
+                .nav-link {
+                    color: $white;
+                    .nav-underline {
+                        background-color: $white;
+                    }
+                }
+            }
         }
     }
     &.nav-bg-transparent-light #header.navbar, &.nav-bg-transparent-light .bg-header #header.navbar {

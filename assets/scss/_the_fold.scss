@@ -1,29 +1,10 @@
 //weird dom workaround for intersection observer/fold function to work - ideally I would like to find a way to remove this
 body.fold_on {
-    overflow: hidden;
-    .scroller {
-        height: 100vh;
-        width: 100%;
-        overflow-y: auto;
-        overflow-x: hidden;
-    }
-    .navbar.fixed-top {
-        right: 17px;
-    }
+
     main {
         position: relative;
     }
-    @media
-    only screen and (-webkit-min-device-pixel-ratio: 2),
-    only screen and (min--moz-device-pixel-ratio: 2),
-    only screen and (-o-min-device-pixel-ratio: 2/1),
-    only screen and (min-device-pixel-ratio: 2),
-    only screen and (min-resolution: 192dpi),
-    only screen and (min-resolution: 2dppx) { 
-        nav#header.navbar.fixed-top {
-            right: 0px;
-        }
-    }
+
 }
 // /end werid workaround
 
