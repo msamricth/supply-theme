@@ -1,16 +1,13 @@
 //weird dom workaround for intersection observer/fold function to work - ideally I would like to find a way to remove this
 body.fold_on {
-    overflow:hidden;
+    overflow: hidden;
     .scroller {
         height: 100vh;
         width: 100%;
         overflow-y: auto;
-        overflow-x:hidden;
+        overflow-x: hidden;
     }
-}
-
-body.fold_on {
-     .navbar.fixed-top {
+    .navbar.fixed-top {
         right: 17px;
     }
     main {
@@ -45,6 +42,7 @@ body.fold_on {
     -webkit-transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
     transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
     will-change: background-color,color, opacity;
+   // mix-blend-mode: difference;
     main, header > nav {
         .card {
             background-color: transparent;

@@ -43,7 +43,6 @@ $classes .= ' fadeNoScroll';
 $foldUtils = '';
 
 $scheme = get_field('background_color', $post_id);
-$classes.= ' fold';
 if ( get_field( 'add_fold' ) == 1 ) : 
     if ( have_rows( 'fold_settings' ) ) :
         while ( have_rows( 'fold_settings' ) ) : the_row(); 
@@ -82,7 +81,7 @@ $specialties = get_field( 'specialties' );
 	}
 </style>
 
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>"<?php echo $foldUtils; ?>>
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
     <div class="row">
         <div class="col-md-10 col-xl-10 offset-xl-1 logo-container fadeNoScroll">
             <?php if ( $client_logo_light ) : ?>
@@ -115,7 +114,7 @@ $specialties = get_field( 'specialties' );
                 </p>
             <?php endif; ?>
         </div>
-        <div class="col-lg-4 col-dlg-3 offset-dlg-1 col-xl-2 case-study-right">
+        <div class="col-lg-4 col-dlg-3 offset-dlg-1 col-xl-2 case-study-right <?php if ( get_field( 'add_fold' ) == 1 ) : echo 'fold'; endif;?>" <?php echo $foldUtils; ?>>
             <div class="row mx-sm-0 g-1 g-sm-0">
                 <?php $i = 0; $j = count(get_field( 'specialties' ) );?>
                 <?php if ( $specialties ) : ?>

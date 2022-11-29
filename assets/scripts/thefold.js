@@ -38,6 +38,17 @@ const updateColors = (target) => {
     console.log('No trigger detected');
   }else if (theme === 'bg-light') {
     if(Wrapper.classList.contains('bg-light')){
+		if(Wrapper.classList.contains('bg-header')){
+			if(dotsON){
+				Wrapper.classList = theme;
+				setTimeout(
+					function() {
+						Wrapper.classList.add('bg-pattern');
+				}, 800);
+			} else {
+				Wrapper.classList = theme;
+			}
+		}
     } else {
         if(dotsON){
             Wrapper.classList = theme;
@@ -56,6 +67,9 @@ const updateColors = (target) => {
 }
 
 const shouldUpdate = (entry) => {
+
+	// new condition needed - if header is at top return
+
 	if (direction === 'down' && !entry.isIntersecting) {
 		return true
 	}

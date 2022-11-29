@@ -25,12 +25,7 @@ if ( have_posts() ) :
 		the_post(); 
             $prevPost = get_previous_post();
             $nextPost = get_next_post();
-            if ( get_field( 'deep_dive' ) == 1 ) :
-                
-                $subClasses .= 'bg-dark text-white';
-                $deep_dive = 1;
-                $classes .= ' ';
-            endif;
+
             $client_logo = get_field( 'client_logo' );
 
             if ( have_rows( 'header_media' ) ) :

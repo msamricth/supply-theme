@@ -36,8 +36,6 @@ $row = '';
 $container = '';
 
 if ( get_field( 'add_fold' ) == 1 ) : 
-    $foldClass.= ' fold';
-    $classes .= ' fold';
     if ( have_rows( 'fold_settings' ) ) :
         while ( have_rows( 'fold_settings' ) ) : the_row(); 
             if(get_sub_field( 'custom_bg_color' )){
@@ -96,7 +94,7 @@ else :
     // No rows found  
 endif; ?>
 
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>" <?php echo $foldUtils; ?>>
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
     <div class="container tagline-section fadeNoScroll">
         <div class="row py-8 py-md-13 py-dlg-13 py-3xl-17">
             <div class="col-md-6 order-md-2 col-xl-5 col-xxl-4">
@@ -114,7 +112,7 @@ endif; ?>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 order-md-1 col-xl-5 offset-xl-1 logo-carousel" <?php if ( is_admin() ) {?> style="display:none"<?php }?>>
+            <div class="col-md-6 order-md-1 col-xl-5 offset-xl-1 logo-carousel <?php if ( get_field( 'add_fold' ) == 1 ) : echo 'fold'; endif; ?>" <?php if ( is_admin() ) {?> style="display:none"<?php }?>  <?php echo $foldUtils; ?>>
             <?php if ( have_rows( 'logos', 'option' ) ) : ?>
                 <section class="box" aria-label="Supply's Logo Carousel fader">
                    <?php echo $logoCarousel;?>
