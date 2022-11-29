@@ -45,5 +45,9 @@ $blockContent = '';
             echo supply_grid($blockContent, 'col-dlg-12');
         endwhile;
     endif;
-    ?>
+    if ( is_admin() ) {
+    // Runs only if this PHP code is in a file that displays outside the admin panels, like the theme template.
+    echo '<button style="position: absolute;right: 10%;padding: 2rem;top: 20%;">Click here to edit this Media Block </button>';
+} 
+?>
 </div>

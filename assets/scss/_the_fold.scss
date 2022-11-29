@@ -1,14 +1,3 @@
-//weird dom workaround for intersection observer/fold function to work - ideally I would like to find a way to remove this
-body.fold_on {
-
-    main {
-        position: relative;
-    }
-
-}
-// /end werid workaround
-
-
 .light-logo, .dark-logo {
     transition:opacity 0.15s linear;
 }
@@ -24,23 +13,26 @@ body.fold_on {
     transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
     will-change: background-color,color, opacity;
    // mix-blend-mode: difference;
+   
+   main * {
+        transition: background-color .4s ease-in-out,color .4s ease-in-out;
+    }
     main, header > nav {
         .card {
             background-color: transparent;
         }
         p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-            transition: background-color .4s ease-in-out,color .4s ease-in-out;
+            color: var(--supply-fold-color);
+            a {
+                color: var(--supply-fold-color);
+            }
         }
     }
     &.bg-dark, &.bg-black, &.fold-text-white, &.bg-dark.bg-pattern {
         color: $white;
-        main, header > nav {
-            p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-                color: $white;
-                a {
-                    color: $white;
-                }
-            }
+        --supply-fold-color:  white;
+        * {
+            --supply-fold-color:  white;
         }
         .dark-logo {
             display: none;
@@ -53,10 +45,9 @@ body.fold_on {
     }
     &.bg-light, &.bg-pattern, &.fold-text-dark{
         color: $primary;
-        main, header > nav {
-            p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small, li {
-                color: $primary;
-            }
+        --supply-fold-color:  #{$primary};
+        *{
+            --supply-fold-color:  #{$primary};
         }
     }
     &.bg-pattern-fold.bg-light {
@@ -65,13 +56,9 @@ body.fold_on {
     }
     &:not(.bg-light) &:not(.bg-pattern) {
         color: $white;
-        main, header > nav {
-            p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-                color: $white;
-                a {
-                    color: $white;
-                }
-            }
+        --supply-fold-color:  white;
+        * {
+            --supply-fold-color:  white;
         }
         .dark-logo {
             display: none;

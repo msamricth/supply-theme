@@ -14,9 +14,9 @@ $headline = get_field('headline');
 
 ?>
 <main>
-    <div class="home-header fold" data-class="header">
+    <div class="home-header">
         <div class="container text-left">
-            <div class="row">
+            <div class="row fold" data-class="header">
                 <div class="col-lg-10 col-xl-8 col-3xl-6 col-4xl-5 mx-md-auto">
                     <?php if($headline) {
                         echo '<h1 class="entry-title fadeNoScroll">'.$headline.'</h1>';
@@ -25,7 +25,7 @@ $headline = get_field('headline');
                     }?>
                 </div>
             </div>
-            <div>
+            <div class=" fold" data-class="header">
                 <?php echo Video_embed(); ?>
             </div>
         </div>

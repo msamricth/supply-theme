@@ -36,32 +36,20 @@ const updateColors = (target) => {
   } else if(theme === 'undefined'){
     Wrapper.classList = bodyOG;
     console.log('No trigger detected');
-  }else if (theme === 'bg-light') {
-    if(Wrapper.classList.contains('bg-light')){
-		if(Wrapper.classList.contains('bg-header')){
-			if(dotsON){
-				Wrapper.classList = theme;
-				setTimeout(
-					function() {
-						Wrapper.classList.add('bg-pattern');
-				}, 800);
-			} else {
-				Wrapper.classList = theme;
-			}
-		}
-    } else {
-        if(dotsON){
-            Wrapper.classList = theme;
-            setTimeout(
-                function() {
-                    Wrapper.classList.add('bg-pattern');
-            }, 800);
-        } else {
-            Wrapper.classList = theme;
-        }
-    }
+  }else if (theme === 'bg-pattern') {
+	if(Wrapper.classList.contains(theme)){
+	} else {
+		Wrapper.classList = 'bg-light';
+		setTimeout(
+			function() {
+				Wrapper.classList = 'bg-light ' + theme;
+		}, 400);
+	}
   } else {
-	  Wrapper.classList = theme;
+	if(Wrapper.classList.contains(theme)){
+	} else {
+		Wrapper.classList = theme;
+	}
   }
   console.log(theme);
 }

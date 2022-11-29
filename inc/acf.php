@@ -392,3 +392,39 @@ function register_supply_posts_block() {
 	}
 
 }
+function acf_load_fold_color_field_choices( $field ) {
+	global $post;
+	$scheme = '';
+	$prevColor = '';
+    $value = $field['value'];
+  	$choices = $field['choices'];
+    $scheme = get_field('background_color', $post->ID);
+	$blocks = parse_blocks( $post->post_content );
+	foreach( $blocks as $block ) {
+		if( 'acf/service' !== $block['blockName'] )
+			continue;
+
+		$title = $anchor = '';
+		if( !empty( $block['attrs']['data']['fold_color'] ) )
+		$prevColor = $block['attrs']['data']['fold_color'];
+
+	}
+	if($prevColor){
+		$field['choices'][ $prevColor ] = $prevColor .'(Inherited from most recent set fold)';
+		$field['default_value'] = $prevColor;
+	}
+	if ( $scheme) {
+		$field['choices'][ $scheme ] = $scheme .'(Inherited from Page Settings)';
+		$field['default_value'] = $prevColor;
+	}
+
+	if( !empty( $value ) && array_key_exists($value, $choices) && !array_key_exists($value, $field['choices']) ){
+		$field['choices'][ $value ] = $choices[ $value ];
+	  }
+    // return the field
+    return $field;
+    
+}
+
+add_filter('acf/load_field/name=fold_color', 'acf_load_fold_color_field_choices');
+

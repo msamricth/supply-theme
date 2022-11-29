@@ -105,8 +105,9 @@ header#nav-header {
             font-size: 24px;
         }
         .navbar-brand g > path {
-            fill: currentColor;
+            fill: var(--supply-fold-color);
         }
+
         @include media-breakpoint-up(md) { 
             .nav-link {
                 padding-top: 45px;
