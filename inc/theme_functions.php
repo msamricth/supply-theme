@@ -92,25 +92,23 @@ function supply_grid($content, $defaults = null){
                     $classes .= ' col-md-10 col-lg-8 mx-auto';
                 }
             endif; 
-            if ( get_sub_field( 'add_fold' ) == 1 ) : 
-                $row .= ' fold';
-                if(get_sub_field( 'custom_bg_color' )){
-                        $customColor = get_sub_field( 'custom_bg_color' );
-                        $customText = get_sub_field('custom_text_color');
-                        if($customText) {
-                            $customText = 'data-color="'.$customText.'"';
-                        } else {
-                            $customText = 'data-color="default"';
-                        }
-                        $row .= ' fold-custom';
-                        $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
-                }
-                if(get_sub_field( 'color' )){
-                        $foldClass = 'bg-' . get_sub_field( 'color' );
-                        $foldUtils .=' data-class="'. $foldClass .'"';
-                }
-            endif; 
         endwhile;
+        if(get_field( 'fold_color' )){
+            $row .= ' fold';
+            $foldClass = 'bg-' . get_field( 'fold_color' );
+            $foldUtils .=' data-class="'. $foldClass .'"';
+        }
+        if(get_field( 'custom_bg_color' )){
+                $customColor = get_sub_field( 'custom_bg_color' );
+                $customText = get_sub_field('custom_text_color');
+                if($customText) {
+                    $customText = 'data-color="'.$customText.'"';
+                } else {
+                    $customText = 'data-color="default"';
+                }
+                $row .= ' fold-custom';
+                $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
+        }
         $container .= '<div class="' . $row . '"'.$foldUtils.'>';
         $container .= '<div class="' . $classes . '">';
             if($content) {$container .= $content; } else {

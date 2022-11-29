@@ -49,28 +49,22 @@
 		}
 
 	$bodyClasses .= $navbar_scheme;
-	if ( get_field( 'dots_on' ) == 1 ) : 
-		$bodyClasses .= ' dots_on ';
-	else : 
-		// echo 'false'; 
-	endif; 
 	if ( get_field( 'fold_on' ) == 1 ) :
 	else : 
 		$bodyClasses .= ' fold_on ';
 	endif; 
 	$scheme = get_field('background_color');
 	if($scheme){
-		$scheme = 'bg-'. $scheme . ' ';
+		if(strpos($scheme, 'dots') !== false){
+			$bodyClasses .= ' dots_on ';
+			$scheme = 'bg-light bg-pattern';
+		} else {
+			$scheme = 'bg-'. $scheme . ' ';
+		}
 	} else {
 		$scheme = 'bg-light';
 	}
 
-
-	if(strpos($scheme, 'light') !== false){
-		if ( get_field( 'dots_on' ) == 1 ) : 
-			$scheme .= ' bg-pattern';
-		endif; 
-	}
 
 
 	$ogClass = $scheme;

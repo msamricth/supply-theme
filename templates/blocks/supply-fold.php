@@ -24,9 +24,9 @@ if ( ! empty( $block['className'] ) ) {
 if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
-$foldColor = get_field('color');
+$foldColor = get_field('fold_color');
 ?>
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?> fold" data-class="bg-<?php the_field( 'color' ); ?>">
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?> fold" data-class="bg-<?php the_field( 'fold_color' ); ?>">
 <?php 
     if ( is_admin() ) {
     // Runs only if this PHP code is in a file that displays outside the admin panels, like the theme template.

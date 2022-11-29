@@ -34,30 +34,31 @@ $foldUtils = '';
 $foldClass = '';
 $row = '';
 $container = '';
+$carouselClasses = '';
 
-if ( get_field( 'add_fold' ) == 1 ) : 
-    if ( have_rows( 'fold_settings' ) ) :
-        while ( have_rows( 'fold_settings' ) ) : the_row(); 
-            if(get_sub_field( 'custom_bg_color' )){
-                    $customColor = get_sub_field( 'custom_bg_color' );
-                    $customText = get_sub_field('custom_text_color');
-                    if($customText) {
-                        $customText = 'data-color="'.$customText.'"';
-                    } else {
-                        $customText = 'data-color="default"';
-                    }
-                    $foldClass .= ' fold-custom';
-                    $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
-            }
-            if(get_sub_field( 'color' )){
-                    $foldClass = 'bg-' . get_sub_field( 'color' );
-                    $foldUtils .=' data-class="'. $foldClass .'"';
-            }
-            
-        endwhile;
-	endif; 
-
+if ( have_rows( 'fold_settings' ) ) :
+    while ( have_rows( 'fold_settings' ) ) : the_row(); 
+        if(get_sub_field( 'custom_bg_color' )){
+                $customColor = get_sub_field( 'custom_bg_color' );
+                $customText = get_sub_field('custom_text_color');
+                if($customText) {
+                    $customText = 'data-color="'.$customText.'"';
+                } else {
+                    $customText = 'data-color="default"';
+                }
+                $foldClass .= ' fold-custom';
+                $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
+        }
+        if(get_sub_field( 'fold_color' )){
+                $carouselClasses = 'fold';
+                $foldClass = 'bg-' . get_sub_field( 'fold_color' );
+                $foldUtils .=' data-class="'. $foldClass .'"';
+        }
+        
+    endwhile;
 endif; 
+
+
 if ( have_rows( 'logos', 'option' ) ) : 
     $logoCount = 0;
     $logoListA = '';
@@ -112,7 +113,7 @@ endif; ?>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 order-md-1 col-xl-5 offset-xl-1 logo-carousel <?php if ( get_field( 'add_fold' ) == 1 ) : echo 'fold'; endif; ?>" <?php if ( is_admin() ) {?> style="display:none"<?php }?>  <?php echo $foldUtils; ?>>
+            <div class="col-md-6 order-md-1 col-xl-5 offset-xl-1 logo-carousel  <?php echo $carouselClasses; ?>" <?php if ( is_admin() ) {?> style="display:none"<?php }?>  <?php echo $foldUtils; ?>>
             <?php if ( have_rows( 'logos', 'option' ) ) : ?>
                 <section class="box" aria-label="Supply's Logo Carousel fader">
                    <?php echo $logoCarousel;?>
