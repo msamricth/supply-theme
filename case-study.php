@@ -54,51 +54,6 @@ if ( have_posts() ) :
                     <div class="container editor-content nav-catch">
                         <?php the_content(); ?>
                     </div>
-                <div class="single-case-studies__pagination supply-pagination container  fadeNoScroll">
-                    <div class="row g-0">
-                        <div class="col-md-6 position-relative">
-                            <?php $left_case_study = get_field( 'left_case_study' ); ?>
-                            <?php if ( $left_case_study ) : ?>
-                                    <?php $post = $left_case_study; ?>
-                                    <?php setup_postdata( $post ); 
-                                        $post_type = get_post_type();
-                                        get_template_part('templates/_content', $post_type);
-                                        ?> 
-                                    <?php wp_reset_postdata(); ?>
-                            <?php else: ?>
-                                <?php if ( $prevPost ) : ?>
-                                    <?php $post = $prevPost->ID; ?>
-                                    <?php setup_postdata( $post ); 
-                                        $post_type = get_post_type();
-                                        get_template_part('templates/_content', $post_type);
-                                        ?> 
-                                    <?php wp_reset_postdata(); ?>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                        </div>
-                        <div class="col-md-6 position-relative">
-                            <?php $right_case_study = get_field( 'right_case_study' ); ?>
-                            <?php if ( $right_case_study ) : ?>
-                                <?php $post = $right_case_study; ?>
-                                <?php setup_postdata( $post ); 
-                                    $post_type = get_post_type();
-                                    get_template_part('templates/_content', $post_type);
-                                    ?> 
-                                <?php wp_reset_postdata(); ?>
-                        
-                            <?php else: ?>
-                                <?php if ( $nextPost ) : ?>
-                                    <?php $post = $nextPost->ID; ?>
-                                    <?php setup_postdata( $post ); 
-                                        $post_type = get_post_type();
-                                        get_template_part('templates/_content', $post_type);
-                                        ?> 
-                                    <?php wp_reset_postdata(); ?>
-                                <?php endif; ?>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
             </section>
         </article>
 <?php 

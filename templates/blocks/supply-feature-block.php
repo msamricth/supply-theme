@@ -50,8 +50,11 @@ if ( have_rows( 'fold_settings' ) ) :
                 $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
         }
         if(get_sub_field( 'fold_color' )){
+            
+            $foldColor = get_sub_field('fold_color');
+            $foldColor = str_replace('1', "", $foldColor);
                 $carouselClasses = 'fold';
-                $foldClass = 'bg-' . get_sub_field( 'fold_color' );
+                $foldClass = 'bg-' . $foldColor;
                 $foldUtils .=' data-class="'. $foldClass .'"';
         }
         

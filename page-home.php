@@ -33,8 +33,7 @@ $headline = get_field('headline');
     <div id="post-<?php the_ID(); ?>" <?php post_class('home-main' ); ?>>
 
             <?php the_content();?>
-
-        </div>            
+           
            <?php wp_link_pages( array(
                 'before' => '<div class="page-links">' . __( 'Pages:', 'supply' ),
                 'after'  => '</div>',
@@ -44,7 +43,7 @@ $headline = get_field('headline');
         ?>
         
     </div><!-- /#post-<?php the_ID(); ?> -->
-    <div>
+
 
     <?php
     

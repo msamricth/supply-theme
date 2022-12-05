@@ -39,6 +39,7 @@ if ( have_rows( 'block_content' ) ) :
 endif;
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
+
 <?php if ( have_rows( 'block_header' ) ) : ?>
 		<?php while ( have_rows( 'block_header' ) ) : the_row(); 
             $type = get_sub_field( 'type' ); 

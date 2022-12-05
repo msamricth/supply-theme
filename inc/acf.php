@@ -392,39 +392,39 @@ function register_supply_posts_block() {
 	}
 
 }
-function acf_load_fold_color_field_choices( $field ) {
-	global $post;
-	$scheme = '';
-	$prevColor = '';
-    $value = $field['value'];
-  	$choices = $field['choices'];
-    $scheme = get_field('background_color', $post->ID);
-	$blocks = parse_blocks( $post->post_content );
-	foreach( $blocks as $block ) {
-		if( 'acf/service' !== $block['blockName'] )
-			continue;
+add_action( 'acf/init', 'register_supply_pagination_block' );
+function register_supply_pagination_block() {
 
-		$title = $anchor = '';
-		if( !empty( $block['attrs']['data']['fold_color'] ) )
-		$prevColor = $block['attrs']['data']['fold_color'];
+	if ( function_exists( 'acf_register_block_type' ) ) {
+
+		// Register Supply Feature Block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-pagination-block',
+			'title' 				=> __( 'Supply pagination Block' ),
+			'description' 			=> __( 'This block displays pagination for this page )' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'controls-forward',
+			'keywords'				=> array( 'supply', 'posts', 'block' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-pagination-block.php',
+			// 'render_callback'	=> 'supply_feature_block_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.js',
+			// 'enqueue_assets' 	=> 'supply_feature_block_block_enqueue_assets',
+		));
 
 	}
-	if($prevColor){
-		$field['choices'][ $prevColor ] = $prevColor .'(Inherited from most recent set fold)';
-		$field['default_value'] = $prevColor;
-	}
-	if ( $scheme) {
-		$field['choices'][ $scheme ] = $scheme .'(Inherited from Page Settings)';
-		$field['default_value'] = $prevColor;
-	}
 
-	if( !empty( $value ) && array_key_exists($value, $choices) && !array_key_exists($value, $field['choices']) ){
-		$field['choices'][ $value ] = $choices[ $value ];
-	  }
-    // return the field
-    return $field;
-    
 }
 
-add_filter('acf/load_field/name=fold_color', 'acf_load_fold_color_field_choices');
-
+add_filter(
+    'acf/pre_save_block',
+    function( $attributes ) {
+        if ( empty( $attributes['anchor'] ) ) {
+            $attributes['anchor'] = 'acf-block-' . uniqid();
+        }
+        return $attributes;
+    }
+);

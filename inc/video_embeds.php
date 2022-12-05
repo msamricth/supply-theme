@@ -19,9 +19,9 @@ function Video_embed ($videoURL = null){
         $video = $matches[1];
     }
     $embed .= '<div class="ratio ratio-16x9 video-embed fadeNoScroll">';
-    $embed .= '<div class="preview-video"><iframe class="videofx" src="'. $video.'?h=1fa258310d&amp;background=1&amp;loop=1&amp;app_id=122963" frameborder="0" allow="autoplay; picture-in-picture; fullscreen" allowfullscreen></iframe></div><button id="play-button">PLAY REEL</button>';
+    $embed .= '<div class="preview-video"><iframe class="videofx" src="'. $video.'?h=1fa258310d&amp;background=1&amp;loop=1&amp;app_id=122963" frameBorder="0" allow="autoplay; picture-in-picture; fullscreen" allowfullscreen></iframe></div><button id="play-button">PLAY REEL</button>';
    // $embed .= '<div class="video-block" data-video="'. $video.'?autoplay=1&loop=1"></div>';
-   $embed .= '<iframe class="iframe-video d-none" id="vimeoFrame" src="'. $video.'" frameborder="0" allowfullscreen allow="autoplay; picture-in-picture; fullscreen"></iframe>';
+   $embed .= '<iframe class="iframe-video d-none" id="vimeoFrame" src="'. $video.'" frameBorder="0" allowfullscreen allow="autoplay; picture-in-picture; fullscreen"></iframe>';
     $embed .= '</div>';
     return $embed;
     
@@ -44,7 +44,7 @@ function background_video ($videoURL = null){
         preg_match('/src="(.+?)"/', $videoURL, $matches);
         $video = $matches[1];
     }
-    $embed .= '<iframe class="videofx" src="'. $video.'?&amp;background=1&amp;loop=1" frameborder="0" allow="autoplay; picture-in-picture"></iframe>';
+    $embed .= '<iframe class="videofx" src="'. $video.'?&amp;background=1&amp;loop=1" frameBorder="0" allow="autoplay; picture-in-picture"></iframe>';
     return $embed;
 }
 function video_containers($videoURL, $videoMURL = null, $ratio = null, $mobile_ratio = null) {

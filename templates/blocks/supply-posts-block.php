@@ -15,7 +15,11 @@ $id = 'supply-posts-block-' . $block['id'];
 if ( ! empty($block['anchor'] ) ) {
     $id = $block['anchor'];
 }
+$post_id = '';
 
+$current_post = get_queried_object();
+$post_id = $current_post ? $current_post->ID : null;	
+$scheme = get_field('background_color', $post_id);
 // Create class attribute allowing for custom "className" and "align" values.
 $classes = 'block-posts-content-block';
 if ( ! empty( $block['className'] ) ) {
@@ -41,9 +45,16 @@ $row = '';
                     $row .= ' fold-custom';
                     $Utils .=' data-bg="'.$customColor.'" '. $customText;
             }
-            if(get_sub_field( 'fold_color' )){
+            $foldColor = get_sub_field('fold_color');
+             $foldColor = str_replace('1', "", $foldColor);
+                 if($foldColor){
+                    if(strpos($foldColor, 'page') !== false){
+                        if($scheme){
+                            $foldColor = $scheme;
+                        }
+                    }
                     $row.= ' fold';
-                    $foldClass = 'bg-' . get_sub_field( 'fold_color' );
+                    $foldClass = 'bg-' . $foldColor;
                     $Utils .=' data-class="'. $foldClass .'"';
             }
             

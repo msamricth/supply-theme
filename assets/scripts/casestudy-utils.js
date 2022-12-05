@@ -1,4 +1,4 @@
-const caseStudyPage = document.querySelector('.deep-dive-CS');
+const caseStudyPage = document.querySelector('.single-case-studies');
 
 if(caseStudyPage){
     const videos = document.querySelectorAll(".videofx"); // Select ALL the Videos

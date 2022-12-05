@@ -10,7 +10,14 @@
 	(function($) {
 		var footerContent =$('.footer-content');
 		var footerLinks = $('.footer-content .fl a');
+		var footerNav = $('#footer .navbar-nav');
 
+		
+		footerNav.on("mouseenter", function(){     
+			footerContent.addClass('hovered');    
+		}), footerNav.on("mouseleave", function(){    
+			footerContent.removeClass('hovered');     
+		});
 		footerLinks.each(function(i, obj) {
 			var footerLink = $(this);
 			footerLink.on("mouseenter", function(){     

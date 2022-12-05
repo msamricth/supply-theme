@@ -26,8 +26,12 @@ the_post();
 	</div>
 </div><!-- /#post-<?php the_ID(); ?> -->
 
-<?php
+		
+		</div>
+		<?php
 			get_sidebar();
 		?>
+		</div>
+		</div>
 <?php
 get_footer();

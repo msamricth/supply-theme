@@ -42,8 +42,13 @@ $classes .= ' fadeNoScroll';
 
 $foldUtils = '';
 
+$post_id = '';
+
+$current_post = get_queried_object();
+$post_id = $current_post ? $current_post->ID : null;	
 $scheme = get_field('background_color', $post_id);
-if ( get_field( 'add_fold' ) == 1 ) : 
+
+
     if ( have_rows( 'fold_settings' ) ) :
         while ( have_rows( 'fold_settings' ) ) : the_row(); 
             if(get_sub_field( 'custom_bg_color' )){
@@ -57,13 +62,19 @@ if ( get_field( 'add_fold' ) == 1 ) :
                     $classes .= ' fold-custom';
                     $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
             }
-            if(get_sub_field( 'color' )){
-                    $foldClass = 'bg-' . get_sub_field( 'color' );
+            if(get_sub_field( 'fold_color' )){
+                    $foldColor = get_sub_field('fold_color');        
+                    if(strpos($foldColor, 'page') !== false){
+                        if($scheme){
+                            $foldColor = $scheme;
+                        }
+                    }
+                    $foldClass = 'bg-' . $foldColor;
                     $foldUtils .=' data-class="'. $foldClass .'"';
             }
             
         endwhile;
-	endif; 
+
 else:
     
 if($scheme){
@@ -75,11 +86,6 @@ endif;
 $specialties = get_field( 'specialties' ); 
 ?>
 
-<style type="text/css">
-	<?php echo '#' . $id; ?> {
-		/* Add styles that use ACF values here */
-	}
-</style>
 
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
     <div class="row">
@@ -114,10 +120,11 @@ $specialties = get_field( 'specialties' );
                 </p>
             <?php endif; ?>
         </div>
-        <div class="col-lg-4 col-dlg-3 offset-dlg-1 col-xl-2 case-study-right <?php if ( get_field( 'add_fold' ) == 1 ) : echo 'fold'; endif;?>" <?php echo $foldUtils; ?>>
+        <div class="col-lg-4 col-dlg-3 offset-dlg-1 col-xl-2 case-study-right fold" <?php echo $foldUtils; ?>>
             <div class="row mx-sm-0 g-1 g-sm-0">
-                <?php $i = 0; $j = count(get_field( 'specialties' ) );?>
-                <?php if ( $specialties ) : ?>
+                <?php $i = 0; ?>
+                <?php if ( $specialties ) :
+                    $j = count(get_field( 'specialties' ) ); ?>
                 <ul class="col-sm-4 specialties col-lg-12 mb-0">
                      <?php foreach ( $specialties as $term ) : ?>
                         <li><?php echo esc_html( $term->name ); ?></li>
@@ -130,4 +137,3 @@ $specialties = get_field( 'specialties' );
         <div class="col-md-12 col-xl-10 mx-auto"><div class="seperator"></div></div>
     </div>
 </div>
-<div class="fold" <?php echo $foldUtils; ?>></div>

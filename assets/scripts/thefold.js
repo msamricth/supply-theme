@@ -25,32 +25,67 @@ const getTargetSection = (entry) => {
 	 return entry.target
 	} else {
 	 return sections[index + 1]
-    console.log(sections[index + 1].dataset.color);
+    //console.log(sections[index + 1].dataset.color);
 	}
 }
 
 const updateColors = (target) => {
 	const theme = target.dataset.class;
-  if(theme === 'header') {
-    Wrapper.classList = bodyOG + ' bg-header';
-  } else if(theme === 'undefined'){
-    Wrapper.classList = bodyOG;
-    console.log('No trigger detected');
-  }else if (theme === 'bg-pattern') {
-	if(Wrapper.classList.contains(theme)){
+	if(theme){
+		if (Wrapper.style.background) {
+			Wrapper.style.background = '';		
+		}
+		Wrapper.style.removeProperty('--supply-fold-color');
+		switch (theme) {
+			case 'header':
+				Wrapper.classList = bodyOG + ' bg-header';
+				break;
+			case 'undefined':
+				Wrapper.classList = bodyOG;
+				console.log('No trigger detected');
+				break;
+			case 'bg-pattern':
+				if(Wrapper.classList.contains(theme)){
+					if(Wrapper.classList.contains('bg-header')){
+						Wrapper.classList = 'bg-light';
+						setTimeout(
+							function() {
+								Wrapper.classList = 'bg-light ' + theme;
+						}, 400);
+					}
+				} else {
+					Wrapper.classList = 'bg-light';
+					setTimeout(
+						function() {
+							Wrapper.classList = 'bg-light ' + theme;
+					}, 400);
+				}
+				break;
+			case 'bg-custom':
+				Wrapper.classList = theme;
+				const foldBG = target.dataset.bg;
+				const foldColor = target.dataset.color;
+				if(foldColor == 'default'){
+					checkFoldColor(foldColor);
+				} else {
+					Wrapper.style.setProperty('--supply-fold-color', foldColor);
+				}
+				Wrapper.style.background = foldBG;
+				break;
+			default:
+				if(Wrapper.classList.contains(theme)){
+					if(Wrapper.classList.contains('bg-header')){
+						Wrapper.classList = theme;
+					}
+				} else {
+					Wrapper.classList = theme;
+				}
+		}
 	} else {
-		Wrapper.classList = 'bg-light';
-		setTimeout(
-			function() {
-				Wrapper.classList = 'bg-light ' + theme;
-		}, 400);
+		Wrapper.classList = bodyOG;
+		console.log('No trigger detected');
 	}
-  } else {
-	if(Wrapper.classList.contains(theme)){
-	} else {
-		Wrapper.classList = theme;
-	}
-  }
+ 
   console.log(theme);
 }
 
@@ -89,15 +124,49 @@ const onIntersect = (entries, observer) => {
 	})
 }
 function hideNav() {
-    navbar.removeClass("is-visible").addClass("is-hidden");
+  navbarMain.classList.remove("is-visible");
+  navbarMain.classList.add("is-hidden");
 }
 
 function showNav() {
-    navbar.removeClass("is-hidden").addClass("is-visible").addClass("scrolling");
+  navbarMain.classList.remove("is-hidden");
+  navbarMain.classList.add("is-visible", "scrolling");
 }
 const observer = new IntersectionObserver(onIntersect, options)
 
 
 sections.forEach((section) => {
 	observer.observe(section)
+	setTimeout(
+		function() {observer.observe(section)
+	}, 600);
 })
+
+function checkFoldColor(){
+	//extract R G and B from element background color
+	var contentContainer = $('#wrapper');
+	let backgroundColor = contentContainer.css("background-color");
+	backgroundColor =  backgroundColor.split(',')
+	let R = parseInt(backgroundColor[0].split('(')[1])
+	let G = parseInt(backgroundColor[1])
+	let B = parseInt(backgroundColor[2].split(')')[0])
+
+	//Convert RGB to HSL
+	
+	//The R,G,B values are divided by 255 to change the range from 0..255 to 0..1
+	let rPrime = R/255
+	let gPrime = G/255
+	let bPrime = B/255
+	//Then we extract max and min values
+	let cMax = Math.max(rPrime, gPrime, bPrime)
+	let cMin = Math.min(rPrime, gPrime, bPrime)
+
+let lightness = (cMax + cMin)/2
+/*
+Now we gonna check if our lightness is >50% or < 50%.
+If it is >50% we are goin to change text color to black
+otherwise, we gonna set text color to white.
+*/
+	var contentContainer = $('#wrapper');
+	lightness >= 0.50 ? Wrapper.style.setProperty('--supply-fold-color', '#111512') : Wrapper.style.setProperty('--supply-fold-color', '#fff') ;
+} 

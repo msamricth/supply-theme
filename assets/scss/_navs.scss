@@ -1,85 +1,78 @@
 body {
-    &.navbar-dark {
-        #header.navbar .navbrand-dark {
-            opacity: 0;
-            transition: transform 0.65s, opacity 0.2s;
-            display:none;
-        }
-    }
-    &.navbar-light #header.navbar .navbrand-light {
-        opacity: 0;
-        transition: transform 0.65s, opacity 0.2s;
-        display:none;
-    }
-    &.nav-bg-transparent-dark, &.nav-bg-transparent-dark #wrapper.bg-header {
+    &.nav-bg-transparent-dark #wrapper.bg-header {
         header > nav {
             background: linear-gradient(-180deg, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0) 100%);
             background-color: transparent;
-            .navbrand-dark {
-                opacity: 0;
-                transition: transform 0.65s, opacity 0.2s;
-                display:none;
+            * {    --supply-fold-color: #{$white}; }
+            .navbar-brand g > path, a {
+                --supply-fold-color: #{$white};
             }
-            a {
-                color: $white;
+            .navbar-nav .nav-item * {
+                --supply-fold-color: #{$white};
             }
-            .navbar-nav {
-                .nav-link {
-                    color: $white;
-                    .nav-underline {
-                        background-color: $white;
-                    }
+            
+            @include media-breakpoint-down(md) { 
+                &.mobile-nav-open {
+                    
+                    --supply-nav-rgb: var( --bs-dark-rgb);
+                    --supply-nav-opacity: 1;
+                    background-color: rgba(var(--supply-nav-rgb),var(--supply-nav-opacity));
+                    background: rgba(var(--supply-nav-rgb),var(--supply-nav-opacity));
                 }
             }
         }
     }
     &.nav-bg-transparent-light #header.navbar, &.nav-bg-transparent-light .bg-header #header.navbar {
-        background:transparent;
-        background-color: transparent !important;
-        .navbrand-dark {
-            opacity: 0;
-            transition: transform 0.65s, opacity 0.2s;
-            display:none;
-        }
+        --supply-nav-rgb: var( --bs-white-rgb);
+        --supply-nav-opacity: 0;
     }
     &.nav-bg-dark #header.navbar {
-        background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;
+        --supply-nav-rgb: var( --bs-dark-rgb);
+        --supply-nav-opacity: 1;
     }
     &.nav-bg-light #header.navbar {   
-        --bs-bg-opacity: 1;
-        background-color: rgba(var(--bs-light-rgb),var(--bs-bg-opacity))!important;
+        --supply-nav-rgb: var( --bs-white-rgb);
+        --supply-nav-opacity: 1;
     }
     #wrapper {
         &.bg-dark:not(.bg-header) {
             & > header {
                 & > .navbar {
-                    background-color: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;
-                    background: rgba(var(--bs-dark-rgb),var(--bs-bg-opacity))!important;
-                    .navbrand-light {
-                        opacity: 0;
-                        transition: transform 0.65s, opacity 0.2s;
-                        display:none;
-                    }
-                    .navbrand-dark {
-                        opacity: 1;
-                        display:initial;
-                    }
+                    --supply-nav-rgb: var( --bs-dark-rgb);
+                    --supply-nav-opacity: 1;
                 }
             }
-
         }
         &.bg-light:not(.bg-header) {
             & > header > .navbar {
-                background-color: rgba(var(--bs-light-rgb),var(--bs-bg-opacity))!important;
-                background: rgba(var(--bs-light-rgb),var(--bs-bg-opacity))!important;
-                    .navbrand-dark {
-                    opacity: 0;
-                    transition: transform 0.65s, opacity 0.2s;
-                    display:none;
+                --supply-nav-rgb: var( --bs-white-rgb);
+                --supply-nav-opacity: 1;
+            }
+        }
+    }
+    
+    #header.navbar {
+        background-color: rgba(var(--supply-nav-rgb),var(--supply-nav-opacity))!important;
+        a {
+            color: var(--supply-fold-color);
+        }
+        .navbar-brand g > path {
+            fill: var(--supply-fold-color);
+        }
+        .navbar-nav {
+            .nav-link {
+                color:  var(--supply-fold-color);
+                .nav-underline {
+                    background-color:  var(--supply-fold-color);
                 }
-                .navbrand-light {
-                    opacity: 1;
-                    display:initial;
+            }
+        }
+        .navbar-toggler {
+            .hamburger-inner {  
+                &,
+                &::before,
+                &::after {
+                    background-color: var(--supply-fold-color);
                 }
             }
         }
@@ -94,35 +87,34 @@ header#nav-header {
     #header.navbar {
         padding-top:0;
         padding-bottom: 0; 
-        -webkit-transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
-        transition: background-color .6s ease-in-out,color .6s ease-in-out, opacity .6s ease;
+        -webkit-transition: background-color .45s ease,color .6s ease, opacity .4s ease, transform 0.65s,;
+        transition: background-color .45s ease,color .6s ease, opacity .4s ease, transform 0.65s,;
         will-change: background-color,color, opacity;
             li .nav-link {
             text-shadow: none;
             outline: none;
-        }
-        .nav-link {
-            font-size: 24px;
-        }
-        .navbar-brand g > path {
-            fill: var(--supply-fold-color);
-        }
-
-        @include media-breakpoint-up(md) { 
-            .nav-link {
-                padding-top: 45px;
-                font-size: 18px;
-                padding-bottom: 45px;
-            }
         }
         .navbar-toggler {
             box-shadow: none !important;
         }
         &.is-hidden {
             opacity: 0;
-            transition: transform 0.65s, opacity 0.2s;
         }
 
+    }
+}
+.navbar-nav {
+    
+    .nav-link {
+        font-size: 24px;
+    }
+
+    @include media-breakpoint-up(md) { 
+        .nav-link {
+            padding-top: 45px;
+            font-size: 18px;
+            padding-bottom: 45px;
+        }
     }
 }
 @-webkit-keyframes fade-in {
@@ -258,7 +250,6 @@ header#nav-header {
                 background: $white;
             }   
             .collapse.show {
-
                     -webkit-animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
                     animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
                 .navbar-nav {

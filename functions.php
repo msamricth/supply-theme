@@ -1,12 +1,5 @@
 <?php
-	function add_acf_body_class($classes) {
-		if ( $CSType = get_field( 'deep_dive', get_queried_object_id() ) ) {
-	
-			$classes[]       = 'deep-dive-CS';
-		}
-		return $classes;
-	}
-	add_filter('body_class', 'add_acf_body_class');
+
 /**
  * Include Theme Customizer.
  *

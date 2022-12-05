@@ -32,6 +32,8 @@ $classes .= ' fadeNoScroll';
 $classes .= ' row g-4xl-8 justify-content-between justify-content-4xl-start cp3';
 $i = 0;
 $blockContent .= '<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes ) .'">';
+
+
 if ( have_rows( 'lists' ) ) : 
     while ( have_rows( 'lists' ) ) : the_row(); $i++;   
         $blockContent .='<div class="col-11 col-md-4 col-dlg-3 cp2 pe-4xl-5 supply-list">';

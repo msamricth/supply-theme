@@ -1,6 +1,6 @@
 .block-supply-stats {
     padding-bottom: 60px;
-    border-bottom: 1px solid rgb($white,.39);
+    border-bottom: 1px solid rgba(var(--supply-fold-color),.39);
     margin-bottom:30px;
     h4.stats {
         font-size: 84px;
@@ -55,7 +55,7 @@ blockquote.wp-block-quote {
     .seperator {
         opacity: 0.6; // suppose to be .39 but .39 here shows up ligher then if it was rgb,.39
         padding-bottom: 60px;
-        border-bottom: 1px solid currentColor;
+        border-bottom: 1px solid var(--supply-fold-color);
     }
     @include media-breakpoint-up(md) {    
         .seperator {
@@ -73,7 +73,7 @@ blockquote.wp-block-quote {
     .seperator {
         opacity: 0.6;
         padding-bottom: 60px;
-        border-bottom: 1px solid currentColor;
+        border-bottom: 1px solid var(--supply-fold-color);
     }
     @include media-breakpoint-up(md) {    
         .seperator {
@@ -90,11 +90,11 @@ blockquote.wp-block-quote {
 }
 .bg-light {
     .block-supply-stats {
-        border-bottom: 1px solid rgb($primary,.39);
+        border-bottom: 1px solid rgba(var(--supply-fold-color),.39);
     }
 }
 .block-supply-separator-block {
-    border-bottom: 1px solid currentColor !important;
+    border-bottom: 1px solid var(--supply-fold-color) !important;
     opacity: 0.39;
 
 }
@@ -207,6 +207,10 @@ header.page-header {
 }
 .block-supply-contact-block {
     .footer-content {
+        color: var(--supply-fold-color);
+        -webkit-transition: background-color .6s ease,color .6s ease, opacity .6s ease;
+        transition: background-color .6s ease,color .6s ease, opacity .6s ease;
+        will-change: background-color,color, opacity;
         a {
             font-size: inherit;
             font-family: inherit;

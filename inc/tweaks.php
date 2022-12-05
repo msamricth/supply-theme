@@ -79,3 +79,17 @@ function enqueue_header_markup($markup){
 		echo $markup;
 	}, 10, 1);
 }
+function my_acf_admin_head() {
+    ?>
+    <style type="text/css">
+        div#acf-group_62f2bec0e9fc1 [data-name="fold_color"], [data-name="column_placement"] {
+            display:none !important;
+        }
+        [data-name="block_content"] [data-name="fold_color"] {
+            display:none !important;
+        }
+    </style>
+    <?php
+}
+
+add_action('acf/input/admin_head', 'my_acf_admin_head');

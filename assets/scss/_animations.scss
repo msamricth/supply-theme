@@ -201,7 +201,7 @@ input.link-up {
     }    
     .nav-link, a {
         text-decoration: none;
-        @include media-breakpoint-up(lg) { 
+        @include media-breakpoint-up(md) { 
             position: relative;
             display: inline-block;
             .nav-underline {
@@ -266,15 +266,7 @@ input.link-up {
     .nav-underline {
         background-color: $white;
     }
-    .navbar-toggler {
-        .hamburger-inner {  
-            &,
-            &::before,
-            &::after {
-                background-color: $white;
-            }
-        }
-    }
+   
     .link-up  {
         border-bottom: 1px solid rgba($color: $white, $alpha: 0.85);
         &:hover {

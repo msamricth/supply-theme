@@ -15,7 +15,11 @@ $id = 'supply-call-to-action-' . $block['id'];
 if ( ! empty($block['anchor'] ) ) {
     $id = $block['anchor'];
 }
+$post_id = '';
 
+$current_post = get_queried_object();
+$post_id = $current_post ? $current_post->ID : null;	
+$scheme = get_field('background_color', $post_id);
 // Create class attribute allowing for custom "className" and "align" values.
 $classes = 'block-supply-call-to-action';
 if ( ! empty( $block['className'] ) ) {
@@ -33,9 +37,17 @@ $foldUtils = '';
 
 if ( have_rows( 'fold_settings' ) ) :
     while ( have_rows( 'fold_settings' ) ) : the_row(); 
-        if(get_sub_field( 'color' )){
+    
+    $foldColor = get_sub_field('fold_color');
+        if($foldColor){
+               
+            if(strpos($foldColor, 'page') !== false){
+                if($scheme){
+                    $foldColor = $scheme;
+                }
+            }
             $classes.= ' fold';
-                $foldClass = 'bg-' . get_sub_field( 'color' );
+                $foldClass = 'bg-' . $foldColor;
                 $foldUtils .=' data-class="'. $foldClass .'"';
         }
         if(get_sub_field( 'custom_bg_color' )){

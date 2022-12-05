@@ -25,6 +25,7 @@ if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
 $foldColor = get_field('fold_color');
+$foldColor = str_replace('1', "", $foldColor);
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?> fold" data-class="bg-<?php the_field( 'fold_color' ); ?>">
 <?php 

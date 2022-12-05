@@ -4,11 +4,13 @@
     var newScroll;
     const main = document.querySelector('main');
     navbarMain = document.getElementById('header'); // Get The NavBar
-    
-    scrollRoot.addEventListener('scroll',function(){
-     //on every scroll this funtion will be called
-      
-      var scrollTop = scrollRoot.scrollTop;
+ 
+    window.addEventListener('scroll',function(){
+    //on every scroll this funtion will be called
+     
+     var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+     //This line will get the location on scroll
+   
       //This line will get the location on scroll
       if (scrollTop < 250) {
         
