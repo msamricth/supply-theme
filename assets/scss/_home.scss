@@ -9,7 +9,7 @@
             line-height: 1.4;
             margin-top: 80px;
             margin-bottom: 100px;
-            @include media-breakpoint-up(md) {
+            @include media-breakpoint-up(sm) {
                 margin-top: 160px;
                 text-align: center;
                 margin-bottom: 280px;

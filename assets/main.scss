@@ -114,12 +114,12 @@ $green: #50E3AE;
 $red: #FE0000;
 $blue: #00aeef;
 $cyan: #59caf5;
-$white: #fff;
+$white: #ffffff;
 $black: #000;
 $enable-rfs: false;
 $input-placeholder-color: #808080; 
 $input-border-color: $gray-900;
-$input-border-radius: none;
+$input-border-radius: 0;
 $secondary: $gray-800;
 $font-size-base: 1.125rem;
 $font-size-lg: $font-size-base * 1.75;
@@ -156,7 +156,8 @@ $input-box-shadow: none;
 $input-focus-border-color: transparent;
 $input-focus-box-shadow: none;
 $input-placeholder-color: $gray-900;
-
+$rgbaPrimary: rgb(17, 21, 18);
+$rgbaWhite: rgb(250, 250, 250);
 // 3. Include remainder of required Bootstrap stylesheets
 @import "../node_modules/bootstrap/scss/variables";
 
@@ -255,8 +256,8 @@ body {
 		}
 
 		.edit-link a {
-			color: #fff !important;
-			font-weight: normal !important;
+			color: currentColor!important;
+			font-weight: bold !important;
 			text-decoration: none !important;
 
 			&::before {
@@ -506,3 +507,7 @@ img {
 @import "scss/_blocks.scss";
 @import "scss/_utilities.scss";
 @import "scss/_responsive.scss";
+
+:root{
+	--bs-light-rgb: var(--bs-white-rgb) !important;
+}

@@ -8,17 +8,33 @@
 .bg-dark.bg-pattern {
     background-image: none !important;
 }
-.fold-container {
-    p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-        transition: background-color .4s ease-in-out,color .4s ease-in-out;
+#wrapper {   
+    -webkit-transition: background-color .6s ease,color .6s ease, opacity .6s ease;
+    transition: background-color .6s ease,color .6s ease, opacity .6s ease;
+    will-change: background-color,color, opacity;
+   // mix-blend-mode: difference;
+   
+   main {
+     p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
+            transition: background-color .4s ease,color .4s ease;
+        }
+    }
+    main, header > nav {
+        .card {
+            background-color: transparent;
+        }
+        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
+            color: var(--supply-fold-color);
+            a {
+                color: var(--supply-fold-color);
+            }
+        }
     }
     &.bg-dark, &.bg-black, &.fold-text-white, &.bg-dark.bg-pattern {
         color: $white;
-        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-            color: $white;
-            a {
-                color: $white;
-            }
+        --supply-fold-color:  white;
+        * {
+            --supply-fold-color:  white;
         }
         .dark-logo {
             display: none;
@@ -31,8 +47,9 @@
     }
     &.bg-light, &.bg-pattern, &.fold-text-dark{
         color: $primary;
-        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small, li {
-            color: $primary;
+        --supply-fold-color:  #{$primary};
+        *{
+            --supply-fold-color:  #{$primary};
         }
     }
     &.bg-pattern-fold.bg-light {
@@ -41,11 +58,9 @@
     }
     &:not(.bg-light) &:not(.bg-pattern) {
         color: $white;
-        p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small {
-            color: $white;
-            a {
-                color: $white;
-            }
+        --supply-fold-color:  white;
+        * {
+            --supply-fold-color:  white;
         }
         .dark-logo {
             display: none;

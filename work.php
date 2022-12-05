@@ -9,7 +9,7 @@ get_header();
 
 the_post();
 ?>
-<div class="spacer cp2 cp5  navuncatch">
+<div class="spacer cp2 cp5  fold" data-class="header">
 </div>
 <div class="container">
     <div class="row">
@@ -67,5 +67,8 @@ the_post();
         </div>
         <div class="row">
             <div class="col-md-12">
-            <?php get_template_part('templates/_cta', 'partials'); 
-get_footer();
+            <?php get_template_part('templates/_cta', 'partials'); ?>
+        </div>
+    </div>
+</div>
+<?php get_footer();

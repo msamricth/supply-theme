@@ -2,6 +2,7 @@ const gulp = require( 'gulp' ),
 	fancylog = require( 'fancy-log' ),
 	browserSync = require( 'browser-sync' ),
 	server = browserSync.create(),
+	minify = require('gulp-minify'),
 	dev_url = 'http://workwithsupply.local/';
 
 
@@ -18,6 +19,7 @@ var paths = {
 		src: './assets/*.js',
 		dest: './assets/js'
 	}
+
 };
 
 
@@ -39,6 +41,7 @@ function build_js() {
 				compiler
 			)
 		)
+		.pipe(minify())
 		.pipe(
 			gulp.dest( paths.scripts.dest )
 		)
@@ -46,7 +49,6 @@ function build_js() {
 			server.stream() // Browser Reload
 		)*/;
 }
-
 
 /**
  * SASS-CSS compilation: https://www.npmjs.com/package/gulp-sass
@@ -100,8 +102,7 @@ gulp.task( 'watch',
 	server.init({
 			proxy: dev_url,
 		} );
-
-		gulp.watch( paths.scripts.src, build_js );
+		gulp.watch( [ paths.scripts.src, './assets/scripts/*.js'], build_js );
 		gulp.watch( [ paths.styles.src, './assets/scss/*.scss' ], build_css );
 	}
 );

@@ -15,7 +15,11 @@ $id = 'supply-posts-block-' . $block['id'];
 if ( ! empty($block['anchor'] ) ) {
     $id = $block['anchor'];
 }
+$post_id = '';
 
+$current_post = get_queried_object();
+$post_id = $current_post ? $current_post->ID : null;	
+$scheme = get_field('background_color', $post_id);
 // Create class attribute allowing for custom "className" and "align" values.
 $classes = 'block-posts-content-block';
 if ( ! empty( $block['className'] ) ) {
@@ -27,8 +31,7 @@ if ( ! empty( $block['align'] ) ) {
 $Utils = '';
 $classes .=' fadeNoScroll';
 $row = '';
-if ( get_field( 'add_fold' ) == 1 ) : 
-    $row.= ' fold';
+
     if ( have_rows( 'fold_settings' ) ) :
         while ( have_rows( 'fold_settings' ) ) : the_row(); 
             if(get_sub_field( 'custom_bg_color' )){
@@ -42,16 +45,21 @@ if ( get_field( 'add_fold' ) == 1 ) :
                     $row .= ' fold-custom';
                     $Utils .=' data-bg="'.$customColor.'" '. $customText;
             }
-            if(get_sub_field( 'color' )){
-                    $foldClass = 'bg-' . get_sub_field( 'color' );
+            $foldColor = get_sub_field('fold_color');
+             $foldColor = str_replace('1', "", $foldColor);
+                 if($foldColor){
+                    if(strpos($foldColor, 'page') !== false){
+                        if($scheme){
+                            $foldColor = $scheme;
+                        }
+                    }
+                    $row.= ' fold';
+                    $foldClass = 'bg-' . $foldColor;
                     $Utils .=' data-class="'. $foldClass .'"';
             }
             
         endwhile;
-	endif; 
-    
-    echo '<div class="fold"'. $Utils . '></div>';
-endif; ?>
+	endif; ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
 <?php 
 $post_IDs = '';
@@ -86,7 +94,7 @@ $the_query = new WP_Query( $args ); ?>
 
 <?php if ( $the_query->have_posts() ) : ?>
     <div class="container home-loop-section fadeNoScroll cp4">
-        <div class="row">
+        <div class="row <?php echo $row?>" <?php echo $Utils;?>>
             <div class="col-dlg-10 offset-dlg-1">
                 <?php while ( $the_query->have_posts() ) : $the_query->the_post(); 
                     $post_type = get_post_type();

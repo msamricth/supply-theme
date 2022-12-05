@@ -8,45 +8,32 @@
 get_header();
 
 the_post();
-$scheme = '';
-$scheme = get_field('background_color');
-$textScheme ='';
+
 $headline = get_field('headline');
-if($scheme){
-    if (strpos($scheme, 'ark') !== false) {
- 
-    }
-    $scheme = 'bg-'. $scheme . ' ' . $textScheme;
-} 
 
 
 ?>
-<main class="fold-container  <?php echo $scheme ?>">
-    <div class="home-header header-container">
+<main>
+    <div class="home-header">
         <div class="container text-left">
-            <div class="row fold" data-class="bg-dark">
+            <div class="row fold" data-class="header">
                 <div class="col-lg-10 col-xl-8 col-3xl-6 col-4xl-5 mx-md-auto">
                     <?php if($headline) {
-                        echo '<h1 class="entry-title fadeNoScroll '. $textScheme.'">'.$headline.'</h1>';
+                        echo '<h1 class="entry-title fadeNoScroll">'.$headline.'</h1>';
                     } else {
-                        echo '<h1 class="entry-title fadeNoScroll '. $textScheme.'">' .the_title() .'</h1>';
+                        echo '<h1 class="entry-title fadeNoScroll">' .the_title() .'</h1>';
                     }?>
                 </div>
             </div>
-            <div class="fold" data-class="bg-dark">
+            <div class=" fold" data-class="header">
                 <?php echo Video_embed(); ?>
             </div>
         </div>
-
     </div>
-
     <div id="post-<?php the_ID(); ?>" <?php post_class('home-main' ); ?>>
-        <div class="fold" data-class="bg-light">
-        </div>
-            <?php the_content();?>
 
-            <div class="fold" data-class="bg-light">
-        </div>            
+            <?php the_content();?>
+           
            <?php wp_link_pages( array(
                 'before' => '<div class="page-links">' . __( 'Pages:', 'supply' ),
                 'after'  => '</div>',
@@ -56,7 +43,7 @@ if($scheme){
         ?>
         
     </div><!-- /#post-<?php the_ID(); ?> -->
-    <div>
+
 
     <?php
     

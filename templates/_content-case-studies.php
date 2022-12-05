@@ -1,15 +1,15 @@
 <?php
-if (isset($args['classes'])) {
-    $classes = $args['classes'];
-} else {
-    $classes = 'fadeNoScroll';
-}
+$classes = 'fadeNoScroll';
+
 if (isset($args['utilities'])) {
     $utils = $args['utilities'];
 } else {
     $utils = '';
 }
-
+if (isset($args['classes'])) {
+    $classes = $args['classes'];
+    echo '<div class="fold" '. $utils.'></div>';
+} 
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( $classes ); echo $utils; ?>>
     <div class="card border-0">

@@ -334,7 +334,38 @@ function register_supply_feature_block() {
 	}
 
 }
+if( function_exists('acf_register_block_type') ):
 
+	acf_register_block_type(array(
+		'name' => 'case-study-intro',
+		'title' => 'Case Study Intro',
+		'description' => 'Introduction Block for Case Studies',
+		'category' => 'supply-blocks',
+		'keywords' => array(
+		),
+		'post_types' => array(
+			0 => 'case-studies',
+		),
+		'mode' => 'preview',
+		'align' => '',
+		'align_content' => NULL,
+		'render_template' => 'templates/blocks/supply-case-study-intro.php',
+		'render_callback' => '',
+		'enqueue_style' => '',
+		'enqueue_script' => '',
+		'enqueue_assets' => '',
+		'icon' => 'id-alt',
+		'supports' => array(
+			'align' => true,
+			'mode' => true,
+			'multiple' => true,
+			'jsx' => false,
+			'align_content' => false,
+			'anchor' => false,
+		),
+	));
+	
+	endif;
 add_action( 'acf/init', 'register_supply_posts_block' );
 function register_supply_posts_block() {
 
@@ -361,3 +392,39 @@ function register_supply_posts_block() {
 	}
 
 }
+add_action( 'acf/init', 'register_supply_pagination_block' );
+function register_supply_pagination_block() {
+
+	if ( function_exists( 'acf_register_block_type' ) ) {
+
+		// Register Supply Feature Block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-pagination-block',
+			'title' 				=> __( 'Supply pagination Block' ),
+			'description' 			=> __( 'This block displays pagination for this page )' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'controls-forward',
+			'keywords'				=> array( 'supply', 'posts', 'block' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-pagination-block.php',
+			// 'render_callback'	=> 'supply_feature_block_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.js',
+			// 'enqueue_assets' 	=> 'supply_feature_block_block_enqueue_assets',
+		));
+
+	}
+
+}
+
+add_filter(
+    'acf/pre_save_block',
+    function( $attributes ) {
+        if ( empty( $attributes['anchor'] ) ) {
+            $attributes['anchor'] = 'acf-block-' . uniqid();
+        }
+        return $attributes;
+    }
+);

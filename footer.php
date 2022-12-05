@@ -1,5 +1,4 @@
 
-</div>
 	</main><!-- /#main -->
 	<footer id="footer" class="bg-black footer text-white pt-6 pt-md-8 fadeNoScroll">
 		<div class="container">
@@ -17,7 +16,7 @@
 								'container'       => 'nav',
 								'container_class' => 'col-md-6 col-lg-3 col-3xl-4 pb-6 pb-md-0 ',
 								'fallback_cb'     => '',
-								'items_wrap'      => '<ul class="menu supply-underline nav d-block justify-content-end">%3$s</ul>',
+								'items_wrap'      => '<ul class="menu navbar-nav supply-underline nav d-block justify-content-end">%3$s</ul>',
 								//'fallback_cb'    => 'WP_Bootstrap4_Navwalker_Footer::fallback',
 								'walker'          => new WP_Bootstrap4_Navwalker_Footer(),
 							)
@@ -56,7 +55,7 @@
 									<?php the_field( 'headquarters_label', 'option' ); ?>
 								</span>
 							</p>
-								<?php the_field( 'headquarters_address', 'option' ); ?>
+								<p class="mb-0"><?php the_field( 'headquarters_address', 'option' ); ?></p>
 							</div>
 						</div>
 						<?php if ( is_active_sidebar( 'third_widget_area' ) ) :
@@ -72,7 +71,7 @@
 								<p><?php printf( esc_html__( '&copy; %1$s %2$s. All rights reserved.', 'supply' ), date_i18n( 'Y' ), get_bloginfo( 'name', 'display' ) ); ?></p>
 						<?php
 							endif;?>
-						<div class="footer-cta my-5 mt-md-6">
+						<div class="footer-cta my-5 mt-md-6 fold" data-class="bg-dark">
 							<?php echo do_shortcode('[contact-form-7 id="130" title="Stay in touch - FooterCTA"]'); ?>
 						</div>
 					</div>

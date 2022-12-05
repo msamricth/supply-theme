@@ -7,8 +7,6 @@ $post_slug = get_post_field( 'post_name', get_post() );
 if ( is_active_sidebar( 'widget_area_for_page_'.$post_slug ) ) : 
 ?>
 </div>
-</div>
-</div>
 <div id="sidebar-<?php the_ID(); ?>" class="sidebar">
 	<?php dynamic_sidebar( 'widget_area_for_page_'.$post_slug );
 	if ( current_user_can( 'manage_options' ) ) :?>
