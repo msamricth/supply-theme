@@ -158,3 +158,23 @@ function supply_grid_sh($content, $defaults=null){
 
     return $container;
 }
+function project_title_fromBlock($post_id = null) {
+    $current_post = get_queried_object();
+    if(empty($post_id)){
+        $post_id = $current_post ? $current_post->ID : null;
+    } 
+    $post   = get_post($post_id);
+    $post_title = get_the_title($post_id);
+	$blocks = parse_blocks( $post->post_content );
+	foreach( $blocks as $block ) {
+		if( 'acf/case-study-intro' !== $block['blockName'] )
+			continue;
+            if( !empty( $block['attrs']['data']['title_of_work_performed'] ) ){
+			    $title = $block['attrs']['data']['title_of_work_performed'];
+            } else {
+                $title = $post_title;
+            }
+            
+	}
+    echo $title;
+}

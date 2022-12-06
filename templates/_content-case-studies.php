@@ -32,7 +32,13 @@ if (isset($args['classes'])) {
             <header>
                 <a class="stretched-link h8" href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'supply' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
             <h5 class="card-title">
-                <?php the_field( 'title_of_work_performed', get_the_ID() ); ?>
+                <?php if(get_field( 'title_of_work_performed', get_the_ID() )){
+                    //Case Studies before the November Case Study Intro Block update
+                    the_field( 'title_of_work_performed', get_the_ID() );
+                } else {
+                    //gets the project study from the case study intro block used on the referenced case study
+                    echo project_title_fromBlock(get_the_ID());
+                } ?>
             </h5>
         </header>
         </div><!-- /.card-body -->
