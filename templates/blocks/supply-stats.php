@@ -32,7 +32,7 @@ $blockContent .= '<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes )
     if ( have_rows( 'supply_stats' ) ) : 
         $blockContent .= '<div class="row g-0 justify-content-between">';
             while ( have_rows( 'supply_stats' ) ) : the_row();
-                $blockContent .= '<div class="col-md-4 px-md-0 col-xxl-3">';
+                $blockContent .= '<div class="col-md-4 px-md-0 col-xxl-3 mb-md-0">';
                     $blockContent .= '<h4 class="stats">';
                         $blockContent .= get_sub_field( 'number' );
                     $blockContent .= '</h4>';
@@ -46,10 +46,10 @@ $blockContent .= '<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes )
 $blockContent .= '</div>';
 if ( have_rows( 'container_+_column_settings' ) ) :
     while ( have_rows( 'container_+_column_settings' ) ) : the_row();   
-        echo supply_grid($blockContent, 'col-md-10 mx-auto col-dlg-12 col-xl-10');
+        echo supply_grid($blockContent, 'col-md-12 mx-auto col-dlg-12 col-xl-10');
     endwhile;
 else:
-    echo supply_grid_sh($blockContent, 'col-md-10 mx-auto col-dlg-12 col-xl-10');
+    echo supply_grid_sh($blockContent, 'col-md-12 mx-auto col-dlg-12 col-xl-10');
 endif;
 ?>
 

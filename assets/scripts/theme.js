@@ -29,25 +29,25 @@
 
 		$('.fadeScroll').on('inview', function(event, isInView) {
 			var scrollObject = $(this);
-			if (isInView) {
-				setTimeout(
-					function() {
-						scrollObject.addClass('in');
-					}, 400);
-			} else {
-				scrollObject.removeClass('in');
-			}
+			//if (isInView) {
+			//	setTimeout(
+			//		function() {
+			//			scrollObject.addClass('in');
+			//		}, 400);
+			//} else {
+			//	scrollObject.removeClass('in');
+			//}
 		  });
 		  $('.fadeNoScroll, blockquote').on('inview', function(event, isInView) {
 			var scrollObject = $(this);
-			if (isInView) {
-				setTimeout(
-					function() {
-						scrollObject.addClass('in');
-					}, 700);
+		//	if (isInView) {
+			//	setTimeout(
+			//		function() {
+			//			scrollObject.addClass('in');
+			//		}, 700);
 				
-			} else {
-			}
+			//} else {
+		//	}
 		  });
 
 	})( jQuery );

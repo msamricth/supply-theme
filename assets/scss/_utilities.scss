@@ -5,8 +5,14 @@
 .cp2 {
     margin-bottom: 60px;
 }
+.padding-block-small {
+    padding: 30px 0;
+}
 .cp3 {
     margin-bottom: 100px;
+}
+.padding-block-big {
+    padding: 50px 0;
 }
 .cp4 {
     margin-bottom: 136px;
@@ -26,11 +32,17 @@
                 margin-bottom: 80px;
             }
         }
+    .padding-block-small {
+        padding: 40px 0;
+    }
     .cp2 {
             margin-bottom: 80px;
         &.cp5 {
             margin-bottom: 160px;
         }
+    }
+    .padding-block-big {
+        padding: 68px 0;
     }
     .cp3 {
         margin-bottom: 136px;
@@ -43,11 +55,17 @@
     .cp1 {
         margin-bottom: 52px;
     }
-    .cp2 {
+    .padding-block-small {
+        padding: 50px 0;
+    }
+    .cp2{
         margin-bottom: 100px;
         &.cp5 {
             margin-bottom: 200px;
         }
+    }
+    .padding-block-big {
+        padding:90px 0;
     }
     .cp3 {
         margin-bottom: 180px;

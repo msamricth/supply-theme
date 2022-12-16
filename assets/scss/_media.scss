@@ -70,3 +70,6 @@
     --bs-aspect-ratio: 56.25%; 
     }
 }
+.videofx.loaded + img {
+    display: none;
+}

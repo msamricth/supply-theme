@@ -1,6 +1,9 @@
 .footer {
     min-height: 667px;
-   
+    --supply-fold-color: white !important;
+    p, .footer-content * {
+         color: white;
+    }
     @include media-breakpoint-up(md) { 
         padding-bottom: 48px;
         .navbar-nav {

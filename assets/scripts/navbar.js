@@ -1,36 +1,38 @@
 
     const scrollRoot = document.querySelector('[data-scroller]');
+    const nav_compression = document.body.classList.contains('nav_compression');
     var lastScrollTop = 0; // This Varibale will store the top position
     var newScroll;
     const main = document.querySelector('main');
     navbarMain = document.getElementById('header'); // Get The NavBar
- 
-    window.addEventListener('scroll',function(){
-    //on every scroll this funtion will be called
-     
-     var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-     //This line will get the location on scroll
-   
-      //This line will get the location on scroll
-      if (scrollTop < 250) {
+    if(nav_compression) {
+        window.addEventListener('scroll',function(){
+        //on every scroll this funtion will be called
         
-        showNav();
+        var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        //This line will get the location on scroll
     
-    } else {
-    // if (scrollTop > 0 && scrollTop < main.innerHeight - window.innerHeight) {
-        if(scrollTop > lastScrollTop){ //if it will be greater than the previous
-            hideNav();
-            //set the value to the negetive of height of navbar 
-            newScroll = scrollTop - 2; //  - added the '- 2' as a work around since sometimes small scrolls aren't recored
-        }
-        
-        else{
+        //This line will get the location on scroll
+        if (scrollTop < 250) {
+            
             showNav();
-            newScroll = scrollTop + 2;
+        
+        } else {
+        // if (scrollTop > 0 && scrollTop < main.innerHeight - window.innerHeight) {
+            if(scrollTop > lastScrollTop){ //if it will be greater than the previous
+                hideNav();
+                //set the value to the negetive of height of navbar 
+                newScroll = scrollTop - 2; //  - added the '- 2' as a work around since sometimes small scrolls aren't recored
+            }
+            
+            else{
+                showNav();
+                newScroll = scrollTop + 2;
+            }
         }
+        lastScrollTop = newScroll; //New Position Stored
+        });
     }
-      lastScrollTop = newScroll; //New Position Stored
-    });
     function hideNav() {
         navbarMain.classList.remove("is-visible");
         navbarMain.classList.add("is-hidden");

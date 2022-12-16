@@ -1,6 +1,6 @@
 
 	</main><!-- /#main -->
-	<footer id="footer" class="bg-black footer text-white pt-6 pt-md-8 fadeNoScroll">
+	<footer id="footer" class="bg-black footer text-white pt-6 pt-md-8 fadeNoScroll fold" data-class="bg-dark">
 		<div class="container">
 			<div class="row">
 				<?php
@@ -71,7 +71,7 @@
 								<p><?php printf( esc_html__( '&copy; %1$s %2$s. All rights reserved.', 'supply' ), date_i18n( 'Y' ), get_bloginfo( 'name', 'display' ) ); ?></p>
 						<?php
 							endif;?>
-						<div class="footer-cta my-5 mt-md-6 fold" data-class="bg-dark">
+						<div class="footer-cta my-5 mt-md-6">
 							<?php echo do_shortcode('[contact-form-7 id="130" title="Stay in touch - FooterCTA"]'); ?>
 						</div>
 					</div>

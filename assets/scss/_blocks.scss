@@ -1,16 +1,26 @@
 .block-supply-stats {
+    margin-top: 60px;
+    @include media-breakpoint-up(md) {  
+        margin-top: 66px;
+    }
+    @include media-breakpoint-up(3xl) {
+        margin-top: 86px;
+    }
     padding-bottom: 60px;
     border-bottom: 1px solid rgba(var(--supply-fold-color),.39);
-    margin-bottom:30px;
     h4.stats {
         font-size: 84px;
         font-weight: 500;
         margin-bottom: 4px;
         line-height: 84px;
-        @include media-breakpoint-up(xl) {
+        @include media-breakpoint-up(dlg) {
             font-size: 112px;
+            line-height: 112px;
             margin-bottom: 12px;
-            line-height: 1.12;
+        }
+        @include media-breakpoint-up(3xl) {
+            font-size: 160px;
+            line-height: 160px;
         }
     }
     .col-md-4 {
@@ -18,10 +28,14 @@
         p {
             margin-bottom: 0;
             @include media-breakpoint-up(md) {
-                    font-size: 18px;
+                font-size: 18px;
             }
             @include media-breakpoint-up(dlg) {
                 font-size: 20px;
+            }
+            
+            @include media-breakpoint-up(3xl) {
+                font-size:28px
             }
         }
         &:last-child {
@@ -31,14 +45,35 @@
 }
 blockquote.wp-block-quote {
     border-left: none!important;
-    margin: 0 0 70px;
-    padding: 30px 0;
+    padding: 60px 0 0;
     line-height: 1.33;
+    margin-bottom: 0px;
     display: block;
+    p:first-child::before {
+        content: '“';
+        @include media-breakpoint-down(md) {    
+            left: 6px;
+            position:absolute;
+        }
+    }
+    cite:before {
+        content: "— ";
+        font-weight: 600;
+        @include media-breakpoint-down(md) {    
+            position: absolute;
+            left: 8px;
+            margin-top: 8px;
+        }
+    }
+    @include media-breakpoint-down(md) {    
+        p, cite {
+            margin-left: 12px;
+            position:static;
+        }
+    }
 }
 .block-supply-content-block {
-    margin-top: 70px;
-    padding-top: 30px;
+    padding-top: 100px;
     padding-bottom: 100px;
     
     @include media-breakpoint-down(md) {
@@ -49,6 +84,9 @@ blockquote.wp-block-quote {
     h1, h2, h3, h4, h5, h6, .h7, .h8 {
         margin-bottom: 28px;
         line-height: 1.125;
+        @include media-breakpoint-down(3xl) {
+            margin-bottom: 40px;
+        }
     }
 }
 blockquote.wp-block-quote {
@@ -69,9 +107,8 @@ blockquote.wp-block-quote {
     }
 }
 .block-case-study-intro {
-    margin-bottom: 60px;
     .seperator {
-        opacity: 0.6;
+        opacity: 0.39;
         padding-bottom: 60px;
         border-bottom: 1px solid var(--supply-fold-color);
     }
@@ -79,18 +116,21 @@ blockquote.wp-block-quote {
         .seperator {
             padding-bottom: 80px;
         }
-        margin-bottom: 80px;
     }
     @include media-breakpoint-up(3xl) {
         .seperator {     
             padding-bottom: 100px;
         }
-        margin-bottom: 100px;
     }
 }
 .bg-light {
     .block-supply-stats {
-        border-bottom: 1px solid rgba(var(--supply-fold-color),.39);
+        border-bottom: 1px solid rgba(var(--bs-primary-rgb),.39);
+    }
+}
+.bg-dark {
+    .block-supply-stats {
+        border-bottom: 1px solid rgba(var(--bs-white-rgb),.39);
     }
 }
 .block-supply-separator-block {
@@ -98,6 +138,7 @@ blockquote.wp-block-quote {
     opacity: 0.39;
 
 }
+
 .block-supply-list-block {
     .supply-list {
         p {
@@ -406,20 +447,32 @@ header.page-header {
         }
     }
     .block-supply-stats {
-        margin-bottom: 50px;
-        padding-bottom: 36px;
+        padding-bottom: 80px;
     }
     blockquote.wp-block-quote {
-        padding-top: 30px;
-        margin-bottom: 136px;
+        padding-top: 80px;
     }
     .block-supply-content-block {
-        padding-top: 66px;
-        padding-bottom: 80px;
+        padding-bottom: 112px;
+        padding-top: 136px;
     }
     
    // will delete or unmute when I determine why this is here - .block-supply-list-block.cp3 {  margin-bottom: 56px; }
 
+}
+
+@include media-breakpoint-up(3xl) {
+    
+    .block-supply-content-block {
+        padding-bottom: 156px;
+        padding-top: 180px;
+    }
+    blockquote.wp-block-quote {
+        padding-top: 100px;
+    }
+    .block-supply-stats {
+        padding-bottom: 100px;
+    }
 }
 @include media-breakpoint-up(4xl) {
     .block-supply-list-block.cp3 {

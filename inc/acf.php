@@ -428,3 +428,29 @@ add_filter(
         return $attributes;
     }
 );
+add_action( 'acf/init', 'register_supply_padding_block' );
+function register_supply_padding_block() {
+
+	if ( function_exists( 'acf_register_block_type' ) ) {
+
+		// Register Supply Feature Block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-padding-block',
+			'title' 				=> __( 'Supply Padding Block' ),
+			'description' 			=> __( 'A custom block to add extra padding between other blocks.' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'image-flip-vertical',
+			'keywords'				=> array( 'supply', 'padding', 'block' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-padding-block.php',
+			// 'render_callback'	=> 'supply_feature_block_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.js',
+			// 'enqueue_assets' 	=> 'supply_feature_block_block_enqueue_assets',
+		));
+
+	}
+
+}

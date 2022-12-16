@@ -81,15 +81,15 @@ function enqueue_header_markup($markup){
 }
 function my_acf_admin_head() {
     ?>
-    <style type="text/css">
-        div#acf-group_62f2bec0e9fc1 [data-name="fold_color"], [data-name="column_placement"] {
-            display:none !important;
-        }
-        [data-name="block_content"] [data-name="fold_color"] {
-            display:none !important;
-        }
-    </style>
+
     <?php
 }
 
 add_action('acf/input/admin_head', 'my_acf_admin_head');
+add_filter('wpcf7_form_elements', function($content) {
+
+    $content = preg_replace('/<(span).*?class="\s*(?:.*\s)?wpcf7-form-control-wrap(?:\s[^"]+)?\s*"[^\>]*>(.*)<\/\1>/i', '\2', $content);
+    $content = str_replace('<br />', '', $content);
+    
+    return $content;
+});

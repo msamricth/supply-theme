@@ -97,8 +97,12 @@ header#nav-header {
         .navbar-toggler {
             box-shadow: none !important;
         }
+        &.is-visible {-webkit-animation: slide-in-top 0.19s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            animation: slide-in-top 0.19s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
         &.is-hidden {
-            opacity: 0;
+            -webkit-animation: nav-slide-top 0.19s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+                animation: nav-slide-top 0.19s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
         }
 
     }
@@ -202,6 +206,12 @@ header#nav-header {
         flex-direction: column;
         justify-content: center;
     }
+    .nd-open {
+        &.nav-bg-transparent-light #header.navbar, &.nav-bg-transparent-light .bg-header #header.navbar {
+            --supply-nav-rgb: var( --bs-white-rgb);
+            --supply-nav-opacity: 1;
+        }
+    }
     #header.navbar {
         li {
             opacity:0;
@@ -218,11 +228,7 @@ header#nav-header {
             }
         }
     } 
-    #header.navbar { 
-        &.bg-transparent-light {
-            background-color: $white;
-            background: $white;
-        }   
+    #header.navbar {  
         .collapse.show {
                 -webkit-animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
                 animation: fade-in 1s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;

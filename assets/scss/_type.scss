@@ -51,16 +51,24 @@ blockquote, blockquote.wp-block-quote {
     line-height: 1.33;
     p {
         line-height: 1.33;
+        margin-bottom: 28px;
+        @include media-breakpoint-up(md) {
+            margin-bottom: 36px;
+        }
+        @include media-breakpoint-up(3xl) {
+            font-size: 52px;
+            margin-bottom: 52px;
+        }
     }
     cite {
         font-family: Calibre;
         font-size: 16px;
         line-height: 1.5;
-        strong {
-            font-weight: 600;
+        
+        @include media-breakpoint-up(3xl) {
+            font-size: 28px;
         }
-        &::before {
-            content: "— ";
+        strong {
             font-weight: 600;
         }
     }

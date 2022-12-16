@@ -3,6 +3,16 @@
         margin-bottom: 24px;
         line-height: 1.667;
     }
+    @include media-breakpoint-up(md) { 
+        .intro-content p {
+            margin-bottom: 36px;
+        }
+    }
+    @include media-breakpoint-up(3xl) { 
+        .intro-content p {
+            margin-bottom: 52px;
+        }
+    }
     main#main {
         padding-top: 0 !important;
         margin-top: 0 !important;
@@ -23,9 +33,17 @@
                 font-size: 14px;
                 line-height: 1.741;
                 opacity: 0.75;
-            }
-            @include media-breakpoint-only(md) { 
-                .specialties {
+                &:first-child {
+                    @include media-breakpoint-up(dlg) { 
+                        padding-top: 24px;
+                    }
+                    @include media-breakpoint-up(3xl) { 
+                        padding-top: 38px;
+                    }
+                }
+                
+                @include media-breakpoint-up(3xl) {
+                    font-size: 18px;
                 }
             }
        }
@@ -33,30 +51,31 @@
        article.case-study {
             .client-logo {
                 margin-top: 80px;
-                margin-bottom: 44px; 
-                height: 45px;
-
-                @include media-breakpoint-up(sm) { 
-                    width:15%;
-                    height: auto;
-                }
+                margin-bottom: 32px; 
+                height: 54px;
                 @include media-breakpoint-up(md) {
-                    margin-top: 106px;
-                    width:103px;
-                }
-                @include media-breakpoint-up(xl) {
+                    margin-bottom: 40px; 
                     margin-top: 100px;
-                    width:211px;
+                    height:70px;
                 }
                 @include media-breakpoint-up(3xl) { 
-                    width:10%;
+                    margin-bottom: 60px; 
+                    margin-top: 120px;
+                    height:90px;
                 }
             }        
-            h3.entry-title {
+            .entry-title {
                 @include media-breakpoint-down(sm) { 
                     font-size: 32px;
                 }
                 margin-bottom: 28px;
+                @include media-breakpoint-up(md) {
+                    margin-bottom: 28px;
+                } 
+                
+                @include media-breakpoint-up(3xl) {
+                    margin-bottom: 40px;
+                } 
             }
             .intro-content, .outro-content {
                 margin-bottom: 1rem;
@@ -65,12 +84,29 @@
     }
     
     &__pagination {
-        padding-top: 135px;
-        padding-bottom: 72px;
+        padding-top: 100px;
+        padding-bottom: 100px;
+            
+        @include media-breakpoint-down(md) {
+            h5 {
+                font-size: 32px;
+            }
+        }
+        header {
+            h1, h2, h3, h4, h5, h6, .h7, .h8 {
+                margin-bottom: 0px;
+                line-height: 1.125;
+            }
+        }
         @include media-breakpoint-up(md) {
             padding-top: 280px;
             padding-bottom: 136px;
         }
+        @include media-breakpoint-up(3xl) {
+            padding-top: 280px;
+            padding-bottom: 136px;
+        }
+
     }
     &__light-content {
         blockquote.wp-block-quote {

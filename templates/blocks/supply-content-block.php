@@ -54,7 +54,7 @@ endif;
                 }
             }
             if($blockTitle){
-                echo supply_grid($blockTitle, 'col-md-9 col-lg-7 offset-md-1 offset-lg-2');
+                echo supply_grid($blockTitle, 'col-md-9 col-dlg-7 col-xl-5 offset-md-1 offset-dlg-2 offset-xl-3');
             }  
         endwhile; 
        endif;
@@ -63,7 +63,7 @@ endif;
             while ( have_rows( 'block_content' ) ) : the_row(); 
             $blockContent = get_sub_field('content'); 
             if($blockContent){
-                echo supply_grid($blockContent, 'col-md-10 col-lg-8 offset-md-1 offset-lg-2');
+                echo supply_grid($blockContent, 'col-md-10 col-dlg-8 col-xl-6 offset-md-1 offset-dlg-2 offset-xl-3');
             } 
 		 endwhile; 
         endif;

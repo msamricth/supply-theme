@@ -39,11 +39,8 @@ $intro_blurb = get_field( 'intro' );
 if ( $url_to_work ) : 
 endif;
 $classes .= ' fadeNoScroll';
-
 $foldUtils = '';
-
 $post_id = '';
-
 $current_post = get_queried_object();
 $post_id = $current_post ? $current_post->ID : null;	
 $scheme = get_field('background_color', $post_id);
@@ -89,6 +86,7 @@ $specialties = get_field( 'specialties' );
 
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
     <div class="row">
+        <div class="fold" data-class="header"></div>
         <div class="col-md-10 col-xl-10 offset-xl-1 logo-container fadeNoScroll">
             <?php if ( $client_logo_light ) : ?>
                 <img class="img-responsive client-logo light-logo" src="<?php echo esc_url( $client_logo_light['url'] ); ?>" alt="<?php echo esc_attr( $client_logo_light['alt'] ); ?>" />
@@ -99,12 +97,12 @@ $specialties = get_field( 'specialties' );
         </div>
     </div>
     <div class="row">
-        <div class="col-md-10 col-lg-8 col-xl-7 offset-xl-1 case-study-left">  
+        <div class="col-md-10 col-lg-8 col-xl-7 offset-xl-1 case-study-left cp2 mb-dlg-0">  
             
             <?php if ( $title_of_work_performed ) : ?>
-                <h5 class="entry-title fadeNoScroll"><?php echo $title_of_work_performed; ?></h5>
+                <h5 class="entry-title fadeNoScroll cp1"><?php echo $title_of_work_performed; ?></h5>
             <?php else :?>
-                <h5 class="entry-title fadeNoScroll"><?php echo  get_the_title( $post_id ); ?></h5>
+                <h5 class="entry-title fadeNoScroll cp1"><?php echo  get_the_title( $post_id ); ?></h5>
             <?php endif; ?>       
             <?php if ( $intro_blurb ) : ?> 
                 <div class="intro-content">
@@ -113,11 +111,9 @@ $specialties = get_field( 'specialties' );
             <?php endif; ?>
 
             <?php if ( $url_to_work ) : ?>  
-                <p>
-                    <a href="<?php echo $url_to_work; ?>" target="_blank" class="link-up">
-                        <?php echo $url_to_work_title; ?>
-                    </a>
-                </p>
+                <a href="<?php echo $url_to_work; ?>" target="_blank" class="link-up">
+                    <?php echo $url_to_work_title; ?>
+                </a>
             <?php endif; ?>
         </div>
         <div class="col-lg-4 col-dlg-3 offset-dlg-1 col-xl-2 case-study-right fold" <?php echo $foldUtils; ?>>
