@@ -93,6 +93,10 @@ $specialties = get_field( 'specialties' );
             <?php endif; ?>
             <?php if ( $client_logo_dark ) : ?>
                 <img class="img-responsive client-logo dark-logo" src="<?php echo esc_url( $client_logo_dark['url'] ); ?>" alt="<?php echo esc_attr( $client_logo_dark['alt'] ); ?>" />
+            <?php else: ?>
+                <?php if ( $client_logo_light ) : ?>
+                    <img class="img-responsive client-logo dark-logo " src="<?php echo esc_url( $client_logo_light['url'] ); ?>" alt="<?php echo esc_attr( $client_logo_light['alt'] ); ?>" />
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </div>

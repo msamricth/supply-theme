@@ -31,8 +31,8 @@ function supply_grid($content, $defaults = null){
     $current_post = get_queried_object();
     $post_id = $current_post ? $current_post->ID : null;	
     $scheme = get_field('background_color', $post_id);
-	
-    if ( have_rows( 'column_settings' ) ) : 
+	$fold = '';
+    if ( have_rows( 'column_settings' ) ) { 
         while ( have_rows( 'column_settings' ) ) : the_row(); 
             if ( get_sub_field( 'full_width_content_container' ) == 1 ) : 
                 $fullWidthAll = 1;
@@ -108,9 +108,9 @@ function supply_grid($content, $defaults = null){
             } else {
                 $foldColorTrue = $foldColor;
             }
-            $row .= ' fold';
             $foldClass = 'bg-' . $foldColorTrue;
             $foldUtils .=' data-class="'. $foldClass .'"';
+            $fold = 'fold';
         }
         if(get_sub_field( 'custom_bg_color' )){
                 $customColor = get_sub_field( 'custom_bg_color' );
@@ -120,23 +120,30 @@ function supply_grid($content, $defaults = null){
                 } else {
                     $customText = 'data-color="default"';
                 }
-                $row .= ' fold-custom';
+                $fold .= ' fold-custom';
                 $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
         }
         if(empty($foldClass)){
            // call ajax function that records previous fold then runs to php function that updates fold acf field
 
         }
-        $container .= '<div class="' . $row . '"'.$foldUtils.'>';
+        if($foldUtils){
+           $container .= '<div class="'.$fold.'" '.$foldUtils.'>';
+        }
+        $container .= '<div class="' . $row . '">';
         $container .= '<div class="' . $classes . '">';
             if($content) {$container .= $content; } else {
                 $container .= '<h3>Something seems wrong here - this function requires the <i>"$content"</i> variable to have content</h3>';
             }
         $container .= '</div>';
         $container .= '</div>';
-    else : 
+        
+        if($foldUtils){
+            $container .= '</div>';
+        }
+    } else { 
         $container = supply_grid_sh($content, $defaults);
-        endif; 
+    }
     return $container;
 }
 function supply_grid_sh($content, $defaults=null){

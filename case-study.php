@@ -6,7 +6,7 @@
 get_header();
 
 // settings
-$classes = '';
+$classes = 'entry container editor-content';
 $client_logo = '';
 $deep_dive = '';
 $header_video = '';
@@ -36,26 +36,22 @@ if ( have_posts() ) :
                 endwhile;
             endif;
         ?>
-        <article id="post-<?php the_ID(); ?>" <?php post_class($classes); ?>>
-            <?php if($header_video) : ?>
-                <div class="header-container fold" data-class="header">
-                    <?php echo video_containers($header_video, $header_video_mobile, '4x3', '1x1'); ?>
-                </div>
+        <?php if($header_video) : ?>
+            <div class="header-container fold" data-class="header">
+                <?php echo video_containers($header_video, $header_video_mobile, '4x3', '1x1'); ?>
+            </div>
 
-            <?php else : ?>
-                <?php if ( $header_image ) : ?>
-                    <div class="header-container ratio ratio-16x9 fold" data-class="header">
-					    <img src="<?php echo esc_url( $header_image['url'] ); ?>" alt="<?php echo esc_attr( $header_image['alt'] ); ?>" />
-                    </div>
-				<?php endif; ?>
-                
-			<?php endif; ?>
-            <section class="entry " id="content">
-                    <div class="container editor-content nav-catch">
-                        <?php the_content(); ?>
-                    </div>
-            </section>
-        </article>
+        <?php else : ?>
+            <?php if ( $header_image ) : ?>
+                <div class="header-container ratio ratio-16x9 fold" data-class="header">
+                    <img src="<?php echo esc_url( $header_image['url'] ); ?>" alt="<?php echo esc_attr( $header_image['alt'] ); ?>" />
+                </div>
+            <?php endif; ?>
+            
+        <?php endif; ?>
+        <div id="post-<?php the_ID(); ?>" <?php post_class($classes); ?>>
+            <?php the_content(); ?>
+        </div>
 <?php 
     endwhile;
 endif;

@@ -28,15 +28,50 @@ if ( ! empty( $block['align'] ) ) {
 }
 $left_case_study = '';
 $right_case_study = '';
+$classes .= ' fadeNoScroll';
+$foldUtils = '';
+$post_id = '';
+$current_post = get_queried_object();
+$post_id = $current_post ? $current_post->ID : null;	
+$scheme = get_field('background_color', $post_id);
+
+
+    if ( have_rows( 'fold_settings' ) ) :
+        $classes .= ' fold';
+        while ( have_rows( 'fold_settings' ) ) : the_row(); 
+            if(get_sub_field( 'custom_bg_color' )){
+                    $customColor = get_sub_field( 'custom_bg_color' );
+                    $customText = get_sub_field('custom_text_color');
+                    if($customText) {
+                        $customText = 'data-color="'.$customText.'"';
+                    } else {
+                        $customText = 'data-color="default"';
+                    }
+                    $classes .= ' fold-custom';
+                    $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
+            }
+            if(get_sub_field( 'fold_color' )){
+                    $foldColor = get_sub_field('fold_color');        
+                    if(strpos($foldColor, 'page') !== false){
+                        if($scheme){
+                            $foldColor = $scheme;
+                        } else {
+                            $foldColor = 'light';
+                        }
+                    }
+                    $foldClass = 'bg-' . $foldColor;
+                    $foldUtils .=' data-class="'. $foldClass .'"';
+            }
+            
+        endwhile;
+
+else:
+    
+
+endif; 
 ?>
 
-<style type="text/css">
-	<?php echo '#' . $id; ?> {
-		/* Add styles that use ACF values here */
-	}
-</style>
-
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>" <?php echo $foldUtils; ?>>
     <div class="single-case-studies__pagination supply-pagination fadeNoScroll">
         <h5 class="cp1 pe-4">More Work</h5>
         <div class="row g-0">

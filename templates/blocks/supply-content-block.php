@@ -9,7 +9,6 @@
  * @param   bool $is_preview True during AJAX preview.
  * @param   (int|string) $post_id The post ID this block is saved to.
  */
-
 // Create id attribute allowing for custom "anchor" value.
 $id = 'supply-content-block-' . $block['id'];
 if ( ! empty($block['anchor'] ) ) {
@@ -17,7 +16,7 @@ if ( ! empty($block['anchor'] ) ) {
 }
 
 // Create class attribute allowing for custom "className" and "align" values.
-$classes = 'block-supply-content-block row';
+$classes = 'block-supply-content-block';
 if ( ! empty( $block['className'] ) ) {
     $classes .= ' ' . $block['className'];
 }

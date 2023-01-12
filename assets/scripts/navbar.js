@@ -34,13 +34,13 @@
         });
     }
     function hideNav() {
-        navbarMain.classList.remove("is-visible");
-        navbarMain.classList.add("is-hidden");
+     //   navbarMain.classList.remove("is-visible");
+       // navbarMain.classList.add("is-hidden");
     }
 
     function showNav() {
-        navbarMain.classList.remove("is-hidden");
-        navbarMain.classList.add("is-visible", "scrolling");
+        //navbarMain.classList.remove("is-hidden");
+        //navbarMain.classList.add("is-visible", "scrolling");
     }
 ( function () {
 	'use strict';

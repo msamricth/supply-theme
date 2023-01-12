@@ -86,9 +86,11 @@ if (!scrollRoot.hasAttribute("data-fold-reset")) {
 }
 if(lazy_load_videos){
 	if(caseStudy) {
-		let $videoI = 0;
+		let $videoI = 0,
+        videos = document.querySelectorAll(".videofx");
 		gsap.utils.toArray(".videofx").forEach(function (video, i) {
-			const vimeoFrame = document.getElementById(video.id);
+            const video = videos[i];
+			const vimeoFrame = document.getElementById(video.id); 
 			const player = new Vimeo.Player(vimeoFrame);
 			const videoTitle = video.getAttribute('data-videotitle');
 			var playPromise = player.play();
@@ -101,12 +103,6 @@ if(lazy_load_videos){
 						if(debuglog){console.log("Dont pause first/header video");}
 					}
 					gsap.registerPlugin(ScrollTrigger);
-
-					ScrollTrigger.create({
-						start: 0,
-						end: "max",
-						onUpdate: updateVideo()
-					  });
 					ScrollTrigger.create({
 						trigger: video,
 						start: 'top 30%',

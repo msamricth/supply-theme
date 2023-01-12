@@ -52,7 +52,7 @@ blockquote.wp-block-quote {
     p:first-child::before {
         content: '“';
         @include media-breakpoint-down(md) {    
-            left: 6px;
+            left: 20px;
             position:absolute;
         }
     }
@@ -61,7 +61,7 @@ blockquote.wp-block-quote {
         font-weight: 600;
         @include media-breakpoint-down(md) {    
             position: absolute;
-            left: 8px;
+            left: 22px;
             margin-top: 8px;
         }
     }
@@ -208,7 +208,8 @@ header.page-header {
         height: 1350px;
     }
     .main-image {
-        height: 100% !important;
+        min-height: 100% !important;
+        min-width: 100%;
     }
 
     header.page-header {

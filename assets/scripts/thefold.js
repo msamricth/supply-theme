@@ -23,7 +23,7 @@ if (!scrollRoot.hasAttribute("data-topta")) {
 	topTA = 'top 35%';
 } else {
 	topTA = 'top ' + scrollRoot.getAttribute('data-topta');
-}
+}  
 if (!scrollRoot.hasAttribute("data-bottomta")) {
     // data attribute doesn't exist
 	bottomTA = 'bottom 35%';
@@ -31,60 +31,65 @@ if (!scrollRoot.hasAttribute("data-bottomta")) {
 	bottomTA = 'bottom ' + scrollRoot.getAttribute('data-bottomta');
 }
 
-
+const nav_compression = document.body.classList.contains('nav_compression');
 const debugMarker = scrollRoot.hasAttribute("debugmarker");
 const videoMarker = scrollRoot.hasAttribute("videoMarker");
-if (!scrollRoot.hasAttribute("data-fold-reset")) {
-	gsap.utils.toArray(".fold").forEach(function (elem) {
+function theFold() {
 
-		var color = elem.getAttribute('data-class');
-		
-		ScrollTrigger.create({
-			trigger: elem,
-			start: topTA,
-			end: bottomTA,
-			markers: debugMarker,
-			onEnter: () => FoldonEnter(color),
-			onLeave: () => FoldonLeave(color),
-			onLeaveBack: () => FoldonLeaveBack(color),
-			onEnterBack: () => FoldonEnterBack(color)
-		});
-		if (!scrollRoot.hasAttribute("scroll-actions")) {
-			// data attribute doesn't exist
-			scrollActions = 'onEnter onEnterBack';
-		} else {
-			scrollActions = scrollRoot.getAttribute('scroll-actions');
-		}
-		function FoldonEnter(color){if(scrollActions.includes('onEnter')){setFold(color),varz_dump('onEnter')}}
-		function FoldonLeave(color){if(scrollActions.includes('onLeave')){setFold(color),varz_dump('onLeave')}}
-		function FoldonLeaveBack(color){if(scrollActions.includes('onLeaveBack')){setFold(color),varz_dump('onLeaveBack')}}
-		function FoldonEnterBack(color){if(scrollActions.includes('onEnterBack')){setFold(color),varz_dump('onEnterBack')}}
-		function varz_dump(action){
-			if(!Wrapper.classList.contains(color)){
-				if (scrollRoot.hasAttribute("debuglog")) {
-					console.log('vardump - Action: '+ action +' bottomTA: '+bottomTA+' topTA: '+topTA+'\n- color(appears as class): '+color+'\n- Trigger classes: '+elem.classList)
+	if (!scrollRoot.hasAttribute("data-fold-reset")) {
+		gsap.utils.toArray(".fold").forEach(function (elem) {
+
+			var color = elem.getAttribute('data-class');
+			
+			ScrollTrigger.create({
+				trigger: elem,
+				start: topTA,
+				end: bottomTA,
+				markers: debugMarker,
+				onEnter: () => FoldonEnter(color),
+				onLeave: () => FoldonLeave(color),
+				onLeaveBack: () => FoldonLeaveBack(color),
+				onEnterBack: () => FoldonEnterBack(color)
+			});
+			if (!scrollRoot.hasAttribute("scroll-actions")) {
+				// data attribute doesn't exist
+				scrollActions = 'onEnter onEnterBack';
+			} else {
+				scrollActions = scrollRoot.getAttribute('scroll-actions');
+			}
+			function FoldonEnter(color){if(scrollActions.includes('onEnter')){setFold(color),varz_dump('onEnter')}}
+			function FoldonLeave(color){if(scrollActions.includes('onLeave')){setFold(color),varz_dump('onLeave')}}
+			function FoldonLeaveBack(color){if(scrollActions.includes('onLeaveBack')){setFold(color),varz_dump('onLeaveBack')}}
+			function FoldonEnterBack(color){if(scrollActions.includes('onEnterBack')){setFold(color),varz_dump('onEnterBack')}}
+			function varz_dump(action){
+				if(!Wrapper.classList.contains(color)){
+					if (scrollRoot.hasAttribute("debuglog")) {
+						console.log('vardump - Action: '+ action +' bottomTA: '+bottomTA+' topTA: '+topTA+'\n- color(appears as class): '+color+'\n- Trigger classes: '+elem.classList)
+					}
 				}
 			}
-		}
-	});
-
-
-} else {
-	
-	gsap.utils.toArray(".fold").forEach(function (elem) {
-
-		var color = elem.getAttribute('data-class');
-
-		ScrollTrigger.create({
-			trigger: elem,
-			start: 'top 35%',
-			end: 'bottom 35%',
-			markers: debugMarker,
-			onEnter: () =>setFold(color),
-			onEnterBack: () => setFold(color),
 		});
-	});
+
+
+	} else {
+		
+		gsap.utils.toArray(".fold").forEach(function (elem) {
+
+			var color = elem.getAttribute('data-class');
+
+			ScrollTrigger.create({
+				trigger: elem,
+				start: 'top 35%',
+				end: 'bottom 35%',
+				markers: debugMarker,
+				onEnter: () =>setFold(color),
+				onEnterBack: () => setFold(color),
+			});
+		});
+	}
+	
 }
+theFold();
 if(lazy_load_videos){
 	if(caseStudy) {
 		let $videoI = 0,
@@ -108,8 +113,8 @@ if(lazy_load_videos){
 						end: 'bottom 40%',
 						markers: videoMarker,
 						onEnter: () => (playVimeo(),varz_dump('onEnter','Play')),
-						onLeave: () => (pauseVimeo(),varz_dump('onLeave','pause')),
-						onLeaveBack: () => (pauseVimeo(),varz_dump('onLeaveBack','pause')),
+						onLeave: () => (pauseVimeo(),varz_dump('onLeave','Pause')),
+						onLeaveBack: () => (pauseVimeo(),varz_dump('onLeaveBack','Pause')),
 						onEnterBack: () => (playVimeo(),varz_dump('onEnterBack','Play')),
 						//onUpdate: updateVideo()
 					});
@@ -127,11 +132,37 @@ if(lazy_load_videos){
 						
 						if(video.classList.contains('loaded')){
 							if (!isPlaying) {
-								player.play();
+								var playPromise = player.play();
+								if (playPromise !== undefined) {
+									if (!isPlaying) {
+										playPromise.then(_ => {
+											
+										})
+										.catch(error => {
+											// Auto-play was prevented
+											// Show paused UI.
+											video.classList.add('error');
+											varz_dump("Error with video", 'video error:' + error);
+										});
+									}
+								}
 							}
 						} else {
-							player.play();
+							var playPromise = player.play();
+							if (playPromise !== undefined) {
+								if (!isPlaying) {
+									playPromise.then(_ => {
+									})
+									.catch(error => {
+										// Auto-play was prevented
+										// Show paused UI.
+										video.classList.add('error');
+										varz_dump("Error with video", 'video error:' + error);
+									});
+								}
+							}
 							video.classList.add('loaded');
+							ScrollTrigger.refresh();
 						}
 					}
 					function pauseVimeo(){
@@ -166,101 +197,24 @@ if(lazy_load_videos){
 			}
 			$videoI++;
 		});
-		}
+	}
 	
 }
-
-function loadOrPlayVideo(video){
-	if(video.classList.contains('loaded')){
-		const vimeoFrame = document.getElementById(video.id);
-		const player = new Vimeo.Player(vimeoFrame);
-		var isPlaying = player.currentTime > 0 && !player.paused && !player.ended && player.readyState > player.HAVE_CURRENT_DATA;
-		
-		var playPromise = player.play();
-		if (playPromise !== undefined) {
-			if (!isPlaying) {
-				playPromise.then(_ => {
-					if(debuglog){console.log('play, ' + video +'\n video ID: '+video.id);}
-				})
-				.catch(error => {
-					// Auto-play was prevented
-					// Show paused UI.
-					video.classList.add('error');
-					if(debuglog){console.log('video error:' + error);}
-				});
-			}
+if(nav_compression) {
+	const showAnim = gsap.from('#header.navbar', { 
+		y: -150,
+		duration: 0.19
+	  }).progress(.19);
+	  
+	  ScrollTrigger.create({
+		start: "top top",
+		end: 99999,
+		onUpdate: (self) => {
+		  self.direction === -1 ? showAnim.play() : showAnim.reverse()
 		}
-	} else {
-			
-		if(video.classList.contains('error')){} else {
-			if (!video.hasAttribute('data-ready')) {
-				video.src = video.dataset.src;
-			}
-			const videoThumbnail = document.getElementById('img-'+video.id);
-			setTimeout(function() {
-				const vimeoFrame = document.getElementById(video.id);
-				const player = new Vimeo.Player(vimeoFrame);
-				var playPromise = player.play();
-				if (playPromise !== undefined) {
-				playPromise.then(_ => {
-					if(debuglog){console.log("Video wasn't loaded\n loading then starting play, " + video +'\n video ID: '+video.id);}
-					videoThumbnail.style.display = "none";
-					video.classList.add('loaded');
-				})
-				.catch(error => {
-					// Auto-play was prevented
-					// Show paused UI.
-					video.classList.add('error');
-					if(debuglog){console.log('video error:' + error);}
-				});
-				}
-			}, 100);	
-		}
-	}
-}
-function pauseVideo(video){
-	const vimeoFrame = document.getElementById(video.id);
-	const player = new Vimeo.Player(vimeoFrame);
-	if(video.classList.contains('loaded')){
-		var playPromise = player.pause();
-		if (playPromise !== undefined) {
-		  playPromise.then(_ => {
-			if(debuglog){console.log('pause, ' + video +'\n video ID: '+video.id);}
-			// Automatic playback started!
-			// Show playing UI.
-			// We can now safely pause video...
-		  })
-		  .catch(error => {
-			video.classList.add('error');
-			if(debuglog){console.log('video error:' + error);}
-			// Auto-play was prevented
-			// Show paused UI.
-		  });
-		}
-	} else {
-		if (video.hasAttribute('data-ready')) {
-			var playPromise = player.pause();
-			if (playPromise !== undefined) {
-				playPromise.then(_ => {
-				  // Automatic playback started!
-				  // Show playing UI.
-				  // We can now safely pause video...
-				  if(debuglog){console.log("Video wasn't loaded\n loading then pausing, " + video +'\n video ID: '+video.id);}
-
-				  video.classList.add('loaded');
-				})
-				.catch(error => {
-				  video.classList.add('error');
-				  if(debuglog){console.log('video error:' + error);}
-				  // Auto-play was prevented
-				  // Show paused UI.
-				});
-			  }
-		}
-	}
+	  });
 }
 window.onresize = ScrollTrigger.refresh();
-
 function setFold(theme){
 	var customOn;
 	if(!scrollRoot.hasAttribute("data-custom")) {
@@ -353,3 +307,154 @@ otherwise, we gonna set text color to white.
 	var contentContainer = $('#wrapper');
 	lightness >= 0.50 ? Wrapper.style.setProperty('--supply-fold-color', '#111512') : Wrapper.style.setProperty('--supply-fold-color', '#fff') ;
 } 
+
+const ifWork = document.body.classList.contains('page-template-careers');
+if(ifWork) {
+    // HiringThing Job Embed Widget
+    //orginally from https://assets.gorgehr-ats.com/javascripts/embed.js - were using this script to get basic job posting details + the job ID. Then we make a second api call to a different api with that job id to get more advance details. Doing it this way prevents dumping unlisted job postings.
+    (function () {
+    
+        function main() {
+        jQuery(document).ready(function ($) {
+            // We can use jQuery here
+    
+            // set a default source code
+            if (
+            typeof ht_settings.src_code === "undefined" ||
+            ht_settings.src_code === null
+            ) {
+            ht_settings.src_code = "standard";
+            }
+    
+            if (
+            typeof ht_settings.open_jobs_in_new_tab === "undefined" ||
+            ht_settings.open_jobs_in_new_tab === null
+            ) {
+            ht_settings.open_jobs_in_new_tab = false;
+            }
+    
+            var container = $("#hiringthing-jobs");
+            var spinner = $(
+            '<img src="https://images.applicant-tracking.com/images/loading2.gif" />'
+            );
+            container.html(spinner);
+    
+            var site_url = ht_settings.site_url;
+            if (typeof site_url === "string") {
+            site_url = [site_url];
+            }
+            var promises = [];
+            $.each(site_url, function (idx, site_url) {
+            promises.push(
+                /*$.ajax({
+                            url:
+                                "https://" +
+                                site_url +
+                                ".applicant-tracking.com/api/widget_jobs?src=" +
+                                ht_settings.src_code +
+                                "&callback=?",
+                            type: "GET",
+                            dataType: "json",
+                        })*/
+                $.ajax({
+                url: "https://api.applicant-tracking.com/api/v1/jobs/active",
+                type: "GET",
+                dataType: "json",
+                timeout: 0,
+                headers: {
+                    "Content-type": "application/json",
+                    Authorization:
+                    "Basic YjNkNGNhNDAtMzkzOS00MjZlLTlkZTQtYjI3MzA5ODNhZTAxOjU4M2RlMTAzLWYzN2YtNDIzZC05MWEwLTcxOWIzMzBkOTllMQ=="
+                }
+                })
+            );
+            });
+    
+            $.when
+            .apply($, promises)
+            .done(function (response) {
+                //importing here to get right block sizes
+                var start = "";
+                console.log(response);
+                var jobs = [];
+                if (promises.length == 1) {
+                Array.prototype.push.apply(jobs, response);
+                } else {
+                $.each(arguments, function (idx, response) {
+                    Array.prototype.push.apply(jobs, response[0]);
+                });
+                }
+    
+                var str = "";
+                for (var i = 0; i < jobs.length; i++) {
+                //make changes to job description
+                if (jobs[i].distribution_status == "none") {
+                    continue;
+                }
+                var descstr = jobs[i].description,
+                    jobsDescription = null;
+    
+                jobsDescription = descstr.substring(
+                    descstr.indexOf("<h3>") + 1,
+                    descstr.lastIndexOf("</h3>")
+                );
+                jobsDescription = jobsDescription.replace("h3>", "");
+                jobsDescription = descstr.substring(
+                    descstr.indexOf("<h3>") + 1,
+                    descstr.lastIndexOf("</h3>")
+                );
+                jobsDescription = jobsDescription.replace("h3>", "");
+    
+                //end
+                str += '<article id="post-'+jobs[i].id+'" class="cp2">';
+                str += '<div class="card border-0 rounded-0 position-relative fadeNoScroll">';
+                str += '<div class="card-body p-0 cp2">';
+                start = '<div class="d-dlg-flex align-items-end justify-content-between  cp1">';
+                start += '<h3 class="card-title mb-0">' + jobs[i].title + '</h3>';
+                start += '<span class="single-careers__label h8 d-inline-block">';
+                start += jobs[i].city + ", "+ jobs[i].state;
+                if(jobs[i].remote) {
+                    start += ' / Remote';
+                }
+                start +='</span>';
+                start += '</div>';
+                
+                
+    
+                str += start;
+                
+                str += '<div class="entry-summary cp2">' + jobsDescription + "</div>";
+                str += '<a href="'+ jobs[i].joblink+'" target="_blank">Learn more</a>';
+                str += '</div>';
+                str += '</div>';
+                str += '</article>';
+            
+                }
+    
+                if (str == "") {
+                str =
+                    '<div class="ht-no-positions">We have no open positions at this time.</div>';
+                }
+    
+                container.html(str);
+                ScrollTrigger.refresh();
+            })
+            .fail(function () {
+                container.html(
+                "Account not found.<br /><br /> Please configure 'site_url' to match your Applicant Tracking account domain. "
+                );
+            });
+        });
+        }
+		main();
+
+    })();
+}
+
+
+
+
+setTimeout(
+	function() {
+		ScrollTrigger.refresh();
+}, 1200);

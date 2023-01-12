@@ -9,9 +9,7 @@ get_header();
 
 the_post();
         get_template_part('templates/_header', 'partials');
-
             the_content();
-
             wp_link_pages( array(
                 'before' => '<div class="page-links">' . __( 'Pages:', 'supply' ),
                 'after'  => '</div>',
@@ -29,7 +27,7 @@ the_post();
             <div class="cp4">
                 <?php while ( $the_query->have_posts() ) : $the_query->the_post(); 
                     $post_type = get_post_type();
-                    get_template_part('templates/_content', $post_type);
+                  //  get_template_part('templates/_content', $post_type); disable for now
                 endwhile; ?>
             </div>
             <?php wp_reset_postdata(); ?>

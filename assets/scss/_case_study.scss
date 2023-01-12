@@ -13,19 +13,9 @@
             margin-bottom: 52px;
         }
     }
-    main#main {
-        padding-top: 0 !important;
-        margin-top: 0 !important;
-        margin-bottom: -1px;
-        .header-container {
-            margin-top: -1px;
-        }
-        .fold {
-            min-height: 1px;
-            position: relative;
-        }
-        section.entry {
-            transition: 0.3s all;
+    main#main {       
+        margin-top: 0px;
+        .entry {
             .specialties {
                 list-style: none;
                 padding-inline-start: 0;
@@ -47,8 +37,7 @@
                 }
             }
        }
-       section { min-height: 100vh;}
-       article.case-study {
+
             .client-logo {
                 margin-top: 80px;
                 margin-bottom: 32px; 
@@ -80,9 +69,8 @@
             .intro-content, .outro-content {
                 margin-bottom: 1rem;
             }
-        }
+        
     }
-    
     &__pagination {
         padding-top: 100px;
         padding-bottom: 100px;

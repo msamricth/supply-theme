@@ -3,6 +3,7 @@ import * as bootstrap from 'bootstrap';
 
 import './scripts/inview.js';
 import './scripts/thefold.js';
+//import './scripts/careers.js';
 import './scripts/navbar.js';
 import './scripts/home.js';
 //import './scripts/casestudy-utils.js';

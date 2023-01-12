@@ -15,8 +15,6 @@ $id = 'supply-padding-block-' . $block['id'];
 if ( ! empty($block['anchor'] ) ) {
     $id = $block['anchor'];
 }
-
-// Create class attribute allowing for custom "className" and "align" values.
 $classes = 'block-supply-padding-block';
 if ( ! empty( $block['className'] ) ) {
     $classes .= ' ' . $block['className'];
@@ -30,7 +28,6 @@ $current_post = get_queried_object();
 $post_id = $current_post ? $current_post->ID : null;	
 $scheme = get_field('background_color', $post_id);
     if ( have_rows( 'fold_settings' ) ) :
-        $classes .= ' fold';
         while ( have_rows( 'fold_settings' ) ) : the_row(); 
             if(get_sub_field( 'custom_bg_color' )){
                     $customColor = get_sub_field( 'custom_bg_color' );
@@ -44,6 +41,8 @@ $scheme = get_field('background_color', $post_id);
                     $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
             }
             if(get_sub_field( 'fold_color' )){
+                
+                    $classes .= ' fold';
                     $foldColor = get_sub_field('fold_color');        
                     if(strpos($foldColor, 'page') !== false){
                         if($scheme){
@@ -90,7 +89,6 @@ $padding_size = get_field( 'padding_size' );
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>" <?php echo $foldUtils;?>>
     <div class="padding-block <?php echo $padding_size; ?>"></div>
     <?php    if ( is_admin() ) {
-    // Runs only if this PHP code is in a file that displays outside the admin panels, like the theme template.
     echo '<button style="padding: 2rem;margin-top: 20px;">Click here to edit this Padding Block </button>';
 } 
 ?>
