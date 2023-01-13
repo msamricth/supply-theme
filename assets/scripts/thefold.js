@@ -247,7 +247,7 @@ function setFold(theme){
 					setTimeout(
 						function() {
 							Wrapper.classList = 'bg-light ' + theme;
-					}, 400);
+					}, 600);
 				}
 				break;
 			case 'bg-custom':
