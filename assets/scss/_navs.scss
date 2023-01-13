@@ -43,6 +43,18 @@ body {
                 }
             }
         }
+        &.bg-footer {
+            & > header {
+                & > .navbar {
+                    --supply-nav-rgb: var( --bs-dark-rgb);
+                    --supply-nav-opacity: 1;
+                    * {
+                        --supply-fold-color: #{$white};
+                    }
+                }
+            }
+        }
+       
         &.bg-light:not(.bg-header) {
             & > header > .navbar {
                 --supply-nav-rgb: var( --bs-white-rgb);

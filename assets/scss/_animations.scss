@@ -101,7 +101,7 @@ opacity: 1;
 }
 
 main {
-    a:not(.link-up):not(.stretched-link) {
+    a:not(.link-up):not(.stretched-link), input.link-up {
         display: inline-block;
         position: relative;
         text-decoration: none;
@@ -118,7 +118,7 @@ main {
 
 }
 
-input.link-in {
+input.link-in, input.link-up {
     font-family: $link-font;
     background-color: transparent;
     outline: none;

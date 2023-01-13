@@ -91,7 +91,7 @@ blockquote.wp-block-quote {
 }
 blockquote.wp-block-quote {
     .seperator {
-        opacity: 0.6; // suppose to be .39 but .39 here shows up ligher then if it was rgb,.39
+        opacity: 0.39; // suppose to be .39 but .39 here shows up ligher then if it was rgb,.39
         padding-bottom: 60px;
         border-bottom: 1px solid var(--supply-fold-color);
     }
