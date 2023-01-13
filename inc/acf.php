@@ -343,9 +343,7 @@ if( function_exists('acf_register_block_type') ):
 		'category' => 'supply-blocks',
 		'keywords' => array(
 		),
-		'post_types' => array(
-			0 => 'case-studies',
-		),
+		'post_types' => array( 'post', 'page', 'case-studies', 'careers' ),
 		'mode' => 'preview',
 		'align' => '',
 		'align_content' => NULL,
@@ -428,3 +426,92 @@ add_filter(
         return $attributes;
     }
 );
+add_action( 'acf/init', 'register_supply_padding_block' );
+function register_supply_padding_block() {
+
+	if ( function_exists( 'acf_register_block_type' ) ) {
+
+		// Register Supply Feature Block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-padding-block',
+			'title' 				=> __( 'Supply Padding Block' ),
+			'description' 			=> __( 'A custom block to add extra padding between other blocks.' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'image-flip-vertical',
+			'keywords'				=> array( 'supply', 'padding', 'block' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-padding-block.php',
+			// 'render_callback'	=> 'supply_feature_block_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.js',
+			// 'enqueue_assets' 	=> 'supply_feature_block_block_enqueue_assets',
+		));
+
+	}
+
+}
+/*disable Careers Custom Post type for now
+
+register_post_type('careers', array(
+	'label' => 'Careers',
+	'description' => 'Add a job posting!',
+	'hierarchical' => false,
+	'supports' => array(
+		0 => 'title',
+		1 => 'editor',
+		2 => 'thumbnail',
+		3 => 'excerpt',
+		4 => 'custom-fields',
+		5 => 'revisions',
+		6 => 'page-attributes',
+	),
+	'taxonomies' => array(
+		0 => 'category',
+		1 => 'post_tag',
+		2 => 'post_format',
+	),
+	'public' => true,
+	'exclude_from_search' => false,
+	'publicly_queryable' => true,
+	'can_export' => true,
+	'delete_with_user' => 'false',
+	'labels' => array(
+		'singular_name' => 'career',
+		'add_new' => 'add new Job Posting',
+		'add_new_item' => 'add a new Job Posting',
+		'edit_item' => 'edit Job Posting',
+		'new_item' => 'new Job Posting',
+		'view_item' => 'Job Posting',
+		'view_items' => 'View Job Postings and Careers',
+		'search_items' => 'Search Careers',
+		'item_updated' => 'Job posting updated',
+	),
+	'menu_icon' => 'dashicons-businesswoman',
+	'show_ui' => true,
+	'show_in_menu' => true,
+	'show_in_nav_menus' => true,
+	'show_in_admin_bar' => true,
+	'rewrite' => true,
+	'has_archive' => 'careers',
+	'show_in_rest' => true,
+	'rest_base' => '',
+	'rest_controller_class' => 'WP_REST_Posts_Controller',
+	'acfe_archive_template' => '',
+	'acfe_archive_ppp' => 10,
+	'acfe_archive_orderby' => 'date',
+	'acfe_archive_order' => 'DESC',
+	'acfe_single_template' => 'career-single.php',
+	'acfe_admin_archive' => false,
+	'acfe_admin_ppp' => 10,
+	'acfe_admin_orderby' => 'date',
+	'acfe_admin_order' => 'DESC',
+	'menu_position' => 4,
+	'capability_type' => 'post',
+	'capabilities' => array(
+	),
+	'map_meta_cap' => NULL,
+));
+
+*/

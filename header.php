@@ -4,10 +4,8 @@
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-	<?php wp_head(); ?>
-</head>
-
-<?php
+	<?php wp_head();
+	
 	$post_id = '';
 	$current_post = get_queried_object();
 	$post_id = $current_post ? $current_post->ID : null;
@@ -65,19 +63,68 @@
 		$scheme = 'bg-light';
 	}
 
-
-
+	$dataAttributes = '';
 	$ogClass = $scheme;
 	$wrapperClasses .= $scheme;
 
-?>
+	 $top_trigger_area = get_field( 'top_trigger_area', 'option' ); 
+	 if($top_trigger_area) {
+		$dataAttributes .=' data-topTA="'.$top_trigger_area.'"';
+	 }
+	 $bottom_trigger_area = get_field( 'bottom_trigger_area', 'option' ); 
+	 if($bottom_trigger_area) {
+		$dataAttributes .=' data-bottomTA="'.$bottom_trigger_area.'"';
+	 }
 
+	 $scroll_fold_actions_checked_values = get_field( 'scroll_fold_actions', 'option' ); 
+	 if ( $scroll_fold_actions_checked_values ) : 
+		$dataAttributes .=' data-scroll-actions="';
+		 foreach ( $scroll_fold_actions_checked_values as $scroll_fold_actions_value ): 
+			$dataAttributes .= $scroll_fold_actions_value . ' ';
+		 endforeach; 
+		 $dataAttributes .= '"';
+	 endif; 
+	 if ( get_field( 'allow_custom_colors', 'option' ) == 1 ) : 
+			$dataAttributes .=' data-custom="true"';
+	 endif; 
+	 if ( get_field( 'lazy_load_videos', 'option' ) == 1 ) : 
+		$bodyClasses .= 'lazy_load_videos ';
+	 endif; 
+	 if ( get_field( 'nav_compression', 'option' ) == 1 ) : 
+		$bodyClasses .= 'nav_compression ';
+	 endif; 
+	 $headStyles = '';
+	 $foldTransition = '';
+	 $transition_duriation = get_field( 'transition_duriation', 'option' ); 
+	 $transition_type = get_field( 'transition_type', 'option' ); 
+	 if($transition_duriation){
+		if($transition_type){
+			$foldTransition = $transition_duriation . ' ' . $transition_type;
+			$headStyles .= '<style>#wrapper {   
+				-webkit-transition: background-color '. $foldTransition.',color '. $foldTransition.', opacity '. $foldTransition.';
+				transition: background-color  '. $foldTransition.',color '. $foldTransition.', opacity '. $foldTransition.';</style>';
+		}
+	 }
+	 if($headStyles){
+		echo $headStyles;
+	 }
+	 if ( get_field( 'reset', 'option' ) == 1 ) : 
+		$dataAttributes ='data-fold-reset="true" data-custom="true "';
+	 endif;
+	 $debug_log_checked_values = get_field( 'debug_log', 'option' ); 
+	 if ( $debug_log_checked_values ) : 
+		 foreach ( $debug_log_checked_values as $debug_log_value ): 
+			$dataAttributes .= ' ' . esc_html( $debug_log_value ) . '="true" ';
+		 endforeach; 
+	 endif; 
+?>
+</head>
 <body <?php body_class($bodyClasses ); ?>>
 
 <?php wp_body_open(); ?>
 
 <a href="#main" class="visually-hidden-focusable"><?php esc_html_e( 'Skip to main content', 'supply' ); ?></a>
-<div class="scroller" data-scroller>
+<div class="scroller" data-scroller <?php echo $dataAttributes; ?>>
 	<div id="wrapper" class="<?php echo $wrapperClasses; ?>" data-og_class="<?php echo $ogClass; ?>"> 
 		<header id="nav-header">
 			<nav id="header" class="navbar navbar-expand-md <?php  if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' fixed-top'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' fixed-bottom'; endif; if ( is_home() || is_front_page() ) : echo ' home'; endif; ?>">

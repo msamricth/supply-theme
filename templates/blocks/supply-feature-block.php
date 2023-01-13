@@ -35,6 +35,10 @@ $foldClass = '';
 $row = '';
 $container = '';
 $carouselClasses = '';
+$post_id = '';
+$current_post = get_queried_object();
+$post_id = $current_post ? $current_post->ID : null;	
+$scheme = get_field('background_color', $post_id);
 
 if ( have_rows( 'fold_settings' ) ) :
     while ( have_rows( 'fold_settings' ) ) : the_row(); 
@@ -53,9 +57,15 @@ if ( have_rows( 'fold_settings' ) ) :
             
             $foldColor = get_sub_field('fold_color');
             $foldColor = str_replace('1', "", $foldColor);
-                $carouselClasses = 'fold';
-                $foldClass = 'bg-' . $foldColor;
-                $foldUtils .=' data-class="'. $foldClass .'"';
+            if(strpos($foldColor, 'page') !== false){
+                if($scheme){
+                    $foldColor = $scheme;
+                } else {
+                    $foldColor = 'light';
+                }
+            }
+            $foldClass = 'bg-' . $foldColor;
+            $foldUtils .=' data-class="'. $foldClass .'"';
         }
         
     endwhile;
@@ -98,10 +108,10 @@ else :
     // No rows found  
 endif; ?>
 
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>" >
     <div class="container tagline-section fadeNoScroll">
         <div class="row py-8 py-md-13 py-dlg-13 py-3xl-17">
-            <div class="col-md-6 order-md-2 col-xl-5 col-xxl-4">
+            <div class="col-md-6 order-md-2 col-xl-5 col-xxl-4 fold"  <?php echo $foldUtils; ?>>
                 <?php if ( $tagline_title ) : 
                     echo '<h3>' . $tagline_title . '</h3>';
                 endif; ?>
@@ -116,7 +126,7 @@ endif; ?>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 order-md-1 col-xl-5 offset-xl-1 logo-carousel  <?php echo $carouselClasses; ?>" <?php if ( is_admin() ) {?> style="display:none"<?php }?>  <?php echo $foldUtils; ?>>
+            <div class="col-md-6 order-md-1 col-xl-5 offset-xl-1 logo-carousel" <?php if ( is_admin() ) {?> style="display:none"<?php }?> >
             <?php if ( have_rows( 'logos', 'option' ) ) : ?>
                 <section class="box" aria-label="Supply's Logo Carousel fader">
                    <?php echo $logoCarousel;?>

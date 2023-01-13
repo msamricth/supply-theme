@@ -18,12 +18,15 @@ if ( get_field( 'dots_on' ) == 1 ) :
     $foldData = 'bg-pattern';
 else:
     if($scheme){
-        $foldData = $scheme;
+        $foldData = 'bg-'. $scheme;
     } else {
         $foldData = 'bg-light';
     }
 endif;
-
+$containerClasses = 'row';
+if ( get_field( 'make_block_container_fold' ) == 1 ) : 
+    $containerClasses .= ' fold" data-class="' . $foldData;
+endif;
 if ( get_field( 'full_width_page' ) == 1 ) : 
     $column_class = 'col-md-12 mx-auto';
 else : 
@@ -81,12 +84,13 @@ if($advanceHeader) {
         <?php endif; ?>
     </div>
 </div>
+
 <div class="container">
-    <div class="row">
+    <div class="<?php echo $containerClasses; ?>">
         <div class="<?php echo $column_class; ?>">
 <?php } else { ?>
 <div class="container">
-    <div class="row">
+    <div class="<?php echo $containerClasses; ?>">
         <div class="<?php echo $column_class; ?>">
             <?php if (empty($no_headerText)) {?>
             <header class="page-header">

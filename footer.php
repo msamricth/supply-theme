@@ -1,8 +1,20 @@
+<?php 
+	$scheme = get_field('background_color');
 
+	$foldUtils = '';
+	if($scheme){
+	$foldUtils .=' data-class="bg-'. $scheme .'"';
+	} else {
+	$foldUtils .=' data-class="bg-light"';
+	}
+	if ( get_field( 'make_block_container_fold' ) == 1 ) : 
+	echo '<div class="fold"'.$foldUtils.'></div>';
+	endif;
+	?>
 	</main><!-- /#main -->
 	<footer id="footer" class="bg-black footer text-white pt-6 pt-md-8 fadeNoScroll">
 		<div class="container">
-			<div class="row">
+			<div class="row fold" data-class="bg-footer">
 				<?php
 					if ( has_nav_menu( 'footer-menu' ) ) : // See function register_nav_menus() in functions.php
 						/*
@@ -14,7 +26,7 @@
 							array(
 								'theme_location'  => 'footer-menu',
 								'container'       => 'nav',
-								'container_class' => 'col-md-6 col-lg-3 col-3xl-4 pb-6 pb-md-0 ',
+								'container_class' => 'col-md-6 col-lg-3 col-3xl-3 pb-6 pb-md-0 ',
 								'fallback_cb'     => '',
 								'items_wrap'      => '<ul class="menu navbar-nav supply-underline nav d-block justify-content-end">%3$s</ul>',
 								//'fallback_cb'    => 'WP_Bootstrap4_Navwalker_Footer::fallback',
@@ -22,7 +34,7 @@
 							)
 						);
 					endif; ?>
-					<div class="col-md-6 col-lg-8 col-3xl-7 block-supply-contact-block ">
+					<div class="col-md-6 col-lg-5 col-3xl-3 block-supply-contact-block">
 						<div class="footer-content supply-underline">
 							<div class="">
 								<p class="md-0">
@@ -71,12 +83,12 @@
 								<p><?php printf( esc_html__( '&copy; %1$s %2$s. All rights reserved.', 'supply' ), date_i18n( 'Y' ), get_bloginfo( 'name', 'display' ) ); ?></p>
 						<?php
 							endif;?>
-						<div class="footer-cta my-5 mt-md-6 fold" data-class="bg-dark">
+						<div class="footer-cta my-5 mt-md-6">
 							<?php echo do_shortcode('[contact-form-7 id="130" title="Stay in touch - FooterCTA"]'); ?>
 						</div>
 					</div>
 					<?php if ( have_rows( 'add_a_social_media_account', 'option' ) ) : ?>
-						<div class="col-lg-1 col-md-6 offset-md-6 offset-lg-0">
+						<div class="col-lg-1 offset-lg-3 offset-3xl-5 col-md-6 offset-md-6">
 							<ul class="social-nav ">
 								<?php while ( have_rows( 'add_a_social_media_account', 'option' ) ) : the_row(); $site_title = get_bloginfo( 'name' ); $sm_title = get_sub_field( 'social_media_name' ); ?>
 									<li>

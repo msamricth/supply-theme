@@ -31,26 +31,23 @@ if(get_field( 'positioning' )){
 } 
 $extra_cite_details = get_field( 'extra_cite_details' ); 
 $blockContent = '';
-$blockContent .= '<blockquote id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes ) .'">';
-$blockContent .= '<div class="row">';
-$blockContent .= '<div class="col-lg-10 mx-auto col-xxl-8 col-3xl-6">';
-$blockContent .= '<p>&ldquo;'.get_field( 'quote' ).'&rdquo;</p>';
+$blockContent .= '<p>'.get_field( 'quote' ).'&rdquo;</p>';
 if($cite) {
     $blockContent .= '<cite><strong>'.get_field( 'cite' ).'</strong>';
     if($extra_cite_details){ 
         $blockContent .= '<span>'.$extra_cite_details.'</span>';
     } 
     $blockContent .= '</cite>';
-}
-$blockContent .= '</div>';
-$blockContent .= '<div class="col-md-12 col-xl-10 mx-auto"><div class="seperator"></div></div>';
-$blockContent .= '</div>';
-$blockContent .= '</blockquote>';
-if ( have_rows( 'column_placement' ) ) :
+} ?>
+<blockquote id="<?php echo esc_attr( $id )?>" class="<?php echo esc_attr( $classes )?>">
+<?php if ( have_rows( 'column_placement' ) ) :
     while ( have_rows( 'column_placement' ) ) : the_row(); 
-        echo supply_grid($blockContent, 'mx-auto col-dlg-12 col-xl-10');
+        echo supply_grid($blockContent, 'col-dlg-10 mx-auto col-xl-8');
     endwhile;
 else:
-    echo supply_grid_sh($blockContent, 'mx-auto col-dlg-12 col-xl-10');
-endif;
-
+    echo supply_grid_sh($blockContent, 'col-dlg-10 mx-auto col-xl-8');
+endif; ?>
+<div class="col-md-12 col-xl-10 mx-auto">
+    <div class="seperator"></div>
+</div>
+</blockquote>

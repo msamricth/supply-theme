@@ -1,3 +1,7 @@
+
+h6, .h6, .h7 {
+    font-size: 20px;
+}
 @include media-breakpoint-up(md) { 
     h1, .h1 {
         font-size: 72px;
@@ -11,9 +15,6 @@
     }
     h5, .h5 {
         font-size: 36px;
-    }
-    h6, .h6, .h7 {
-        font-size: 20px;
     } 
     body, p {
         font-size: 20px;
@@ -42,7 +43,7 @@
         }
     }
 }
-@include media-breakpoint-up(dlg) {
+@include media-breakpoint-up(lg) {
     h3, .h3 {
         font-size: 52px;
         line-height: 1.23;

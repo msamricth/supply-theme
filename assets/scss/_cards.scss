@@ -1,7 +1,7 @@
 .home-loop-section {
     .card-title{
         font-size: 24px;
-        padding-top: 4px;
+       // padding-top: 4px;
         @include media-breakpoint-up(md) {
             font-size: 36px;
         }
@@ -13,6 +13,14 @@
         }
     } 
 }
+.card {
+    header {
+        padding-top: 4px;
+        @include media-breakpoint-up(md) {
+            padding-top: 20px;
+        }
+    }
+}
 .home-loop-section, .supply-pagination {
     @include media-breakpoint-up(3xl) {
         article.cp3:not(:last-child) {
@@ -20,6 +28,7 @@
         }
     }
     .card {
+        
         &:not(:last-child) {
             margin-bottom: 60px;
         }
@@ -33,12 +42,6 @@
         }
         .card-body {
             padding: 0;
-        }
-        header {
-            padding-top: 10px;
-            @include media-breakpoint-up(md) {
-                padding-top: 20px;
-            }
         }
     
         @include media-breakpoint-up(lg) {
@@ -56,7 +59,7 @@
         }
         .card-title{
             font-size: 24px;
-            padding-top: 4px;
+          //  padding-top: 4px;
             @include media-breakpoint-up(dlg) {
                 padding-top: 8px;
             }
@@ -78,7 +81,7 @@
     .col-md-6 {
         @include media-breakpoint-down(md) {
             &:first-child {
-                    margin-bottom: 35px;
+                    margin-bottom: 36px;
                 }
         }
         @include media-breakpoint-up(md) {

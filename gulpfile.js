@@ -41,7 +41,7 @@ function build_js() {
 				compiler
 			)
 		)
-		.pipe(minify())
+		/* lets not minify it in development .pipe(minify()) */
 		.pipe(
 			gulp.dest( paths.scripts.dest )
 		)

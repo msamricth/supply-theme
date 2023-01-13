@@ -1,3 +1,47 @@
+@-webkit-keyframes slide-in-top {
+0% {
+-webkit-transform: translateY(-150px);
+    transform: translateY(-150px);
+opacity: 0;
+}
+100% {
+-webkit-transform: translateY(0);
+    transform: translateY(0);
+opacity: 1;
+}
+}
+@keyframes slide-in-top {
+0% {
+-webkit-transform: translateY(-150px);
+    transform: translateY(-150px);
+opacity: 0;
+}
+100% {
+-webkit-transform: translateY(0);
+    transform: translateY(0);
+opacity: 1;
+}
+}
+@-webkit-keyframes nav-slide-top {
+0% {
+-webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+100% {
+-webkit-transform: translateY(-150px);
+    transform: translateY(-150px);
+}
+}
+@keyframes nav-slide-top {
+0% {
+-webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+100% {
+-webkit-transform: translateY(-150px);
+    transform: translateY(-150px);
+}
+}
 
 @-webkit-keyframes slide-top {
 0% {
@@ -57,7 +101,7 @@
 }
 
 main {
-    a:not(.link-up):not(.stretched-link) {
+    a:not(.link-up):not(.stretched-link), input.link-up {
         display: inline-block;
         position: relative;
         text-decoration: none;
@@ -74,7 +118,7 @@ main {
 
 }
 
-input.link-in {
+input.link-in, input.link-up {
     font-family: $link-font;
     background-color: transparent;
     outline: none;

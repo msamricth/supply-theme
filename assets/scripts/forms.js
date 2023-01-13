@@ -28,7 +28,7 @@
 		});
 	}
     function expandTextarea(id) {
-        document.getElementById(id).addEventListener('keyup', function() {
+        document.querySelector(id).addEventListener('keyup', function() {
             this.style.overflow = 'hidden';
             this.style.height = 0;
             this.style.height = this.scrollHeight + 'px';
@@ -72,8 +72,12 @@
             });
         }
     }
-    var $message = $('#message');
-    if(($message).length) {
-        expandTextarea('message');
-    }	
 });
+const cf7Formtextarea = document.querySelector('.wpcf7-textarea');
+if(cf7Formtextarea) {	
+    document.querySelector('.wpcf7-textarea').addEventListener('keyup', function() {
+        this.style.overflow = 'hidden';
+        this.style.height = 0;
+        this.style.height = this.scrollHeight + 'px';
+    }, false);
+}

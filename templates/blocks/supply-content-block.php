@@ -9,7 +9,6 @@
  * @param   bool $is_preview True during AJAX preview.
  * @param   (int|string) $post_id The post ID this block is saved to.
  */
-
 // Create id attribute allowing for custom "anchor" value.
 $id = 'supply-content-block-' . $block['id'];
 if ( ! empty($block['anchor'] ) ) {
@@ -17,7 +16,7 @@ if ( ! empty($block['anchor'] ) ) {
 }
 
 // Create class attribute allowing for custom "className" and "align" values.
-$classes = 'block-supply-content-block row';
+$classes = 'block-supply-content-block';
 if ( ! empty( $block['className'] ) ) {
     $classes .= ' ' . $block['className'];
 }
@@ -54,7 +53,7 @@ endif;
                 }
             }
             if($blockTitle){
-                echo supply_grid($blockTitle, 'col-md-9 col-lg-7 offset-md-1 offset-lg-2');
+                echo supply_grid($blockTitle, 'col-md-9 col-dlg-7 col-xl-5 offset-md-1 offset-dlg-2 offset-xl-3');
             }  
         endwhile; 
        endif;
@@ -63,7 +62,7 @@ endif;
             while ( have_rows( 'block_content' ) ) : the_row(); 
             $blockContent = get_sub_field('content'); 
             if($blockContent){
-                echo supply_grid($blockContent, 'col-md-10 col-lg-8 offset-md-1 offset-lg-2');
+                echo supply_grid($blockContent, 'col-md-10 col-dlg-8 col-xl-6 offset-md-1 offset-dlg-2 offset-xl-3');
             } 
 		 endwhile; 
         endif;
