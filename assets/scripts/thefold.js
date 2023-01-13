@@ -424,7 +424,7 @@ if(ifWork) {
                 str += start;
                 
                 str += '<div class="entry-summary cp2">' + jobsDescription + "</div>";
-                str += '<a href="'+ jobs[i].joblink+'" target="_blank">Learn more</a>';
+                str += '<a href="'+ jobs[i].joblink+'" class="link-up" target="_blank">Learn more</a>';
                 str += '</div>';
                 str += '</div>';
                 str += '</article>';
