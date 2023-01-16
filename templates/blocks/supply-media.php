@@ -32,13 +32,29 @@ $video_ratio = get_field('video_ratio');
 $vimeo_video_mobile = get_field('vimeo_video_mobile');
 $classes .= ' fadeNoScroll';
 $blockContent = '';
+$blockStyles = '';
+$presetRatios = array('21x9','16x9','4x3','3x2','fullw');
+
+$presetRatios = array('21x9','16x9','4x3','3x2','fullw');
+
+if(strpos(implode(" ",$presetRatios), $video_ratio) !== false){} else {
+    
+    $blockStyles .= '<style type="text/css">';
+    $blockStyles .= '.ratio-'.$video_ratio.' {';
+    $blockStyles .= '  --bs-aspect-ratio: calc('.$video_ratio.' * 100%);';
+    $blockStyles .= '} </style>';
+    echo $blockStyles;
+
+    
+}
+
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
     <?php if ( $image ) : 
         $blockContent ='<img src="'. esc_url( $image['url'] ) .'" class="img-responsive" alt="'.esc_attr( $image['alt'] ) .'" />';
     endif;
     if ( $vimeoVideo ) : 
-            $blockContent = video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio);
+        $blockContent = video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio);
     endif;
     if ( have_rows( 'column_placement' ) ) :
         while ( have_rows( 'column_placement' ) ) : the_row();
@@ -46,8 +62,8 @@ $blockContent = '';
         endwhile;
     endif;
     if ( is_admin() ) {
-    // Runs only if this PHP code is in a file that displays outside the admin panels, like the theme template.
-    echo '<button style="position: absolute;right: 10%;padding: 2rem;top: 20%;">Click here to edit this Media Block </button>';
-} 
+        // Runs only if this PHP code is in a file that displays outside the admin panels, like the theme template.
+        echo '<button style="position: absolute;right: 10%;padding: 2rem;top: 20%;">Click here to edit this Media Block </button>';
+    } 
 ?>
 </div>

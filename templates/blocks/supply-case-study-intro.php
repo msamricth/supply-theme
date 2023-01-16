@@ -85,29 +85,10 @@ $specialties = get_field( 'specialties' );
 
 
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
-    <div class="row">
-        <div class="fold" data-class="header"></div>
-        <div class="col-md-10 col-xl-10 offset-xl-1 logo-container fadeNoScroll">
-            <?php if ( $client_logo_light ) : ?>
-                <img class="img-responsive client-logo light-logo" src="<?php echo esc_url( $client_logo_light['url'] ); ?>" alt="<?php echo esc_attr( $client_logo_light['alt'] ); ?>" />
-            <?php endif; ?>
-            <?php if ( $client_logo_dark ) : ?>
-                <img class="img-responsive client-logo dark-logo" src="<?php echo esc_url( $client_logo_dark['url'] ); ?>" alt="<?php echo esc_attr( $client_logo_dark['alt'] ); ?>" />
-            <?php else: ?>
-                <?php if ( $client_logo_light ) : ?>
-                    <img class="img-responsive client-logo dark-logo " src="<?php echo esc_url( $client_logo_light['url'] ); ?>" alt="<?php echo esc_attr( $client_logo_light['alt'] ); ?>" />
-                <?php endif; ?>
-            <?php endif; ?>
-        </div>
-    </div>
+    <div class="fold" data-class="header"></div>
     <div class="row">
         <div class="col-md-10 col-lg-8 col-xl-7 offset-xl-1 case-study-left cp2 mb-dlg-0">  
             
-            <?php if ( $title_of_work_performed ) : ?>
-                <h5 class="entry-title fadeNoScroll cp1"><?php echo $title_of_work_performed; ?></h5>
-            <?php else :?>
-                <h5 class="entry-title fadeNoScroll cp1"><?php echo  get_the_title( $post_id ); ?></h5>
-            <?php endif; ?>       
             <?php if ( $intro_blurb ) : ?> 
                 <div class="intro-content">
                     <?php echo $intro_blurb; ?>

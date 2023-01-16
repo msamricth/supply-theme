@@ -66,7 +66,7 @@ function background_video ($videoURL = null, $eagerLoad = null){
  //       $embed .= '<iframe loading="lazy" id="video'.$vimeoID.'" class="videofx" src="" data-src="'. $video.'?&amp;background=1&amp;loop=1" frameBorder="0" allow=" picture-in-picture"></iframe>';
  //       $embed .='<img src="https://vumbnail.com/'.$vimeoID.'.jpg" id="img-video'.$vimeoID.'"/>';
   //  else:
-        $embed .= '<iframe loading="lazy" data-videotitle="'.$vimeoTitle.'" title="'.$vimeoTitle.'" id="video'.$vimeoID.'" class="videofx" src="'. $video.'?&amp;background=1&amp;loop=1" frameBorder="0" allow=" picture-in-picture"></iframe>';
+        $embed .= '<iframe loading="lazy" data-videotitle="'.$vimeoTitle.'" title="'.$vimeoTitle.'" id="video'.$vimeoID.'" class="videofx" src="'. $video.'?&amp;background=1&amp;loop=1&maxheight=200vh&maxwidth=200vw" frameBorder="0" allow=" picture-in-picture"></iframe>';
 	//endif; 
        return $embed;
 }
@@ -78,8 +78,8 @@ function video_containers($videoURL, $videoMURL = null, $ratio = null, $mobile_r
         if($mobile_ratio){}else{
             $mobile_ratio = 'mobile';
         }
-        $mobileVideo .= '<div class="d-dlg-none supply-video ratio ratio-'. $mobile_ratio . '">' . background_video($videoMURL) . '</div>';
-        $classes .= "d-none d-dlg-block";
+        $mobileVideo .= '<div class="d-sm-none supply-video ratio ratio-'. $mobile_ratio . '">' . background_video($videoMURL) . '</div>';
+        $classes .= "d-none d-sm-block";
     }
     if($ratio) {
         $classes .= ' ratio-' . $ratio;

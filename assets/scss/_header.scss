@@ -63,3 +63,15 @@ header.page-header {
     }
     
 }
+.single-case-studies .header-container {
+    header.page-header {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding-bottom: 0;
+        line-height: 1;
+        h3 {
+            line-height: 1;
+        }
+    }
+} 

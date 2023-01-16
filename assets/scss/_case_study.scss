@@ -25,10 +25,10 @@
                 opacity: 0.75;
                 &:first-child {
                     @include media-breakpoint-up(dlg) { 
-                        padding-top: 24px;
+                       // padding-top: 24px;
                     }
                     @include media-breakpoint-up(3xl) { 
-                        padding-top: 38px;
+                        // padding-top: 38px;
                     }
                 }
                 
@@ -37,20 +37,17 @@
                 }
             }
        }
-
             .client-logo {
-                margin-top: 80px;
-                margin-bottom: 32px; 
-                height: 54px;
+                margin-bottom: 5.79px; 
+                height: 44.66px;
                 @include media-breakpoint-up(md) {
-                    margin-bottom: 40px; 
-                    margin-top: 100px;
-                    height:70px;
+                    height: 57.89px;
+                }
+                @include media-breakpoint-up(xxl){
+                    height: 57.89px;
                 }
                 @include media-breakpoint-up(3xl) { 
-                    margin-bottom: 60px; 
-                    margin-top: 120px;
-                    height:90px;
+                    height: 74.44px;
                 }
             }        
             .entry-title {
