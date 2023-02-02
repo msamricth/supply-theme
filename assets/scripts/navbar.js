@@ -5,7 +5,9 @@
     var newScroll;
     const main = document.querySelector('main');
     navbarMain = document.getElementById('header'); // Get The NavBar
+    navcontainer = document.getElementById('nav-header');
     if(nav_compression) {
+
         window.addEventListener('scroll',function(){
         //on every scroll this funtion will be called
         
@@ -15,18 +17,19 @@
         //This line will get the location on scroll
         if (scrollTop < 250) {
             
-            showNav();
+            
+            navbarMain.style.top='0';
         
         } else {
         // if (scrollTop > 0 && scrollTop < main.innerHeight - window.innerHeight) {
             if(scrollTop > lastScrollTop){ //if it will be greater than the previous
-                hideNav();
+                navbarMain.style.top='-120px';
                 //set the value to the negetive of height of navbar 
                 newScroll = scrollTop - 2; //  - added the '- 2' as a work around since sometimes small scrolls aren't recored
             }
             
             else{
-                showNav();
+                navbarMain.style.top='0';
                 newScroll = scrollTop + 2;
             }
         }
@@ -34,13 +37,13 @@
         });
     }
     function hideNav() {
-     //   navbarMain.classList.remove("is-visible");
-       // navbarMain.classList.add("is-hidden");
+        navcontainer.classList.remove("is-visible");
+       // navcontainer.classList.add("is-hidden");
     }
 
     function showNav() {
-        //navbarMain.classList.remove("is-hidden");
-        //navbarMain.classList.add("is-visible", "scrolling");
+        navcontainer.classList.remove("is-hidden");
+        //navcontainer.classList.add("is-visible", "scrolling");
     }
 ( function () {
 	'use strict';
@@ -75,33 +78,6 @@
         }, 100);
     });
 
-   
-    function hideGRecaptcha() {
-        var $cf7Form = $('.wpcf7-form'),
-        $gREC = $('.grecaptcha-badge');
-        
-        if($gREC.length){
-            var $gRECParent = $gREC.parent().closest('div');
-            $(document).ready(function () {
-                if($cf7Form) {
-                    if($gRECParent.hasClass('gre-loaded')) {} else {
-                        $gRECParent.addClass('d-none gre-loaded');
-                    }
-                }
-            });
-            $cf7Form.on('inview', function(event, isInView) {
-                if (isInView) {
-                    setTimeout(
-                        function() {
-                            $gRECParent.removeClass('d-none');
-                        }, 400);
-                    
-                } else {
-                    $gRECParent.addClass('d-none');
-                }
-            });
-        }
-    }
     })( jQuery );
 
 } )();

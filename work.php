@@ -65,10 +65,7 @@ the_post();
             <?php endif;?>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-            <?php get_template_part('templates/_cta', 'partials'); ?>
-        </div>
+        <?php get_sidebar(); ?>
     </div>
 </div>
 <?php get_footer();

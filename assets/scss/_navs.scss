@@ -100,7 +100,7 @@ header#nav-header {
         padding-top:0;
         padding-bottom: 0; 
         -webkit-transition: background-color .45s ease,color .6s ease, opacity .4s ease, transform 0.65s,;
-        transition: background-color .45s ease,color .6s ease, opacity .4s ease, transform 0.65s,;
+        transition: background-color .45s ease,color .6s ease, opacity .4s ease, transform 0.65s, top .4s ease;
         will-change: background-color,color, opacity;
             li .nav-link {
             text-shadow: none;
@@ -109,15 +109,15 @@ header#nav-header {
         .navbar-toggler {
             box-shadow: none !important;
         }
-        &.is-visible {
-         //   -webkit-animation: slide-in-top 0.19s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-       //     animation: slide-in-top 0.19s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-        }
-        &.is-hidden {
-   //         -webkit-animation: nav-slide-top 0.19s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-     //           animation: nav-slide-top 0.19s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
-        }
 
+    }
+    &.is-visible {
+        -webkit-animation: slide-in-top 0.19s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        animation: slide-in-top 0.19s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+    &.is-hidden {
+        -webkit-animation: nav-slide-top 0.19s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            animation: nav-slide-top 0.19s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
     }
 }
 .navbar-nav {

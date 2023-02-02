@@ -16,7 +16,6 @@ if ( ! empty($block['anchor'] ) ) {
     $id = $block['anchor'];
 }
 $post_id = '';
-
 $current_post = get_queried_object();
 $post_id = $current_post ? $current_post->ID : null;	
 $scheme = get_field('background_color', $post_id);

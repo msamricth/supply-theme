@@ -34,9 +34,9 @@ $classes .= ' fadeNoScroll';
 $blockContent = '';
 $blockStyles = '';
 $presetRatios = array('21x9','16x9','4x3','3x2','fullw');
-
-$presetRatios = array('21x9','16x9','4x3','3x2','fullw');
-
+if ( get_sub_field( 'make_full_screen' ) == 1 ) : 
+    $video_ratio = 'fullw';
+endif;
 if(strpos(implode(" ",$presetRatios), $video_ratio) !== false){} else {
     
     $blockStyles .= '<style type="text/css">';

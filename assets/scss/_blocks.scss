@@ -7,7 +7,7 @@
         margin-top: 86px;
     }
     padding-bottom: 60px;
-    border-bottom: 1px solid rgba(var(--supply-fold-color),.39);
+   // border-bottom: 1px solid rgba(var(--supply-fold-color),.39);
     h4.stats {
         font-size: 84px;
         font-weight: 500;
@@ -106,6 +106,108 @@ blockquote.wp-block-quote {
         }
     }
 }
+.splide:not([data-same-height]) {
+    min-height:var(--supply-carousel-height);
+    flex-direction:column;
+    &.middle {
+        .splide__slide {
+            display: flex;
+            align-items: center;
+        }
+    }
+    .splide__slide{
+        img {
+            height: auto;
+        }
+    }
+}
+.splide {
+    button.splide__arrow.splide__arrow--next {
+        position: absolute;
+        height: 100%;
+        right: 0;
+        z-index: 1;
+    }
+    button.splide__arrow.splide__arrow--prev {
+        position: absolute;
+        height: 100%;
+        z-index: 1;
+    }
+    .splide__arrow.splide__arrow--next,.splide__arrow.splide__arrow--prev {
+        width: 100px;
+        background-color:transparent;
+        border:0;
+        svg {display:none;}
+    }
+    &.justify-content-bottom {
+        .splide__slide {
+            display:flex;
+            flex-direction:column;
+            justify-content:end;
+        }
+    }
+    .splide__slide {
+        max-width: 100%;
+        .splide__slide__caption {
+            min-height: 116px;
+            padding-top: 10px;
+            span {    
+                display: inline-block;
+                line-height: 1.7;
+                vertical-align: text-top;
+            }
+            @include media-breakpoint-up(md) { 
+                min-height: 124px;
+                padding-top: 20px;
+                padding-right: 40px;
+            }
+            @include media-breakpoint-up(xxl) { 
+                min-height: 78px;
+            }
+            @include media-breakpoint-up(3xl) { 
+                min-height: 126px;
+            }
+        }
+    }
+}
+[data-same-height] {
+    height: var(--supply-carousel-maxheight);
+    min-height: auto;
+    .splide__track {
+      //  height: 100%;
+    }
+    .splide__slide {
+        width:auto !important;
+        @supports (-webkit-touch-callout: none) { //not sure this will work - got it from stack xahnge
+           
+        //    display: inline;
+            /* CSS specific to iOS devices */ 
+          }
+      //  &:first-child { align-items: flex-start; }
+        img{
+            height:100%;
+            width: auto !important;
+        }
+        // come up with better fix for ratio later on
+        .ratio {
+            height: 100%;
+            position: static;
+            width: auto;
+           // width: auto;
+         //   max-width: 100vw;
+            * {
+                position: initial;
+            }
+            &:before {
+                padding-top:0;
+            }
+        }
+    }
+}
+.editor-content .seperator {
+    opacity: 0.39;
+    border-bottom: 1px solid var(--supply-fold-color);
+}
 .block-case-study-intro {
     .seperator {
         opacity: 0.39;
@@ -125,12 +227,12 @@ blockquote.wp-block-quote {
 }
 .bg-light {
     .block-supply-stats {
-        border-bottom: 1px solid rgba(var(--bs-primary-rgb),.39);
+   //     border-bottom: 1px solid rgba(var(--bs-primary-rgb),.39);
     }
 }
 .bg-dark {
     .block-supply-stats {
-        border-bottom: 1px solid rgba(var(--bs-white-rgb),.39);
+ //       border-bottom: 1px solid rgba(var(--bs-white-rgb),.39);
     }
 }
 .block-supply-separator-block {
@@ -381,6 +483,10 @@ blockquote.wp-block-quote {
     .header-partial {
         header.page-header {
             position: absolute;
+            z-index: 5;
+        }
+        img.d-none.d-sm-block {
+            min-height: 930px;
         }
     }
     .block-supply-stats {

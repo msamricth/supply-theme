@@ -185,3 +185,42 @@ function project_title_fromBlock($post_id = null) {
 	}
     echo $title;
 }
+function customRatio($ratio) {
+    if($ratio){
+        $blockStyles = '';
+        // Use preg_match_all() function to check match
+        preg_match_all('!\d+\.*\d*!', $ratio, $ratiomatches);
+        $i = 0;
+        $ratioWidth = '';
+        $ratioHeight = '';
+        foreach ($ratiomatches as $ratiomatch) {
+            foreach ($ratiomatch as $ratiom) {
+                if ($i == 0) {
+                    $ratioWidth = $ratiom;
+                } else {
+                    $ratioHeight = $ratiom;
+                }
+                $i++;
+            }
+        }
+        if($ratiomatches){
+            if(empty($ratioWidth)) {
+                if(empty($ratioHeight)) {
+                    if(strpos($ratio, '.') !== false){
+                        list($ratioWidth, $ratioHeight) = preg_split("/x/",$ratio);
+                        $ratioWidth = preg_replace("/[^0-9\.]/", '', $ratioWidth);
+                    }
+                }
+            }
+        }
+        $presetRatios = array('21x9','16x9','4x3','3x2','fullw');
+        if(strpos(implode(" ",$presetRatios), $ratio) !== false){} else {
+            $ratio = str_replace('.', '\.', $ratio);
+            $blockStyles .= '<style type="text/css">';
+            $blockStyles .= '.ratio-'.$ratio.':before {';
+            $blockStyles .= '  --bs-aspect-ratio: calc('.$ratioHeight.' / '.$ratioWidth.' * 100%);';
+            $blockStyles .= '} </style>';
+            echo $blockStyles;
+        }
+    }
+}

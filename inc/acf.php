@@ -452,6 +452,27 @@ function register_supply_padding_block() {
 	}
 
 }
+add_action( 'acf/init', 'register_supply_carousel' );
+function register_supply_carousel() {
+
+	if ( function_exists( 'acf_register_block_type' ) ) {
+
+		// Register Supply Feature Block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-carousel-block',
+			'title' 				=> __( 'Supply Carousel Block' ),
+			'description' 			=> __( 'Supply Carousel Block' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'images-alt',
+			'keywords'				=> array( 'supply', 'carousel', 'block' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			'render_template'		=> 'templates/blocks/supply-carousel-block.php',
+		));
+
+	}
+
+}
 /*disable Careers Custom Post type for now
 
 register_post_type('careers', array(

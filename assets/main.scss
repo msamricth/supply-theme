@@ -210,19 +210,19 @@ $spacers: (
 @import "../node_modules/bootstrap/scss/buttons";
 @import "../node_modules/bootstrap/scss/transitions";
 @import "../node_modules/bootstrap/scss/dropdown";
-@import "../node_modules/bootstrap/scss/button-group";
+// @import "../node_modules/bootstrap/scss/button-group";
 @import "../node_modules/bootstrap/scss/nav";
 @import "../node_modules/bootstrap/scss/navbar";
 @import "../node_modules/bootstrap/scss/card";
 @import "../node_modules/bootstrap/scss/accordion";
-@import "../node_modules/bootstrap/scss/breadcrumb";
-@import "../node_modules/bootstrap/scss/badge";
+// @import "../node_modules/bootstrap/scss/breadcrumb";
+// @import "../node_modules/bootstrap/scss/badge";
 @import "../node_modules/bootstrap/scss/alert";
 @import "../node_modules/bootstrap/scss/progress";
 @import "../node_modules/bootstrap/scss/list-group";
 @import "../node_modules/bootstrap/scss/close";
-@import "../node_modules/bootstrap/scss/tooltip";
-@import "../node_modules/bootstrap/scss/popover";
+// @import "../node_modules/bootstrap/scss/tooltip";
+// @import "../node_modules/bootstrap/scss/popover";
 @import "../node_modules/bootstrap/scss/spinners";
 @import "../node_modules/bootstrap/scss/offcanvas";
 @import "../node_modules/bootstrap/scss/helpers";
@@ -493,7 +493,22 @@ img {
 		margin-top: 60px;
 	}
 }
-
+:root {
+	--bs-light-rgb: var(--bs-white-rgb) !important;
+	--cs-video-height: 100vh;
+	--bgcustom: var(--bs-white);
+	--supply-carousel-height: 400px;
+	--supply-carousel-maxheight: 177px;
+	@include media-breakpoint-up(md) { 
+		--supply-carousel-maxheight: 405px;
+	}
+	@include media-breakpoint-up(dlg) { 
+		--supply-carousel-maxheight: 562px;
+	}
+	@include media-breakpoint-up(3xl) { 
+		--supply-carousel-maxheight: 750px;
+	}
+}
 @import "scss/_animations.scss";
 @import "scss/_containers.scss";
 @import "scss/_type.scss";
@@ -506,14 +521,10 @@ img {
 @import "scss/_cards.scss";
 @import "scss/_home.scss";
 @import "scss/_case_study.scss";
-
+@import "../node_modules/@splidejs/splide/src/css/core/index.scss";
 @import "scss/_logo_garden.scss";
 @import "scss/_careers.scss";
 @import "scss/_work.scss";
 @import "scss/_blocks.scss";
 @import "scss/_utilities.scss";
 @import "scss/_responsive.scss";
-
-:root{
-	--bs-light-rgb: var(--bs-white-rgb) !important;
-}

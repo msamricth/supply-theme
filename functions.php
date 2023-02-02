@@ -335,6 +335,20 @@ if ( is_readable( $custom_walker_footer ) ) {
  *
  * @since v1.0
  */
+function check_if_block_exist($block_handle) {
+	$post = get_post(); 
+  
+	if(has_blocks($post->post_content)) {
+	  $blocks = parse_blocks($post->post_content);
+  
+	  foreach( $blocks as $block ) {
+		if($block['blockName'] === $block_handle) {
+		  return true;
+		}
+	  }
+	  return false;
+	}
+  }
 function supply_scripts_loader() {
 	$theme_version = wp_get_theme()->get( 'Version' );
 
@@ -357,10 +371,20 @@ function supply_scripts_loader() {
 
 	// 2. Scripts.
 	wp_enqueue_script( 'mainjs', get_theme_file_uri( 'assets/js/main.bundle.js' ), array(), $theme_version, true );
-
+	if(check_if_block_exist('acf/supply-carousel-block')) {
+		wp_enqueue_script( 'splide', "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js", array(), $theme_version, true );
+	}
 
 }
 add_action( 'wp_enqueue_scripts', 'supply_scripts_loader' );
+
+add_filter( 'script_loader_tag', 'my_scripts_modifier', 10, 3 );
+function my_scripts_modifier( $tag, $handle, $src ) {
+    if ( 'splide' === $handle ) {
+        return '<script defer src="' . $src . '" type="text/javascript" integrity="sha256-FZsW7H2V5X9TGinSjjwYJ419Xka27I8XPDmWryGlWtw=" crossorigin="anonymous"></script>' . "\n";
+    }
+    return $tag;
+}
 /**
  * Include Support for Advance Custom Fields Pro.
  * 

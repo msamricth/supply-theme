@@ -79,7 +79,7 @@ if($advanceHeader) {
             <?php echo video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio); 
             else:?>
             <?php if ( $image ) : 
-                echo image_containers($image, $image_mobile);
+                echo image_containers($image, $image_mobile, $video_ratio);
             endif; ?>
         <?php endif; ?>
     </div>
