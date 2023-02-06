@@ -469,6 +469,7 @@ function register_supply_carousel() {
 			'mode'					=> 'auto',
 			'render_template'		=> 'templates/blocks/supply-carousel-block.php',
 		));
+		
 
 	}
 

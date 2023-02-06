@@ -8,12 +8,13 @@ $mobile_ratio = '';
 $header_image = '';
 $subClasses = '';
 $video_ratio = '';
-$blockStyles = '';
+$headerMedia = '';
 $header_content = '';
 $video_ratio = '';
 $placerholder = '';
 $mobileplaceholder = '';
 $self_host_video = '';
+$header_type =  get_field( 'header_type' );
 $client_logo = get_field('client_logo');
 $title_of_work_performed = get_field('title_of_work_performed');
 if (have_rows('header_media')):
@@ -86,6 +87,21 @@ if (have_rows('header_media')):
         endif;
     endwhile;
 endif;
+
+if(strpos($header_type, 'xs') !== false){}
+switch ( $header_type ) {
+    case 'casestudy':
+        $headerMedia= true;
+        break;
+        
+    case 'standardmedia':
+        $headerMedia= true;
+        break;
+        
+    case 'basic':
+        break;
+        default:
+}
 if ($client_logo):
     $header_content .= '<header class="page-header">';
     $header_content .= '<div class="container">';
@@ -100,6 +116,7 @@ if ($client_logo):
     $header_content .= '</div>';
     $header_content .= '</header>';
 endif;
+
 if ($header_video): 
     echo customRatio($mobile_ratio);
     echo customRatio($video_ratio);?>
