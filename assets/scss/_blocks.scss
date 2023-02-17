@@ -89,6 +89,9 @@ blockquote.wp-block-quote {
         }
     }
 }
+.block-supply-content-block + .block-supply-content-block {
+    padding-top: 0;
+}
 blockquote.wp-block-quote {
     .seperator {
         opacity: 0.39; // suppose to be .39 but .39 here shows up ligher then if it was rgb,.39
@@ -256,6 +259,16 @@ blockquote.wp-block-quote {
             margin-bottom: 0 !important;
         }
     }
+}
+.wp-bootstrap-blocks-row {
+    .block-supply-list-block {
+        margin-bottom: 0;
+        
+        .vertical-stack .supply-list:last-child {
+            margin-bottom:0px;
+        }
+    }
+
 }
 .block-supply-logo-garden {
     padding-top: 84px;
@@ -533,4 +546,7 @@ blockquote.wp-block-quote {
     blockquote.wp-block-quote p, blockquote.wp-block-quote cite strong, blockquote.wp-block-quote cite span {
         text-align: left;
     }
+}
+.supply-image img {
+    min-width: 100%;
 }

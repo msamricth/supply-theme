@@ -76,9 +76,9 @@ if (have_rows('header_media')):
                 endif;
 
                 if ($self_host_video):
-                    $header_video_mobile = get_sub_field('video_uploaded');
+                    $header_video_mobile = get_sub_field('video_mobile_uploaded');
                 else:
-                    $header_video_mobile = get_sub_field('video');
+                    $header_video_mobile = get_sub_field('video_mobile');
                 endif;
                 $mobileplaceholder = get_sub_field('video_placeholder');
 
@@ -102,7 +102,8 @@ if ($client_logo):
 endif;
 if ($header_video): 
     echo customRatio($mobile_ratio);
-    echo customRatio($video_ratio);?>
+    echo customRatio($video_ratio);
+?>
             <div class="header-container cp3 fold <?php echo $headercontainer; ?>" data-class="header">
                 <?php echo video_containers($header_video, $header_video_mobile, $video_ratio, $mobile_ratio, $placerholder, $mobileplaceholder) . "\n" . $header_content; ?>
             </div>

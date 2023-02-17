@@ -72,6 +72,12 @@ body {
             fill: var(--supply-fold-color);
         }
         .navbar-nav {
+            
+            @include media-breakpoint-up(md) { 
+                li:last-child a {
+                    padding-right: 0 !important;
+                }
+            }
             .nav-link {
                 color:  var(--supply-fold-color);
                 .nav-underline {

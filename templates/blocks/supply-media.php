@@ -34,27 +34,32 @@ $classes .= ' fadeNoScroll';
 $blockContent = '';
 $blockStyles = '';
 $presetRatios = array('21x9','16x9','4x3','3x2','fullw');
+$image_mobile = get_field('image_mobile');
+$mobile_ratio = get_field('mobile_ratio');
 if ( get_sub_field( 'make_full_screen' ) == 1 ) : 
     $video_ratio = 'fullw';
+    $mobile_ratio = 'fullw';
+else:
+    if($mobile_ratio){echo customRatio($mobile_ratio);}
+    if($video_ratio){echo customRatio($video_ratio);}
 endif;
-if(strpos(implode(" ",$presetRatios), $video_ratio) !== false){} else {
-    
-    $blockStyles .= '<style type="text/css">';
-    $blockStyles .= '.ratio-'.$video_ratio.' {';
-    $blockStyles .= '  --bs-aspect-ratio: calc('.$video_ratio.' * 100%);';
-    $blockStyles .= '} </style>';
-    echo $blockStyles;
 
-    
-}
 
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
-    <?php if ( $image ) : 
-        $blockContent ='<img src="'. esc_url( $image['url'] ) .'" class="img-responsive" alt="'.esc_attr( $image['alt'] ) .'" />';
-    endif;
+    <?php
+    if($image_mobile){
+        $blockContent .='<img src="'. esc_url( $image_mobile['url'] ) .'" class="img-responsive d-md-none" alt="'.esc_attr( $image_mobile['alt'] ) .'" />';
+        if ( $image ) : 
+            $blockContent .='<img src="'. esc_url( $image['url'] ) .'" class="img-responsive d-none d-md-block" alt="'.esc_attr( $image['alt'] ) .'" />';
+        endif;
+    } else {
+        if ( $image ) : 
+            $blockContent ='<img src="'. esc_url( $image['url'] ) .'" class="img-responsive" alt="'.esc_attr( $image['alt'] ) .'" />';
+        endif;
+    }
     if ( $vimeoVideo ) : 
-        $blockContent = video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio);
+        $blockContent = video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio, $mobile_ratio);
     endif;
     if ( have_rows( 'column_placement' ) ) :
         while ( have_rows( 'column_placement' ) ) : the_row();

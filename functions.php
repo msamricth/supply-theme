@@ -372,7 +372,7 @@ function supply_scripts_loader() {
 	// 2. Scripts.
 	wp_enqueue_script( 'mainjs', get_theme_file_uri( 'assets/js/main.bundle.js' ), array(), $theme_version, true );
 	if(check_if_block_exist('acf/supply-carousel-block')) {
-		wp_enqueue_script( 'splide', "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js", array(), $theme_version, true );
+//		wp_enqueue_script( 'splide', "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js", array(), $theme_version, true );
 	}
 
 }

@@ -49,7 +49,9 @@ function background_video ($videoURL = null, $placerholder = null, $eagerLoad = 
         
         if(strpos($videoURL, 'vimeo') !== false){
             preg_match('/src="(.+?)"/', $videoURL, $matches);
-            $video = $matches[1];
+            if($matches) {
+                $video = $matches[1];
+            }
         }
     }
     if(strpos($videoURL, 'vimeo') !== false){
@@ -72,9 +74,13 @@ function background_video ($videoURL = null, $placerholder = null, $eagerLoad = 
     //       $embed .= '<iframe loading="lazy" id="video'.$vimeoID.'" class="videofx" src="" data-src="'. $video.'?&amp;background=1&amp;loop=1" frameBorder="0" allow=" picture-in-picture"></iframe>';
     //       $embed .='<img src="https://vumbnail.com/'.$vimeoID.'.jpg" id="img-video'.$vimeoID.'"/>';
     //  else:
-            $embed .= '<iframe loading="lazy" data-videotitle="'.$vimeoTitle.'" title="'.$vimeoTitle.'" id="video'.$vimeoID.'" class="videofx vimeo" src="'. $video.'?&amp;background=1&amp;loop=1&maxheight=200vh&maxwidth=200vw" frameBorder="0" allow=" picture-in-picture"></iframe>';
+            $embed .= '<iframe loading="lazy" data-videotitle="'.$vimeoTitle.'" title="'.$vimeoTitle.'" id="video'.$vimeoID.'" class="videofx vimeo" src="'. $video.'?&amp;background=1&amp;muted=1&amp;loop=1&maxheight=200vh&maxwidth=200vw&title=0&byline=0&portrait=0&autopause=0" frameBorder="0" allow=" picture-in-picture"></iframe>';
     } else {
-        $embed .= '<video  id="video'.rand(5, 15).'" class="videofx selfhosted lazy" poster="'.esc_url( $placerholder['url'] ).'"  autoplay muted playsinline loop background  allow="picture-in-picture"> <source data-src="'.$videoURL.'" type="video/mp4"></video>';
+        $embed .= '<video  id="video'.rand(5, 15).'" class="videofx selfhosted lazy" ';
+        if($placerholder){
+            $embed .='poster="'.esc_url( $placerholder['url'] ).'"';
+          }
+          $embed .='  autoplay muted playsinline loop background  allow="picture-in-picture"> <source data-src="'.$videoURL.'" type="video/mp4"></video>';
     }
 	//endif; 
        return $embed;
@@ -87,8 +93,8 @@ function video_containers($videoURL, $videoMURL = null, $ratio = null, $mobile_r
         if($mobile_ratio){}else{
             $mobile_ratio = 'mobile';
         }
-        $mobileVideo .= '<div class="d-sm-none supply-video ratio ratio-'. $mobile_ratio . '">' . background_video($videoMURL, $mobileplaceholder) . '</div>';
-        $classes .= "d-none d-sm-block";
+        $mobileVideo .= '<div class="d-md-none supply-video ratio ratio-'. $mobile_ratio . '">' . background_video($videoMURL, $mobileplaceholder) . '</div>';
+        $classes .= "d-none d-md-block";
     }
     if($ratio) {
         $classes .= ' ratio-' . $ratio;
@@ -128,4 +134,24 @@ function image_containers( $imageObject,  $imageObjectMobile = null, $ratio = nu
         return $desktopImage;
     }
 }
-
+function image_containersNR( $imageObject,  $imageObjectMobile = null) {
+    $classes = '';
+    $mobileImage = '';
+    $desktopImage = '';
+    if( $imageObjectMobile){
+        $classes .= 'd-none d-md-block';
+        $mobileImage .= '<div class="d-md-none supply-image">';
+        $mobileImage .= '<img src="'.esc_url( $imageObjectMobile['url'] ).'" alt="'. esc_attr( $imageObjectMobile['alt'] ).'" />';
+        $mobileImage .= '</div>';
+    } else {
+        $classes .= "main-image";
+    }
+    
+    $desktopImage .= '<div class=" supply-image ' . $classes .'">';
+    $desktopImage .= '<img class="'.$classes.'" src="'.esc_url( $imageObject['url'] ).'" alt="'. esc_attr( $imageObject['alt'] ).'" />';
+    $desktopImage .= '</div>';
+    $desktopImage .= $mobileImage;
+    if(is_array($imageObject)) {
+        return $desktopImage;
+    }
+}
