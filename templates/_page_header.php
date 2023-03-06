@@ -1,122 +1,140 @@
-<!--- test header template -->
+<!--- Page header template -->
 <?php
 
-$header_video = '';
-$header_video_mobile = '';
-$headercontainer = '';
-$mobile_ratio = '';
-$header_image = '';
-$subClasses = '';
-$video_ratio = '';
+//Variable list
+$classes = '';
+$header_container = '';
 $blockStyles = '';
 $header_content = '';
-$video_ratio = '';
-$placerholder = '';
-$mobileplaceholder = '';
-$self_host_video = '';
-$client_logo = get_field('client_logo');
+$pageHeader ='';
+$headerOn = 1;
+$blockClasses = 'col-dlg-10 mx-auto col-xl-8';
+$blockContent = '';
+$beforeContainer = '';
+$afterContainer = '';
+
+//Text Object Stuff that can be defined early to make the Structure Functions cleaner
 $title_of_work_performed = get_field('title_of_work_performed');
-if (have_rows('header_media')):
-    while (have_rows('header_media')):
-        the_row();
-        $video_ratio = get_sub_field('video_ratio');
-        if (get_sub_field('make_full_screen') == 1):
-            $headercontainer .= "fullscreen_media";
-            $video_ratio = 'fullw';
-            $mobile_ratio = 'fullw';
-        endif;
-        if (have_rows('video_desktop')):
-            while (have_rows('video_desktop')):
-                the_row();
-                if (have_rows('options')):
-                    while (have_rows('options')):
-                        the_row();
-                        if (get_sub_field('self_host_video') == 1):
-                            $self_host_video = 'true';
-                        endif;
-                        if ($video_ratio)
-                        {
-                        }
-                        else
-                        {
-                            $video_ratio = get_sub_field('video_ratio');
-                        }
-
-                       
-                    endwhile;
-                endif;
-                if ($self_host_video):
-                    $header_video = get_sub_field('video_uploaded');
-                    $self_host_video = '';
-                else:
-                    $header_video = get_sub_field('video');
-                endif;
-                $placerholder = get_sub_field('video_placeholder');
-            endwhile;
-        endif;
-        if (have_rows('video_mobile')):
-            while (have_rows('video_mobile')):
-                the_row();
-                if (have_rows('options')):
-                    while (have_rows('options')):
-                        the_row();
-                        if (get_sub_field('self_host_video') == 1):
-                            $self_host_video = 'true';
-                        endif;
-                        if ($mobile_ratio)
-                        {
-                        }
-                        else
-                        {
-                            $mobile_ratio = get_sub_field('video_ratio');
-                        }
-
-                        
-                    endwhile;
-                endif;
-
-                if ($self_host_video):
-                    $header_video_mobile = get_sub_field('video_mobile_uploaded');
-                else:
-                    $header_video_mobile = get_sub_field('video_mobile');
-                endif;
-                $mobileplaceholder = get_sub_field('video_placeholder');
-
-            endwhile;
-        endif;
-    endwhile;
+if (empty($title_of_work_performed)):
+    $title_of_work_performed = get_the_title();
 endif;
-if ($client_logo):
-    $header_content .= '<header class="page-header">';
-    $header_content .= '<div class="container">';
-
-    $header_content .= '<img class="img-responsive client-logo" src="' . esc_url($client_logo['url']) . '" alt="' . esc_attr($client_logo['alt']) . '" />';
-
-    if ($title_of_work_performed):
-        $header_content .= '<h3 class="card-title cp1">' . $title_of_work_performed . '</h3>';
-    else:
-        $header_content .= '<h3 class="card-title cp1">' . get_the_title() . '</h3>';
-    endif;
-    $header_content .= '</div>';
-    $header_content .= '</header>';
+if (isset($args['page_title'])) {
+    $page_title = $args['page_title'];
+}
+//$header_cta = header_link();
+$heading_text = get_field('header_text');
+if (empty($heading_text)):
+    $heading_text = get_the_title();
 endif;
-if ($header_video): 
-    echo customRatio($mobile_ratio);
-    echo customRatio($video_ratio);
-?>
-            <div class="header-container cp3 fold <?php echo $headercontainer; ?>" data-class="header">
-                <?php echo video_containers($header_video, $header_video_mobile, $video_ratio, $mobile_ratio, $placerholder, $mobileplaceholder) . "\n" . $header_content; ?>
-            </div>
 
-        <?php
-else: ?>
-    <?php if ($placerholder): ?>
-                    <div class="header-container cp3 fold  <?php echo $headercontainer; ?>" data-class="header">
-                        <?php echo image_containers($placerholder, $mobileplaceholder, $video_ratio, $mobile_ratio); ?>
-                        <?php echo $header_content; ?>
-                    </div>
-    <?php endif; ?>
-            <?php
-endif; ?>  
-            
-            
+if (empty($heading_text))://if its stillll empty
+    $heading_text = $page_title;
+endif;
+
+//Assets
+$headerMedia = '';
+$header_media = get_header_media();
+$client_logo = get_field('client_logo');
+
+//settings
+$header_type =  get_field( 'header_type' );
+$classes .= $header_type; 
+if ( get_field( 'disable_header_text' ) == 1 ) :
+    $turnTextOff = 1;
+endif;
+
+
+//Structure Functions
+
+$header_content .= '<header class="page-header fold" data-class="header">';
+        switch ( $header_type ) {
+            case 'casestudy':
+                $classes .= ' cp3';
+                $headerMedia= true;
+                $beforeContainer = '';
+                $afterContainer = '';
+                $header_content .= '<div class="container">';
+                if ($client_logo):
+                    $header_content .= '<img class="img-responsive client-logo" src="' . esc_url($client_logo['url']) . '" alt="' . esc_attr($client_logo['alt']) . '" />';
+                    $header_content .= '<h3 class="card-title cp1">' . $title_of_work_performed . '</h3>';
+                endif;
+                $header_content .= '</div>';
+                break;
+                
+            case 'standardmedia':
+                if ( get_field( 'sit_under_nav' ) == 1 ) :
+                    $classes .= ' under-nav'; 
+                endif;
+                $classes .= ' header-partial';
+                $headerMedia= true;
+                $header_content .= '<div class="container">';
+                $blockContent .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
+                $header_content .= supply_grid($blockContent, $blockClasses); 
+                $header_content .= '</div>';
+                $afterContainer = supply_page_starter();
+                break;
+
+            case 'standardmedialinked':
+                $headerMedia= true;
+                if ( get_field( 'sit_under_nav' ) == 1 ) :
+                    $classes .= ' under-nav'; 
+                endif;
+                $classes .= ' header-partial';
+                $header_content .= '<div class="container">';
+                $blockContent .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
+                $blockContent .=  header_link();
+                $header_content .= supply_grid($blockContent, $blockClasses);  
+                $header_content .= '</div>';
+                $afterContainer = supply_page_starter();
+                break;   
+
+            case 'basic':
+                $beforeContainer = supply_page_starter();
+                $header_content .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
+                $hasSidebar = is_page_php();
+                if ( get_field( 'sit_under_nav' ) == 1 ) :
+                    $classes .= ' under-nav'; 
+                endif;
+                if ( ! empty( $hasSidebar ) ) {
+                    $classes .= ' d-dlg-none';
+                    $afterContainer .='<div class="row">';
+                    $afterContainer .='<div class="col-lg-8 col-xl-7 col-3xl-6 fadeNoScroll order-2 order-dlg-1">';
+                    $afterContainer .='<header class="page-header d-dlg-block d-none fold" data-class="header">';
+                    $afterContainer .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
+                    $afterContainer .= '</header>';
+                }
+                break;
+                
+            case 'none':
+                $headerOn = '';
+                $afterContainer = supply_page_starter();
+                break;
+            default:
+                $beforeContainer = supply_page_starter();
+                $header_content .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
+                $hasSidebar = is_page_php();
+                if ( get_field( 'sit_under_nav' ) == 1 ) :
+                    $classes .= ' under-nav'; 
+                endif;
+                if ( ! empty( $hasSidebar ) ) {
+                    $classes .= ' d-dlg-none';
+                    $afterContainer .='<div class="row">';
+                    $afterContainer .='<div class="col-lg-8 col-xl-7 col-3xl-6 fadeNoScroll order-2 order-dlg-1">';
+                    $afterContainer .='<header class="page-header d-dlg-block d-none fold" data-class="header">';
+                    $afterContainer .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
+                    $afterContainer .= '</header>';
+                }
+        }
+$header_content .= '</header>';
+echo $beforeContainer;
+if($headerOn == 1){ ?>
+    <div id="header-<?php the_ID(); ?>" class="<?php echo esc_attr( $classes ); ?> header-container">
+        <?php if(empty($turnTextOff)){
+            echo $header_content;
+        } 
+        if(!empty($headerMedia)){
+            echo $header_media;
+        } ?>
+    </div>
+<?php } 
+echo $afterContainer; ?>

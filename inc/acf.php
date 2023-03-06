@@ -123,6 +123,40 @@ function register_supply_blocks() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-content-block/supply-content-block.js',
 			// 'enqueue_assets' 	=> 'supply_content_block_block_enqueue_assets',
 		));
+		// Register Supply Heading Block block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-heading-block',
+			'title' 				=> __( 'Supply Heading Block' ),
+			'description' 			=> __( 'A custom Supply Heading Block block.' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'heading',
+			'keywords'				=> array( 'supply', 'type' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-heading-block.php',
+			// 'render_callback'	=> 'supply_content_block_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-content-block/supply-content-block.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-content-block/supply-content-block.js',
+			// 'enqueue_assets' 	=> 'supply_content_block_block_enqueue_assets',
+		));
+		// Register Supply Link Block block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-link-block',
+			'title' 				=> __( 'Supply Link Block' ),
+			'description' 			=> __( 'A custom Supply Link Block block.' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'admin-links',
+			'keywords'				=> array( 'supply', 'type' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-link-block.php',
+			// 'render_callback'	=> 'supply_content_block_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-content-block/supply-content-block.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-content-block/supply-content-block.js',
+			// 'enqueue_assets' 	=> 'supply_content_block_block_enqueue_assets',
+		));
 		acf_register_block_type( array(
 			'name' 					=> 'supply-quotes',
 			'title' 				=> __( 'Supply Quotes' ),

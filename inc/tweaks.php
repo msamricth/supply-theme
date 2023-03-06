@@ -97,3 +97,14 @@ add_filter('wpcf7_form_elements', function($content) {
 add_filter('wpcf7_autop_or_not', '__return_false');
 
 
+function is_page_php(){
+    if ( is_page_template( 'page.php' ) ) { return 'true';}
+}
+function add_slug_body_class( $classes ) {
+    global $post;
+    if ( isset( $post ) ) {
+        $classes[] = $post->post_type . '-' . $post->post_name;
+    }
+    return $classes;
+}
+add_filter( 'body_class', 'add_slug_body_class' );

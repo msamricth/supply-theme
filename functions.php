@@ -337,16 +337,17 @@ if ( is_readable( $custom_walker_footer ) ) {
  */
 function check_if_block_exist($block_handle) {
 	$post = get_post(); 
-  
-	if(has_blocks($post->post_content)) {
-	  $blocks = parse_blocks($post->post_content);
-  
-	  foreach( $blocks as $block ) {
-		if($block['blockName'] === $block_handle) {
-		  return true;
+	if (isset($post->post_content)) {	
+		if(has_blocks($post->post_content)) {
+			$blocks = parse_blocks($post->post_content);
+		
+			foreach( $blocks as $block ) {
+			if($block['blockName'] === $block_handle) {
+				return true;
+			}
+			}
+			return false;
 		}
-	  }
-	  return false;
 	}
   }
 function supply_scripts_loader() {

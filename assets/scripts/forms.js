@@ -14,6 +14,8 @@
 			}
 		} );
 	} );
+
+
 	function calcHeight(value) {
 		let numberOfLineBreaks = (value.match(/\n/g) || []).length;
 		// min-height + lines x line-height + padding + border
@@ -81,3 +83,21 @@ if(cf7Formtextarea) {
         this.style.height = this.scrollHeight + 'px';
     }, false);
 }
+(function($) {
+    document.addEventListener( 'wpcf7invalid', function( event ) {
+        $('.contact-form').addClass('invalid');
+      }, false );
+    document.addEventListener( 'wpcf7mailsent', function( event ) {
+        $('.contact-form').addClass('success');
+        $('.visible-only-if-sent').show();
+        $('.hidden-only-if-sent').hide();
+    }, false );
+    if($('.wp-block-contact-form-7-contact-form-selector .wpcf7-email').length){
+        $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",true);
+        document.querySelector('.wp-block-contact-form-7-contact-form-selector .wpcf7-email').addEventListener('input', function (evt) {
+            var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+            if (testEmail.test(this.value)) $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",false);
+            else $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",true);
+        });
+    }
+})( jQuery );

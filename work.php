@@ -15,6 +15,7 @@ the_post();
     <div class="row">
         <div class="col-md-12">
             <?php
+                get_template_part('templates/_page_header');
                 the_content();
 
                 wp_link_pages( array(

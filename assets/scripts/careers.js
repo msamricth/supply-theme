@@ -27,7 +27,7 @@ if(ifWork) {
             ht_settings.open_jobs_in_new_tab = false;
             }
     
-            var container = $("#hiringthing-jobs");
+            var container = $("#job-listings");
             var spinner = $(
             '<img src="https://images.applicant-tracking.com/images/loading2.gif" />'
             );
@@ -80,6 +80,7 @@ if(ifWork) {
                 }
     
                 var str = "";
+                
                 for (var i = 0; i < jobs.length; i++) {
                 //make changes to job description
                 if (jobs[i].distribution_status == "none") {
@@ -124,10 +125,18 @@ if(ifWork) {
                 str += '</article>';
             
                 }
-    
+                if(str){
+                    var hideNoJobsht = document.querySelector('.ht-no-positions'),
+                    hideNoJobshtLinks = document.querySelectorAll('.ht-no-positions--link');
+                    hideNoJobsht.style.display = "none";
+                    hideNoJobshtLinks.forEach(function(hideNoJobshtLink) {
+                        hideNoJobshtLink.style.display = "none";
+                      });
+                    
+                }
                 if (str == "") {
                 str =
-                    '<div class="ht-no-positions">We have no open positions at this time.</div>';
+                    '<h4 class="ht-no-positions">We have no open positions at this time.</h4>';
                 }
     
                 container.html(str);

@@ -82,6 +82,51 @@
         }
     }
 }
+.page-contact {
+    .wpcf7 form.sent .wpcf7-response-output {
+        display: none;
+    }
+}
+.form-floating {
+    &>.form-control-plaintext~label, &>.form-control:focus~label, &>.form-control:not(:placeholder-shown)~label, &>.form-select~label {
+        font-size: 12px;
+        @include media-breakpoint-up(md) {
+            font-size: 14px;
+        }
+    }
+    &>label {
+        padding-left: 0;
+    }
+    &>.form-control, &>.form-control-plaintext {
+        padding-left: 0;
+    }
+}
+.wpcf7-form {
+    .btn {
+        border-radius: 0;
+        padding: 7px 50px;
+        &:disabled {
+            background-color: $gray-200;
+            color: $primary;
+            opacity: 1;
+        }
+        &:focus {
+            background-color: $black;
+        }
+    }
+}
+.footer-cta .form-floating>label {
+    display:none;
+}
+
+.footer-cta .form-floating .form-control:focus + label {
+    display:initial;
+}
+.form-floating {
+    .form-control:focus::placeholder, .wpcf7-form-control.wpcf7-textarea.form-control:focus::placeholder{
+        color: transparent;
+    }
+}
 textarea.form-control {
     height: 1.75rem;
     overflow: hidden;

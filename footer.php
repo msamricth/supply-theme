@@ -10,6 +10,7 @@
 	if ( get_field( 'make_block_container_fold' ) == 1 ) : 
 	echo '<div class="fold"'.$foldUtils.'></div>';
 	endif;
+	echo supply_page_ending();
 	?>
 	</main><!-- /#main -->
 	<footer id="footer" class="bg-black footer text-white pt-6 pt-md-8 fadeNoScroll">

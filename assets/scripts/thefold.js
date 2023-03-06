@@ -14,6 +14,15 @@ const selfhosted = document.body.classList.contains('dots_on');
 const scrollRoot = document.querySelector('[data-scroller]')
 const headerLinks = [...document.querySelectorAll('[data-link]')]
 const debuglog = scrollRoot.hasAttribute("debuglog");
+const hasCustomTxtColor = Wrapper.hasAttribute("data-color");
+const hasCustomBGColor = Wrapper.hasAttribute("data-bg");
+var OGbg, OGtxt, foldColor, foldBG;
+if(hasCustomBGColor){
+	OGbg = Wrapper.getAttribute('data-bg'),
+	OGtxt = Wrapper.getAttribute('data-color');
+	if(bodyOG == 'bg-custom ') {customFold()};
+	
+}
 
 var topTA;
 var bottomTA;
@@ -270,13 +279,31 @@ function setFold(theme, bg = null, txt = null){
 	}
 	if(theme){
 		if (Wrapper.style.background) {
-			Wrapper.style.background = '';		
+		//	Wrapper.style.background = '';		
 		}
-		Wrapper.style.removeProperty('--supply-fold-color');
-		Wrapper.style.removeProperty('--bgcustom');
+		if(customOn){
+			if(theme != 'bg-custom') {
+				Wrapper.style.removeProperty('--supply-fold-color');
+				Wrapper.style.removeProperty('--bgcustom');
+			} else {
+				if(bodyOG != 'bg-custom ') {
+					Wrapper.style.removeProperty('--supply-fold-color');
+					Wrapper.style.removeProperty('--bgcustom');
+				}
+			}
+		}
 		switch (theme) {
+			case 'bg-header':
+				Wrapper.classList = bodyOG + ' bg-header';
+				if(bodyOG == 'bg-custom ') {
+					customFold();
+				}
+				break;
 			case 'header':
 				Wrapper.classList = bodyOG + ' bg-header';
+				if(bodyOG == 'bg-custom ') {
+					customFold();
+				}
 				break;
 			case 'undefined':
 				Wrapper.classList = bodyOG;
@@ -302,20 +329,38 @@ function setFold(theme, bg = null, txt = null){
 			case 'bg-custom':
 				if(customOn){
 					Wrapper.classList = theme;
-					const foldBG = bg;
-					const foldColor = txt;
-					if(foldColor == 'default'){
-						checkFoldColor(foldColor);
-					} else {
-						Wrapper.style.setProperty('--supply-fold-color', foldColor);
+					var foldColorPreChck;
+					if(txt != 'default'){
+						foldColorPreChck = txt;
+					} 
+					
+					const foldBGPrecheck = bg;
+					
+					if(foldColorPreChck){
+						if (foldColorPreChck.indexOf("#") > -1){ 
+							foldColor = foldColorPreChck;
+						} else {
+							foldColor = '#'+foldColorPreChck;
+						}
 					}
-					Wrapper.style.setProperty('--bgcustom', foldBG);
+					if(foldBGPrecheck){
+							
+						if (foldBGPrecheck.indexOf("#") > -1){ 
+							foldBG = foldBGPrecheck;
+						} else {
+							foldBG = '#'+foldBGPrecheck;
+						}
+					}
+					customFold(foldBG, foldColor);
 				}
 				break;
 			default:
 				if(Wrapper.classList.contains(theme)){
 					if(Wrapper.classList.contains('bg-header')){
 						Wrapper.classList = theme;
+						if(bodyOG == 'bg-custom') {
+							customFold();
+						}
 					}
 				} else {
 					Wrapper.classList = theme;
@@ -328,35 +373,76 @@ function setFold(theme, bg = null, txt = null){
 		}
 	}
 }
-function checkFoldColor(){
-	//extract R G and B from element background color
-	var contentContainer = $('#wrapper');
-	let backgroundColor = contentContainer.css("background-color");
-	backgroundColor =  backgroundColor.split(',')
-	let R = parseInt(backgroundColor[0].split('(')[1])
-	let G = parseInt(backgroundColor[1])
-	let B = parseInt(backgroundColor[2].split(')')[0])
+function customFold(foldBG = null, foldColor = null){
+	if(foldBG){
+		if(foldBG == 'undefined'){
+			ogFold();
+		} else {
+			Wrapper.style.setProperty('--bgcustom', foldBG);
+			
+			if(foldBG){
+				if(foldColor == null){
+					checkFoldColor(foldBG);
+				} else {
+					Wrapper.style.setProperty('--supply-fold-color', foldColor);
+				}
+			} else {checkFoldColor(foldBG);}
+		}
 
-	//Convert RGB to HSL
-	
-	//The R,G,B values are divided by 255 to change the range from 0..255 to 0..1
-	let rPrime = R/255
-	let gPrime = G/255
-	let bPrime = B/255
-	//Then we extract max and min values
-	let cMax = Math.max(rPrime, gPrime, bPrime)
-	let cMin = Math.min(rPrime, gPrime, bPrime)
-
-let lightness = (cMax + cMin)/2
-/*
-Now we gonna check if our lightness is >50% or < 50%.
-If it is >50% we are goin to change text color to black
-otherwise, we gonna set text color to white.
-*/
-	var contentContainer = $('#wrapper');
-	lightness >= 0.50 ? Wrapper.style.setProperty('--supply-fold-color', '#111512') : Wrapper.style.setProperty('--supply-fold-color', '#fff') ;
-} 
-
+	} else {
+		ogFold()
+	}
+	function ogFold(){
+		var ogBGColor;
+		if (OGbg.indexOf("#") > -1){ 
+			ogBGColor = OGbg;
+		} else {
+			ogBGColor = '#'+OGbg;
+		}
+		Wrapper.classList = bodyOG;
+		if(hasCustomTxtColor){
+			if (OGtxt.indexOf("#") > -1){ 
+				OGtxt = OGtxt;
+			} else {
+				OGtxt = '#' + OGtxt;
+			}
+			Wrapper.style.setProperty('--supply-fold-color', OGtxt);
+		} else {
+			checkFoldColor(OGbg);
+		}
+		Wrapper.style.setProperty('--bgcustom', ogBGColor);
+	}
+}
+function checkFoldColor(color){
+	var r, g, b, hsp;
+	if (color.match(/^rgb/)) {
+	  color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+  
+	  r = color[1];
+	  g = color[2];
+	  b = color[3];
+	} 
+	else {
+		color = +("0x" + color.slice(1).replace( 
+			color.length < 5 && /./g, '$&$&'
+		)
+		);
+	  r = color >> 16;
+	  g = color >> 8 & 255;
+	  b = color & 255;
+	}
+	hsp = Math.sqrt(
+	  0.299 * (r * r) +
+	  0.587 * (g * g) +
+	  0.114 * (b * b)
+	);
+	if (hsp>127.5) {
+	  Wrapper.style.setProperty('--supply-fold-color', '#111512') ;
+	} 
+	else {
+	  Wrapper.style.setProperty('--supply-fold-color', '#fff')
+	}
+}
 const ifWork = document.body.classList.contains('page-template-careers');
 if(ifWork) {
     // HiringThing Job Embed Widget
@@ -382,7 +468,7 @@ if(ifWork) {
             ht_settings.open_jobs_in_new_tab = false;
             }
     
-            var container = $("#hiringthing-jobs");
+            var container = $("#job-listings");
             var spinner = $(
             '<img src="https://images.applicant-tracking.com/images/loading2.gif" />'
             );

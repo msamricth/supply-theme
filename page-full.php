@@ -10,7 +10,7 @@ get_header();
 the_post();
 ?>
 <div id="post-<?php the_ID(); ?>" <?php post_class( 'content' ); ?>>
-	<?php get_template_part('templates/_header', 'partials'); ?>
+	<?php get_template_part('templates/_page_header'); ?>
 	<div class="nav-catch">
 		<?php
 			the_content();
@@ -25,13 +25,11 @@ the_post();
 		?>
 	</div>
 </div><!-- /#post-<?php the_ID(); ?> -->
+</div>
+<?php
+	get_sidebar();
+?>
+</div>
 
-		
-		</div>
-		<?php
-			get_sidebar();
-		?>
-		</div>
-		</div>
 <?php
 get_footer();
