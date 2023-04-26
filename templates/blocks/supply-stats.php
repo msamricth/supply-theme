@@ -52,4 +52,4 @@ else:
     echo supply_grid_sh($blockContent, 'col-md-12 mx-auto col-dlg-12 col-xl-10');
 endif;
 ?>
-
+<div class="col-md-12 col-xl-10 mx-auto"><div class="seperator"></div></div>

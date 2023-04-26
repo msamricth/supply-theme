@@ -10,10 +10,19 @@ const lazy_load_videos = document.body.classList.contains('lazy_load_videos');
 const caseStudy = document.body.classList.contains('single-case-studies');
 const header = document.getElementById('header');
 const sections = [...document.querySelectorAll('.fold')]
-
+const selfhosted = document.body.classList.contains('dots_on');
 const scrollRoot = document.querySelector('[data-scroller]')
 const headerLinks = [...document.querySelectorAll('[data-link]')]
 const debuglog = scrollRoot.hasAttribute("debuglog");
+const hasCustomTxtColor = Wrapper.hasAttribute("data-color");
+const hasCustomBGColor = Wrapper.hasAttribute("data-bg");
+var OGbg, OGtxt, foldColor, foldBG;
+if(hasCustomBGColor){
+	OGbg = Wrapper.getAttribute('data-bg'),
+	OGtxt = Wrapper.getAttribute('data-color');
+	if(bodyOG == 'bg-custom ') {customFold()};
+	
+}
 
 var topTA;
 var bottomTA;
@@ -40,6 +49,12 @@ function theFold() {
 		gsap.utils.toArray(".fold").forEach(function (elem) {
 
 			var color = elem.getAttribute('data-class');
+			var bg, txt;
+			
+			if(color == 'bg-custom'){
+				bg = elem.getAttribute('data-bg');
+				 txt = elem.getAttribute('data-color');
+			}
 			
 			ScrollTrigger.create({
 				trigger: elem,
@@ -57,10 +72,10 @@ function theFold() {
 			} else {
 				scrollActions = scrollRoot.getAttribute('scroll-actions');
 			}
-			function FoldonEnter(color){if(scrollActions.includes('onEnter')){setFold(color),varz_dump('onEnter')}}
-			function FoldonLeave(color){if(scrollActions.includes('onLeave')){setFold(color),varz_dump('onLeave')}}
-			function FoldonLeaveBack(color){if(scrollActions.includes('onLeaveBack')){setFold(color),varz_dump('onLeaveBack')}}
-			function FoldonEnterBack(color){if(scrollActions.includes('onEnterBack')){setFold(color),varz_dump('onEnterBack')}}
+			function FoldonEnter(color){if(scrollActions.includes('onEnter')){setFold(color, bg, txt),varz_dump('onEnter')}}
+			function FoldonLeave(color){if(scrollActions.includes('onLeave')){setFold(color, bg, txt),varz_dump('onLeave')}}
+			function FoldonLeaveBack(color){if(scrollActions.includes('onLeaveBack')){setFold(color, bg, txt),varz_dump('onLeaveBack')}}
+			function FoldonEnterBack(color){if(scrollActions.includes('onEnterBack')){setFold(color, bg, txt),varz_dump('onEnterBack')}}
 			function varz_dump(action){
 				if(!Wrapper.classList.contains(color)){
 					if (scrollRoot.hasAttribute("debuglog")) {
@@ -91,10 +106,36 @@ function theFold() {
 }
 theFold();
 if(lazy_load_videos){
+	document.addEventListener("DOMContentLoaded", function() {
+		var lazyVideos = [].slice.call(document.querySelectorAll("video.selfhosted.lazy"));
+	  
+		if ("IntersectionObserver" in window) {
+		  var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+			entries.forEach(function(video) {
+			  if (video.isIntersecting) {
+				for (var source in video.target.children) {
+				  var videoSource = video.target.children[source];
+				  if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+					videoSource.src = videoSource.dataset.src;
+				  }
+				}
+	  
+				video.target.load();
+				video.target.classList.remove("lazy");
+				lazyVideoObserver.unobserve(video.target);
+			  }
+			});
+		  });
+	  
+		  lazyVideos.forEach(function(lazyVideo) {
+			lazyVideoObserver.observe(lazyVideo);
+		  });
+		}
+	  });
 	if(caseStudy) {
 		let $videoI = 0,
-        videos = document.querySelectorAll(".videofx");
-		gsap.utils.toArray(".videofx").forEach(function (video, i) {
+        videos = document.querySelectorAll(".videofx.vimeo");
+		gsap.utils.toArray(".videofx.vimeo").forEach(function (video, i) {
 			const vimeoFrame = document.getElementById(video.id); 
 			const player = new Vimeo.Player(vimeoFrame);
 			const videoTitle = video.getAttribute('data-videotitle');
@@ -109,8 +150,8 @@ if(lazy_load_videos){
 					}
 					ScrollTrigger.create({
 						trigger: video,
-						start: 'top 40%',
-						end: 'bottom 40%',
+						start: 'top 100%',
+						end: 'bottom 15%',
 						markers: videoMarker,
 						onEnter: () => (playVimeo(),varz_dump('onEnter','Play')),
 						onLeave: () => (pauseVimeo(),varz_dump('onLeave','Pause')),
@@ -126,7 +167,7 @@ if(lazy_load_videos){
 							pauseVimeo();
 						}
 						if(debuglog){console.log("Video Var Dump:  video titled: " + videoTitle + ', Is video in viewport:'+ ScrollTrigger.isInViewport(video) +'\n video|scroll position:'+ ScrollTrigger.positionInViewport(video, "center").toFixed(2) +'\n video ID: '+video.id);}
-					  }
+					}
 					function playVimeo(){
 						var isPlaying = player.currentTime > 0 && !player.paused && !player.ended && player.readyState > player.HAVE_CURRENT_DATA;
 						
@@ -136,7 +177,9 @@ if(lazy_load_videos){
 								if (playPromise !== undefined) {
 									if (!isPlaying) {
 										playPromise.then(_ => {
-											
+											if(video.classList.contains('error')){
+												video.classList.remove('error');
+											}
 										})
 										.catch(error => {
 											// Auto-play was prevented
@@ -152,6 +195,9 @@ if(lazy_load_videos){
 							if (playPromise !== undefined) {
 								if (!isPlaying) {
 									playPromise.then(_ => {
+										if(video.classList.contains('error')){
+											video.classList.remove('error');
+										}
 									})
 									.catch(error => {
 										// Auto-play was prevented
@@ -201,33 +247,77 @@ if(lazy_load_videos){
 	
 }
 if(nav_compression) {
+		 /* 
+		 
 	const showAnim = gsap.from('#header.navbar', { 
 		y: -150,
 		duration: 0.19
 	  }).progress(.19);
 	  
-	  ScrollTrigger.create({
+	ScrollTrigger.create({
 		start: "top top",
 		end: 99999,
 		onUpdate: (self) => {
-		  self.direction === -1 ? showAnim.play() : showAnim.reverse()
+		  const scrollVelocity = self.getVelocity();
+		  if(scrollVelocity < -950) {
+		  self.direction === -1 ? showAnim.play() : showAnim.reverse();
+		  }
+		  if(self.progress < 0.25) {
+			showAnim.play();
+		  }
+		  if(scrollVelocity > 100) {
+			self.direction === -1 ? showAnim.play() : showAnim.reverse();
+			}
 		}
-	  });
+	  }); */
 }
 window.onresize = ScrollTrigger.refresh();
-function setFold(theme){
+function setFold(theme, bg = null, txt = null){
 	var customOn;
-	if(!scrollRoot.hasAttribute("data-custom")) {
+	if(scrollRoot.hasAttribute("data-custom")) {
 		customOn = true;
 	}
 	if(theme){
 		if (Wrapper.style.background) {
-			Wrapper.style.background = '';		
+		//	Wrapper.style.background = '';		
 		}
-		Wrapper.style.removeProperty('--supply-fold-color');
+		if(customOn){
+			if(theme != 'bg-custom') {
+				Wrapper.style.removeProperty('--supply-fold-color');
+				Wrapper.style.removeProperty('--bgcustom');
+			} else {
+				if(bodyOG != 'bg-custom ') {
+					Wrapper.style.removeProperty('--supply-fold-color');
+					Wrapper.style.removeProperty('--bgcustom');
+				}
+			}
+		}
 		switch (theme) {
+			case 'bg-header':
+				Wrapper.classList = bodyOG + ' bg-header';
+				if(bodyOG == 'bg-custom ') {
+					customFold();
+				}
+				if(bodyOG == 'bg-pattern ') {
+					Wrapper.classList = 'bg-light';
+					setTimeout(
+						function() {
+							Wrapper.classList = 'bg-light ' + theme;
+					}, 400);
+				}
+				break;
+			case 'bg-footer':
+				if(bodyOG == 'bg-custom ') {
+					Wrapper.classList = bodyOG;
+				} else {
+					Wrapper.classList = 'bg-dark';
+				}
+				break;
 			case 'header':
 				Wrapper.classList = bodyOG + ' bg-header';
+				if(bodyOG == 'bg-custom ') {
+					customFold();
+				}
 				break;
 			case 'undefined':
 				Wrapper.classList = bodyOG;
@@ -253,20 +343,37 @@ function setFold(theme){
 			case 'bg-custom':
 				if(customOn){
 					Wrapper.classList = theme;
-					const foldBG = target.dataset.bg;
-					const foldColor = target.dataset.color;
-					if(foldColor == 'default'){
-						checkFoldColor(foldColor);
-					} else {
-						Wrapper.style.setProperty('--supply-fold-color', foldColor);
+					var foldColorPreChck;
+					if(txt != 'default'){
+						foldColorPreChck = txt;
+					} 
+					
+					const foldBGPrecheck = bg;
+					
+					if(foldColorPreChck){
+						if (foldColorPreChck.indexOf("#") > -1){ 
+							foldColor = foldColorPreChck;
+						} else {
+							foldColor = '#'+foldColorPreChck;
+						}
 					}
-					Wrapper.style.background = foldBG;
+					if(foldBGPrecheck){
+						if (foldBGPrecheck.indexOf("#") > -1){ 
+							foldBG = foldBGPrecheck;
+						} else {
+							foldBG = '#'+foldBGPrecheck;
+						}
+					}
+					customFold(foldBG, foldColor);
 				}
 				break;
 			default:
 				if(Wrapper.classList.contains(theme)){
 					if(Wrapper.classList.contains('bg-header')){
 						Wrapper.classList = theme;
+						if(bodyOG == 'bg-custom') {
+							customFold();
+						}
 					}
 				} else {
 					Wrapper.classList = theme;
@@ -279,35 +386,76 @@ function setFold(theme){
 		}
 	}
 }
-function checkFoldColor(){
-	//extract R G and B from element background color
-	var contentContainer = $('#wrapper');
-	let backgroundColor = contentContainer.css("background-color");
-	backgroundColor =  backgroundColor.split(',')
-	let R = parseInt(backgroundColor[0].split('(')[1])
-	let G = parseInt(backgroundColor[1])
-	let B = parseInt(backgroundColor[2].split(')')[0])
+function customFold(foldBG = null, foldColor = null){
+	if(foldBG){
+		if(foldBG == 'undefined'){
+			ogFold();
+		} else {
+			document.body.style.setProperty('--bgcustom', foldBG);
+			
+			if(foldBG){
+				if(foldColor == null){
+					checkFoldColor(foldBG);
+				} else {
+					document.body.style.setProperty('--supply-fold-color', foldColor);
+				}
+			} else {checkFoldColor(foldBG);}
+		}
 
-	//Convert RGB to HSL
-	
-	//The R,G,B values are divided by 255 to change the range from 0..255 to 0..1
-	let rPrime = R/255
-	let gPrime = G/255
-	let bPrime = B/255
-	//Then we extract max and min values
-	let cMax = Math.max(rPrime, gPrime, bPrime)
-	let cMin = Math.min(rPrime, gPrime, bPrime)
-
-let lightness = (cMax + cMin)/2
-/*
-Now we gonna check if our lightness is >50% or < 50%.
-If it is >50% we are goin to change text color to black
-otherwise, we gonna set text color to white.
-*/
-	var contentContainer = $('#wrapper');
-	lightness >= 0.50 ? Wrapper.style.setProperty('--supply-fold-color', '#111512') : Wrapper.style.setProperty('--supply-fold-color', '#fff') ;
-} 
-
+	} else {
+		ogFold()
+	}
+	function ogFold(){
+		var ogBGColor;
+		if (OGbg.indexOf("#") > -1){ 
+			ogBGColor = OGbg;
+		} else {
+			ogBGColor = '#'+OGbg;
+		}
+		Wrapper.classList = bodyOG + ' bg-header';
+		if(hasCustomTxtColor){
+			if (OGtxt.indexOf("#") > -1){ 
+				OGtxt = OGtxt;
+			} else {
+				OGtxt = '#' + OGtxt;
+			}
+			document.body.style.setProperty('--supply-fold-color', OGtxt);
+		} else {
+			checkFoldColor(OGbg);
+		}
+		document.body.style.setProperty('--bgcustom', ogBGColor);
+	}
+}
+function checkFoldColor(color){
+	var r, g, b, hsp;
+	if (color.match(/^rgb/)) {
+	  color = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/);
+  
+	  r = color[1];
+	  g = color[2];
+	  b = color[3];
+	} 
+	else {
+		color = +("0x" + color.slice(1).replace( 
+			color.length < 5 && /./g, '$&$&'
+		)
+		);
+	  r = color >> 16;
+	  g = color >> 8 & 255;
+	  b = color & 255;
+	}
+	hsp = Math.sqrt(
+	  0.299 * (r * r) +
+	  0.587 * (g * g) +
+	  0.114 * (b * b)
+	);
+	if (hsp>127.5) {
+		document.body.style.setProperty('--supply-fold-color', '#111512') ;
+	} 
+	else {
+		document.body.style.setProperty('--supply-fold-color', '#fff')
+	}
+}
 const ifWork = document.body.classList.contains('page-template-careers');
 if(ifWork) {
     // HiringThing Job Embed Widget
@@ -333,7 +481,7 @@ if(ifWork) {
             ht_settings.open_jobs_in_new_tab = false;
             }
     
-            var container = $("#hiringthing-jobs");
+            var container = $("#job-listings");
             var spinner = $(
             '<img src="https://images.applicant-tracking.com/images/loading2.gif" />'
             );
@@ -433,7 +581,7 @@ if(ifWork) {
     
                 if (str == "") {
                 str =
-                    '<div class="ht-no-positions">We have no open positions at this time.</div>';
+                    '<h5 class="ht-no-positions">We have no open positions at this time.</h5>';
                 }
     
                 container.html(str);

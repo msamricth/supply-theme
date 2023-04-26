@@ -29,14 +29,21 @@ $type = '';
 $listTitle = '';
 $list_items = ''; 
 $classes .= ' fadeNoScroll';
-$classes .= ' row g-4xl-8 justify-content-between justify-content-4xl-start cp3';
+$classes .= ' justify-content-between justify-content-4xl-start';
+$subClass = 'supply-list cp2';
 $i = 0;
+if ( get_field( 'vertical' ) == 1 ) : 
+    $classes .= ' vertical-stack';
+else : 
+    $classes .= ' row g-4xl-8';
+    $subClass .= ' col-11 col-md-4 col-dlg-3 pe-4xl-5';
+endif; 
 $blockContent .= '<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes ) .'">';
 
 
 if ( have_rows( 'lists' ) ) : 
     while ( have_rows( 'lists' ) ) : the_row(); $i++;   
-        $blockContent .='<div class="col-11 col-md-4 col-dlg-3 cp2 pe-4xl-5 supply-list">';
+        $blockContent .='<div class="'.$subClass.'">';
         if ( have_rows( 'list_item_header' ) ) : 
             while ( have_rows( 'list_item_header' ) ) : the_row(); 
                 $type = get_sub_field( 'type' ); 

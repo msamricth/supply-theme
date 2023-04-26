@@ -36,25 +36,29 @@ $classes .= ' fadeNoScroll';
     }  ?>
 
 	<div class="container" <?php if ( is_admin() ) {?>style="display:none;"<?php } ?>>
-        <div class="row justify-content-between gx-dlg-8 gy-dlg-4">
-            <?php if ( have_rows( 'logos', 'option' ) ) : ?>
-                <?php while ( have_rows( 'logos', 'option' ) ) : the_row();
-                    $client_logo = get_sub_field( 'client_logo' ); 
-                        if ( $client_logo ) : 
-                            if($i <= 10) {?>
-                                <div class="logo-container col-6 col-md-4 text-center">
-                                    <img src="<?php echo esc_url( $client_logo['url'] ); ?>" class="" alt="<?php the_sub_field( 'client_name' ); ?>" />
-                                </div>
-                            <?php }
-                            if($i === 11){ ?>
-                                <div class="logo-container col-6 col-md-4 text-center">
-                                    <img src="<?php echo esc_url( $client_logo['url'] ); ?>" class="cp3" alt="<?php the_sub_field( 'client_name' ); ?>" />
-                                </div>
-                            <?php }
-                        endif; ?>
-                <?php $i++; endwhile; ?>
-            <?php else : ?>
-            <?php endif; ?>
+        <div class="row">
+            <div class="col-12 col-xl-10 offset-xl-1">
+                <div class="row justify-content-between gx-dlg-8 gy-dlg-4">
+                    <?php if ( have_rows( 'logos', 'option' ) ) : ?>
+                        <?php while ( have_rows( 'logos', 'option' ) ) : the_row();
+                            $client_logo = get_sub_field( 'client_logo' ); 
+                                if ( $client_logo ) : 
+                                    if($i <= 10) {?>
+                                        <div class="logo-container col-6 col-md-4 col-4xl-3 text-center">
+                                            <img src="<?php echo esc_url( $client_logo['url'] ); ?>" class="" alt="<?php the_sub_field( 'client_name' ); ?>" />
+                                        </div>
+                                    <?php }
+                                    if($i === 11){ ?>
+                                        <div class="logo-container col-6 col-md-4 col-4xl-3 text-center">
+                                            <img src="<?php echo esc_url( $client_logo['url'] ); ?>" class="cp3" alt="<?php the_sub_field( 'client_name' ); ?>" />
+                                        </div>
+                                    <?php }
+                                endif; ?>
+                        <?php $i++; endwhile; ?>
+                    <?php else : ?>
+                    <?php endif; ?>
+                </div>
+            </div>
         </div>
     </div>
 </div>

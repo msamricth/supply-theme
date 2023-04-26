@@ -29,7 +29,7 @@
         opacity: .5;
     }
     .form-control:focus{
-        border-color: rgba($white, 1);
+        border-color: rgba($white, 0.75);
         &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
             color: $white;
             opacity: 0.65;
@@ -51,15 +51,15 @@
     }
     &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
         color: $primary;
-        opacity: 0.75;
+        opacity: 0.50;
     }
     &:-ms-input-placeholder { /* Internet Explorer 10-11 */
         color: $primary;
-        opacity: 0.75;
+        opacity: 0.50;
     }
     &::-ms-input-placeholder { /* Microsoft Edge */
         color: $primary;
-        opacity: 0.75;
+        opacity: 0.50;
     }
     &:focus, &:-internal-autofill-selected {
         opacity: 1;
@@ -80,6 +80,69 @@
             -webkit-box-shadow: 0 0 0 30px $white inset !important;
             -webkit-text-fill-color: $primary !important;
         }
+    }
+}
+.page-contact {
+    .wpcf7 form.sent .wpcf7-response-output {
+        display: none;
+    }
+    .form-floating>label {
+        opacity: .5;
+        padding: 1rem 0 8px;
+    }.form-floating>.form-control, .form-floating>.form-control-plaintext {
+        padding: 1rem 0 8px;
+    }
+    .form-floating> textarea.form-control:not(:placeholder-shown) {
+        padding-top: 1.625rem;
+        padding-bottom: 8px;
+    }
+}
+.form-floating {
+    &>.form-control-plaintext~label, &>.form-control:focus~label, &>.form-control:not(:placeholder-shown)~label, &>.form-select~label {
+        font-size: 12px;
+        left:-3px;
+        @include media-breakpoint-up(md) {
+            font-size: 14px;
+        }
+    }
+    &>label {
+        padding-left: 0;
+    }
+    &>.form-control, &>.form-control-plaintext {
+        padding-left: 0;
+    }
+}
+.wpcf7-form {
+    .btn {
+        border-radius: 0;
+        padding: 7px 40px;
+        @include media-breakpoint-up(md) {
+            padding: 7px 50px;
+        }
+        &:disabled {
+            background-color: $gray-200;
+            color: $disabled-btn-color;
+            opacity: 1;
+        }
+        &:focus {
+            background-color: $black;
+        }
+    }
+}
+.footer-cta {
+     .form-floating>label {
+        display:none;
+    }
+    .form-floating>.form-control-plaintext:focus, .form-floating>.form-control-plaintext:not(:placeholder-shown), .form-floating>.form-control:focus, .form-floating>.form-control:not(:placeholder-shown) {
+        padding: 1rem 0 20px;
+    }
+    .form-floating .form-control:focus + label {
+        display:initial;
+    }
+}
+.form-floating {
+    .form-control:focus::placeholder, .wpcf7-form-control.wpcf7-textarea.form-control:focus::placeholder{
+        color: transparent;
     }
 }
 textarea.form-control {

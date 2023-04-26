@@ -1,7 +1,4 @@
 
-h6, .h6, .h7 {
-    font-size: 20px;
-}
 @include media-breakpoint-up(md) { 
     h1, .h1 {
         font-size: 72px;
@@ -27,9 +24,6 @@ h6, .h6, .h7 {
 
 }
 @include media-breakpoint-up(md) {
-    a, .form-control,.wpcf7-form-control, .wpcf7-submit {
-        font-size: 18px;
-    }
     .wpcf7-submit.footer-btn {
         font-size: 16px;
     }
@@ -44,6 +38,9 @@ h6, .h6, .h7 {
     }
 }
 @include media-breakpoint-up(lg) {
+    .form-control,.wpcf7-form-control, .wpcf7-submit {
+        font-size: 18px;
+    }
     h3, .h3 {
         font-size: 52px;
         line-height: 1.23;
@@ -102,7 +99,7 @@ h6, .h6, .h7 {
    .ratio.ratio-iphone {
         --bs-aspect-ratio: calc(19.5 / 9 * 100%);
     }
-    h1, h3 {
-        font-size: 36px ;
+    h3 {
+        font-size: 36px;
     }
 }

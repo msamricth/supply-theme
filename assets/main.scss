@@ -109,7 +109,8 @@ $gray-600: #8D8D8D;
 $gray-500: #B5B5B5;
 $gray-400: #E5E5E5;
 $gray-300: #f5f5f5;
-$gray-200: #FAF9F8;
+$gray-200: #F2F2F2;
+$gray-100: #FAF9F8;
 $green: #50E3AE;
 $red: #FE0000;
 $blue: #00aeef;
@@ -117,6 +118,7 @@ $cyan: #59caf5;
 $white: #ffffff;
 $black: #000;
 $enable-rfs: false;
+$disabled-btn-color: #B9BAB9;
 $input-placeholder-color: #808080; 
 $input-border-color: $gray-900;
 $input-border-radius: 0;
@@ -124,7 +126,7 @@ $secondary: $gray-800;
 $font-size-base: 1.125rem;
 $font-size-lg: $font-size-base * 1.75;
 $h2-font-size: 1.875rem;
-$h1-font-size: 2.25rem;
+$h1-font-size: 2.125rem;
 $h3-font-size: 2.25rem;
 $h4-font-size: 1.5rem;
 $h5-font-size: 2rem;
@@ -137,7 +139,7 @@ $grid-gutter-width: 20px;
 $input-font-size: 0.875rem;
 $nav-link-padding-x: 2.25rem;
 $nav-link-padding-y: 1.4125rem;
-$grid-breakpoints: ( xs: 0, smm: 320px, sm: 576px, md: 768px, lg: 992px, dlg: 1024px, xl: 1290px, xxl: 1440px, 3xl: 1920px, 4xl: 2400px  );
+$grid-breakpoints: ( xs: 0, smm: 320px, sm: 576px, md: 768px, lg: 992px, dlg: 1024px, xl: 1290px, extra: 1400px, xxl: 1440px, 3xl: 1920px, 4xl: 2400px  );
 $input-font-family: $link_font;
 $nav-link-padding-x: 2.25rem;
 $navbar-nav-link-padding-x: 2.25rem;
@@ -210,19 +212,19 @@ $spacers: (
 @import "../node_modules/bootstrap/scss/buttons";
 @import "../node_modules/bootstrap/scss/transitions";
 @import "../node_modules/bootstrap/scss/dropdown";
-@import "../node_modules/bootstrap/scss/button-group";
+// @import "../node_modules/bootstrap/scss/button-group";
 @import "../node_modules/bootstrap/scss/nav";
 @import "../node_modules/bootstrap/scss/navbar";
 @import "../node_modules/bootstrap/scss/card";
 @import "../node_modules/bootstrap/scss/accordion";
-@import "../node_modules/bootstrap/scss/breadcrumb";
-@import "../node_modules/bootstrap/scss/badge";
+// @import "../node_modules/bootstrap/scss/breadcrumb";
+// @import "../node_modules/bootstrap/scss/badge";
 @import "../node_modules/bootstrap/scss/alert";
 @import "../node_modules/bootstrap/scss/progress";
 @import "../node_modules/bootstrap/scss/list-group";
 @import "../node_modules/bootstrap/scss/close";
-@import "../node_modules/bootstrap/scss/tooltip";
-@import "../node_modules/bootstrap/scss/popover";
+// @import "../node_modules/bootstrap/scss/tooltip";
+// @import "../node_modules/bootstrap/scss/popover";
 @import "../node_modules/bootstrap/scss/spinners";
 @import "../node_modules/bootstrap/scss/offcanvas";
 @import "../node_modules/bootstrap/scss/helpers";
@@ -493,7 +495,22 @@ img {
 		margin-top: 60px;
 	}
 }
-
+:root {
+	--bs-light-rgb: var(--bs-white-rgb) !important;
+	--cs-video-height: 100vh;
+	--bgcustom: var(--bs-white);
+	--supply-carousel-height: 400px;
+	--supply-carousel-maxheight: 177px;
+	@include media-breakpoint-up(md) { 
+		--supply-carousel-maxheight: 405px;
+	}
+	@include media-breakpoint-up(dlg) { 
+		--supply-carousel-maxheight: 562px;
+	}
+	@include media-breakpoint-up(3xl) { 
+		--supply-carousel-maxheight: 750px;
+	}
+}
 @import "scss/_animations.scss";
 @import "scss/_containers.scss";
 @import "scss/_type.scss";
@@ -506,14 +523,10 @@ img {
 @import "scss/_cards.scss";
 @import "scss/_home.scss";
 @import "scss/_case_study.scss";
-
+@import "../node_modules/@splidejs/splide/src/css/core/index.scss";
 @import "scss/_logo_garden.scss";
 @import "scss/_careers.scss";
 @import "scss/_work.scss";
 @import "scss/_blocks.scss";
 @import "scss/_utilities.scss";
 @import "scss/_responsive.scss";
-
-:root{
-	--bs-light-rgb: var(--bs-white-rgb) !important;
-}

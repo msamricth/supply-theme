@@ -95,3 +95,25 @@ add_filter('wpcf7_form_elements', function($content) {
 });
 // Remove <p> and <br/> from Contact Form 7
 add_filter('wpcf7_autop_or_not', '__return_false');
+
+
+function is_page_php(){
+    if ( is_page_template( 'page.php' ) ) { return 'true';}
+}
+function add_slug_body_class( $classes ) {
+    global $post;
+    if ( isset( $post ) ) {
+        $classes[] = $post->post_type . '-' . $post->post_name;
+    }
+    return $classes;
+}
+add_filter( 'body_class', 'add_slug_body_class' );
+
+function add_categories_to_pages() {
+    register_taxonomy_for_object_type( 'category', 'page' );
+}
+add_action( 'init', 'add_categories_to_pages' );
+function add_tags_to_pages() {
+    register_taxonomy_for_object_type( 'post_tag', 'page' );
+}
+add_action( 'init', 'add_tags_to_pages');

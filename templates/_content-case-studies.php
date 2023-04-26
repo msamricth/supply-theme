@@ -10,6 +10,7 @@ if (isset($args['classes'])) {
     $classes = $args['classes'];
     echo '<div class="fold" '. $utils.'></div>';
 } 
+$header_video ='';
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( $classes ); echo $utils; ?>>
     <div class="card border-0">
@@ -22,7 +23,9 @@ if (isset($args['classes'])) {
                         if ( have_rows( 'header_media', get_the_ID()) ) :
                             while ( have_rows( 'header_media' ) ) : the_row();
                                 $header_video =  get_sub_field( 'video' );
-                                echo '<div class="post-thumbnail ratio ratio-16x9">' . background_video($header_video) . '</div>';
+                                if($header_video){
+                                    echo '<div class="post-thumbnail ratio ratio-16x9">' . background_video($header_video) . '</div>';  
+                                }
                             endwhile;
                         endif;
                     endif;

@@ -1,6 +1,19 @@
+.customScheme {
+    .footer {
+        background-color: var(--bgcustom) !important;
+    }
+}
+
+body:not(.customScheme) {
+    .footer{
+        --supply-fold-color: white !important;
+    }
+}
+
+
+
 .footer {
     min-height: 667px;
-    --supply-fold-color: white !important;
     p, .footer-content * {
          color: white;
     }
@@ -20,6 +33,20 @@
         .input-group {
             flex-wrap: initial;
         }
+        .wpcf7-response-output {
+            display: none !important;
+        }
+        input.wpcf7-form-control.form-control {
+            height: 30px;
+            padding-bottom: 20px;
+        }
+        
+        .form-floating label {
+            margin-top: -24px;
+            margin-left: -3px !important;
+            transition: margin 0.25s ease, opacity 0.25s ease;
+        }
+        
     }
     .nav-underline {
         background-color: $white !important;

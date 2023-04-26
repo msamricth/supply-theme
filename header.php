@@ -20,6 +20,7 @@
 	$search_enabled  = get_theme_mod( 'search_enabled', '1' ); // Get custom meta-value.
 	$nav_dark_image = '';
 	$nav_light_image = '';
+	$addtlAttr = '';
 	if ( have_rows( 'nav_logos', 'option' ) ) : 
 		while ( have_rows( 'nav_logos', 'option' ) ) : the_row(); 
 			$nav_dark = get_sub_field( 'nav_dark' ); 
@@ -63,6 +64,22 @@
 		$scheme = 'bg-light';
 	}
 
+	if(strpos($scheme, 'bg-custom') !== false){
+		$customBG = get_field( 'custom_bg_color' ); 
+		$customColorVar = get_field( 'custom_text_color' ); 
+		$customColor = '';
+		if($customColorVar){
+			if(strpos($customColorVar, '#') !== false){
+				$customColor = $customColorVar;
+			} else {
+				$customColor = '#'.$customColorVar;
+			}
+			$customColor = ' --bgcustom: '.$customColorVar;
+			$addtlAttr .= 'data-color="'.$customColor.'" ';
+		}
+		$addtlAttr .= 'data-bg="'.$customBG.'"';
+		$bodyClasses .=" customScheme ";
+	}
 	$dataAttributes = '';
 	$ogClass = $scheme;
 	$wrapperClasses .= $scheme;
@@ -125,7 +142,7 @@
 
 <a href="#main" class="visually-hidden-focusable"><?php esc_html_e( 'Skip to main content', 'supply' ); ?></a>
 <div class="scroller" data-scroller <?php echo $dataAttributes; ?>>
-	<div id="wrapper" class="<?php echo $wrapperClasses; ?>" data-og_class="<?php echo $ogClass; ?>"> 
+	<div id="wrapper" class="<?php echo $wrapperClasses; ?>" data-og_class="<?php echo $ogClass; ?>" <?php echo $addtlAttr; ?>> 
 		<header id="nav-header">
 			<nav id="header" class="navbar navbar-expand-md <?php  if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' fixed-top'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' fixed-bottom'; endif; if ( is_home() || is_front_page() ) : echo ' home'; endif; ?>">
 				<div class="container">

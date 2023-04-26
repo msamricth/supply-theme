@@ -21,6 +21,21 @@
         }
     }
 }
+.ht-no-positions {
+    transition: color .4s ease;
+  
+    margin-bottom: 12px;
+    margin-top: 0;
+    color: var(--supply-fold-color);
+}
+@include media-breakpoint-up(md) {
+    .ht-no-positions {
+    }
+}
+@include media-breakpoint-up(3xl) {
+    .ht-no-positions {
+    }
+}   
 .page-template-careers {
     .card {
         border-bottom: 1px solid rgb($primary,.39) !important;
@@ -32,12 +47,12 @@
         }
     }
     .header-container.header-partial {
-        margin-bottom: 100px;
+     //   margin-bottom: 100px;
         @include media-breakpoint-up(md) {
-            margin-bottom: 136px;
+      //      margin-bottom: 136px;
         }
         @include media-breakpoint-up(3xl) {
-            margin-bottom: 180px;
+    //        margin-bottom: 180px;
         }
     }
 }

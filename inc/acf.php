@@ -50,8 +50,8 @@ function custom_block_category( $categories ) {
     return $categories_sorted;
 }
 add_filter( 'block_categories', 'custom_block_category', 10, 2);
-add_action( 'acf/init', 'register_supply_stats_block' );
-function register_supply_stats_block() {
+add_action( 'acf/init', 'register_supply_blocks' );
+function register_supply_blocks() {
 
 	if ( function_exists( 'acf_register_block_type' ) ) {
 
@@ -72,15 +72,6 @@ function register_supply_stats_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-stats/supply-stats.js',
 			// 'enqueue_assets' 	=> 'supply_stats_block_enqueue_assets',
 		));
-
-	}
-
-}
-add_action( 'acf/init', 'register_supply_fold_block' );
-function register_supply_fold_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
 		// Register Supply Fold block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-fold',
@@ -98,41 +89,23 @@ function register_supply_fold_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-fold/supply-fold.js',
 			// 'enqueue_assets' 	=> 'supply_fold_block_enqueue_assets',
 		));
-
-	}
-
-}
-add_action( 'acf/init', 'register_supply_media_block' );
-function register_supply_media_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
 		// Register Supply media block
-		acf_register_block_type( array(
-			'name' 					=> 'supply-media',
-			'title' 				=> __( 'Supply media' ),
-			'description' 			=> __( 'A custom Supply media block.' ),
-			'category' 				=> 'supply-blocks',
-			'icon'					=> 'format-video',
-			'keywords'				=> array( 'supply', 'media' ),
-			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
-			'mode'					=> 'auto',
+		//acf_register_block_type( array(
+			//'name' 					=> 'supply-media',
+			//'title' 				=> __( 'Supply media (V1 Discontinued)' ),
+			//'description' 			=> __( 'A custom Supply media block.' ),
+			//'category' 				=> 'supply-blocks',
+			//'icon'					=> 'format-video',
+			//'keywords'				=> array( 'supply', 'media' ),
+			//'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			//'mode'					=> 'auto',
 			// 'align'				=> 'wide',
-			'render_template'		=> 'templates/blocks/supply-media.php',
+			//'render_template'		=> 'templates/blocks/supply-media.php',
 			// 'render_callback'	=> 'supply_media_block_render_callback',
 			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-media/supply-media.css',
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-media/supply-media.js',
 			// 'enqueue_assets' 	=> 'supply_media_block_enqueue_assets',
-		));
-
-	}
-
-}
-add_action( 'acf/init', 'register_supply_content_block_block' );
-function register_supply_content_block_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
+		//));
 		// Register Supply Content Block block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-content-block',
@@ -150,16 +123,40 @@ function register_supply_content_block_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-content-block/supply-content-block.js',
 			// 'enqueue_assets' 	=> 'supply_content_block_block_enqueue_assets',
 		));
-
-	}
-
-}
-add_action( 'acf/init', 'register_supply_quotes_block' );
-function register_supply_quotes_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
-		// Register Supply Quotes block
+		// Register Supply Heading Block block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-heading-block',
+			'title' 				=> __( 'Supply Heading Block' ),
+			'description' 			=> __( 'A custom Supply Heading Block block.' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'heading',
+			'keywords'				=> array( 'supply', 'type' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-heading-block.php',
+			// 'render_callback'	=> 'supply_content_block_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-content-block/supply-content-block.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-content-block/supply-content-block.js',
+			// 'enqueue_assets' 	=> 'supply_content_block_block_enqueue_assets',
+		));
+		// Register Supply Link Block block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-link-block',
+			'title' 				=> __( 'Supply Link Block' ),
+			'description' 			=> __( 'A custom Supply Link Block block.' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'admin-links',
+			'keywords'				=> array( 'supply', 'type' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-link-block.php',
+			// 'render_callback'	=> 'supply_content_block_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-content-block/supply-content-block.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-content-block/supply-content-block.js',
+			// 'enqueue_assets' 	=> 'supply_content_block_block_enqueue_assets',
+		));
 		acf_register_block_type( array(
 			'name' 					=> 'supply-quotes',
 			'title' 				=> __( 'Supply Quotes' ),
@@ -176,13 +173,6 @@ function register_supply_quotes_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-quotes/supply-quotes.js',
 			// 'enqueue_assets' 	=> 'supply_quotes_block_enqueue_assets',
 		));
-	}
-}
-add_action( 'acf/init', 'register_supply_contact_block' );
-function register_supply_contact_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
 		// Register Supply Contact block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-contact',
@@ -200,15 +190,6 @@ function register_supply_contact_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-contact/supply-contact.js',
 			// 'enqueue_assets' 	=> 'supply_contact_block_enqueue_assets',
 		));
-
-	}
-
-}
-add_action( 'acf/init', 'register_supply_list_block' );
-function register_supply_list_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
 		// Register Supply List Block block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-list-block',
@@ -226,15 +207,6 @@ function register_supply_list_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-list-block/supply-list-block.js',
 			// 'enqueue_assets' 	=> 'supply_list_block_block_enqueue_assets',
 		));
-
-	}
-
-}
-add_action( 'acf/init', 'register_supply_separator_block' );
-function register_supply_separator_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
 		// Register Supply Separator Block block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-separator-block',
@@ -252,15 +224,6 @@ function register_supply_separator_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-separator-block/supply-separator-block.js',
 			// 'enqueue_assets' 	=> 'supply_separator_block_block_enqueue_assets',
 		));
-
-	}
-
-}
-add_action( 'acf/init', 'register_supply_logo_garden_block' );
-function register_supply_logo_garden_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
 		// Register Supply Logo Garden block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-logo-garden',
@@ -278,15 +241,6 @@ function register_supply_logo_garden_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-logo-garden/supply-logo-garden.js',
 			// 'enqueue_assets' 	=> 'supply_logo_garden_block_enqueue_assets',
 		));
-
-	}
-
-}
-add_action( 'acf/init', 'register_supply_call_to_action_block' );
-function register_supply_call_to_action_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
 		// Register Supply Call to Action block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-call-to-action',
@@ -304,15 +258,6 @@ function register_supply_call_to_action_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-call-to-action/supply-call-to-action.js',
 			// 'enqueue_assets' 	=> 'supply_call_to_action_block_enqueue_assets',
 		));
-
-	}
-
-}
-add_action( 'acf/init', 'register_supply_feature_block' );
-function register_supply_feature_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
 		// Register Supply Feature Block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-feature-block',
@@ -330,46 +275,34 @@ function register_supply_feature_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.js',
 			// 'enqueue_assets' 	=> 'supply_feature_block_block_enqueue_assets',
 		));
-
-	}
-
-}
-if( function_exists('acf_register_block_type') ):
-
-	acf_register_block_type(array(
-		'name' => 'case-study-intro',
-		'title' => 'Case Study Intro',
-		'description' => 'Introduction Block for Case Studies',
-		'category' => 'supply-blocks',
-		'keywords' => array(
-		),
-		'post_types' => array( 'post', 'page', 'case-studies', 'careers' ),
-		'mode' => 'preview',
-		'align' => '',
-		'align_content' => NULL,
-		'render_template' => 'templates/blocks/supply-case-study-intro.php',
-		'render_callback' => '',
-		'enqueue_style' => '',
-		'enqueue_script' => '',
-		'enqueue_assets' => '',
-		'icon' => 'id-alt',
-		'supports' => array(
-			'align' => true,
-			'mode' => true,
-			'multiple' => true,
-			'jsx' => false,
-			'align_content' => false,
-			'anchor' => false,
-		),
-	));
-	
-	endif;
-add_action( 'acf/init', 'register_supply_posts_block' );
-function register_supply_posts_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
-		// Register Supply Feature Block
+		// Register Supply Case Study Introduction Block
+		acf_register_block_type(array(
+			'name' => 'case-study-intro',
+			'title' => 'Case Study Intro',
+			'description' => 'Introduction Block for Case Studies',
+			'category' => 'supply-blocks',
+			'keywords' => array(
+			),
+			'post_types' => array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode' => 'preview',
+			'align' => '',
+			'align_content' => NULL,
+			'render_template' => 'templates/blocks/supply-case-study-intro.php',
+			'render_callback' => '',
+			'enqueue_style' => '',
+			'enqueue_script' => '',
+			'enqueue_assets' => '',
+			'icon' => 'id-alt',
+			'supports' => array(
+				'align' => true,
+				'mode' => true,
+				'multiple' => true,
+				'jsx' => false,
+				'align_content' => false,
+				'anchor' => false,
+			),
+		));
+		// Register Supply Feature Posts Block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-posts-block',
 			'title' 				=> __( 'Supply Posts Block' ),
@@ -386,16 +319,7 @@ function register_supply_posts_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.js',
 			// 'enqueue_assets' 	=> 'supply_feature_block_block_enqueue_assets',
 		));
-
-	}
-
-}
-add_action( 'acf/init', 'register_supply_pagination_block' );
-function register_supply_pagination_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
-		// Register Supply Feature Block
+		// Register Supply pagination Block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-pagination-block',
 			'title' 				=> __( 'Supply pagination Block' ),
@@ -412,26 +336,7 @@ function register_supply_pagination_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.js',
 			// 'enqueue_assets' 	=> 'supply_feature_block_block_enqueue_assets',
 		));
-
-	}
-
-}
-
-add_filter(
-    'acf/pre_save_block',
-    function( $attributes ) {
-        if ( empty( $attributes['anchor'] ) ) {
-            $attributes['anchor'] = 'acf-block-' . uniqid();
-        }
-        return $attributes;
-    }
-);
-add_action( 'acf/init', 'register_supply_padding_block' );
-function register_supply_padding_block() {
-
-	if ( function_exists( 'acf_register_block_type' ) ) {
-
-		// Register Supply Feature Block
+		// Register Supply padding Block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-padding-block',
 			'title' 				=> __( 'Supply Padding Block' ),
@@ -448,10 +353,47 @@ function register_supply_padding_block() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.js',
 			// 'enqueue_assets' 	=> 'supply_feature_block_block_enqueue_assets',
 		));
+		// Register Supply Carousel Block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-carousel-block',
+			'title' 				=> __( 'Supply Carousel Block' ),
+			'description' 			=> __( 'Supply Carousel Block' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'images-alt',
+			'keywords'				=> array( 'supply', 'carousel', 'block' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			'render_template'		=> 'templates/blocks/supply-carousel-block.php',
+			'enqueue_script' 	=> 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js',
+			
+		));
+	
+		// Register Supply Media (v2) Block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-media-v2-block',
+			'title' 				=> __( 'Supply Media Block (V2)' ),
+			'description' 			=> __( 'Supply Media Block (Version 2)' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'format-video',
+			'keywords'				=> array( 'supply', 'media', 'video', 'block' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			'render_template'		=> 'templates/blocks/supply-media-block.php',
+		));
 
 	}
 
 }
+
+add_filter(
+    'acf/pre_save_block',
+    function( $attributes ) {
+        if ( empty( $attributes['anchor'] ) ) {
+            $attributes['anchor'] = 'acf-block-' . uniqid();
+        }
+        return $attributes;
+    }
+);
 /*disable Careers Custom Post type for now
 
 register_post_type('careers', array(

@@ -63,7 +63,7 @@ $classes .=' fadeNoScroll';
             ?>
             </p>
         </div>
-        <div class="pt-4 mt-2 mt-md-4">
+        <div class="pt-4 mt-2 mt-md-4 fl">
             <p class="md-0">
                 <span class="iso-reg footer-label d-block">
                     <?php the_field( 'headquarters_label', 'option' ); ?>

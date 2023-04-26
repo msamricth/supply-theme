@@ -61,7 +61,7 @@ if($advanceHeader) {
     $blockClasses = 'col-dlg-10 mx-auto col-xl-8';
 ?>
 <div id="header-<?php the_ID(); ?>" class="<?php echo esc_attr( $classes ); ?>">
-    <header class="page-header page-header fold" data-class="header">
+    <header class="page-header fold" data-class="header">
         <div class="container">
             <?php if (empty($no_headerText)) {
                 if($header_text){ 
@@ -79,7 +79,7 @@ if($advanceHeader) {
             <?php echo video_containers($vimeoVideo, $vimeo_video_mobile, $video_ratio); 
             else:?>
             <?php if ( $image ) : 
-                echo image_containers($image, $image_mobile);
+                echo image_containers($image, $image_mobile, $video_ratio);
             endif; ?>
         <?php endif; ?>
     </div>
