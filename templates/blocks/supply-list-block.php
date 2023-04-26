@@ -29,7 +29,7 @@ $type = '';
 $listTitle = '';
 $list_items = ''; 
 $classes .= ' fadeNoScroll';
-$classes .= ' justify-content-between justify-content-4xl-start cp3';
+$classes .= ' justify-content-between justify-content-4xl-start';
 $subClass = 'supply-list cp2';
 $i = 0;
 if ( get_field( 'vertical' ) == 1 ) : 

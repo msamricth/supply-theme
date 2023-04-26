@@ -18,16 +18,24 @@ body {
     }
 }
 h3 {
-    line-height: 1.22 ;
+    line-height: 1.22;
+}
+h5 {
+    line-height: 1.33;
+    font-size: 24px;
 }
 h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     font-family: 'Calibre';
     font-weight: 600;
 }
-.h7 {
+h6, .h6, .h7 {
     font-family: 'Calibre';
     font-size: 1rem;
+    @include media-breakpoint-up(md) {
+        font-size: 20px;
+    }
 }
+
 a, .nav-link {
     font-family: $link_font;
     transition: color .25s;

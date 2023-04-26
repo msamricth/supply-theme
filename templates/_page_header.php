@@ -42,6 +42,8 @@ $classes .= $header_type;
 if ( get_field( 'disable_header_text' ) == 1 ) :
     $turnTextOff = 1;
 endif;
+$headerOverlayBG = '';
+$headerOverlayOpacity = '';
 
 
 //Structure Functions
@@ -73,12 +75,27 @@ $header_content .= '<header class="page-header fold" data-class="header">';
                 $header_content .= '</div>';
                 $afterContainer = supply_page_starter();
                 break;
+            
+            case 'services':
+                $blockClasses = 'mx-auto col-xl-10 col-3xl-9 col-4xl-8';
+                if ( get_field( 'sit_under_nav' ) == 1 ) :
+                    $classes .= ' under-nav'; 
+                endif;
+                $classes .= ' header-partial';
+                $headerMedia= true;
+                $header_content .= '<div class="container">';
+                $blockContent .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
+                $header_content .= supply_grid($blockContent, $blockClasses); 
+                $header_content .= '</div>';
+                $afterContainer = supply_page_starter();
+                break;   
 
             case 'standardmedialinked':
                 $headerMedia= true;
                 if ( get_field( 'sit_under_nav' ) == 1 ) :
                     $classes .= ' under-nav'; 
                 endif;
+                $blockClasses = 'col-dlg-12 mx-auto col-xl-9 col-xxl-8 col-3xl-7 col-4xl-6';
                 $classes .= ' header-partial';
                 $header_content .= '<div class="container">';
                 $blockContent .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
@@ -88,6 +105,24 @@ $header_content .= '<header class="page-header fold" data-class="header">';
                 $afterContainer = supply_page_starter();
                 break;   
 
+            case 'contact':
+                $blockClasses = 'col-dlg-10 mx-auto col-xl-8 col-3xl-11';
+                $beforeContainer = supply_page_starter();
+                $header_content .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
+                $hasSidebar = is_page_php();
+                if ( get_field( 'sit_under_nav' ) == 1 ) :
+                    $classes .= ' under-nav'; 
+                endif;
+                if ( ! empty( $hasSidebar ) ) {
+                    $classes .= ' d-dlg-none';
+                    $afterContainer .='<div class="row">';
+                    $afterContainer .='<div class="col-dlg-7 col-xl-7 col-3xl-5 offset-3xl-1 fadeNoScroll order-2 order-dlg-1">';
+                    $afterContainer .='<header class="page-header d-dlg-block d-none fold" data-class="header">';
+                    $afterContainer .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
+                    $afterContainer .= '</header>';
+                }
+                break;
+                
             case 'basic':
                 $beforeContainer = supply_page_starter();
                 $header_content .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
@@ -98,7 +133,7 @@ $header_content .= '<header class="page-header fold" data-class="header">';
                 if ( ! empty( $hasSidebar ) ) {
                     $classes .= ' d-dlg-none';
                     $afterContainer .='<div class="row">';
-                    $afterContainer .='<div class="col-lg-8 col-xl-7 col-3xl-6 fadeNoScroll order-2 order-dlg-1">';
+                    $afterContainer .='<div class="col-dlg-7 col-xl-7 col-3xl-6 fadeNoScroll order-2 order-dlg-1">';
                     $afterContainer .='<header class="page-header d-dlg-block d-none fold" data-class="header">';
                     $afterContainer .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
                     $afterContainer .= '</header>';
@@ -119,7 +154,7 @@ $header_content .= '<header class="page-header fold" data-class="header">';
                 if ( ! empty( $hasSidebar ) ) {
                     $classes .= ' d-dlg-none';
                     $afterContainer .='<div class="row">';
-                    $afterContainer .='<div class="col-lg-8 col-xl-7 col-3xl-6 fadeNoScroll order-2 order-dlg-1">';
+                    $afterContainer .='<div class="col-dlg-7 col-xl-7 col-3xl-5 offset-3xl-1 fadeNoScroll order-2 order-dlg-1">';
                     $afterContainer .='<header class="page-header d-dlg-block d-none fold" data-class="header">';
                     $afterContainer .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
                     $afterContainer .= '</header>';
@@ -133,6 +168,7 @@ if($headerOn == 1){ ?>
             echo $header_content;
         } 
         if(!empty($headerMedia)){
+            
             echo $header_media;
         } ?>
     </div>

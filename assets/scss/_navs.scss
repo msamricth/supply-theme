@@ -54,7 +54,11 @@ body {
                 }
             }
         }
-       
+        &.bg-custom:not(.bg-header) {
+            & > header > .navbar {
+                background-color: var(--bgcustom)!important;
+            }           
+        }
         &.bg-light:not(.bg-header) {
             & > header > .navbar {
                 --supply-nav-rgb: var( --bs-white-rgb);
@@ -86,11 +90,23 @@ body {
             }
         }
         .navbar-toggler {
-            .hamburger-inner {  
+            &.hamburger {
+                padding: 15px 0 15px 15px;
+            }
+            .hamburger-inner {   
+                border-radius: 0px;
+                margin-top: 0;
+                
                 &,
                 &::before,
                 &::after {
                     background-color: var(--supply-fold-color);
+                }
+            }
+            &.hamburger--squeeze:not(.is-active) {
+                .hamburger-inner {   
+                    &:before {top: -6px;}
+                    &:after {bottom: -6px;}
                 }
             }
         }
@@ -108,12 +124,21 @@ header#nav-header {
         -webkit-transition: background-color .45s ease,color .6s ease, opacity .4s ease, transform 0.65s,;
         transition: background-color .45s ease,color .6s ease, opacity .4s ease, transform 0.65s, top .4s ease;
         will-change: background-color,color, opacity;
-            li .nav-link {
+        li .nav-link {
             text-shadow: none;
             outline: none;
         }
         .navbar-toggler {
             box-shadow: none !important;
+        }
+        .navbar-brand {
+            @include media-breakpoint-down(md) { 
+                svg {
+                    margin-top:2px;
+         //           height: 14px;
+           //         width: 73px;
+                }
+            }
         }
 
     }
@@ -173,6 +198,11 @@ header#nav-header {
     list-style: none;
     padding: 0;
     margin-bottom: 51px;
+    @include media-breakpoint-down(lg) { 
+        display: flex;
+       // justify-content: space-between;
+        max-width: 60%;
+    }
     li {
         display: inline;
         a {
@@ -180,6 +210,7 @@ header#nav-header {
             display: inline-block;
             text-align: right;
             font-size: 22px;
+            padding-right: 40px;
             @include media-breakpoint-up(md) { 
                 font-size: 24px;
             }
@@ -267,4 +298,7 @@ header#nav-header {
             }
         }
     }
+}
+.hamburger-inner, .hamburger-inner:after, .hamburger-inner:before {
+    border-radius: 0px;
 }

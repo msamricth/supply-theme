@@ -11,3 +11,4 @@ import './scripts/logocarousel.js';
 import './scripts/forms.js';
 import './scripts/carousel.js';
 import './scripts/theme.js';
+import './scripts/video.js';

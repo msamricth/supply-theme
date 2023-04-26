@@ -150,8 +150,8 @@ if(lazy_load_videos){
 					}
 					ScrollTrigger.create({
 						trigger: video,
-						start: 'top 90%',
-						end: 'bottom 10%',
+						start: 'top 100%',
+						end: 'bottom 15%',
 						markers: videoMarker,
 						onEnter: () => (playVimeo(),varz_dump('onEnter','Play')),
 						onLeave: () => (pauseVimeo(),varz_dump('onLeave','Pause')),
@@ -298,6 +298,20 @@ function setFold(theme, bg = null, txt = null){
 				if(bodyOG == 'bg-custom ') {
 					customFold();
 				}
+				if(bodyOG == 'bg-pattern ') {
+					Wrapper.classList = 'bg-light';
+					setTimeout(
+						function() {
+							Wrapper.classList = 'bg-light ' + theme;
+					}, 400);
+				}
+				break;
+			case 'bg-footer':
+				if(bodyOG == 'bg-custom ') {
+					Wrapper.classList = bodyOG;
+				} else {
+					Wrapper.classList = 'bg-dark';
+				}
 				break;
 			case 'header':
 				Wrapper.classList = bodyOG + ' bg-header';
@@ -344,7 +358,6 @@ function setFold(theme, bg = null, txt = null){
 						}
 					}
 					if(foldBGPrecheck){
-							
 						if (foldBGPrecheck.indexOf("#") > -1){ 
 							foldBG = foldBGPrecheck;
 						} else {
@@ -378,13 +391,13 @@ function customFold(foldBG = null, foldColor = null){
 		if(foldBG == 'undefined'){
 			ogFold();
 		} else {
-			Wrapper.style.setProperty('--bgcustom', foldBG);
+			document.body.style.setProperty('--bgcustom', foldBG);
 			
 			if(foldBG){
 				if(foldColor == null){
 					checkFoldColor(foldBG);
 				} else {
-					Wrapper.style.setProperty('--supply-fold-color', foldColor);
+					document.body.style.setProperty('--supply-fold-color', foldColor);
 				}
 			} else {checkFoldColor(foldBG);}
 		}
@@ -399,18 +412,18 @@ function customFold(foldBG = null, foldColor = null){
 		} else {
 			ogBGColor = '#'+OGbg;
 		}
-		Wrapper.classList = bodyOG;
+		Wrapper.classList = bodyOG + ' bg-header';
 		if(hasCustomTxtColor){
 			if (OGtxt.indexOf("#") > -1){ 
 				OGtxt = OGtxt;
 			} else {
 				OGtxt = '#' + OGtxt;
 			}
-			Wrapper.style.setProperty('--supply-fold-color', OGtxt);
+			document.body.style.setProperty('--supply-fold-color', OGtxt);
 		} else {
 			checkFoldColor(OGbg);
 		}
-		Wrapper.style.setProperty('--bgcustom', ogBGColor);
+		document.body.style.setProperty('--bgcustom', ogBGColor);
 	}
 }
 function checkFoldColor(color){
@@ -437,10 +450,10 @@ function checkFoldColor(color){
 	  0.114 * (b * b)
 	);
 	if (hsp>127.5) {
-	  Wrapper.style.setProperty('--supply-fold-color', '#111512') ;
+		document.body.style.setProperty('--supply-fold-color', '#111512') ;
 	} 
 	else {
-	  Wrapper.style.setProperty('--supply-fold-color', '#fff')
+		document.body.style.setProperty('--supply-fold-color', '#fff')
 	}
 }
 const ifWork = document.body.classList.contains('page-template-careers');
@@ -568,7 +581,7 @@ if(ifWork) {
     
                 if (str == "") {
                 str =
-                    '<div class="ht-no-positions">We have no open positions at this time.</div>';
+                    '<h5 class="ht-no-positions">We have no open positions at this time.</h5>';
                 }
     
                 container.html(str);

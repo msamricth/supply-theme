@@ -24,109 +24,26 @@ if ( ! empty( $block['className'] ) ) {
 if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
-$media_block_video = '';
-$media_block_video_mobile = '';
-$mobile_ratio = '';
-$media_block_image = '';
-$subClasses = '';
-$video_ratio = '';
-$blockStyles = '';
-$video_ratio = '';
-$placerholder = '';
-$mobileplaceholder = '';
-$blockContent = '';
-$self_host_video = '';
+$INTLclasses ='supply-media ';
 if (have_rows('media')):
     while (have_rows('media')):
         the_row();
         $video_ratio = get_sub_field('video_ratio');
         if (get_sub_field('make_full_screen') == 1):
-            $classes .= "fullscreen_media";
-            $video_ratio = 'fullw';
-            $mobile_ratio = 'fullw';
+            $INTLclasses .= "fullscreen_media";
         endif;
-        if (have_rows('video_desktop')):
-            while (have_rows('video_desktop')):
-                the_row();
-                if (have_rows('options')):
-                    while (have_rows('options')):
-                        the_row();
-                        if (get_sub_field('self_host_video') == 1):
-                            $self_host_video = 'true';
-                        endif;
-                        if ($video_ratio)
-                        {
-                        }
-                        else
-                        {
-                            $video_ratio = get_sub_field('video_ratio');
-                        }
-
-                       
-                    endwhile;
-                endif;
-                if ($self_host_video):
-                    $media_block_video = get_sub_field('video_uploaded');
-                    $self_host_video = '';
-                else:
-                    $media_block_video = get_sub_field('video');
-                endif;
-                $placerholder = get_sub_field('video_placeholder');
-            endwhile;
-        endif;
-        if (have_rows('video_mobile')):
-            while (have_rows('video_mobile')):
-                the_row();
-                if (have_rows('options')):
-                    while (have_rows('options')):
-                        the_row();
-                        if (get_sub_field('self_host_video') == 1):
-                            $self_host_video = 'true';
-                        endif;
-                        if ($mobile_ratio)
-                        {
-                        }
-                        else
-                        {
-                            $mobile_ratio = get_sub_field('video_ratio');
-                        }
-
-                        
-                    endwhile;
-                endif;
-
-                if ($self_host_video):
-                    $media_block_video_mobile = get_sub_field('video_mobile_uploaded');
-                else:
-                    $media_block_video_mobile = get_sub_field('video_mobile');
-                endif;
-                $mobileplaceholder = get_sub_field('video_placeholder');
-
-            endwhile;
-        endif;
+        if ( get_sub_field( 'dark_layout' ) == 1 ) : 
+            $INTLclasses .= " dark_layout";
+        endif; 
     endwhile;
 endif;
 
-
+$blockContent = '';
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
     <?php
+    $blockContent .= '<div class="'.$INTLclasses.'">'.media_block_main().'</div>';
 
-    if ($media_block_video): 
-        echo customRatio($mobile_ratio);
-        echo customRatio($video_ratio);
-
-        $blockContent .= video_containers($media_block_video, $media_block_video_mobile, $video_ratio, $mobile_ratio, $placerholder, $mobileplaceholder); 
-
-    else: 
-        if ($placerholder): 
-            if($video_ratio == 'fullw'){
-                $blockContent .= image_containers($placerholder, $mobileplaceholder, $video_ratio, $mobile_ratio); 
-            } else {
-                $blockContent .= image_containersNR($placerholder, $mobileplaceholder); 
-            }
-        endif; 
-    endif; 
 
     if ( have_rows( 'column_placement' ) ) :
         while ( have_rows( 'column_placement' ) ) : the_row();

@@ -8,7 +8,8 @@
 get_header();
 
 the_post();
-
+$reels = get_field('reels');
+$preview = get_field('reels_preview');
 $headline = get_field('headline');
 
 
@@ -26,7 +27,9 @@ $headline = get_field('headline');
                 </div>
             </div>
             <div class=" fold" data-class="header">
-                <?php echo Video_embed(); ?>
+                <?php echo reels($reels,'','', $preview); ?>
+
+                
             </div>
         </div>
     </div>

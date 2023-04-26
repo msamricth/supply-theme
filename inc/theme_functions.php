@@ -167,6 +167,7 @@ function supply_grid_sh($content, $defaults=null){
 }
 function project_title_fromBlock($post_id = null) {
     $current_post = get_queried_object();
+    $title = '';
     if(empty($post_id)){
         $post_id = $current_post ? $current_post->ID : null;
     } 
@@ -217,7 +218,7 @@ function customRatio($ratio) {
         if(strpos(implode(" ",$presetRatios), $ratio) !== false){} else {
             $ratio = str_replace('.', '\.', $ratio);
             $blockStyles .= '<style type="text/css">';
-            $blockStyles .= '.ratio-'.$ratio.':before {';
+            $blockStyles .= '.'.$ratio.':before, .ratio-'.$ratio.':before {';
             $blockStyles .= '  --bs-aspect-ratio: calc('.$ratioHeight.' / '.$ratioWidth.' * 100%);';
             $blockStyles .= '} </style>';
             return $blockStyles;
@@ -345,6 +346,14 @@ function get_header_media(){
     endif;
 
     $header_media .='<div class="header-container__media '.$classes.' fold" data-class="header">';
+    if(get_field('turn_on_overlay')){
+        $headerOverlayBG = "background-color: ". get_field('overlay_color');
+        $headerOverlayOpacity = get_field('opacity_level');
+        if(empty($headerOverlayOpacity)){$headerOverlayOpacity = '0';} else {
+            $headerOverlayOpacity = '.'.$headerOverlayOpacity;
+        }
+        $header_media .='<div class="header-overlay" style="opacity: '.$headerOverlayOpacity.'; '.$headerOverlayBG.'"></div>';
+    }
     if(empty($header_video)){ 
         if($placerholder){
             $header_media .= image_containers($placerholder, $mobileplaceholder, $video_ratio, $mobile_ratio); 
@@ -398,6 +407,7 @@ function header_link(){
                     $cta_link = get_permalink( $page_lookup );
                 endif; 
             endif;  
+            $ctaClasses .= ' h8';
             $output .= '<div class="header-link '.$ctapadding.'"><a href="'.esc_attr($cta_link).'" class="'. esc_attr( $ctaClasses ).'" '.$cta_target.'>'.$cta_label.'</a></div>';
         endwhile; 
     endif; 
@@ -428,7 +438,12 @@ function supply_page_starter(){
             $column_class = 'col-md-12 mx-auto col-dlg-12 col-xl-10';
         endif;
     
-
+        $header_type =  get_field( 'header_type' );
+        switch ( $header_type ) {
+            case 'contact':
+                $column_class .= ' col-3xl-12 mx-3xl-0';
+                break;
+            }           
 
     $output .='<div class="container">';
     $output .='<div class="'.$rowClasses.'">';

@@ -15,7 +15,7 @@
 	</main><!-- /#main -->
 	<footer id="footer" class="bg-black footer text-white pt-6 pt-md-8 fadeNoScroll">
 		<div class="container">
-			<div class="row fold" data-class="bg-footer">
+			<div class="row">
 				<?php
 					if ( has_nav_menu( 'footer-menu' ) ) : // See function register_nav_menus() in functions.php
 						/*
@@ -35,7 +35,7 @@
 							)
 						);
 					endif; ?>
-					<div class="col-md-6 col-lg-5 col-3xl-3 block-supply-contact-block">
+					<div class="col-md-6 col-lg-5 col-3xl-3 block-supply-contact-block fold" data-class="bg-footer">
 						<div class="footer-content supply-underline">
 							<div class="">
 								<p class="md-0">
@@ -45,7 +45,7 @@
 								</p>
 								<p><?php the_field( 'point_of_contact', 'option' ); ?></p>
 							</div>
-							<div class="">
+							<div class="footer-content--additional-content">
 								<?php
 								echo '<p class="fl">';
 								echo '<a href="mailto:';
@@ -68,7 +68,7 @@
 									<?php the_field( 'headquarters_label', 'option' ); ?>
 								</span>
 							</p>
-								<p class="mb-0"><?php the_field( 'headquarters_address', 'option' ); ?></p>
+								<p class="mb-0 fl"><?php the_field( 'headquarters_address', 'option' ); ?></p>
 							</div>
 						</div>
 						<?php if ( is_active_sidebar( 'third_widget_area' ) ) :

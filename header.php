@@ -78,6 +78,7 @@
 			$addtlAttr .= 'data-color="'.$customColor.'" ';
 		}
 		$addtlAttr .= 'data-bg="'.$customBG.'"';
+		$bodyClasses .=" customScheme ";
 	}
 	$dataAttributes = '';
 	$ogClass = $scheme;

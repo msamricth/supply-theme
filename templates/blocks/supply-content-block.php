@@ -47,13 +47,13 @@ endif;
             }
             $blockTitle = get_sub_field('title');
             if($blockTitle){
-                $blockTitle = '<'.$type.' class="cp1 pe-4">'.$blockTitle.'</'.$type.'> ';
+                $blockTitle = '<'.$type.' class="cp1">'.$blockTitle.'</'.$type.'> ';
                 if (empty( $sepContainers ) ) {
                     $blockTitle .= $blockContent;
                 }
             }
             if($blockTitle){
-                echo supply_grid($blockTitle, 'col-md-9 col-dlg-7 col-xl-5 offset-md-1 offset-dlg-2 offset-xl-3');
+                echo supply_grid($blockTitle, 'col-md-10 col-dlg-8 col-xl-6 offset-md-1 offset-dlg-2 offset-xl-3');
             }  
         endwhile; 
        endif;

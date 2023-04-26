@@ -1,4 +1,7 @@
 .video-embed {
+    &::before{
+        transition: 300ms ease-out background-color;
+    }
     .preview-video {
         z-index: 99;
          iframe {
@@ -15,52 +18,74 @@
         font-size: 14px;
         font-weight: 500;
         font-family: $link-font;
-        letter-spacing: 1.94px;
         text-align: center;
-        width: 130px;
-        height: 40px;
-        background-color: rgba(0, 0, 0, 0.5);
+        width: 120px;
+        height: 64px;
+        opacity: 0.75;
+        background-color: transparent;
         border: 0px none;
-        padding-top: 4px;
+        padding: 0;
         appearance: none;
-        transition: color 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) 0s;
+        transition: opacity 200ms ease-out;
         position: absolute;
-        left: 50%;
-        top: 50%;
-        margin: -20px 0px 0px -65px;
+        left: calc(50% - 60px);
+        top: calc(50% - 32px);
         z-index: 199;
-        &:hover {
-            color: $primary;
+        
+        img {
+            width: 40px;
         }
-        &::after {
-            content: "";
-            position: absolute;
-            bottom: 0px;
-            left: 0px;
-            width: 100%;
-            height: 100%;
-            transform: scaleY(0);
-            transform-origin: center bottom;
-            background-color: rgb(254, 254, 254);
-            transition: transform 0.2s ease 0s;
-            z-index: -1;
+        
+        span {
+            display: none;
         }
-        &:hover::after {
-            transform: scaleY(1);
+        @include media-breakpoint-up(md) {
+            img {
+                width: 64px;
+                transition: width 200ms ease-out, margin 200ms ease-out;
+            }
+            span {
+                margin-top: 10px;
+                color:white;
+                display: block;
+                font-size: 18px;
+                font-family: $link_font;
+                -webkit-animation: subtleSlideOut 200ms ease-out both;
+                animation: subtleSlideOut 200ms ease-out both;
+                
+            }
+            &:hover {
+                color: $primary;
+                opacity: 1;
+                height: 72px;
+                img {
+                    margin-top: -4px;
+                    width: 72px;
+                }
+                span {
+                    visibility: visible;
+                    -webkit-animation: subtleSlide 200ms ease-out both;
+                    animation: subtleSlide 200ms ease-out both;
+                }
+            }
         }
     }
     .preview-video + iframe {
         display: none;
     }
     &.video-iframe-container {
+        .iframe-video {
+            z-index: 999 !important;
+        }
         .preview-video {
-            display: none;
+            display: none !important;
         }
         .preview-video + iframe {
             display: block;
+            z-index: 999;
         }
         button {
-            display: none;
+            display: none !important;
         }
     }
 }
@@ -100,6 +125,14 @@
         position: static;
     }
 }
+.supply-media.fullscreen_media {
+    .supply-video {
+        height:100%;
+    }
+    .video-embed button#play-button {
+        min-height: initial;
+    }
+}
 @media(min-width: 576px){
     .ratio.ratio-fullw > * {
         min-height: 100%;
@@ -113,6 +146,116 @@
             height: auto;
             width: 100%;
             min-height: 100%;
+        }
+    }
+}
+.reels {
+    &::before {
+        background-blend-mode: multiply;
+        position: relative;
+        z-index: 1;
+        transition: 300ms ease-out background-color;
+    }
+    &.play-hover::before {
+        @include media-breakpoint-up(md) {
+            background-color: rgba(0, 0, 0, 0.25);
+        }
+        background-blend-mode: multiply;
+        position: relative;
+        z-index: 100;
+    }
+    .reels--preview {
+        background: rgba(0, 0, 0, 0.25);
+        background-blend-mode: multiply;
+    }
+}
+button.mute-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    opacity: .75;
+    background-color: transparent;
+    border: 0;
+    height: auto;
+    top: initial;
+    padding: 0px;
+    position: absolute;
+    width: auto;
+    left: initial;
+    transition: opacity 200ms ease-out;
+    z-index: 1;
+    right: 8px;
+    bottom: 8px;
+    img {
+        width: 40px;
+    }
+    @include media-breakpoint-up(md) {
+        right: 20px;
+        bottom: 20px;
+        img {
+            width: 64px;
+        }
+    }
+    @include media-breakpoint-up(xl) {
+        right: 40px;
+        bottom: 40px;
+    }
+    @include media-breakpoint-up(md) {
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.supply-video.d-none.d-md-block {
+    position: relative;
+}
+button.mute-button.active {
+     .unmute {
+        display: block !important;
+    }
+    .mute {
+        display: none;
+    }
+}
+.mute-controls {
+    &::before {
+        background-blend-mode: multiply;
+        position: relative;
+        z-index: 1;
+        transition: 300ms ease-out background-color;
+    }
+}
+.mute-hover:not(.mute-hover-overide) {
+    &::before {
+         @include media-breakpoint-up(md) { 
+            background-color: rgba(0, 0, 0, 0.25);
+         }
+        transition: 300ms ease-out background-color;
+    }
+}
+.dark_layout{
+    .mute-hover:not(.mute-hover-overide) {
+        &::before {
+            @include media-breakpoint-up(md) {
+                background-color: rgba(255, 255, 255, 0.25);
+            }
+        }
+    }
+    .reels {
+        
+        @include media-breakpoint-up(md) {
+            &.play-hover::before {
+                background-color: rgba(255, 255, 255, 0.25);
+            }
+        }
+        .reels--preview {
+            background: rgba(255, 255, 255, 0.25);
+        }
+        button#play-button {
+            span {
+                color: $primary;
+            }
         }
     }
 }
