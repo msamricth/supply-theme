@@ -319,6 +319,23 @@ function register_supply_blocks() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.js',
 			// 'enqueue_assets' 	=> 'supply_feature_block_block_enqueue_assets',
 		));
+		// Register Supply Feature Posts Block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-article-block',
+			'title' 				=> __( 'Supply Articles Block' ),
+			'description' 			=> __( 'This block displays a loop of Supplys` Articles' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'admin-post',
+			'keywords'				=> array( 'supply', 'posts', 'block' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-articles-block.php',
+			// 'render_callback'	=> 'supply_feature_block_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-feature-block/supply-feature-block.js',
+			// 'enqueue_assets' 	=> 'supply_feature_block_block_enqueue_assets',
+		));
 		// Register Supply pagination Block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-pagination-block',

@@ -1,7 +1,7 @@
 /*!
 Theme Name: Supply Theme
 Theme URI: https://them.es/starter
-Author: Emm Talarico
+Author: Supply
 Author URI: https://workwithsupply.com
 Description: Bootstrap wordpress theme for
 Version: 3.2
@@ -18,7 +18,42 @@ Text Domain: supply
 
 
 /* From http://codex.wordpress.org/CSS */
-
+@font-face {
+	font-display: swap;
+	font-family: 'TiemposText-Regular';
+	font-style: italic;
+	font-weight: normal;
+	src: url('assets/fonts/tiempos-text-web-regular-italic.woff2') format('woff2'),
+	  url('assets/fonts/tiempos-text-web-regular-italic.woff') format('woff');
+}
+@font-face {
+	font-display: swap;
+	font-family: 'ISOv';
+	font-style: normal;
+	font-weight: normal;
+	src: url('assets/fonts/ISOv0.6-Regular.woff') format('woff');
+}
+:root {
+    --bs-font-sans-serif: "TiemposText-Regular";
+    --bs-font-monospace: "ISOv";
+    --bs-body-font-family: TiemposText-Regular;
+    --bs-body-font-size: 1.125rem;
+    --bs-body-font-weight: 400;
+    --bs-body-line-height: 1.667;
+}
+body {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    margin: 0;
+    text-align: var(--bs-body-text-align);
+}
+.nav-link {
+    font-family: ISOv;
+}
 .alignnone {
 	margin: 5px 20px 20px 0;
 }

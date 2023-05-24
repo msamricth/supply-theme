@@ -223,6 +223,8 @@ $spacers: (
 @import "../node_modules/bootstrap/scss/progress";
 @import "../node_modules/bootstrap/scss/list-group";
 @import "../node_modules/bootstrap/scss/close";
+
+@import "../node_modules/bootstrap/scss/toasts";
 // @import "../node_modules/bootstrap/scss/tooltip";
 // @import "../node_modules/bootstrap/scss/popover";
 @import "../node_modules/bootstrap/scss/spinners";
@@ -290,7 +292,7 @@ img {
 .post-thumbnail,
 .wp-video,
 .embed-responsive {
-	margin: 5px 0;
+	
 	width: 100% !important;
 }
 
@@ -376,8 +378,9 @@ img {
 }
 
 .entry-meta {
-	font-size: small;
+	//font-size: small;
 	margin-top: ($grid-gutter-width * .5);
+	margin-bottom: 24px;
 }
 
 .single {
@@ -387,53 +390,6 @@ img {
 	}
 }
 
-#comments {
-	margin-top: $grid-gutter-width;
-}
-
-.comment-meta {
-	height: 40px;
-}
-
-.comment-reply-title {
-	margin: $grid-gutter-width 0 ($grid-gutter-width * .5);
-}
-
-.commentlist {
-	list-style: none;
-	margin: 0 auto;
-	width: 68.9%;
-
-	> li.comment {
-		margin: 0 0 1.625em;
-		padding: 1.625em;
-		position: relative;
-	}
-
-	.children {
-		list-style: none;
-		margin-top: $grid-gutter-width;
-
-		> li.comment {
-			border-top: 1px solid $gray-300;
-			padding-top: $grid-gutter-width;
-			position: relative;
-		}
-	}
-
-	.avatar {
-		width: 64px;
-		height: 64px;
-		border-radius: 50%;
-		box-shadow: 0 1px 2px $gray-600;
-		padding: 0;
-		position: absolute;
-		top: 0;
-		left: -102px;
-	}
-}
-
-/* WordPress Blocks */
 
 // Buttons
 
@@ -530,3 +486,4 @@ img {
 @import "scss/_blocks.scss";
 @import "scss/_utilities.scss";
 @import "scss/_responsive.scss";
+@import "scss/_articles.scss";

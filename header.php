@@ -2,8 +2,10 @@
 <html <?php language_attributes(); ?>>
 <head>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<link rel="preconnect" href="https://player.vimeo.com">
+	<link rel="preconnect" href="https://i.vimeocdn.com">
+	<link rel="preconnect" href="https://f.vimeocdn.com">
 	<?php wp_head();
 	
 	$post_id = '';
@@ -35,7 +37,12 @@
 		endwhile; 
 	endif; 
 		if(strpos($navbar_page_scheme, 'default') !== false){
-			$navbar_scheme = $navbar_theme_scheme;
+			if ( is_single() && 'post' == get_post_type() ) {
+				$navbar_scheme = 'navbar-transparent navbar-dark dark-scheme nav-bg-transparent-dark';
+				//$navbar_scheme .= ' nav-bg-'.$navbar_page_scheme;
+			} else {
+				$navbar_scheme = $navbar_theme_scheme;
+			}
 		} elseif(strpos($navbar_page_scheme, 'transparent-dark') !== false){
 			$navbar_scheme .= 'navbar-transparent navbar-dark dark-scheme';
 			$navbar_scheme .= ' nav-bg-'.$navbar_page_scheme;
@@ -43,8 +50,13 @@
 			$navbar_scheme .= 'navbar-transparent navbar-light light-scheme';
 			$navbar_scheme .= ' nav-bg-'.$navbar_page_scheme;
 		} else {
-			$navbar_scheme .= 'navbar-'.$navbar_page_scheme;
-			$navbar_scheme .= ' nav-bg-'.$navbar_page_scheme;
+			if ( is_single() && 'post' == get_post_type() ) {
+				$navbar_scheme = 'navbar-transparent navbar-dark dark-scheme nav-bg-transparent-dark';
+				//$navbar_scheme .= ' nav-bg-'.$navbar_page_scheme;
+			} else {
+				$navbar_scheme .= 'navbar-'.$navbar_page_scheme;
+				$navbar_scheme .= ' nav-bg-'.$navbar_page_scheme;
+			}
 		}
 
 	$bodyClasses .= $navbar_scheme;
@@ -135,6 +147,13 @@
 		 endforeach; 
 	 endif; 
 ?>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-99172338-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-99172338-3');
+</script>
 </head>
 <body <?php body_class($bodyClasses ); ?>>
 

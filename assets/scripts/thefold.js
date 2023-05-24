@@ -1,6 +1,39 @@
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
+
+//Articles sticky fade in
+const vpWidth = window.innerWidth;
+const articleInteriorPage = document.querySelector(".supply-articles");
+const sidebar = document.querySelector(".sidbar-meta");
+if(articleInteriorPage){
+	if(vpWidth > 380){
+		gsap.from(".sidbar-meta", {
+		scrollTrigger: {
+			onEnter: () => fadeintop(),
+			start: 'top 45%',
+			trigger: ".sidbar-meta",
+			end: 'bottom 35%',
+			onEnterBack: () => fadeOut()
+		}
+		});
+	}
+}
+
+function fadeintop(){
+	if(sidebar.classList.contains('fadeOut')){
+		sidebar.classList.remove('fadeOut');
+	}
+	sidebar.classList.add('fade-in-top');
+}
+
+function fadeOut(){
+	if(sidebar.classList.contains('fade-in-top')){
+		sidebar.classList.remove('fade-in-top');
+	}
+	sidebar.classList.add('fadeOut');
+}
+
 //New Fold
 const foldON = document.body.classList.contains('fold_on');
 const Wrapper = document.getElementById('wrapper');

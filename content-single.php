@@ -3,66 +3,47 @@
  * The template for displaying content in the single.php template.
  *
  */
+
+ $share_text = get_field('share_text','options'); 
+ if(empty( $share_text)){
+	$share_text = 'Share this article';
+ }
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<h1 class="entry-title"><?php the_title(); ?></h1>
-		<?php
-			if ( 'post' === get_post_type() ) :
-		?>
-			<div class="entry-meta">
-				<?php supply_article_posted_on(); ?>
-			</div><!-- /.entry-meta -->
-		<?php
-			endif;
-		?>
-	</header><!-- /.entry-header -->
-	<div class="entry-content">
-		<?php
-			if ( has_post_thumbnail() ) :
-				echo '<div class="post-thumbnail">' . get_the_post_thumbnail( get_the_ID(), 'large' ) . '</div>';
-			endif;
 
-			the_content();
+<div class="container">
+	<div class="row">
+		<div class="order-1 order-md-2 col-md-9 offset-md-1 col-4xl-7 col-dlg-8 col-xl-7 col-4xl-6 entry-content" id="article">
+			<?php
+				
+				the_content();
 
-			wp_link_pages( array( 'before' => '<div class="page-link"><span>' . esc_html__( 'Pages:', 'supply' ) . '</span>', 'after' => '</div>' ) );
-		?>
-	</div><!-- /.entry-content -->
+				wp_link_pages( array( 'before' => '<div class="page-link"><span>' . esc_html__( 'Pages:', 'supply' ) . '</span>', 'after' => '</div>' ) );
+			?>
+			<p class="d-md-none"><span class="seperator"></span></p>
+		</div><!-- /.entry-content -->
+		<div class="order-2 order-md-1 col-md-2 col-dlg-3 offset-4xl-1">
+			
+		
+			<div class="sidbar-meta">
+				<?php the_title('<span class="h6 d-none d-dlg-block">','</span>'); ?>
+				<h5 class="d-md-none"><?php echo $share_text; ?></h5>
+				<?php echo supply_share_buttons(); ?>
+			</div>
+		</div>
+	</div>
+</div>
 
-	<?php
-		edit_post_link( __( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
-	?>
-
-	<footer class="entry-meta">
-		<hr>
-		<?php
-			/* translators: used between list items, there is a space after the comma */
-			$category_list = get_the_category_list( __( ', ', 'supply' ) );
-
-			/* translators: used between list items, there is a space after the comma */
-			$tag_list = get_the_tag_list( '', __( ', ', 'supply' ) );
-			if ( '' != $tag_list ) :
-				$utility_text = __( 'This entry was posted in %1$s and tagged %2$s by <a href="%6$s">%5$s</a>. Bookmark the <a href="%3$s" title="Permalink to %4$s" rel="bookmark">permalink</a>.', 'supply' );
-			elseif ( '' != $category_list ) :
-				$utility_text = __( 'This entry was posted in %1$s by <a href="%6$s">%5$s</a>. Bookmark the <a href="%3$s" title="Permalink to %4$s" rel="bookmark">permalink</a>.', 'supply' );
-			else :
-				$utility_text = __( 'This entry was posted by <a href="%6$s">%5$s</a>. Bookmark the <a href="%3$s" title="Permalink to %4$s" rel="bookmark">permalink</a>.', 'supply' );
-			endif;
-
-			printf(
-				$utility_text,
-				$category_list,
-				$tag_list,
-				esc_url( get_the_permalink() ),
-				the_title_attribute( 'echo=0' ),
-				get_the_author(),
-				esc_url( get_author_posts_url( (int) get_the_author_meta( 'ID' ) ) )
-			);
-		?>
-		<hr>
-		<?php
-			get_template_part( 'author', 'bio' );
-		?>
-	</footer><!-- /.entry-meta -->
-</article><!-- /#post-<?php the_ID(); ?> -->
+<?php edit_post_link( __( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
+	if ( is_admin() ) { ?><style>.d-none {display:none !important} </style> <?php } ?>
+<section class="d-none estimate" id="estimate-<?php the_ID(); ?>"><?php echo wp_strip_all_tags( get_the_content() ); ?></section>
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="liveToast" class="toast bg-dark text-white" role="alert" aria-live="assertive" aria-atomic="true">
+	<div class="d-flex">
+		<div class="toast-body text-white">
+		Article url copied!
+		</div>
+		<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+	</div>
+  </div>
+</div>

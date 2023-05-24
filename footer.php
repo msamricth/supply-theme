@@ -10,6 +10,9 @@
 	if ( get_field( 'make_block_container_fold' ) == 1 ) : 
 	echo '<div class="fold"'.$foldUtils.'></div>';
 	endif;
+	if ( is_single() && 'post' == get_post_type() ) {
+		echo '<div class="fold"'.$foldUtils.'></div>';
+	}
 	echo supply_page_ending();
 	?>
 	</main><!-- /#main -->
@@ -93,7 +96,7 @@
 							<ul class="social-nav ">
 								<?php while ( have_rows( 'add_a_social_media_account', 'option' ) ) : the_row(); $site_title = get_bloginfo( 'name' ); $sm_title = get_sub_field( 'social_media_name' ); ?>
 									<li>
-										<a class="px-lg-0" href="<?php the_sub_field( 'url' ); ?>" target="_blank" alt="<?php echo $site_title ."'s". $sm_title;?>">
+										<a class="px-lg-0" href="<?php the_sub_field( 'url' ); ?>" target="_blank" title="<?php echo $site_title ."'s". $sm_title;?>">
 											<?php the_sub_field( 'icon' ); ?>
 										</a>
 									</li>				

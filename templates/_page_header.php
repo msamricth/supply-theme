@@ -35,7 +35,8 @@ endif;
 $headerMedia = '';
 $header_media = get_header_media();
 $client_logo = get_field('client_logo');
-
+$background_color = get_field('articles__background_color');
+$article_landing_background_color = get_field('article_landing_background_color');
 //settings
 $header_type =  get_field( 'header_type' );
 $classes .= $header_type; 
@@ -48,9 +49,10 @@ $headerOverlayOpacity = '';
 
 //Structure Functions
 
-$header_content .= '<header class="page-header fold" data-class="header">';
+
         switch ( $header_type ) {
             case 'casestudy':
+                $header_content .= '<header class="page-header fold" data-class="header">';
                 $classes .= ' cp3';
                 $headerMedia= true;
                 $beforeContainer = '';
@@ -67,6 +69,7 @@ $header_content .= '<header class="page-header fold" data-class="header">';
                 if ( get_field( 'sit_under_nav' ) == 1 ) :
                     $classes .= ' under-nav'; 
                 endif;
+                $header_content .= '<header class="page-header fold" data-class="header">';
                 $classes .= ' header-partial';
                 $headerMedia= true;
                 $header_content .= '<div class="container">';
@@ -77,6 +80,7 @@ $header_content .= '<header class="page-header fold" data-class="header">';
                 break;
             
             case 'services':
+                $header_content .= '<header class="page-header fold" data-class="header">';
                 $blockClasses = 'mx-auto col-xl-10 col-3xl-9 col-4xl-8';
                 if ( get_field( 'sit_under_nav' ) == 1 ) :
                     $classes .= ' under-nav'; 
@@ -91,6 +95,7 @@ $header_content .= '<header class="page-header fold" data-class="header">';
                 break;   
 
             case 'standardmedialinked':
+                $header_content .= '<header class="page-header fold" data-class="header">';
                 $headerMedia= true;
                 if ( get_field( 'sit_under_nav' ) == 1 ) :
                     $classes .= ' under-nav'; 
@@ -106,6 +111,7 @@ $header_content .= '<header class="page-header fold" data-class="header">';
                 break;   
 
             case 'contact':
+                $header_content .= '<header class="page-header fold" data-class="header">';
                 $blockClasses = 'col-dlg-10 mx-auto col-xl-8 col-3xl-11';
                 $beforeContainer = supply_page_starter();
                 $header_content .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
@@ -124,6 +130,7 @@ $header_content .= '<header class="page-header fold" data-class="header">';
                 break;
                 
             case 'basic':
+                $header_content .= '<header class="page-header fold" data-class="header">';
                 $beforeContainer = supply_page_starter();
                 $header_content .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
                 $hasSidebar = is_page_php();
@@ -144,7 +151,95 @@ $header_content .= '<header class="page-header fold" data-class="header">';
                 $headerOn = '';
                 $afterContainer = supply_page_starter();
                 break;
+            case 'post':
+               // $classes .= ' under-nav'; 
+                
+                if(empty($background_color)){
+                    $background_color = '#213333';
+                }
+                if($background_color == "light"){
+                    
+                    $background_color = '#ffffff';
+                }
+                $rgb = HTMLToRGB($background_color);
+                $hsl = RGBToHSL($rgb);
+                $article_header_image = get_field('article_header_image');
+                if($hsl->lightness > 200) {
+                // this is light colour!
+                    $classes .= ' text-primary';
+                } else {
+                    $classes .= ' text-white';
+                }
+                $header_content .= '<style>.post-thumbnail.header-image {background-image:url('.get_the_post_thumbnail_url( get_the_ID(), 'full' ).');}</style>';
+                $header_content .= '<header class="entry-header article-header fold" data-class="header" style="background-color: '.$background_color.'">';
+                $header_content .= '<div class="container"><div class="row">';
+                $header_content .= '<div class="col-md-6 offset-dlg-1 col-dlg-5 article-header__content">';
+                $header_content .= '<span class=" h8" title="Posted Date" rel="bookmark">'.esc_attr( get_the_date('M j')).' &#x2022; <span class="read-time"></span></span>';
+                $header_content .= '<h3 class="mb-0">'.get_the_title().'</h3>';
+                $header_content .= supply_entry_meta('yes');
+                $header_content .= '</div>';
+            
+                    $header_content .= '<div class="col-md-6 col-dlg-5 offset-dlg-1">';                    
+                    if ( has_post_thumbnail() ) :
+						$header_content .= '<div class="post-thumbnail header-image"></div>';
+					endif;
+                    $header_content .= '</div>';
+                $header_content .= '</div></div>';
+
+               // $afterContainer = supply_page_starter();
+                
+                break;
+                case 'posts':
+   
+                    if(empty($article_landing_background_color)){
+                        $article_landing_background_color = '#213333';
+                    }
+                    if($article_landing_background_color == "light"){
+                        
+                        $article_landing_background_color = '#ffffff';
+                    }
+                    $rgb = HTMLToRGB($article_landing_background_color);
+                    $hsl = RGBToHSL($rgb);
+                    $article_header_image = get_field('article_header_image');
+                    if($hsl->lightness > 200) {
+                    // this is light colour!
+                        $classes .= ' text-primary';
+                    } else {
+                        $classes .= ' text-white';
+                    }
+                    $post_IDs = '';
+                    $featured_post = get_field( 'featured_post' ); 
+                    if ( $featured_post ) : 
+                        $post_IDs .= $featured_post . ', ';
+                    endif; 
+
+                    $post_IDs = array_map( 'trim', explode( ',', $post_IDs ) ); // right
+                    if ( $featured_post ) : 
+                        $args = array(
+                            'post_type' => array('post'),
+                            'posts_per_page' => 1,
+                            'post__in' => $post_IDs
+                            
+                        );
+                    else :
+                        $args = array(
+                            'post_type' => array('post'),
+                            'posts_per_page' => 1
+                        );   
+                    endif; 
+                    $the_query = new WP_Query( $args ); 
+                    
+                    echo '<header class="entry-header article-header fold" data-class="header" style="background-color: '.$article_landing_background_color.'">';
+              //      echo  '<div class="container">';
+                    while ( $the_query->have_posts() ) : $the_query->the_post(); 
+                        $post_type = get_post_type(); 
+                        get_template_part('templates/_content', $post_type);
+                    endwhile;
+                    wp_reset_postdata(); 
+                 //  echo  '</div>';
+                break;
             default:
+                $header_content .= '<header class="page-header fold" data-class="header">';
                 $beforeContainer = supply_page_starter();
                 $header_content .='<h1 class="page-title fadeNoScroll">'.$heading_text.'</h1>';
                 $hasSidebar = is_page_php();

@@ -17,6 +17,63 @@ header.page-header {
         opacity: 1;
     }
 }
+
+.post.header-container {
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 56px;
+    margin-bottom: 32px;
+    .article-header{
+        padding-top: 112px;
+        padding-bottom: 60px;
+        @include media-breakpoint-up(md) {
+            padding-top: 144px;
+            &__content{
+                margin-top:12px;
+            }
+        }
+        
+        .header-link a {
+            opacity: 1;
+        }
+    }
+    @include media-breakpoint-up(md) {
+        margin-bottom: 80px;
+    }
+    @include media-breakpoint-up(xl) {
+        margin-bottom: 161px;
+    }
+    .header-image {
+        min-height: 404px;
+        height: calc(100% - 112px);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    
+        @include media-breakpoint-down(md) {
+            margin-bottom:-106px;
+        }
+        @include media-breakpoint-up(md) {
+            
+            height: calc(100% - 144px);
+            position: absolute;
+            width: 50% !important;
+            right:0;
+            .wp-post-image {
+           //     width: 50%;
+            }
+        }
+        
+        @include media-breakpoint-up(dlg) {
+            width: 41.66666667% !important;
+        }
+    }
+    .entry-meta {
+        .sep {
+            font-size: 18px;
+        }
+    }
+}
 .page.content {
     .row {
         @include media-breakpoint-up(dlg) {
@@ -24,6 +81,18 @@ header.page-header {
                 margin-top: 198px;
             }
         }
+    }
+}
+.header-overlay {
+    display: none;
+    @include media-breakpoint-up(dlg) {
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 8;
     }
 }
 .header-partial {
@@ -47,7 +116,7 @@ header.page-header {
 
         header.page-header {
             position: absolute;
-            z-index: 5;
+            z-index: 15;
         }
         img.d-none.d-sm-block {
             min-height: 930px;
