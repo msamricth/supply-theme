@@ -38,12 +38,12 @@
 	if ( is_admin() ) { ?><style>.d-none {display:none !important} </style> <?php } ?>
 <section class="d-none estimate" id="estimate-<?php the_ID(); ?>"><?php echo wp_strip_all_tags( get_the_content() ); ?></section>
 <div class="toast-container position-fixed bottom-0 end-0 p-3">
-  <div id="liveToast" class="toast bg-dark" role="alert" aria-live="assertive" aria-atomic="true">
+  <div id="liveToast" class="toast bg-dark text-white" role="alert" aria-live="assertive" aria-atomic="true">
 	<div class="d-flex">
-		<div class="toast-body">
+		<div class="toast-body text-white">
 		Article url copied!
 		</div>
-		<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		<button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
 	</div>
   </div>
 </div>

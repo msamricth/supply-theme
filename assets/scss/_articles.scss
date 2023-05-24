@@ -6,6 +6,7 @@
     .sidbar-meta {
         text-align: center;
         @include media-breakpoint-up(md) {
+            opacity: 0;
             text-align: initial;
             position: sticky;
             top:136px;

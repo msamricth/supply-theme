@@ -41,17 +41,29 @@ function copyLink() {
 	
 	  document.execCommand('copy');
 	  document.body.removeChild(dummy);
-	  toastLiveExample.show()
+	  toastLiveExample.classList.add('fade-in-bottom','show');
+	  if(toastLiveExample.classList.contains('fadeout')){
+		toastLiveExample.classList.remove('fadeout');
+	  }
+	  setTimeout(
+		function() {
+			toastLiveExample.classList.add('fadeout');
+			setTimeout(
+				function() {
+					toastLiveExample.classList.remove('show');
+				}, 700);
+		}, 7000);
+
 }
 
-const shareLink = document.getElementById("copy-to-clipboard");
-if(shareLink){
+const shareLinks = document.querySelectorAll(".copy-to-clipboard");
+shareLinks.forEach(function(shareLink) {
+	if(shareLink){
 	
-	shareLink.addEventListener("click", (e) => {
-		e.preventDefault();
-		copyLink();
-	});
-}
-
-
+		shareLink.addEventListener("click", (e) => {
+			e.preventDefault();
+			copyLink();
+		});
+	}
+});
 

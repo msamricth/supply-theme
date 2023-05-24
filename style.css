@@ -51,7 +51,7 @@ body {
     margin: 0;
     text-align: var(--bs-body-text-align);
 }
-.nav-link, a:not(.nolink) {
+.nav-link {
     font-family: ISOv;
 }
 .alignnone {
