@@ -1,8 +1,8 @@
 <?php
 /**
- * Block template file: templates/blocks/supply-content-block.php
+ * Block template file: templates/blocks/supply-articles-block.php
  *
- * Supply Content Block Block Template.
+ * Supply Article Block Block Template.
  *
  * @param   array $block The block settings and attributes.
  * @param   string $content The block inner HTML (empty).
@@ -11,7 +11,7 @@
  */
 
 // Create id attribute allowing for custom "anchor" value.
-$id = 'supply-posts-block-' . $block['id'];
+$id = 'supply-article-block-' . $block['id'];
 if ( ! empty($block['anchor'] ) ) {
     $id = $block['anchor'];
 }
@@ -20,8 +20,9 @@ $post_id = '';
 $current_post = get_queried_object();
 $post_id = $current_post ? $current_post->ID : null;	
 $scheme = get_field('background_color', $post_id);
+
 // Create class attribute allowing for custom "className" and "align" values.
-$classes = 'block-posts-content-block';
+$classes = 'block-supply-article-block';
 if ( ! empty( $block['className'] ) ) {
     $classes .= ' ' . $block['className'];
 }
@@ -29,7 +30,7 @@ if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
 $Utils = '';
-$classes .=' fadeNoScroll';
+$classes .=' cp4';
 $row = '';
 
     if ( have_rows( 'fold_settings' ) ) :
@@ -101,18 +102,19 @@ endif;
 <?php
 $the_query = new WP_Query( $args ); ?>
 
-<?php if ( $the_query->have_posts() ) : ?>
-    <div class="container home-loop-section posts-loop-section fadeNoScroll cp3">
+<?php if ( $the_query->have_posts() ) : $postCount = 1; ?>
+    <div class="container home-loop-section posts-loop-section fadeNoScroll">
         <div class="row <?php echo $row?>" <?php echo $Utils;?>>
             <div class="col-dlg-10 offset-dlg-1">
-                <?php while ( $the_query->have_posts() ) : $the_query->the_post(); 
+                <?php while ( $the_query->have_posts() ) : $postCount++; $the_query->the_post(); 
                     $post_type = get_post_type();
-                    $pclasses = 'cp3 fadeNoScroll ' . $row;
+                    $pclasses = ' fadeNoScroll ' . $row;
                     get_template_part('templates/_content', $post_type, array( 
                         'classes' => $pclasses,
                         'utilities' => $Utils,
                         ) 
                        );
+                       if($postCount == 2) { ?><div class="padding-block-small sep-con"><span class="seperator d-block"></span></div><?php } 
                 endwhile; ?>
             </div>
         </div>

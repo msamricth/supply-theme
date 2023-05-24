@@ -206,7 +206,10 @@ button.mute-button {
         }
     }
 }
-
+.ratio-image {
+    background-size: cover;
+    background-position: center center;
+}
 .supply-video.d-none.d-md-block {
     position: relative;
 }

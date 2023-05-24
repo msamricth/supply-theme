@@ -149,7 +149,7 @@ opacity: 1;
 }
 
 main {
-    a:not(.link-up):not(.stretched-link) {
+    a:not(.link-up):not(.stretched-link):not(.nolink) {
         display: inline-block;
         position: relative;
         text-decoration: none;

@@ -1,6 +1,26 @@
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
+
+//Articles sticky fade in
+const vpWidth = window.innerWidth;
+const articleInteriorPage = document.querySelector(".supply-articles");
+if(articleInteriorPage){
+	if(vpWidth > 380){
+		gsap.from(".sidbar-meta", {
+		opacity: 0,
+		y: -56,
+		duration: 0.3,
+		scrollTrigger: {
+			start: 'top 35%',
+			trigger: ".sidbar-meta",
+			end: 'bottom 35%'
+		}
+		});
+	}
+}
+
+
 //New Fold
 const foldON = document.body.classList.contains('fold_on');
 const Wrapper = document.getElementById('wrapper');

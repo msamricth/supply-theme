@@ -24,6 +24,10 @@ h5 {
     line-height: 1.33;
     font-size: 24px;
 }
+h4, .h4 {
+    margin-bottom: 28px;
+    line-height: 1.22;
+}
 h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
     font-family: 'Calibre';
     font-weight: 600;
@@ -36,7 +40,7 @@ h6, .h6, .h7 {
     }
 }
 
-a, .nav-link {
+a:not(.nolink), .nav-link {
     font-family: $link_font;
     transition: color .25s;
 }
@@ -83,6 +87,7 @@ blockquote, blockquote.wp-block-quote {
 }
 p {
     line-height: 1.667;
+    margin-bottom: 28px;
     @include media-breakpoint-up(md) {
         line-height: 1.8;
     }

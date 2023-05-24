@@ -8,6 +8,7 @@
 .bg-dark.bg-pattern {
     background-image: none !important;
 }
+
 #wrapper {   
     -webkit-transition: background-color .6s ease,color .6s ease, opacity .6s ease;
     transition: background-color .6s ease,color .6s ease, opacity .6s ease;
@@ -17,6 +18,26 @@
    main {
      p, a, span, h1, h2, h3, h4, h5, h6, .h7, .h8, blockquote, small, .supply-underline li, .specialties li, cite{
             transition: background-color .4s ease,color .4s ease;
+        }
+        .text-white {
+            color: $white;
+            --supply-fold-color:  #{$white};
+            *{
+                --supply-fold-color:  #{$white};
+            }
+            ul.social-nav.share-buttons > li > a {
+                color:$primary;
+            }
+        }
+        .text-primary {
+            color: $primary;
+            --supply-fold-color:  #{$primary};
+            *{
+                --supply-fold-color:  #{$primary};
+            }
+            ul.social-nav.share-buttons > li > a {
+                color:$white;
+            }
         }
     }
     main, header > nav {
@@ -30,7 +51,7 @@
             }
         }
     }
-    &.bg-dark, &.bg-black, &.fold-text-white, &.bg-dark.bg-pattern {
+    &.bg-dark, &.bg-black, &.fold-text-white, &.bg-dark.bg-pattern, &.dark {
         color: $white;
         --supply-fold-color:  white;
         * {
@@ -44,12 +65,18 @@
             opacity: 1;
             display: inline;
         }
+        ul.social-nav.share-buttons > li > a {
+            color:$primary;
+        }
     }
-    &.bg-light, &.bg-pattern, &.fold-text-dark{
+    &.bg-light, &.bg-pattern, &.fold-text-dark, &.light{
         color: $primary;
         --supply-fold-color:  #{$primary};
         *{
             --supply-fold-color:  #{$primary};
+        }
+        ul.social-nav.share-buttons > li > a {
+            color:$white;
         }
     }
     &.bg-pattern-fold.bg-light {

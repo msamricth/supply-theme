@@ -105,6 +105,9 @@ function add_slug_body_class( $classes ) {
     if ( isset( $post ) ) {
         $classes[] = $post->post_type . '-' . $post->post_name;
     }
+    if ( is_single() && 'post' == get_post_type() ) {
+        $classes[] = 'supply-articles';
+    }
     return $classes;
 }
 add_filter( 'body_class', 'add_slug_body_class' );
@@ -117,3 +120,17 @@ function add_tags_to_pages() {
     register_taxonomy_for_object_type( 'post_tag', 'page' );
 }
 add_action( 'init', 'add_tags_to_pages');
+function wpb_filter_query( $query, $error = true ) {
+    if ( is_search() ) {
+        $query->is_search = false;
+        $query->query_vars[s] = false;
+        $query->query[s] = false;
+        if ( $error == true )
+        $query->is_404 = true;
+    }
+}
+add_action( 'parse_query', 'wpb_filter_query' );
+function hide_search_widget() {
+    unregister_widget('WP_Widget_Search');
+}
+add_action( 'widgets_init', 'hide_search_widget' );
