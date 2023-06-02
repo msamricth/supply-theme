@@ -18,6 +18,8 @@ function my_acf_settings_show_admin( $show_admin ) {
     return false;
 }
 
+
+//include_once( MY_ACF_PATH . 'acf_fields.php' );
  
 function filter_block_categories_when_post_provided( $block_categories, $editor_context ) {
     if ( ! empty( $editor_context->post ) ) {

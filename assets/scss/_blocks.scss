@@ -327,7 +327,9 @@ blockquote.wp-block-quote {
         a {
             font-size: inherit;
             font-family: inherit;
-            
+            &:before {
+                content: none !important;
+            }
             @include media-breakpoint-up(3xl) {font-size: 20px;
             }
         }

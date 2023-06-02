@@ -364,6 +364,25 @@ function get_header_media(){
         $header_media .= customRatio($mobile_ratio); 
         $header_media .= video_containers($header_video, $header_video_mobile, $video_ratio, $mobile_ratio, $placerholder, $mobileplaceholder);
     }
+    $header_type =  get_field( 'header_type' );
+
+
+                        if( $header_type == 'casestudy' ) {
+                            
+$client_logo = get_field('client_logo');
+                            $title_of_work_performed = get_field('title_of_work_performed');
+                            if (empty($title_of_work_performed)):
+                                $title_of_work_performed = get_the_title();
+                            endif;
+                            $header_media .= '<header class="page-header fold" data-class="header">';
+                           
+                            $header_media .= '<div class="container">';
+                            if ($client_logo):
+                                $header_media .= '<img class="img-responsive client-logo" src="' . esc_url($client_logo['url']) . '" alt="' . esc_attr($client_logo['alt']) . '" />';
+                                $header_media .= '<h3 class="card-title cp1">' . $title_of_work_performed . '</h3>';
+                            endif;
+                            $header_media .= '</div></header>';
+                            }
     $header_media .='</div>';    
 
     return $header_media;
@@ -528,9 +547,7 @@ if ( ! function_exists( 'supply_entry_meta' ) ) :
 	function supply_entry_meta($value = null) {
 		$author_id = get_the_author_meta( 'ID' ); 
 		$role = get_field('role__position_at_supply', $author_id);
-		
 		$newAuthorID = 'user_'.$author_id;
-		
 		$role = get_field('role__position_at_supply', $newAuthorID);
 		$author = get_the_author();
 		$permalink = get_the_permalink();
