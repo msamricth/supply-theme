@@ -95,6 +95,13 @@ header.page-header {
         z-index: 8;
     }
 }
+@include media-breakpoint-down(md) {
+    .ios.instagram-browser .header-container__media.fullscreen_media.fold {
+        max-height: 675px;
+        
+        height: 675px;
+    }
+}
 .header-partial {
     position: relative;
     .main-image {

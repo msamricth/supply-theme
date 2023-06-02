@@ -459,9 +459,12 @@ function my_scripts_modifier( $tag, $handle, $src ) {
  * @since v1.0
  */
 $theme_ACFPro = __DIR__ . '/inc/acf.php';
+
+$theme_ACFProFields = __DIR__ . '/inc/acf_fields.php';
 $theme_ACFProDIR  = __DIR__ . '/inc/acf/';
 if ( is_readable( $theme_ACFPro ) ) {
 	require_once $theme_ACFPro;
+	require_once $theme_ACFProFields;
 }
 $theme_videoEmbeds = __DIR__ . '/inc/video_embeds.php';
 if ( is_readable( $theme_videoEmbeds ) ) {

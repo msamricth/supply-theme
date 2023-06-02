@@ -49,7 +49,12 @@ function VimeoVideo($video = null, $classes = null, $backgroundvideoOff = null){
         $options = '?&amp;background=1&amp;muted=1&amp;loop=1&maxheight=200vh&maxwidth=200vw&title=0&byline=0&portrait=0&autopause=0';
     } 
     $classes .= ' vimeo lazy';
-    $output .= '<iframe loading="lazy" data-videotitle="'.$vimeoTitle.'" title="'.$vimeoTitle.'" id="video'.$vimeoID.'" class="'.$classes.'" src="'. $video . $options.'" frameBorder="0" allow="autoplay; picture-in-picture; fullscreen"></iframe>';
+    
+    if(!empty($video)){
+        $output .= '<iframe loading="lazy" data-videotitle="'.$vimeoTitle.'" title="'.$vimeoTitle.'" id="video'.$vimeoID.'" class="'.$classes.'" src="'. $video . $options.'" frameBorder="0" allow="autoplay; picture-in-picture; fullscreen"></iframe>';
+    } else {
+        $output .= '<div class="entry-content text-center"><h3>Video not found</h3></div>';
+    }
     return $output;
 }
 //selfhosting formating
@@ -280,6 +285,7 @@ function media_block_main(){
     $mobileVideo = '';
     $PlaceholdervideoURL = '';
     $darkMode = '';
+
     if (have_rows('media')):
         while (have_rows('media')):
             the_row();

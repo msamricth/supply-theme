@@ -37,7 +37,7 @@
 <?php edit_post_link( __( 'Edit', 'supply' ), '<span class="edit-link">', '</span>' );
 	if ( is_admin() ) { ?><style>.d-none {display:none !important} </style> <?php } ?>
 <section class="d-none estimate" id="estimate-<?php the_ID(); ?>"><?php echo wp_strip_all_tags( get_the_content() ); ?></section>
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
+<div class="toast-container position-fixed bottom-0 start-0 p-3">
   <div id="liveToast" class="toast bg-dark text-white" role="alert" aria-live="assertive" aria-atomic="true">
 	<div class="d-flex">
 		<div class="toast-body text-white">

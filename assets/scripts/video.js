@@ -16,6 +16,7 @@ function reelAnimation(){
         //	var isPlaying = player.currentTime > 0 && !player.paused && !player.ended && player.readyState > player.HAVE_CURRENT_DATA;
             var playPromise = player.play();
             if (playPromise !== undefined) {
+                iframe.contentWindow.postMessage('{"method":"setVolume", "value":0}', '*');
                     playPromise.then(_ => {
                     })
                     .catch(error => {
@@ -27,6 +28,10 @@ function reelAnimation(){
                     
                     videoPlayed();
                     function videoPlayed(){
+                        setTimeout(
+                            function() {
+                                iframe.contentWindow.postMessage('{"method":"setVolume", "value":1}', '*');
+                        }, 800);
                         reel.className += " video-iframe-container";
                         iframe.classList.remove("d-none");
                         reel.classList.add('played');
@@ -37,6 +42,8 @@ function reelAnimation(){
             }
             
         })
+
+
         function func()
         {  
             

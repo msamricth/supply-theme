@@ -3,11 +3,9 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 //Articles sticky fade in
-const vpWidth = window.innerWidth;
 const articleInteriorPage = document.querySelector(".supply-articles");
 const sidebar = document.querySelector(".sidbar-meta");
 if(articleInteriorPage){
-	if(vpWidth > 380){
 		gsap.from(".sidbar-meta", {
 		scrollTrigger: {
 			onEnter: () => fadeintop(),
@@ -17,7 +15,7 @@ if(articleInteriorPage){
 			onEnterBack: () => fadeOut()
 		}
 		});
-	}
+
 }
 
 function fadeintop(){
