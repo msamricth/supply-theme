@@ -29,7 +29,6 @@ function fadeOut(){
 	if(sidebar.classList.contains('fade-in-top')){
 		sidebar.classList.remove('fade-in-top');
 	}
-	sidebar.classList.add('fadeOut');
 }
 
 //New Fold

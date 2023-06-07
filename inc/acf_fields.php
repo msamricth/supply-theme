@@ -10793,6 +10793,27 @@ add_action( 'acf/include_fields', function() {
 				'append' => '',
 				'maxlength' => '',
 			),
+			array(
+				'key' => 'field_647e3cba5170c',
+				'label' => 'Copy article link success message',
+				'name' => 'copy_article_link_success_message',
+				'aria-label' => '',
+				'type' => 'text',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'acfe_save_meta' => 0,
+				'default_value' => 'Article URL copied!',
+				'maxlength' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+			),
 		),
 		'location' => array(
 			array(
@@ -10819,3 +10840,4 @@ add_action( 'acf/include_fields', function() {
 		'acfe_note' => '',
 	) );
 } );
+

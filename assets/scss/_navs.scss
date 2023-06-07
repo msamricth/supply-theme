@@ -25,6 +25,28 @@ body {
     &.nav-bg-transparent-light #header.navbar, &.nav-bg-transparent-light .bg-header #header.navbar {
         --supply-nav-rgb: var( --bs-white-rgb);
         --supply-nav-opacity: 0;
+        
+        .navbar-nav a {
+            color: $primary !important;
+        }
+        .navbar-brand g > path {
+            fill: $primary !important;
+        }
+        .navbar-toggler {
+            &.hamburger {
+                padding: 15px 0 15px 15px;
+            }
+            .hamburger-inner {   
+                border-radius: 0px;
+                margin-top: 0;
+                
+                &,
+                &::before,
+                &::after {
+                    background-color: $primary !important;
+                }
+            }
+        }
     }
     &.nav-bg-dark #header.navbar {
         --supply-nav-rgb: var( --bs-dark-rgb);

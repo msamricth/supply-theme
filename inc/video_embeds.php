@@ -47,7 +47,9 @@ function VimeoVideo($video = null, $classes = null, $backgroundvideoOff = null){
     }
     if(empty($backgroundvideoOff)){
         $options = '?&amp;background=1&amp;muted=1&amp;loop=1&maxheight=200vh&maxwidth=200vw&title=0&byline=0&portrait=0&autopause=0';
-    } 
+    } else {
+        $options = '?title=0&byline=0&portrait=0&playsinline=0&muted=0&autoplay=0&autopause=0&controls=1&loop=0';
+    }
     $classes .= ' vimeo lazy';
     
     if(!empty($video)){
