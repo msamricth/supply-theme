@@ -29,7 +29,7 @@ if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
 
-$classes .=' fadeNoScroll';
+$classes .=' fold fold-custom';
 
 $related_posts = get_field( 'related_post' ); 
 if ( $related_posts ) : 
@@ -44,9 +44,18 @@ endif;
 $post_IDs = array_map( 'trim', explode( ',', $post_IDs ) ); // right
 
     if ( get_field( 'use_default_loop' ) == 1 ) : 
+
+        $prev_post = get_adjacent_post(false, '', true);
+        $prevID = $prev_post->ID;
+        $next_post = get_adjacent_post(false, '', false);
+        $nextID = $next_post->ID;
+
+        $associatedIDs = $prevID.', '.$nextID;
+        $associatedIDs = array_map( 'trim', explode( ',', $associatedIDs ) ); // right
         $args = array(
             'post_type' => array('post'),
-            'posts_per_page' => 2
+            'posts_per_page' => 2,
+            'post__in' => $associatedIDs
         );   
     else :
         $args = array(
@@ -63,7 +72,7 @@ $post_IDs = array_map( 'trim', explode( ',', $post_IDs ) ); // right
 ?>
 <?php
 $the_query = new WP_Query( $args ); ?>
-<div class="<?php echo $classes; ?>" style="background-color: <?php echo $background_color; ?>">
+<div class="<?php echo $classes; ?>" style="background-color: <?php echo $background_color; ?>" data-class="bg-custom" data-bg="<?php echo $background_color; ?>">
     <?php if ( $the_query->have_posts() ) : $postCount = 1; ?>
         <div class="container posts-loop-section">
             <div class="row">

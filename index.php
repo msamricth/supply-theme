@@ -84,7 +84,7 @@ if($hsl->lightness > 200) {
 }
 $post_offset = '';
 if ( $featured_post ) : 
-	$the_query = new WP_Query( array( 'posts_per_page' => 4 ) );
+	$the_query = new WP_Query( array( 'posts_per_page' => 4, 'post__not_in' => $post_IDs ) );
 else:
 	$the_query = new WP_Query( array( 'posts_per_page' => 4, 'offset' => 1 ) );
 endif;
@@ -105,7 +105,7 @@ endif;
 	</section>
 
 <?php endif; ?>
-<?php $the_query = new WP_Query( array( 'posts_per_page' => 1, 'offset' => 4) );
+<?php $the_query = new WP_Query( array( 'posts_per_page' => 1, 'offset' => 5) );
 if ( $the_query->have_posts() ) : $postCount = 1; ?>
 	<section class="entry-header  bg-pattern article-header fold" data-class="bg-pattern" style="background-color: <?php echo $article_landing_background_color; ?>">
 		<div id="featured-<?php the_ID(); ?>" class="<?php echo esc_attr( $classes ); ?> ">

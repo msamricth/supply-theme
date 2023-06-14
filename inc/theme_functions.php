@@ -523,6 +523,21 @@ if ( ! function_exists( 'supply_excrpt' ) ) :
 		printf($excerpt);
 	}
 endif;
+if ( ! function_exists( 'supply_alert' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v1.0
+	 */
+	function supply_alert($msg = null) {
+        if(empty($msg)) {
+            $msg = get_field('copy_article_link_success_message', 'option');
+        }
+		$output = '<div class="liveToast alert alert-dark border-0 bg-dark text-white alert-dismissible fade" role="alert">'.$msg.'<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+		return $output;
+    }
+
+endif;
 
 if ( ! function_exists( 'supply_share_buttons' ) ) :
 	/**
@@ -532,7 +547,9 @@ if ( ! function_exists( 'supply_share_buttons' ) ) :
 	 */
 	function supply_share_buttons() {
         $permalink = get_the_permalink();
-		$output = '<ul class="social-nav share-buttons cp2"><li><a class="mt-0 ms-0 copy-to-clipboard" href="#" title="Copy to clipboard"><i class="fa-solid fa-link" aria-hidden="true"></i></a></li><li><a class="" href="https://www.linkedin.com/sharing/share-offsite/?url='.$permalink.'" target="_blank" title="Share on LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a></li><li><a class="" href="https://www.facebook.com/sharer/sharer.php?u='.$permalink.'" target="_blank" title="Share on Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li><li><a class="twitter-share-button mb-0 me-0" href="https://twitter.com/intent/tweet" target="_blank" title="share on Twitter"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a></li></ul>';
+        $title = get_the_title();
+		$output = '<ul class="social-nav share-buttons cp2"><li><a class="mt-0 ms-0 copy-to-clipboard" href="#" title="Copy to clipboard"><i class="fa-solid fa-link" aria-hidden="true"></i></a></li><li><a class="" href="https://www.linkedin.com/sharing/share-offsite/?url='.$permalink.'" target="_blank" title="Share on LinkedIn"><i class="fa-brands fa-linkedin-in" aria-hidden="true"></i></a></li><li><a class="" href="https://www.facebook.com/sharer/sharer.php?u='.$permalink.'" target="_blank" title="Share on Facebook"><i class="fa-brands fa-facebook-f" aria-hidden="true"></i></a></li><li><a class="twitter-share-button mb-0 me-0" href="https://twitter.com/intent/tweet?text='.$title.' '. $permalink.'" target="_blank" title="share on Twitter"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a></li></ul>';
+        $output .= supply_alert();
 		return $output;
     }
 
@@ -551,7 +568,7 @@ if ( ! function_exists( 'supply_entry_meta' ) ) :
 		$role = get_field('role__position_at_supply', $newAuthorID);
 		$author = get_the_author();
 		$permalink = get_the_permalink();
-		$output = '<div class="entry-meta mt-0">'.supply_share_buttons().'<span class="font-weight-bold h6 author-meta vcard d-block">'.$author.'</span><span class="sep h8 text-capitalize">'.$role.'</span></div>';
+		$output = '<div class="entry-meta mt-0">'.supply_share_buttons().'<span class="font-weight-bold h6 mb-0 author-meta vcard d-block">'.$author.'</span><span class="sep h8 text-capitalize">'.$role.'</span></div>';
 		return $output;
 	}
 	//old text 

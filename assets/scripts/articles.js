@@ -10,6 +10,33 @@ if(postsBlock){
 if(article){
     readingTime(article);
 }
+//Articles sticky fade in
+const articleInteriorPage = document.querySelector(".supply-articles");
+const sidebar = document.querySelector(".sidbar-meta");
+function fadeintop(){
+	if(sidebar.classList.contains('fadeOut')){
+		sidebar.classList.remove('fadeOut');
+	}
+	sidebar.classList.add('fade-in-top');
+}
+
+function fadeOut(){
+	if(sidebar.classList.contains('fade-in-top')){
+		sidebar.classList.remove('fade-in-top');
+	}
+	sidebar.classList.add('fadeOut');
+}
+if(articleInteriorPage){
+		const observer = new IntersectionObserver( 
+		  ([e]) => e.target.classList.toggle("fade-in-top", e.intersectionRatio < 1),
+		  { rootMargin: '-1px 0px 0px 0px',
+		  threshold: [1]}
+		);
+		
+		//observer.observe(sidebar);
+
+
+}
 function readingTime(obj){
     var objID = obj.id;
     const estimateContainer = document.getElementById(objID);
@@ -24,7 +51,7 @@ function copyLink() {
 		alert('Please copy the URL from the location bar.');
 		return;
 	  }
-	  const toastLiveExample = document.getElementById('liveToast')
+	  const toasts = document.querySelectorAll('.liveToast')
 	 // const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
 	  const dummy = document.createElement('p');
 	  dummy.textContent = window.location.href;
@@ -41,19 +68,28 @@ function copyLink() {
 	
 	  document.execCommand('copy');
 	  document.body.removeChild(dummy);
-	  toastLiveExample.classList.add('fade-in-bottom','show');
-	  if(toastLiveExample.classList.contains('fadeout')){
-		toastLiveExample.classList.remove('fadeout');
-	  }
-	  setTimeout(
-		function() {
-			toastLiveExample.classList.add('fadeout');
-			setTimeout(
-				function() {
-					toastLiveExample.classList.remove('show');
-				}, 700);
-		}, 7000);
-
+	  toasts.forEach(function(toast){
+		toast.classList.add('fade-in-bottom','show');
+		if(toast.classList.contains('fadeout')){
+			toast.classList.remove('fadeout');
+		}
+		const callback = () => {
+			toast.classList.remove('show');
+			window.removeEventListener('scroll', callback); 
+		}
+		
+		window.addEventListener('scroll', callback);       // add scroll event listener
+		
+		
+		setTimeout(
+			function() {
+				toast.classList.add('fadeout');
+				setTimeout(
+					function() {
+						toast.classList.remove('show');
+					}, 700);
+			}, 7000);
+	});
 }
 
 const shareLinks = document.querySelectorAll(".copy-to-clipboard");

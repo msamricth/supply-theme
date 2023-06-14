@@ -79,6 +79,18 @@
             color:$white;
         }
     }
+    &.bg-custom {
+        .bg-light {
+            ul.social-nav.share-buttons > li > a {
+                color:$white;
+            }
+            .bg-dark {
+                ul.social-nav.share-buttons > li > a {
+                    color:$primary;
+                }
+            }
+        }
+    }
     &.bg-pattern-fold.bg-light {
         background-color: transparent !important;
         background: transparent;

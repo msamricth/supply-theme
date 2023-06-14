@@ -19,7 +19,6 @@
 	$navbar_page_scheme = get_field( 'navbar_color_settings', $post_id);
 	$navbar_theme_scheme   = get_theme_mod( 'navbar_scheme', 'navbar-light bg-light' ); // Get custom meta-value.
 	$navbar_position = get_theme_mod( 'navbar_position', 'static' ); // Get custom meta-value.
-	$search_enabled  = get_theme_mod( 'search_enabled', '1' ); // Get custom meta-value.
 	$nav_dark_image = '';
 	$nav_light_image = '';
 	$addtlAttr = '';
@@ -163,7 +162,7 @@
 <div class="scroller" data-scroller <?php echo $dataAttributes; ?>>
 	<div id="wrapper" class="<?php echo $wrapperClasses; ?>" data-og_class="<?php echo $ogClass; ?>" <?php echo $addtlAttr; ?>> 
 		<header id="nav-header">
-			<nav id="header" class="navbar navbar-expand-md <?php  if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' fixed-top'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' fixed-bottom'; endif; if ( is_home() || is_front_page() ) : echo ' home'; endif; ?>">
+			<nav id="header" class="navbar navbar-expand-lg <?php  if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : echo ' fixed-top'; elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' fixed-bottom'; endif; if ( is_home() || is_front_page() ) : echo ' home'; endif; ?>">
 				<div class="container">
 					<a class="navbar-brand" href="<?php echo esc_url( home_url() ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
 						<?php
@@ -197,17 +196,7 @@
 								)
 							);
 
-							if ( '1' === $search_enabled ) :
-						?>
-								<form class="search-form my-2 my-lg-0" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-									<div class="input-group">
-										<input type="text" name="s" class="form-control" placeholder="<?php esc_attr_e( 'Search', 'supply' ); ?>" title="<?php esc_attr_e( 'Search', 'supply' ); ?>" />
-										<button type="submit" name="submit" class="btn btn-outline-secondary"><?php esc_html_e( 'Search', 'supply' ); ?></button>
-									</div>
-								</form>
-						<?php
-							endif;
-						?>
+							?>
 					</div><!-- /.navbar-collapse -->
 				</div><!-- /.container -->
 			</nav><!-- /#header -->

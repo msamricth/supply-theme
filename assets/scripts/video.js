@@ -6,6 +6,8 @@ function reelAnimation(){
     reels.forEach(function(reel) {
         var iframe = reel.querySelector('.iframe-video');
         var player = new Vimeo.Player(iframe);
+        iframe.contentWindow.postMessage('{"method":"setVolume", "value":0}', '*');
+        player.setMuted(true);
         var videoPlaceholder = reel.querySelector(".reels--button");
         var preview = reel.querySelector(".reels--preview");
         videoPlaceholder.addEventListener("mouseover", func, false);
@@ -13,10 +15,9 @@ function reelAnimation(){
     
         videoPlaceholder.addEventListener("click", function(e) {
             e.preventDefault();
-        //	var isPlaying = player.currentTime > 0 && !player.paused && !player.ended && player.readyState > player.HAVE_CURRENT_DATA;
+            //	var isPlaying = player.currentTime > 0 && !player.paused && !player.ended && player.readyState > player.HAVE_CURRENT_DATA;
             var playPromise = player.play();
-            if (playPromise !== undefined) {
-                iframe.contentWindow.postMessage('{"method":"setVolume", "value":0}', '*');
+            if (playPromise !== undefined) { 
                     playPromise.then(_ => {
                     })
                     .catch(error => {
@@ -28,10 +29,7 @@ function reelAnimation(){
                     
                     videoPlayed();
                     function videoPlayed(){
-                        setTimeout(
-                            function() {
-                                iframe.contentWindow.postMessage('{"method":"setVolume", "value":1}', '*');
-                        }, 800);
+                        iframe.contentWindow.postMessage({method:"play"}, "*"); 
                         reel.className += " video-iframe-container";
                         iframe.classList.remove("d-none");
                         reel.classList.add('played');
@@ -39,6 +37,11 @@ function reelAnimation(){
                         videoPlaceholder.classList.add('d-none');
                     }
                     
+                    setTimeout(
+                        function() {
+                            iframe.contentWindow.postMessage('{"method":"setVolume", "value":1}', '*');
+                            player.setMuted(false);
+                    }, 800);
             }
             
         })
