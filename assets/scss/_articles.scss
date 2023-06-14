@@ -102,6 +102,11 @@
             }
         }
     }
+    @include media-breakpoint-down(md){
+        blockquote.wp-block-quote cite, blockquote.wp-block-quote p {
+            margin-left: 7px;
+        }
+    }
 }
 .supply-articles .related-articles {
     .sep-con{

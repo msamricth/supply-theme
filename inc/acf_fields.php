@@ -1623,6 +1623,9 @@ add_action( 'acf/include_fields', function() {
 				'acfe_seamless_style' => 0,
 				'acfe_group_modal' => 0,
 				'acfe_settings' => '',
+				'acfe_group_modal_close' => 0,
+				'acfe_group_modal_button' => '',
+				'acfe_group_modal_size' => 'large',
 				'sub_fields' => array(
 					array(
 						'key' => 'field_63d3d7047acb0',
@@ -2053,6 +2056,7 @@ add_action( 'acf/include_fields', function() {
 						'acfe_group_modal_button' => 'Edit / Add',
 						'acfe_group_modal_size' => 'large',
 						'acfe_settings' => '',
+						'acfe_seamless_style' => 0,
 						'sub_fields' => array(
 							array(
 								'key' => 'field_63f78472eb68d',
@@ -2342,7 +2346,6 @@ add_action( 'acf/include_fields', function() {
 								),
 							),
 						),
-						'acfe_seamless_style' => 0,
 					),
 					array(
 						'key' => 'field_63d3d7047ad44',
@@ -2368,9 +2371,6 @@ add_action( 'acf/include_fields', function() {
 						'ui_off_text' => '',
 					),
 				),
-				'acfe_group_modal_close' => 0,
-				'acfe_group_modal_button' => '',
-				'acfe_group_modal_size' => 'large',
 			),
 			array(
 				'key' => 'field_63f784d0061a9',
@@ -2557,6 +2557,7 @@ add_action( 'acf/include_fields', function() {
 				'acfe_group_modal_button' => 'Add / Edit Link',
 				'acfe_group_modal_size' => 'large',
 				'acfe_settings' => '',
+				'acfe_seamless_style' => 0,
 				'sub_fields' => array(
 					array(
 						'key' => 'field_63f78438eb68b',
@@ -2588,7 +2589,6 @@ add_action( 'acf/include_fields', function() {
 						'acfe_clone_modal_size' => 'large',
 					),
 				),
-				'acfe_seamless_style' => 0,
 			),
 			array(
 				'key' => 'field_63d3da0223365',
@@ -2941,6 +2941,9 @@ add_action( 'acf/include_fields', function() {
 				'acfe_seamless_style' => 0,
 				'acfe_group_modal' => 0,
 				'acfe_settings' => '',
+				'acfe_group_modal_close' => 0,
+				'acfe_group_modal_button' => '',
+				'acfe_group_modal_size' => 'large',
 				'sub_fields' => array(
 					array(
 						'key' => 'field_64529e8c8dbc5',
@@ -3686,9 +3689,6 @@ add_action( 'acf/include_fields', function() {
 						'ui_off_text' => '',
 					),
 				),
-				'acfe_group_modal_close' => 0,
-				'acfe_group_modal_button' => '',
-				'acfe_group_modal_size' => 'large',
 			),
 			array(
 				'key' => 'field_6453dfc537e02',
@@ -4746,7 +4746,7 @@ add_action( 'acf/include_fields', function() {
 				'aria-label' => '',
 				'type' => 'true_false',
 				'instructions' => 'Default is \'col-md-10 mx-auto col-dlg-12 col-xl-10\'.
-	This does not remove the gutters (offset defined globally via design system)',
+		This does not remove the gutters (offset defined globally via design system)',
 				'required' => 0,
 				'conditional_logic' => 0,
 				'wrapper' => array(
@@ -5051,6 +5051,7 @@ add_action( 'acf/include_fields', function() {
 				'max' => 0,
 				'layout' => 'table',
 				'button_label' => 'Add a featured post',
+				'rows_per_page' => 20,
 				'sub_fields' => array(
 					array(
 						'key' => 'field_6463aee58cf02',
@@ -5081,7 +5082,6 @@ add_action( 'acf/include_fields', function() {
 						'parent_repeater' => 'field_6463aee5856e6',
 					),
 				),
-				'rows_per_page' => 20,
 			),
 			array(
 				'key' => 'field_6463aee5891c9',
@@ -7389,7 +7389,7 @@ add_action( 'acf/include_fields', function() {
 					'class' => '',
 					'id' => '',
 				),
-				'message' => '<a href="http://workwithsupdev.wpengine.com/wp-admin/admin.php?page=theme_options"> Click here and select logo garden</a> to add or change logos used in the logo garden.',
+				'message' => '<a href="http://workwithsupstg.wpengine.com/wp-admin/admin.php?page=theme_options"> Click here and select logo garden</a> to add or change logos used in the logo garden.',
 				'new_lines' => 'wpautop',
 				'esc_html' => 0,
 			),
@@ -8160,8 +8160,9 @@ add_action( 'acf/include_fields', function() {
 					'class' => '',
 					'id' => '',
 				),
+				'acfe_save_meta' => 0,
 				'message' => 'Use the default post loop',
-				'default_value' => 1,
+				'default_value' => 0,
 				'ui' => 0,
 				'ui_on_text' => '',
 				'ui_off_text' => '',
@@ -9560,6 +9561,9 @@ add_action( 'acf/include_fields', function() {
 				'layout' => 'block',
 				'acfe_seamless_style' => 0,
 				'acfe_group_modal' => 0,
+				'acfe_group_modal_close' => 0,
+				'acfe_group_modal_button' => '',
+				'acfe_group_modal_size' => 'large',
 				'sub_fields' => array(
 					array(
 						'key' => 'field_62fe78551996e',
@@ -9589,9 +9593,6 @@ add_action( 'acf/include_fields', function() {
 						'acfe_clone_modal_size' => 'large',
 					),
 				),
-				'acfe_group_modal_close' => 0,
-				'acfe_group_modal_button' => '',
-				'acfe_group_modal_size' => 'large',
 			),
 		),
 		'location' => array(
@@ -9816,6 +9817,7 @@ add_action( 'acf/include_fields', function() {
 				'max' => 0,
 				'layout' => 'table',
 				'button_label' => 'Add a Social Media account',
+				'rows_per_page' => 20,
 				'sub_fields' => array(
 					array(
 						'key' => 'field_62dac00f39ef8',
@@ -9888,7 +9890,6 @@ add_action( 'acf/include_fields', function() {
 						'parent_repeater' => 'field_62dabffa39ef7',
 					),
 				),
-				'rows_per_page' => 20,
 			),
 			array(
 				'key' => 'field_62e03aee74641',
@@ -9945,6 +9946,7 @@ add_action( 'acf/include_fields', function() {
 				'max' => 0,
 				'layout' => 'table',
 				'button_label' => 'Add logo',
+				'rows_per_page' => 20,
 				'sub_fields' => array(
 					array(
 						'key' => 'field_62df1c75d282b',
@@ -10024,7 +10026,6 @@ add_action( 'acf/include_fields', function() {
 						'parent_repeater' => 'field_62df1c56d282a',
 					),
 				),
-				'rows_per_page' => 20,
 			),
 			array(
 				'key' => 'field_62e411a483779',
@@ -10060,6 +10061,9 @@ add_action( 'acf/include_fields', function() {
 				'layout' => 'block',
 				'acfe_seamless_style' => 0,
 				'acfe_group_modal' => 0,
+				'acfe_group_modal_close' => 0,
+				'acfe_group_modal_button' => '',
+				'acfe_group_modal_size' => 'large',
 				'sub_fields' => array(
 					array(
 						'key' => 'field_62e411d48377b',
@@ -10137,9 +10141,6 @@ add_action( 'acf/include_fields', function() {
 						'acfe_textarea_code' => 0,
 					),
 				),
-				'acfe_group_modal_close' => 0,
-				'acfe_group_modal_button' => '',
-				'acfe_group_modal_size' => 'large',
 			),
 			array(
 				'key' => 'field_62f182299893d',
@@ -10700,6 +10701,9 @@ add_action( 'acf/include_fields', function() {
 				'layout' => 'block',
 				'acfe_seamless_style' => 0,
 				'acfe_group_modal' => 0,
+				'acfe_group_modal_close' => 0,
+				'acfe_group_modal_button' => '',
+				'acfe_group_modal_size' => 'large',
 				'sub_fields' => array(
 					array(
 						'key' => 'field_643d9d2c3fa4b',
@@ -10751,9 +10755,23 @@ add_action( 'acf/include_fields', function() {
 						'acfe_clone_modal_size' => 'large',
 					),
 				),
-				'acfe_group_modal_close' => 0,
-				'acfe_group_modal_button' => '',
-				'acfe_group_modal_size' => 'large',
+			),
+			array(
+				'key' => 'field_645d05daadde5',
+				'label' => 'Articles',
+				'name' => '',
+				'aria-label' => '',
+				'type' => 'tab',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'placement' => 'top',
+				'endpoint' => 0,
 			),
 			array(
 				'key' => 'field_645d05daadde5',
@@ -10792,6 +10810,48 @@ add_action( 'acf/include_fields', function() {
 				'prepend' => '',
 				'append' => '',
 				'maxlength' => '',
+			),
+			array(
+				'key' => 'field_645d05e9adde6',
+				'label' => 'Share this article text',
+				'name' => 'share_text',
+				'aria-label' => '',
+				'type' => 'text',
+				'instructions' => 'Choose what text you wish to display above share buttons in mobile.',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'acfe_save_meta' => 0,
+				'default_value' => 'Share this article',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+			),
+			array(
+				'key' => 'field_647e3cba5170c',
+				'label' => 'Copy article link success message',
+				'name' => 'copy_article_link_success_message',
+				'aria-label' => '',
+				'type' => 'text',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'acfe_save_meta' => 0,
+				'default_value' => 'Article URL copied!',
+				'maxlength' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
 			),
 			array(
 				'key' => 'field_647e3cba5170c',
@@ -10840,4 +10900,3 @@ add_action( 'acf/include_fields', function() {
 		'acfe_note' => '',
 	) );
 } );
-
