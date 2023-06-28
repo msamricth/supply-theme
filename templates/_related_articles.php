@@ -46,9 +46,14 @@ $post_IDs = array_map( 'trim', explode( ',', $post_IDs ) ); // right
     if ( get_field( 'use_default_loop' ) == 1 ) : 
 
         $prev_post = get_adjacent_post(false, '', true);
-        $prevID = $prev_post->ID;
+        $prevID = '';
+        $nextID = '';
+        
+	    if (isset( $prev_post->ID)) { $prevID = $prev_post->ID; }
         $next_post = get_adjacent_post(false, '', false);
-        $nextID = $next_post->ID;
+        
+	    if (isset( $next_post->ID)) { $nextID = $next_post->ID; }
+        
 
         $associatedIDs = $prevID.', '.$nextID;
         $associatedIDs = array_map( 'trim', explode( ',', $associatedIDs ) ); // right

@@ -11,8 +11,7 @@
  }
  $scheme = get_field('background_color');
 	if($scheme){
-		if(strpos($scheme, 'dots') !== false){
-			$bodyClasses .= ' dots_on ';
+		if(strpos($scheme, 'pattern') !== false){
 			$scheme = 'bg-light bg-pattern';
 		} else {
 			$scheme = 'bg-'. $scheme . ' ';

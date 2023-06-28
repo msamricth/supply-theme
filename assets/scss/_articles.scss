@@ -16,6 +16,7 @@
         padding-top: 5px;
         font-size: 14px;
         position: absolute;
+        min-width: max-content;
         button.btn-close.btn-close-white {
             padding-top: 9px;
             padding-bottom: 10px;
@@ -33,7 +34,15 @@
     .sidbar-meta {
         text-align: center;
         
-        
+        @include media-breakpoint-down(md) {
+            .liveToast.alert.alert-dark {
+                left: calc(50% - 97px);
+            }
+            
+            .contents {
+                position: relative;
+            }
+        }
         @include media-breakpoint-up(md) {
             -webkit-animation: fade-out-top 300ms ease-out both;
                 animation: fade-out-top 300ms ease-out both;

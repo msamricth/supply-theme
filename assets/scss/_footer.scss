@@ -10,12 +10,20 @@ body:not(.customScheme) {
     }
 }
 
-
+.scroller {
+    position: relative;
+    z-index: 1;
+}
 
 .footer {
     min-height: 667px;
+    z-index: 0;
+    position: relative;
     p, .footer-content * {
          color: white;
+    }
+    .navbar-nav {
+        margin-top: 0;
     }
     @include media-breakpoint-up(md) { 
         padding-bottom: 48px;

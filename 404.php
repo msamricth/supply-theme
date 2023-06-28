@@ -63,11 +63,6 @@ if(empty($fofTitle)){
 					</div>
 
 					<div>
-						<?php
-							if ( '1' === $search_enabled ) :
-								get_search_form();
-							endif;
-						?>
 					</div>
 				</div><!-- /.entry-content -->
 			</div><!-- /#post-0 -->
