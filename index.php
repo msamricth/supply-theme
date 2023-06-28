@@ -30,6 +30,32 @@ if($hsl->lightness > 200) {
 } else {
 	$classes .= ' text-white';
 }
+
+$fold_utils = '';
+$scheme = get_field('background_color');
+if($scheme){
+	if(strpos($scheme, 'pattern') !== false){
+		$scheme = 'bg-light bg-pattern';
+	} else {
+		$scheme = 'bg-'. $scheme . ' ';
+	}
+} else {
+	$scheme = 'bg-light';
+}
+$fold_classes = 'fold article-content text-dark '.$scheme;
+$fold_utils = 'data-class="header"';
+if(strpos($scheme, 'custom') !== false){
+	$custom_text_color = get_field('custom_text_color');
+	$custom_bg_color = get_field('custom_bg_color');
+	if($custom_bg_color){
+		$fold_utils .= ' data-bg="'.$custom_bg_color.'"';
+		//$fold_classes = 'fold';
+	}
+	if($custom_text_color) {
+		$fold_utils .= ' data-color="'.$custom_text_color.'"';
+	}
+
+}
 $post_IDs = '';
 $featured_post = get_field( 'featured_post' ); 
 if ( $featured_post ) : 
@@ -53,7 +79,7 @@ endif;
 $the_query = new WP_Query( $args ); ?>
 
 
-<header class="entry-header article-header fold bg-pattern" data-class="header" style="background-color: <?php echo $article_landing_background_color; ?>">
+<header class="entry-header article-header <?php echo $fold_classes; ?>"  <?php echo $fold_utils; ?>>
 	<div id="header-<?php the_ID(); ?>" class="<?php echo esc_attr( $classes ); ?> header-container">
 		<div class="container">
 			<?php while ( $the_query->have_posts() ) : $the_query->the_post(); 
@@ -91,7 +117,7 @@ endif;
 ?>
 <?php if ( $the_query->have_posts() ) : $postCount = 1; ?>
 	<section class="<?php echo $sction_class;?> first" style="background-color:<?php echo $article_landing_section_background_color;?>">
-		<div class="container posts-loop-section fold" data-class="bg-dark">
+		<div class="container posts-loop-section fold fold-custom" data-class="bg-custom" data-bg="<?php echo $article_landing_section_background_color;?>">
 			<div class="row">
 				<?php while ( $the_query->have_posts() ) : $postCount++; $the_query->the_post(); ?>
 					<div class="col-md-6 col-dlg-5<?php if($postCount % 2 == 0 ) { ?> offset-dlg-1<?php } ?><?php if($postCount == 2 or $postCount == 3) { ?> leaft<?php } ?>">
@@ -106,8 +132,21 @@ endif;
 
 <?php endif; ?>
 <?php $the_query = new WP_Query( array( 'posts_per_page' => 1, 'offset' => 5) );
+$fold_utils = 'data-class="'.$scheme.'"';
+if(strpos($scheme, 'custom') !== false){
+	$custom_text_color = get_field('custom_text_color');
+	$custom_bg_color = get_field('custom_bg_color');
+	if($custom_bg_color){
+		$fold_utils .= ' data-bg="'.$custom_bg_color.'"';
+		//$fold_classes = 'fold';
+	}
+	if($custom_text_color) {
+		$fold_utils .= ' data-color="'.$custom_text_color.'"';
+	}
+
+}
 if ( $the_query->have_posts() ) : $postCount = 1; ?>
-	<section class="entry-header  bg-pattern article-header fold" data-class="bg-pattern" style="background-color: <?php echo $article_landing_background_color; ?>">
+	<section class="entry-header article-header <?php echo $fold_classes; ?>"  <?php echo $fold_utils; ?>>
 		<div id="featured-<?php the_ID(); ?>" class="<?php echo esc_attr( $classes ); ?> ">
 			<div class="container">
 				<?php while ( $the_query->have_posts() ) : $the_query->the_post(); 
@@ -123,7 +162,7 @@ if ( $the_query->have_posts() ) : $postCount = 1; ?>
 <?php $the_query = new WP_Query( array( 'posts_per_page' => 4, 'offset' => 5 ) );
 if ( $the_query->have_posts() ) : $postCount = 1; ?>
 	<section class="<?php echo $sction_class;?>" style="background-color:<?php echo $article_landing_section_background_color;?>">
-		<div class="container posts-loop-section fold" data-class="bg-dark">
+	<div class="container posts-loop-section fold fold-custom" data-class="bg-custom" data-bg="<?php echo $article_landing_section_background_color;?>">
 			<div class="row">
 				<?php while ( $the_query->have_posts() ) : $postCount++; $the_query->the_post(); ?>
 					<div class="col-md-6 col-dlg-5<?php if($postCount % 2 == 0 ) { ?> offset-dlg-1<?php } ?><?php if($postCount == 2 or $postCount == 3) { ?> leaft<?php } ?>">

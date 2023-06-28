@@ -103,6 +103,7 @@ $link_font: 'ISOv';
 // Supply Brand Assets
 $gray-900: #111512;
 $primary: $gray-900;
+$primary-text-emphasis-dark: $primary;
 $gray-800: #222222;
 $gray-700: #6d6d6d;
 $gray-600: #8D8D8D;
@@ -123,6 +124,7 @@ $input-placeholder-color: #808080;
 $input-border-color: $gray-900;
 $input-border-radius: 0;
 $secondary: $gray-800;
+$secondary-text-emphasis-dark: $secondary;
 $font-size-base: 1.125rem;
 $font-size-lg: $font-size-base * 1.75;
 $h2-font-size: 1.875rem;

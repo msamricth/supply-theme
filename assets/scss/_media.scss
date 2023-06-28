@@ -73,20 +73,21 @@
     .preview-video + iframe {
         display: none;
     }
-    &.video-iframe-container {
-        .iframe-video {
-            z-index: 999 !important;
-        }
-        .preview-video {
-            display: none !important;
-        }
-        .preview-video + iframe {
-            display: block;
-            z-index: 999;
-        }
-        button {
-            display: none !important;
-        }
+
+}
+.video-iframe-container {
+    .iframe-video {
+        z-index: 999 !important;
+    }
+    .preview-video {
+        display: none !important;
+    }
+    .preview-video + iframe {
+        display: block;
+        z-index: 999;
+    }
+    button#play-button {
+        display: none !important;
     }
 }
 .ratio-3x4 {
@@ -206,6 +207,7 @@ button.mute-button {
         }
     }
 }
+
 .ratio-image {
     background-size: cover;
     background-position: center center;

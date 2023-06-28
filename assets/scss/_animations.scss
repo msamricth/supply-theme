@@ -453,10 +453,11 @@ input.link-in, input.link-up {
             position: relative;
             display: inline-block;
             .nav-underline {
+                width: 100%;
+                left: -2.25rem;
                 position: absolute;
                 display: block;
                 left: -2.25rem;
-                width: calc(100% - 4.5rem);
                 height: 1px;
                 -webkit-animation: slide 0.5s forwards;
                 -webkit-animation-delay: 2s;
@@ -465,6 +466,9 @@ input.link-in, input.link-up {
                 visibility: hidden;
                 opacity: 0;
                 transition: .15s ease !important;
+                @include media-breakpoint-up(lg) {
+                    width: calc(100% - 4.5rem);
+                }
             } 
             &:hover{
                 .nav-underline {
@@ -504,7 +508,11 @@ input.link-in, input.link-up {
 }
 
 .navbar-collapse .supply-underline .nav-link .nav-underline {
-    left:0;
+    
+    @include media-breakpoint-up(lg) { 
+        
+        left: 0;
+    }
 }
 .navbar-dark, .bg-black, .bg-dark {
     .nav-underline {
