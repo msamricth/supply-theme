@@ -17,11 +17,19 @@ function reelAnimation(){
             
 
             // Play vimeo video when pressing the play button
-            console.log(player);
-                    player.play();
+
+
                     reel.className += " video-iframe-container";
                     iframe.classList.remove("d-none");
         
+                    if(document.body.matches('.ios.Safari')){
+                        setTimeout(
+                            function() {
+                            iframe.contentWindow.postMessage({method:"play"}, "*"); 
+                        }, 700);
+                    } else {
+                        player.play();
+                    }
                     e.preventDefault();
             
         })

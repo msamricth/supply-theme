@@ -124,8 +124,10 @@ blockquote.wp-block-quote {
         }
     }
 }
-.splide:not([data-same-height]) {
+.block-supply-carousel-fh-block {
     min-height:var(--supply-carousel-height);
+}
+.splide:not([data-same-height]) {
     flex-direction:column;
     &.middle {
         .splide__slide {
@@ -195,7 +197,7 @@ blockquote.wp-block-quote {
       //  height: 100%;
     }
     .splide__slide {
-        width:auto !important;
+        width:auto !important;max-width: max-content;
         @supports (-webkit-touch-callout: none) { //not sure this will work - got it from stack xahnge
            
         //    display: inline;
@@ -316,7 +318,7 @@ blockquote.wp-block-quote {
         padding-top: 136px;
     }
 }
-.block-supply-contact-block {
+main#main .block-supply-contact-block {
     .footer-content {
         overflow: hidden;
         padding-bottom: 1px;

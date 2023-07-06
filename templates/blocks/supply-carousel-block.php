@@ -33,7 +33,7 @@ if ( ! empty( $block['className'] ) ) {
 if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
-$classes .=' splide cp3';
+$classes .=' splide';
 $blockContent = '';
 $options_position = '';
 $options_interval = '';

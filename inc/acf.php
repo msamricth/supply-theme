@@ -386,6 +386,20 @@ function register_supply_blocks() {
 			'enqueue_script' 	=> 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js',
 			
 		));
+		// Register Supply Carousel Block (FULL HEIGHT)
+		acf_register_block_type( array(
+			'name' 					=> 'supply-carousel-FH-block',
+			'title' 				=> __( 'Supply Carousel (FULL HEIGHT) Block' ),
+			'description' 			=> __( 'Supply Carousel (FULL HEIGHT) Block' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'images-alt',
+			'keywords'				=> array( 'supply', 'carousel', 'block' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies', 'careers' ),
+			'mode'					=> 'auto',
+			'render_template'		=> 'templates/blocks/supply-carousel-fh-block.php',
+			'enqueue_script' 	=> 'https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js',
+			
+		));
 	
 		// Register Supply Media (v2) Block
 		acf_register_block_type( array(

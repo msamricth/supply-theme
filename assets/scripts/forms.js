@@ -88,9 +88,11 @@ if(cf7Formtextarea) {
         $('.contact-form').addClass('invalid');
       }, false );
     document.addEventListener( 'wpcf7mailsent', function( event ) {
+        var CF7ID = event.detail.contactFormId;
+        console.log(CF7ID);
         $('.contact-form').addClass('success');
-        $('.visible-only-if-sent').show();
-        $('.hidden-only-if-sent').hide();
+        $('#'+CF7ID+' .visible-only-if-sent').show();
+        $('#'+CF7ID+' .hidden-only-if-sent').hide();
     }, false );
     if($('.wp-block-contact-form-7-contact-form-selector .wpcf7-email').length){
         $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",true);
