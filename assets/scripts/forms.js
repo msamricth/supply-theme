@@ -84,6 +84,20 @@ if(cf7Formtextarea) {
     }, false);
 }
 (function($) {
+
+    $('.block-supply-contact-block .footer-btn').prop("disabled",true);
+    $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",true);
+    function checkHoneyPot($class = null){
+        var honeyPot = document.getElementById("honeypot");
+        if (honeyPot && honeyPot.value) {
+            $($class).prop("disabled",true);
+        } else {
+            $($class).prop("disabled",false);
+        }
+    }
+    
+
+
     document.addEventListener( 'wpcf7invalid', function( event ) {
         $('.contact-form').addClass('invalid');
       }, false );
@@ -94,11 +108,22 @@ if(cf7Formtextarea) {
         $('#'+CF7ID+' .visible-only-if-sent').show();
         $('#'+CF7ID+' .hidden-only-if-sent').hide();
     }, false );
+
+
+    
+    if($('.block-supply-contact-block  .wpcf7-email').length){
+        $('.block-supply-contact-block  .btn').prop("disabled",true);
+        document.querySelector('.block-supply-contact-block  .wpcf7-email').addEventListener('input', function (evt) {
+            var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+            if (testEmail.test(this.value)) checkHoneyPot('.block-supply-contact-block .footer-btn');
+            else $('.block-supply-contact-block .btn').prop("disabled",true);
+        });
+    }
     if($('.wp-block-contact-form-7-contact-form-selector .wpcf7-email').length){
         $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",true);
         document.querySelector('.wp-block-contact-form-7-contact-form-selector .wpcf7-email').addEventListener('input', function (evt) {
             var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
-            if (testEmail.test(this.value)) $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",false);
+            if (testEmail.test(this.value)) checkHoneyPot('.wp-block-contact-form-7-contact-form-selector .btn');
             else $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",true);
         });
     }
