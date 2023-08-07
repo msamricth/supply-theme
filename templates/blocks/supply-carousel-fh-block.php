@@ -113,7 +113,7 @@ if ( have_rows( 'options' ) ) :
 		$options_type = get_sub_field( 'type' );
 		$options_position = get_sub_field( 'positioning' ); 
 		$options_interval = get_sub_field( 'interval' ); 
-		$options_same_height = get_sub_field('same_height');
+		//$options_same_height = get_sub_field('same_height');
 		$options_custom_height = get_sub_field('custom_height');
 		$options_scroll__drag = get_sub_field('scroll__drag');
 		$options_per_move = get_sub_field('per_move');
@@ -131,19 +131,21 @@ if ( have_rows( 'options' ) ) :
 		}
 		if(empty($options_arrows)) {
 			$options_arrows = 'false';
+		} else {
+			
+			$options_arrows = 'true';
 		}
 		if(empty($options_type)) {
 			$options_type = 'slide';
 		}
-
-		if(empty($options_same_height)) {
-			$options_same_height = '';
-			if(empty($options_position)) {
-				$classes .=' middle';
-			}
-		} else {
-			$options_same_height = 'data-same-height="'.$options_same_height.'"';
+		if(!empty($options_custom_height)){
+			$classes .=" custom-height-set";
 		}
+
+
+	
+		$options_same_height = 'data-same-height="1"';
+	
 
 		if(empty($options_per_move)) {
 			$options_per_move = 1;

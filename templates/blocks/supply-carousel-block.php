@@ -175,9 +175,20 @@ if ( have_rows( 'options' ) ) :
 		if(empty($options_scroll__drag)) {
 			$options_scroll__drag = 'free';
 		}
-		
+
 		// block content here
 		$blockContent .= '<div id="'. esc_attr( $id ).'" class="'. esc_attr( $classes ).'"';
+		if ( have_rows( 'slide_count_per_breakpoint' ) ) :
+			while ( have_rows( 'slide_count_per_breakpoint' ) ) : the_row(); 
+				$blockContent .= ' data-s320="'.get_sub_field('320').'"';
+				$blockContent .= ' data-s768="'.get_sub_field('768').'"';
+				$blockContent .= ' data-s1024="'.get_sub_field('1024').'"';
+				$blockContent .= ' data-s1290="'.get_sub_field('1290').'"';
+				$blockContent .= ' data-s1440="'.get_sub_field('1440').'"';
+				$blockContent .= ' data-s1920="'.get_sub_field('1920').'"';
+				$blockContent .= ' data-s2400="'.get_sub_field('2400').'"';
+			endwhile;
+		endif;
 		$blockContent .= ' data-type="'.$options_type.'"';	
 		$blockContent .= ' data-drag="'.$options_scroll__drag.'"';
 		$blockContent .= ' '.$options_same_height;

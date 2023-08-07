@@ -40,38 +40,6 @@ $current_post = get_queried_object();
 $post_id = $current_post ? $current_post->ID : null;	
 $scheme = get_field('background_color', $post_id);
 
-if ( have_rows( 'fold_settings' ) ) :
-    while ( have_rows( 'fold_settings' ) ) : the_row(); 
-        if(get_sub_field( 'custom_bg_color' )){
-                $customColor = get_sub_field( 'custom_bg_color' );
-                $customText = get_sub_field('custom_text_color');
-                if($customText) {
-                    $customText = 'data-color="'.$customText.'"';
-                } else {
-                    $customText = 'data-color="default"';
-                }
-                $foldClass .= ' fold-custom';
-                $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
-        }
-        if(get_sub_field( 'fold_color' )){
-            
-            $foldColor = get_sub_field('fold_color');
-            $foldColor = str_replace('1', "", $foldColor);
-            if(strpos($foldColor, 'page') !== false){
-                if($scheme){
-                    $foldColor = $scheme;
-                } else {
-                    $foldColor = 'light';
-                }
-            }
-            $foldClass = 'bg-' . $foldColor;
-            $foldUtils .=' data-class="'. $foldClass .'"';
-        }
-        
-    endwhile;
-endif; 
-
-
 if ( have_rows( 'logos', 'option' ) ) : 
     $logoCount = 0;
     $logoListA = '';
@@ -108,7 +76,7 @@ else :
     // No rows found  
 endif; ?>
 
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>" >
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo get_block_settings($classes) ?>" >
     <div class="container tagline-section fadeNoScroll">
         <div class="row py-8 py-md-13 py-dlg-13 py-3xl-17">
             <div class="col-md-6 order-md-2 col-xl-5 col-xxl-4 fold"  <?php echo $foldUtils; ?>>

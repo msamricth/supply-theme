@@ -68,6 +68,17 @@
         ul.social-nav.share-buttons > li > a {
             color:$primary;
         }
+        
+        .bg-light, .bg-pattern, .fold-text-dark, .light{
+            color: $primary;
+            --supply-fold-color:  #{$primary};
+            *{
+                --supply-fold-color:  #{$primary};
+            }
+            ul.social-nav.share-buttons > li > a {
+                color:$white;
+            }
+        }
     }
     &.bg-light, &.bg-pattern, &.fold-text-dark, &.light{
         color: $primary;
@@ -77,6 +88,13 @@
         }
         ul.social-nav.share-buttons > li > a {
             color:$white;
+        }
+        .bg-dark, .bg-black, .fold-text-white, .bg-dark.bg-pattern, .dark {
+            color: $white;
+            --supply-fold-color:  white;
+            * {
+                --supply-fold-color:  white;
+            }
         }
     }
     &.bg-custom {

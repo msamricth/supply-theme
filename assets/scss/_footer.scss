@@ -1,9 +1,48 @@
 .customScheme {
-    .footer {
+    .footer:not(.override), .footer.scheme.override {
         background-color: var(--bgcustom) !important;
+        p, a, span, div, .footer-btn {
+            color: var(--supply-fold-color);
+        }
+        .nav-underline {
+            background-color: var(--supply-fold-color) !important;
+        }
     }
 }
-
+.customScheme.page-scheme-light .footer:not(.override), .customScheme.page-scheme-light .footer.scheme.override { 
+        .form-control {
+        
+        color: var(--supply-fold-color);
+        border-color: hsl(0deg 0% 0% / 75%);
+        
+        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: var(--supply-fold-color);
+        }
+        &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+            color: var(--supply-fold-color);
+        }
+        &::-ms-input-placeholder { /* Microsoft Edge */
+            color: var(--supply-fold-color);
+        }
+    }
+}
+.footer.override.bg-light, .footer.override.text-dark { 
+    .form-control {
+    
+    color: $primary;
+    border-color: hsl(0deg 0% 0% / 75%);
+    
+    &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: var(--supply-fold-color);
+    }
+    &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: var(--supply-fold-color);
+    }
+    &::-ms-input-placeholder { /* Microsoft Edge */
+        color: var(--supply-fold-color);
+    }
+}
+}
 body:not(.customScheme) {
     .footer{
         --supply-fold-color: white !important;
@@ -21,6 +60,21 @@ body:not(.customScheme) {
     position: relative;
     p, .footer-content * {
          color: white;
+    }
+    
+    &.override.bg-light, &.override.text-dark {
+        --supply-fold-color: $primary !important;
+        
+        p, .footer-content * {
+            color: var(--supply-fold-color);
+        }
+        
+        .nav-underline {
+            background-color: var(--supply-fold-color) !important;
+        }
+        a, .nav-link {
+            color: var(--supply-fold-color);
+        }
     }
     .navbar-nav {
         margin-top: 0;

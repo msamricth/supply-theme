@@ -308,6 +308,7 @@ function setFold(theme, bg = null, txt = null){
 		customOn = true;
 	}
 	if(theme){
+		clearchemes();
 		if (Wrapper.style.background) {
 		//	Wrapper.style.background = '';		
 		}
@@ -417,6 +418,7 @@ function setFold(theme, bg = null, txt = null){
 	}
 }
 function customFold(foldBG = null, foldColor = null){
+	
 	if(foldBG){
 		if(foldBG == 'undefined'){
 			ogFold();
@@ -480,10 +482,37 @@ function checkFoldColor(color){
 	  0.114 * (b * b)
 	);
 	if (hsp>127.5) {
-		document.body.style.setProperty('--supply-fold-color', '#111512') ;
+		document.body.style.setProperty('--supply-fold-color', '#111512');
+		if(document.body.classList.contains('page-scheme-dark')){
+			document.body.classList.remove('page-scheme-dark');
+		}
+		document.body.classList.add('page-scheme-light');
+
 	} 
 	else {
-		document.body.style.setProperty('--supply-fold-color', '#fff')
+		document.body.style.setProperty('--supply-fold-color', '#fff');
+		if(document.body.classList.contains('page-scheme-light')){
+			document.body.classList.remove('page-scheme-light');
+		}
+		document.body.classList.add('page-scheme-dark');
+	}
+}
+function clearchemes(){
+	
+	document.body.style.removeProperty('--supply-fold-color');
+	document.body.style.removeProperty('--bgcustom');
+	
+	
+	if(document.body.classList.contains('page-scheme-dark')){
+		document.body.classList.remove('page-scheme-dark');
+	}
+
+	if(document.body.classList.contains('page-scheme-light')){
+		document.body.classList.remove('page-scheme-light');
+	}
+	if(document.body.classList.contains('customScheme')){
+		document.body.style.setProperty('--bgcustom', OGbg);
+		checkFoldColor(OGbg);
 	}
 }
 const ifWork = document.body.classList.contains('page-template-careers');

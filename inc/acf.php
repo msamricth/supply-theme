@@ -83,13 +83,32 @@ function register_supply_blocks() {
 			'icon'					=> 'image-flip-vertical',
 			'keywords'				=> array( 'supply', 'fold' ),
 			'post_types'			=> array( 'post', 'page', 'case-studies' ),
-			'mode'					=> 'auto',
+            'mode'              => 'auto',
 			// 'align'				=> 'wide',
 			'render_template'		=> 'templates/blocks/supply-fold.php',
 			// 'render_callback'	=> 'supply_fold_block_render_callback',
 			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-fold/supply-fold.css',
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-fold/supply-fold.js',
 			// 'enqueue_assets' 	=> 'supply_fold_block_enqueue_assets',
+		));
+		
+		// Register Supply Container block
+		acf_register_block_type( array(
+			'name' 					=> 'supply-container',
+			'title' 				=> __( 'Supply Container' ),
+			'description' 			=> __( 'A custom Supply Container block.' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'columns',
+			'keywords'				=> array( 'supply', 'columns', 'container' ),
+			'post_types'			=> array( 'post', 'page', 'case-studies' ),
+            'mode'              => 'preview',
+            'supports'          => array(
+                'align' => true,
+                'mode' => false,
+                'jsx' => true
+            ),
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-container.php',
 		));
 		// Register Supply media block
 		//acf_register_block_type( array(

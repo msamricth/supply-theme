@@ -17,7 +17,7 @@ add_action('wp_head', 'bg_pattern', 100);
 add_filter( 'excerpt_more', '__return_empty_string' ); 
 
 //Supply Grid functions
-function supply_grid($content, $defaults = null){
+function supply_grid($content, $defaults = null, $extras = null){
     $row = 'row';
     $classes = '';
     $post_id = '';
@@ -32,6 +32,9 @@ function supply_grid($content, $defaults = null){
     $post_id = $current_post ? $current_post->ID : null;	
     $scheme = get_field('background_color', $post_id);
 	$fold = '';
+    if(empty($extras)){
+        $extras =  get_container_scheme();
+    }
     if ( have_rows( 'column_settings' ) ) { 
         while ( have_rows( 'column_settings' ) ) : the_row(); 
             if ( get_sub_field( 'full_width_content_container' ) == 1 ) : 
@@ -131,7 +134,7 @@ function supply_grid($content, $defaults = null){
            $container .= '<div class="'.$fold.'" '.$foldUtils.'>';
         }
         $container .= '<div class="' . $row . '">';
-        $container .= '<div class="' . $classes . '">';
+        $container .= '<div class="' . $classes . ' ' . $extras.'">';
             if($content) {$container .= $content; } else {
                 $container .= '<h3>Something seems wrong here - this function requires the <i>"$content"</i> variable to have content</h3>';
             }
@@ -146,7 +149,7 @@ function supply_grid($content, $defaults = null){
     }
     return $container;
 }
-function supply_grid_sh($content, $defaults=null){
+function supply_grid_sh($content, $defaults=null, $extras=null){
     $row = 'row';
     $classes = '';
     $container ='';
@@ -156,7 +159,7 @@ function supply_grid_sh($content, $defaults=null){
             $classes .= 'col-md-10 mx-auto col-dlg-12 col-xl-10';
         }
         $container .= '<div class="' . $row . '">';
-        $container .= '<div class="' . $classes . '">';
+        $container .= '<div class="' . $classes . ' '.$extras. '">';
             if($content) {$container .= $content; } else {
                 $container .= '<h3>Something seems wrong here - this function requires the <i>"$content"</i> variable to have content</h3>';
             }
@@ -605,3 +608,350 @@ function linkinIcon() {
     $output = '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" rx="15" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0582 9.94574C11.0582 10.7213 10.4348 11.3497 9.66537 11.3497C8.89597 11.3497 8.27258 10.7213 8.27258 9.94574C8.27258 9.17073 8.89597 8.54175 9.66537 8.54175C10.4348 8.54175 11.0582 9.17073 11.0582 9.94574ZM11.069 12.4724H8.26099V21.4579H11.069V12.4724ZM12.7614 12.4722H15.5515V13.6825C16.7286 11.504 21.7393 11.3429 21.7393 15.7682V21.4578H18.938V16.7409C18.938 13.9037 15.552 14.1183 15.552 16.7409V21.4578H12.7614V12.4722Z" fill="white"/></svg>';
     return $output;
 }
+
+if ( ! function_exists( 'get_fold' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v1.0
+	 */
+	function get_fold($fold_color = null) {
+        $foldUtils = '';
+        $post_id = ''; 
+        $output = '';
+        $current_post = get_queried_object();
+        $post_id = $current_post ? $current_post->ID : null;
+        $classes = '';	
+        $scheme = get_field('background_color', $post_id);
+
+        // If in side a group type field Called 'fold_settings'
+            if ( have_rows( 'fold_settings' ) ) :
+                while ( have_rows( 'fold_settings' ) ) : the_row(); 
+                    if(get_sub_field( 'custom_bg_color' )){
+                            $customColor = get_sub_field( 'custom_bg_color' );
+                            $customText = get_sub_field('custom_text_color');
+                            if (str_contains($customColor, "#")) {
+                                $customColor = $customColor;
+                            } else {
+                                $customColor = '#'. $customColor;
+                            }
+                            if($customText) {
+                                $customText = 'data-color="'.$customText.'"';
+                            } else {
+                                $customText = 'data-color="default"';
+                            }
+                            $classes .= ' fold-custom';
+                            $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
+                    }
+                    if(get_sub_field( 'fold_color' )){
+                        
+                            $classes .= ' fold';
+                            $foldColor = get_sub_field('fold_color');        
+                            if(strpos($foldColor, 'page') !== false){
+                                if($scheme){
+                                    $foldColor = $scheme;
+                                }
+                            }
+                            $foldClass = 'bg-' . $foldColor;
+                            $foldUtils .=' data-class="'. $foldClass;
+                    }
+                    
+                endwhile;
+
+        else:
+
+            // If is standalone fields
+            if(get_field( 'fold_color' )){
+                if(get_field( 'custom_bg_color' )){
+                    $customColor = get_field( 'custom_bg_color' );
+                    $customText = get_field('custom_text_color');
+                    
+                    if (str_contains($customColor, "#")) {
+                        $customColor = $customColor;
+                    } else {
+                        $customColor = '#'. $customColor;
+                    }
+                    if($customText) {
+                        $customText = 'data-color="'.$customText.'"';
+                    } else {
+                        $customText = 'data-color="default"';
+                    }
+                    $classes .= ' fold-custom';
+                    $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
+                }
+            
+                $classes .= ' fold';
+                $foldColor = get_field('fold_color');        
+                if(strpos($foldColor, 'page') !== false){
+                    if($scheme){
+                        $foldColor = $scheme;
+                    }
+                }
+                $foldClass = 'bg-' . $foldColor;
+                $foldUtils .=' data-class="'. $foldClass;
+            } else {
+                if($scheme){
+                    $foldUtils .=' data-class="bg-'. $scheme;
+                } else {
+                    $foldUtils .=' data-class="bg-light';
+                }
+            }
+           
+        endif; 
+        $output = $classes .'" '.$foldUtils;
+		return $output;
+    }
+
+endif;
+
+
+
+
+if ( ! function_exists( 'get_container_scheme' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v1.0
+	 */
+	function get_container_scheme() {
+        $output = "";
+        if ( have_rows( 'container_color_scheme' ) ) :
+            while ( have_rows( 'container_color_scheme' ) ) : the_row(); 
+                $containerColor = get_sub_field('container_color'); 
+                if($containerColor){
+                    
+                    if($containerColor == "custom"){
+                        $background_color = get_sub_field('container_color_bg_color');
+                        if (str_contains($background_color, "#")) {
+                            $background_color = $background_color;
+                        } else {
+                            $background_color = '#'. $background_color;
+                        }
+                        $text_color = get_sub_field('container_color_custom_text_color');
+                        $output .= ' bg-custom';
+                        $styles = '" style="background-color:'.$background_color.';';
+                        if(empty($text_color)){
+                            $rgb = HTMLToRGB($background_color);
+                            $hsl = RGBToHSL($rgb);
+                            if($hsl->lightness > 200) {
+                            // this is light colour!
+                                $output .= ' text-primary';
+                            } else {
+                                $output .= ' text-white';
+                            }
+                        } else {
+                            $styles .=' color:'.$text_color.';';
+                        }
+                        //$styles .='"';
+                        $output .= $styles.'"';
+                    } else {
+                        $output .= ' bg-' . $containerColor;
+                    }
+                }
+
+            endwhile; 
+        endif; 
+		return $output;
+    }
+
+endif;
+
+
+
+
+if ( ! function_exists( 'get_block_settings' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v1.0
+	 */
+	function get_block_settings($classes=null) {
+        $output = "";
+        $foldUtils = '';
+        $post_id = ''; 
+        $output = '';
+        $current_post = get_queried_object();
+        $post_id = $current_post ? $current_post->ID : null;
+        $styles = '';
+        if(empty($classes)){
+            $classes = '';	
+        } else {
+            $classes = esc_attr($classes) . ' ';
+        }
+        $scheme = get_field('background_color', $post_id);
+
+        // If in side a group type field Called 'fold_settings'
+            if ( have_rows( 'fold_settings' ) ) :
+                while ( have_rows( 'fold_settings' ) ) : the_row(); 
+                    if(get_sub_field( 'custom_bg_color' )){
+                            $customColor = get_sub_field( 'custom_bg_color' );
+                            $customText = get_sub_field('custom_text_color');
+                            if (str_contains($customColor, "#")) {
+                                $customColor = $customColor;
+                            } else {
+                                $customColor = '#'. $customColor;
+                            }
+                            if($customText) {
+                                $customText = 'data-color="'.$customText.'"';
+                            } else {
+                                $customText = 'data-color="default"';
+                            }
+                            $classes .= 'fold-custom';
+                            $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
+                    }
+                    if(get_sub_field( 'fold_color' )){
+                        
+                            $classes .= ' fold';
+                            $foldColor = get_sub_field('fold_color');        
+                            if(strpos($foldColor, 'page') !== false){
+                                if($scheme){
+                                    $foldColor = $scheme;
+                                }
+                            }
+                            $foldClass = 'bg-' . $foldColor;
+                            $foldUtils .=' data-class="'. $foldClass;
+                    }
+                    
+                endwhile;
+
+            else:
+
+                // If is standalone fields
+                if(get_field( 'fold_color' )){
+                    if(get_field( 'custom_bg_color' )){
+                        $customColor = get_field( 'custom_bg_color' );
+                        $customText = get_field('custom_text_color');
+                        
+                        if (str_contains($customColor, "#")) {
+                            $customColor = $customColor;
+                        } else {
+                            $customColor = '#'. $customColor;
+                        }
+                        if($customText) {
+                            $customText = 'data-color="'.$customText.'"';
+                        } else {
+                            $customText = 'data-color="default"';
+                        }
+                        $classes .= ' fold-custom';
+                        $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
+                    }
+                
+                    $classes .= ' fold';
+                    $foldColor = get_field('fold_color');        
+                    if(strpos($foldColor, 'page') !== false){
+                        if($scheme){
+                            $foldColor = $scheme;
+                        }
+                    }
+                    $foldClass = 'bg-' . $foldColor;
+                    $foldUtils .=' data-class="'. $foldClass;
+                } else {
+                    if($scheme){
+                        $foldUtils .=' data-class="bg-'. $scheme;
+                    } else {
+                        $foldUtils .=' data-class="bg-light';
+                    }
+                }
+            
+            endif; 
+        if ( have_rows( 'container_color_scheme' ) ) :
+            while ( have_rows( 'container_color_scheme' ) ) : the_row(); 
+                $containerColor = get_sub_field('container_color'); 
+                if($containerColor){
+                    
+                    if($containerColor == "custom"){
+                        $background_color = get_sub_field('container_color_bg_color');
+                        if (str_contains($background_color, "#")) {
+                            $background_color = $background_color;
+                        } else {
+                            $background_color = '#'. $background_color;
+                        }
+                        $text_color = get_sub_field('container_color_custom_text_color');
+                        $classes .= ' bg-custom';
+                        $styles = '" style="background-color:'.$background_color.';';
+                        if(empty($text_color)){
+                            $rgb = HTMLToRGB($background_color);
+                            $hsl = RGBToHSL($rgb);
+                            if($hsl->lightness > 200) {
+                            // this is light colour!
+                                $classes .= ' text-primary';
+                            } else {
+                                $classes .= ' text-white';
+                            }
+                        } else {
+                            $styles .=' color:'.$text_color.';';
+                        }
+                        //$styles .='"';
+                        $styles .= $styles.'"';
+                    } else {
+                        $classes .= ' bg-' . $containerColor;
+                    }
+                }
+
+            endwhile; 
+        endif; 
+
+        
+        $output = $classes .'" '.$foldUtils .'" '.$styles;
+		return $output;
+    }
+
+endif;
+if ( ! function_exists( 'get_padding' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v6.5
+	 */
+	function get_padding($blockID) {
+        $output = '';
+        $style = '';
+        $style_output = '';
+        $padding_size = get_field( 'padding_size' ); 
+        
+        if(get_field('padding_size')){
+            $output .= $padding_size.' ';
+        }
+        if ( have_rows( 'custom_padding' ) ) : 
+            $style_output = '<style type="text/css">';
+            $style ="Test";
+            $output .= 'padding-block ';
+            while ( have_rows( 'custom_padding' ) ) : the_row(); 
+                if ( have_rows( 'top' ) ) : 
+                    while ( have_rows( 'top' ) ) : the_row(); 
+                        if(get_sub_field( 'custom_size' )){
+                            $style_output.= '#' . $blockID.' .padding-block {padding-top:'. get_sub_field( 'custom_size' ).'px;} ';
+                        }
+                        if ( have_rows( 'breakpoint_overrides' ) ) : 
+                                while ( have_rows( 'breakpoint_overrides' ) ) : the_row(); 
+                                    $style_output.= '@media (min-width:  '.get_sub_field( 'breakpoint' ).' ){#' . $blockID .' .padding-block {padding-top: '.get_sub_field( 'custom_size' ).'px;}} ';
+                                endwhile; 
+                            else : 
+                                // No rows found 
+                            endif; 
+                    endwhile; 
+                endif; 
+                if ( have_rows( 'bottom' ) ) :  
+                    while ( have_rows( 'bottom' ) ) : the_row(); 
+                        if(get_sub_field( 'custom_size' )){
+                            $style_output.= '#' . $blockID.' .padding-block {padding-bottom:'. get_sub_field( 'custom_size' ).'px;}';
+                        }
+                        
+                        if ( have_rows( 'breakpoint_overrides' ) ) : 
+                            while ( have_rows( 'breakpoint_overrides' ) ) : the_row(); 
+                                $style_output.= '@media (min-width:  '.get_sub_field( 'breakpoint' ).' ){#' . $blockID .' .padding-block {padding-bottom: '.get_sub_field( 'custom_size' ).'px;}}';
+                            endwhile; 
+                        else : 
+                            // No rows found 
+                        endif; 
+                    endwhile;  
+                endif;
+            endwhile; 
+            $style_output .='</style>';
+        endif; 
+        enqueue_footer_markup($style_output);
+        
+		return $output;
+    }
+
+endif;

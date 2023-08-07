@@ -27,7 +27,8 @@ if ( ! empty( $block['align'] ) ) {
 $classes .=' fadeNoScroll';
 $blockContent = '';
 $i = 0;
-
+$extras = '';
+$extras .= get_container_scheme();
 $blockContent .= '<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes ) .'">';
     if ( have_rows( 'supply_stats' ) ) : 
         $blockContent .= '<div class="row g-0 justify-content-between">';
@@ -46,10 +47,10 @@ $blockContent .= '<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes )
 $blockContent .= '</div>';
 if ( have_rows( 'container_+_column_settings' ) ) :
     while ( have_rows( 'container_+_column_settings' ) ) : the_row();   
-        echo supply_grid($blockContent, 'col-md-12 mx-auto col-dlg-12 col-xl-10');
+        echo supply_grid($blockContent, 'col-md-12 mx-auto col-dlg-12 col-xl-10', $extras);
     endwhile;
 else:
-    echo supply_grid_sh($blockContent, 'col-md-12 mx-auto col-dlg-12 col-xl-10');
+    echo supply_grid_sh($blockContent, 'col-md-12 mx-auto col-dlg-12 col-xl-10', $extras);
 endif;
 ?>
 <div class="col-md-12 col-xl-10 mx-auto"><div class="seperator"></div></div>

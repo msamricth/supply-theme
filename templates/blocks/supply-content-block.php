@@ -36,8 +36,11 @@ if ( have_rows( 'block_content' ) ) :
         endif;
     endwhile; 
 endif;
+
+$extras = get_container_scheme();
 ?>
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
+
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); echo $extras;?>">
 
 <?php if ( have_rows( 'block_header' ) ) : ?>
 		<?php while ( have_rows( 'block_header' ) ) : the_row(); 

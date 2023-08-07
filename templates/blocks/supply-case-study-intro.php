@@ -81,10 +81,11 @@ if($scheme){
 }
 endif; 
 $specialties = get_field( 'specialties' ); 
+$extras = get_container_scheme();
 ?>
 
 
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); echo $extras; ?>">
     <div class="fold" data-class="header"></div>
     <div class="row">
         <div class="col-md-10 col-lg-8 col-xl-7 offset-xl-1 case-study-left cp2 mb-dlg-0">  

@@ -39,7 +39,8 @@ else :
     $subClass .= ' col-11 col-md-4 col-dlg-3 pe-4xl-5';
 endif; 
 $blockContent .= '<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes ) .'">';
-
+$extras = '';
+$extras .= get_container_scheme();
 
 if ( have_rows( 'lists' ) ) : 
     while ( have_rows( 'lists' ) ) : the_row(); $i++;   
@@ -71,8 +72,8 @@ endif;
 $blockContent .='</div>'; 
 if ( have_rows( 'container_settings' ) ) : 
     while ( have_rows( 'container_settings' ) ) : the_row(); 
-        echo supply_grid($blockContent, 'col-dlg-12');
+        echo supply_grid($blockContent, 'col-dlg-12', $extras);
     endwhile;
 else:
-    echo supply_grid_sh($blockContent, 'col-dlg-12');
+    echo supply_grid_sh($blockContent, 'col-dlg-12', $extras);
 endif;
