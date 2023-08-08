@@ -61,7 +61,7 @@ $row = '';
             
         endwhile;
 	endif; ?>
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo get_block_settings($classes) ?>">
 <?php 
 $post_IDs = '';
 $args = '';

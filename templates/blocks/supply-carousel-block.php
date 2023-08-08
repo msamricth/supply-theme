@@ -177,7 +177,7 @@ if ( have_rows( 'options' ) ) :
 		}
 
 		// block content here
-		$blockContent .= '<div id="'. esc_attr( $id ).'" class="'. esc_attr( $classes ).'"';
+		$blockContent .= '<div id="'. esc_attr( $id ).'" class="'.get_block_settings($classes).'"';
 		if ( have_rows( 'slide_count_per_breakpoint' ) ) :
 			while ( have_rows( 'slide_count_per_breakpoint' ) ) : the_row(); 
 				$blockContent .= ' data-s320="'.get_sub_field('320').'"';

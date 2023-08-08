@@ -357,6 +357,17 @@ blockquote.wp-block-quote {
         margin-bottom: 0;
         padding-top: 136px;
     }
+    .logo-container:last-of-type {
+        img {
+            margin-bottom: 118px;
+            @include media-breakpoint-up(md) {
+                margin-bottom: 136px;
+            }
+            @include media-breakpoint-up(3xl) {
+                margin-bottom: 180px;
+            }
+        }
+    } 
 }
 main#main, footer {
 

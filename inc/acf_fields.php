@@ -1,6 +1,5 @@
 <?php
 
-
 add_action( 'acf/include_fields', function() {
 	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
 		return;
@@ -11010,6 +11009,10 @@ add_action( 'acf/include_fields', function() {
 				'acfe_save_meta' => 0,
 				'layout' => 'block',
 				'acfe_seamless_style' => 1,
+				'acfe_group_modal' => 0,
+				'acfe_group_modal_close' => 0,
+				'acfe_group_modal_button' => '',
+				'acfe_group_modal_size' => 'large',
 				'sub_fields' => array(
 					array(
 						'key' => 'field_64d1130667c7d',
@@ -11278,10 +11281,6 @@ add_action( 'acf/include_fields', function() {
 						),
 					),
 				),
-				'acfe_group_modal' => 0,
-				'acfe_group_modal_close' => 0,
-				'acfe_group_modal_button' => '',
-				'acfe_group_modal_size' => 'large',
 			),
 		),
 		'location' => array(

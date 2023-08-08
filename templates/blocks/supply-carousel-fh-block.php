@@ -155,7 +155,7 @@ if ( have_rows( 'options' ) ) :
 		}
 		
 		// block content here
-		$blockContent .= '<div id="'. esc_attr( $id ).'" class="'. esc_attr( $classes ).'"';
+		$blockContent .= '<div id="'. esc_attr( $id ).'" class="'.get_block_settings($classes).'"';
 		$blockContent .= ' data-type="'.$options_type.'"';	
 		$blockContent .= ' data-drag="'.$options_scroll__drag.'"';
 		$blockContent .= ' '.$options_same_height;
