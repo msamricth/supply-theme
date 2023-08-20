@@ -522,7 +522,7 @@ input.link-in, input.link-up {
 
 }
 .navbar-light, .bg-light {
-    .nav-underline {
+    .nav-underline:not(.flex-column) {
         background-color: $primary;
     }
     .navbar-toggler {

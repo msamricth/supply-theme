@@ -37,6 +37,46 @@ if ( have_rows( 'block_content' ) ) :
     endwhile; 
 endif;
 
+$link = '';
+$linkTitle = get_field( 'link_text' );
+$page_lookup = get_field( 'page_lookup' ); 
+$linkClass = '';
+$linkURL = get_field( 'url' );
+if ( have_rows( 'options' ) ) :
+    while ( have_rows( 'options' ) ) : the_row(); 
+        $padding_block = get_sub_field( 'padding_bottom' ); 
+
+        if (isset($padding_block)) {
+            $classes .= ' '.$padding_block;
+        }
+        if ( get_sub_field( 'use_url' ) == 1 ) {
+            if (isset($linkURL)) {
+                $link = $linkURL;
+            }
+            if(empty($linkTitle)){
+                $linkTitle = 'Let’s talk about your project';
+            }
+        } else {
+            if ( $page_lookup ) : 
+                $link = get_permalink( $page_lookup );
+                if(empty($linkTitle)){
+                    $linkTitle = get_the_title( $page_lookup );
+                }
+             endif; 
+        }
+        if ( get_sub_field( 'external_url' ) == 1 ) :
+            $linkClass = 'link-up';
+        endif;
+    endwhile;
+endif;
+if(!empty($link)){
+    $blockContent .='<a class="'.esc_html($linkClass).'" '; 
+    if($linkClass){
+        $blockContent .='target="_blank" '; 
+    } 
+    $blockContent .='href="'.esc_url( $link).'">'.esc_html( $linkTitle ).'</a>';
+}
+
 $extras = get_container_scheme();
 ?>
 

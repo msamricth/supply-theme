@@ -1,6 +1,6 @@
 <?php
 /**
- * The Template for displaying all external pages.
+ * The Template for displaying single case studies.
  */
 
 get_header();

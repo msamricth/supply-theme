@@ -29,7 +29,7 @@ h4, .h4 {
     line-height: 1.22;
 }
 h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-    font-family: 'Calibre';
+    font-family: $font-family-headings;
     font-weight: 600;
 }
 h6, .h6, .h7 {

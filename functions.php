@@ -461,10 +461,14 @@ function my_scripts_modifier( $tag, $handle, $src ) {
 $theme_ACFPro = __DIR__ . '/inc/acf.php';
 
 $theme_ACFProFields = __DIR__ . '/inc/acf_fields.php';
+$theme_ACFProBlocks = __DIR__ . '/inc/acf_blocks.php';
+$theme_ACFProCPTs = __DIR__ . '/inc/acf_cpts.php';
 $theme_ACFProDIR  = __DIR__ . '/inc/acf/';
 if ( is_readable( $theme_ACFPro ) ) {
 	require_once $theme_ACFPro;
 	require_once $theme_ACFProFields;
+	require_once $theme_ACFProBlocks;
+	require_once $theme_ACFProCPTs;
 }
 $theme_videoEmbeds = __DIR__ . '/inc/video_embeds.php';
 if ( is_readable( $theme_videoEmbeds ) ) {
@@ -474,11 +478,5 @@ $theme_tweaks = __DIR__ . '/inc/tweaks.php';
 if ( is_readable( $theme_tweaks ) ) {
 	require_once $theme_tweaks;
 }
-function enable_svg_upload( $upload_mimes ) {
-    $upload_mimes['svg'] = 'image/svg+xml';
-    $upload_mimes['svgz'] = 'image/svg+xml';
-    return $upload_mimes;
-}
-add_filter( 'upload_mimes', 'enable_svg_upload', 10, 1 );
 
 

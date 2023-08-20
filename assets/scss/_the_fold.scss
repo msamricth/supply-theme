@@ -51,7 +51,7 @@
             }
         }
     }
-    &.bg-dark, &.bg-black, &.fold-text-white, &.bg-dark.bg-pattern, &.dark {
+    &.bg-dark, &.bg-offerings, &.bg-black, &.fold-text-white, &.bg-dark.bg-pattern, &.dark {
         color: $white;
         --supply-fold-color:  white;
         * {
@@ -89,7 +89,7 @@
         ul.social-nav.share-buttons > li > a {
             color:$white;
         }
-        .bg-dark, .bg-black, .fold-text-white, .bg-dark.bg-pattern, .dark {
+        .bg-dark, .bg-offerings, .bg-black, .fold-text-white, .bg-dark.bg-pattern, .dark {
             color: $white;
             --supply-fold-color:  white;
             * {

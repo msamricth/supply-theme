@@ -134,3 +134,25 @@ function hide_search_widget() {
     unregister_widget('WP_Widget_Search');
 }
 add_action( 'widgets_init', 'hide_search_widget' );
+
+add_filter('acf/upload_prefilter/name=images_optional', 'images_optional_upload_prefilter');
+function images_optional_upload_prefilter($errors) {
+  // in this filter we add a WP filter that alters the upload path
+  add_filter('upload_dir', 'images_optional_upload_dir');
+  return $errors;
+}
+// second filter
+function images_optional_upload_dir($uploads) {
+  // here is where we later the path
+  $uploads['path'] = $uploads['path'].'/images';
+  $uploads['url'] = $uploads['url'].'/images';
+  $uploads['subdir'] = '';
+  return $uploads;
+}
+function enable_svg_upload( $upload_mimes ) {
+    $upload_mimes['svg'] = 'image/svg+xml';
+    $upload_mimes['svgz'] = 'image/svg+xml';
+    $upload_mimes['json'] = 'application/json';
+    return $upload_mimes;
+}
+add_filter( 'upload_mimes', 'enable_svg_upload', 10, 1 );

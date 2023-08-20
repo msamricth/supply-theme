@@ -3,7 +3,7 @@
 // Add to existing function.php file
 //Supply Theme functions @extends ACF Blocks
 
-function bg_pattern() {  
+function bg_images() {  
         if ( get_field( 'background_image', 'option' ) ) : ?>
             <style>
                 .bg-pattern {
@@ -11,9 +11,17 @@ function bg_pattern() {
                 }
             </style>
     <?php
+        endif; 
+        if ( get_field( 'offerings_image', 'option' ) ) : ?>
+            <style>
+                .bg-offerings {
+                    background-image: url('<?php the_field( 'offerings_image', 'option' ); ?>');
+                }
+            </style>
+    <?php
         endif;
 }
-add_action('wp_head', 'bg_pattern', 100);
+add_action('wp_head', 'bg_images', 100);
 add_filter( 'excerpt_more', '__return_empty_string' ); 
 
 //Supply Grid functions
@@ -32,6 +40,9 @@ function supply_grid($content, $defaults = null, $extras = null){
     $post_id = $current_post ? $current_post->ID : null;	
     $scheme = get_field('background_color', $post_id);
 	$fold = '';
+    if ( get_post_type() === 'service-offerings' ) { 
+        $defaults = 'col-md-12';
+    }
     if(empty($extras)){
         $extras =  get_container_scheme();
     }
@@ -148,6 +159,8 @@ function supply_grid($content, $defaults = null, $extras = null){
         $container = supply_grid_sh($content, $defaults);
     }
     return $container;
+    
+    
 }
 function supply_grid_sh($content, $defaults=null, $extras=null){
     $row = 'row';
@@ -371,8 +384,7 @@ function get_header_media(){
 
 
                         if( $header_type == 'casestudy' ) {
-                            
-$client_logo = get_field('client_logo');
+                            $client_logo = get_field('client_logo');
                             $title_of_work_performed = get_field('title_of_work_performed');
                             if (empty($title_of_work_performed)):
                                 $title_of_work_performed = get_the_title();
@@ -955,3 +967,112 @@ if ( ! function_exists( 'get_padding' ) ) :
     }
 
 endif;
+
+if ( ! function_exists( 'get_subnav' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v7.1.5
+	 */
+	function get_subnav($post_type=null) {
+        $output = '';
+        $args = [];
+        $currentID = get_the_ID();
+        
+        
+        if (isset($post_type)) {
+            $args = array(
+                'post_type' => $post_type
+            );   
+        } else {
+            $args = array(
+                'post_type' => array('service-offerings')
+            ); 
+        }  
+        $the_query = new WP_Query( $args );
+        $output = '<ul class="nav flex-column bg-transparent nav-underline">';
+        $count = 0;
+        if ( $the_query->have_posts() ) :
+            while ( $the_query->have_posts() ) : $the_query->the_post(); $count++;
+            
+                $post_id = url_to_postid(get_the_permalink());
+                $slug = get_post_field( 'post_name', $post_id );
+                $output .= '  <li class="nav-item">';
+                $output .= '<a href="'.get_the_permalink().'" id="subnav-'.$post_id.'" data-slug="/'.$slug.'" class="d-flex ';
+                if (isset($currentID)) {
+                    $postID = get_the_ID();
+                    if($currentID == $postID) {
+                        $output .= 'active ';
+                    }
+                }
+                $output .='nav-link" title="'.esc_attr__( 'Permalink to %s', 'supply' ).'" rel="bookmark">';
+                $output .= '<span class="chapter">0'.$count.'</span><div class="vr-line align-self-stretch"></div><span class="title">';
+                $output .= get_the_title(); 
+                $output .= '</span></a>';
+                $output .= '</li>';
+            endwhile; 
+            $output .= '</ul>';
+            wp_reset_postdata();
+         endif; 
+		return $output;
+    }
+
+endif;
+;
+
+if ( ! function_exists( 'get_scheme' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v7.6
+	 */
+	function get_scheme($custom=null) {
+        $output = '';
+        if (isset($custom)) {
+            $scheme = $custom;
+        } else {
+            $scheme = get_field('background_color');
+        }
+        if($scheme){
+            if(strpos($scheme, 'dots') !== false){
+                $bodyClasses .= ' dots_on ';
+                $scheme = 'bg-light bg-pattern';
+           // }elseif(strpos($scheme, 'offerings') !== false){
+             //   $scheme = 'bg-dark bg-offerings';
+            } else {
+                $scheme = 'bg-'. $scheme . ' ';
+            }
+        } else {
+            $scheme = 'bg-light';
+        }
+		return $scheme;
+    }
+
+endif;
+
+
+if ( ! function_exists( 'get_background_lines' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v7.7
+	 */
+	function get_background_lines($custom=null) {
+        $output ='<div class="offering-specific-elements container">';
+        $output .='<div class="overlay position-fixed row vr-line-group">';
+        $output .='<div class="col col-dlg-3"><div class="vr-line"></div></div>';
+        $output .='<div class="col col-dlg-4"><div class="vr-line"></div></div>';
+        $output .='<div class="col  col-dlg-4 d-none d-dlg-block"><div class="vr-line"></div></div>';
+        $output .='<div class="col d-none d-dlg-block"><div class="vr-line"></div></div>';
+        $output .='<div class="col"><div class="ms-auto vr-line"></div></div>';
+        $output .='</div>';
+        $output .='</div>';
+		return $output;
+    }
+
+endif;
+
+
+
+
+

@@ -37,7 +37,12 @@ $header_media = get_header_media();
 $background_color = get_field('articles__background_color');
 $article_landing_background_color = get_field('article_landing_background_color');
 //settings
-$header_type =  get_field( 'header_type' );
+if (isset($args['header_type'])) {
+    $header_type = $args['header_type'];
+} else {
+    $header_type =  get_field( 'header_type' );
+}
+
 $classes .= $header_type; 
 if ( get_field( 'disable_header_text' ) == 1 ) :
     $turnTextOff = 1;
@@ -65,6 +70,11 @@ $headerOverlayOpacity = '';
 
             case 'standardmedialinked':
                 $afterContainer = supply_page_starter();
+                break;     
+
+            case 'offerings':
+                $beforeContainer = '';
+                $afterContainer = '';
                 break;   
 
             case 'contact':

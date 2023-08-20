@@ -336,6 +336,14 @@ function setFold(theme, bg = null, txt = null){
 							Wrapper.classList = 'bg-light ' + theme;
 					}, 400);
 				}
+				if(bodyOG == 'bg-offerings ') {
+					Wrapper.classList = 'bg-dark ' + theme;
+				}
+				break;
+			case 'bg-play-animation':
+				Wrapper.classList = 'bg-dark ' + theme;
+				let lottieInstance = document.querySelector('.lottiedottie'); 
+				lottieInstance.play();
 				break;
 			case 'bg-footer':
 				if(bodyOG == 'bg-custom ') {

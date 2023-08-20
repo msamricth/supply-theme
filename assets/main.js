@@ -13,3 +13,4 @@ import './scripts/carousel.js';
 import './scripts/theme.js';
 import './scripts/articles.js';
 import './scripts/video.js';
+import './scripts/offerings.js';
