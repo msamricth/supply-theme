@@ -37,47 +37,20 @@ if ( have_rows( 'block_content' ) ) :
     endwhile; 
 endif;
 
-$link = '';
-$linkTitle = get_field( 'link_text' );
-$page_lookup = get_field( 'page_lookup' ); 
-$linkClass = '';
-$linkURL = get_field( 'url' );
-if ( have_rows( 'options' ) ) :
-    while ( have_rows( 'options' ) ) : the_row(); 
-        $padding_block = get_sub_field( 'padding_bottom' ); 
-
-        if (isset($padding_block)) {
-            $classes .= ' '.$padding_block;
-        }
-        if ( get_sub_field( 'use_url' ) == 1 ) {
-            if (isset($linkURL)) {
-                $link = $linkURL;
-            }
-            if(empty($linkTitle)){
-                $linkTitle = 'Let’s talk about your project';
-            }
-        } else {
-            if ( $page_lookup ) : 
-                $link = get_permalink( $page_lookup );
-                if(empty($linkTitle)){
-                    $linkTitle = get_the_title( $page_lookup );
-                }
-             endif; 
-        }
-        if ( get_sub_field( 'external_url' ) == 1 ) :
-            $linkClass = 'link-up';
-        endif;
-    endwhile;
-endif;
+$link = get_supply_link();
 if(!empty($link)){
-    $blockContent .='<a class="'.esc_html($linkClass).'" '; 
-    if($linkClass){
-        $blockContent .='target="_blank" '; 
-    } 
-    $blockContent .='href="'.esc_url( $link).'">'.esc_html( $linkTitle ).'</a>';
+    $blockContent .= $link;
 }
 
 $extras = get_container_scheme();
+
+
+if ( have_rows( 'link_options' ) ) :
+    while ( have_rows( 'link_options' ) ) : the_row(); 
+        $extras = ' '.get_sub_field( 'padding_bottom' ); 
+    endwhile;
+endif;
+
 ?>
 
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); echo $extras;?>">
@@ -94,21 +67,28 @@ $extras = get_container_scheme();
                 if (empty( $sepContainers ) ) {
                     $blockTitle .= $blockContent;
                 }
-            }
-            if($blockTitle){
-                echo supply_grid($blockTitle, 'col-md-10 col-dlg-8 col-xl-6 offset-md-1 offset-dlg-2 offset-xl-3');
+                $column_defaults = "col-md-10 col-dlg-8 col-xl-6 offset-md-1 offset-dlg-2 offset-xl-3";
+                if ( get_post_type() === 'service-offerings' ) { 
+                    $column_defaults = "col-12 col-3xl-10";
+                }
+                echo supply_grid($blockTitle, $column_defaults,'bypass');
+                
             }  
         endwhile; 
        endif;
        if($sepContainers){
+        $column_defaults = "col-md-10 col-dlg-8 col-xl-6 offset-md-1 offset-dlg-2 offset-xl-3";
+        if ( get_post_type() === 'service-offerings' ) { 
+            $column_defaults = "col-xl-11 col-xxl-9";
+        } 
+        if($blockContent){
+            
         if ( have_rows( 'block_content' ) ) : 
             while ( have_rows( 'block_content' ) ) : the_row(); 
-            $blockContent = get_sub_field('content'); 
-            if($blockContent){
-                echo supply_grid($blockContent, 'col-md-10 col-dlg-8 col-xl-6 offset-md-1 offset-dlg-2 offset-xl-3');
-            } 
-		 endwhile; 
+                echo supply_grid($blockContent, $column_defaults,'bypass');
+            endwhile; 
         endif;
+        } 
     }
     ?>
 </div>

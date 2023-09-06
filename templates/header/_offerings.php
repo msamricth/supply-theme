@@ -19,3 +19,4 @@ $currentID = get_the_ID();
     </div>
         <?php echo get_background_lines(); ?>
 </div>
+

@@ -37,17 +37,7 @@
         }, false);
     }
 
-    const cf7Form = document.querySelector('.wpcf7-form');
-    const currentURL= document.getElementById('currentURL');
-    const currentTitle= document.getElementById('currentTitle');
-    const CcurrentURL= document.getElementById('CcurrentURL');
-    const CcurrentTitle= document.getElementById('CcurrentTitle');
-    if(cf7Form){
-        if(currentURL){currentURL.value = window.location.href;}
-        if(currentTitle){currentTitle.value = document.title;}
-        if(CcurrentURL){CcurrentURL.value = window.location.href;}
-        if(CcurrentTitle){CcurrentTitle.value = document.title;}
-    }
+
     function hideGRecaptcha() {
         var $cf7Form = $('.wpcf7-form'),
         $gREC = $('.grecaptcha-badge');
@@ -75,16 +65,17 @@
         }
     }
 });
+pageCheck();
 const cf7Formtextarea = document.querySelector('.wpcf7-textarea');
 if(cf7Formtextarea) {	
     document.querySelector('.wpcf7-textarea').addEventListener('keyup', function() {
+        pageCheck();
         this.style.overflow = 'hidden';
         this.style.height = 0;
         this.style.height = this.scrollHeight + 'px';
     }, false);
 }
 (function($) {
-
     $('.block-supply-contact-block .footer-btn').prop("disabled",true);
     $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",true);
     function checkHoneyPot($class = null){
@@ -114,6 +105,7 @@ if(cf7Formtextarea) {
     if($('.block-supply-contact-block  .wpcf7-email').length){
         $('.block-supply-contact-block  .btn').prop("disabled",true);
         document.querySelector('.block-supply-contact-block  .wpcf7-email').addEventListener('input', function (evt) {
+           // pageCheck();
             var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
             if (testEmail.test(this.value)) checkHoneyPot('.block-supply-contact-block .footer-btn');
             else $('.block-supply-contact-block .btn').prop("disabled",true);
@@ -122,9 +114,24 @@ if(cf7Formtextarea) {
     if($('.wp-block-contact-form-7-contact-form-selector .wpcf7-email').length){
         $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",true);
         document.querySelector('.wp-block-contact-form-7-contact-form-selector .wpcf7-email').addEventListener('input', function (evt) {
+            //pageCheck();
             var testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
             if (testEmail.test(this.value)) checkHoneyPot('.wp-block-contact-form-7-contact-form-selector .btn');
             else $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",true);
         });
     }
 })( jQuery );
+
+function pageCheck(){
+        const cf7Form = document.querySelector('.wpcf7-form');
+        const currentURL= document.getElementById('currentURL');
+        const currentTitle= document.getElementById('currentTitle');
+        const CcurrentURL= document.getElementById('CcurrentURL');
+        const CcurrentTitle= document.getElementById('CcurrentTitle');
+        if(cf7Form){
+            if(currentURL){currentURL.value = window.location.href;}
+            if(currentTitle){currentTitle.value = document.title;}
+            if(CcurrentURL){CcurrentURL.value = window.location.href;}      
+            if(CcurrentTitle){CcurrentTitle.value = document.title;}
+            }    
+}

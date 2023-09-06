@@ -1,0 +1,39 @@
+@mixin reset-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  @mixin horizontal-list {
+    @include reset-list;
+  
+    li {
+      display: inline-block;
+      margin: {
+        left: -2px;
+        right: 2em;
+      }
+    }
+  }
+  
+  @mixin client-logos {
+    img {
+        height: 35.2px;
+    }
+    @include media-breakpoint-up(md) {
+       img {
+            height: 44.68px;
+        }
+    }
+    
+    @include media-breakpoint-up(dlg) {  
+        img {
+             height: 60px;
+         }
+    }
+    @include media-breakpoint-up(3xl) {
+        img {
+            height: 88px;
+        }
+    }
+  }

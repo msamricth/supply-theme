@@ -79,7 +79,7 @@ endif; ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo get_block_settings($classes) ?>" >
     <div class="container tagline-section fadeNoScroll">
         <div class="row py-8 py-md-13 py-dlg-13 py-3xl-17">
-            <div class="col-md-6 order-md-2 col-xl-5 col-xxl-4 fold"  <?php echo $foldUtils; ?>>
+            <div class="col-md-6 order-md-2 col-xl-5 col-xxl-4 <?php echo get_fold();?>">
                 <?php if ( $tagline_title ) : 
                     echo '<h3>' . $tagline_title . '</h3>';
                 endif; ?>

@@ -1,5 +1,10 @@
 <?php
 /**
+ * Template Name: Service Offerings
+ * Description: Service Offerings Page template.
+ *
+ */
+/**
  * The Template for displaying single service offerings.
  */
 
@@ -25,7 +30,8 @@ if ( have_posts() ) :
                     <div class="container">
                         <div class="row">
                             <div class="d-none d-dlg-block col-dlg-3"></div>
-                            <div class="col-12 col-dlg-9 col-xl-8 col-3xl-7 the-content">
+                            <div class="col-12 col-dlg-9 col-xl-8 the-content">
+                                <?php echo get_mobile_subnav(); ?>
                                 <?php the_content(); ?>
 
                             </div>

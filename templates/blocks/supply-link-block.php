@@ -29,8 +29,8 @@ $linkTitle = get_field( 'link_text' );
 $page_lookup = get_field( 'page_lookup' ); 
 $linkClass = '';
 $linkURL = get_field( 'url' );
-if ( have_rows( 'options' ) ) :
-    while ( have_rows( 'options' ) ) : the_row(); 
+if ( have_rows( 'link_options' ) ) :
+    while ( have_rows( 'link_options' ) ) : the_row(); 
         $padding_block = get_sub_field( 'padding_bottom' ); 
 
         if (isset($padding_block)) {

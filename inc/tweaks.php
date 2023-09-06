@@ -156,3 +156,38 @@ function enable_svg_upload( $upload_mimes ) {
     return $upload_mimes;
 }
 add_filter( 'upload_mimes', 'enable_svg_upload', 10, 1 );
+
+if ( ! function_exists( 'slugify' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v7.7
+	 */
+	function slugify($text, string $divider = '-')
+    {
+      // replace non letter or digits by divider
+      $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
+    
+      // transliterate
+      $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    
+      // remove unwanted characters
+      $text = preg_replace('~[^-\w]+~', '', $text);
+    
+      // trim
+      $text = trim($text, $divider);
+    
+      // remove duplicate divider
+      $text = preg_replace('~-+~', $divider, $text);
+    
+      // lowercase
+      $text = strtolower($text);
+    
+      if (empty($text)) {
+        return 'n-a';
+      }
+    
+      return $text;
+    }
+
+endif;

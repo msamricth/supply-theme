@@ -15,7 +15,7 @@ $id = 'supply-split-' . $block['id'];
 if ( ! empty($block['anchor'] ) ) {
     $id = $block['anchor'];
 }
-$scheme = get_scheme();
+$scheme = get_scheme('offerings');
 // Create class attribute allowing for custom "className" and "align" values.
 $classes = 'block-supply-split';
 if ( ! empty( $block['className'] ) ) {
@@ -42,10 +42,10 @@ if (! is_admin() ) { ?>
     echo '<div style="text-align: center">Edit the settings for your Supply Split container in the right hand sidebar.</div>';
 } 
 ?>
-    <?php  echo get_background_lines(); ?>
+    <?php if(empty(get_field('turn_off_lines'))){ echo get_background_lines(); } ?>
     <div class="container">
         <div class="row">
-            <div class="col-12 col-dlg-9 col-xl-8 col-3xl-7 offset-dlg-3 the-content">
+            <div class="col-12 col-dlg-9 col-xl-8 offset-dlg-3 the-content">
                 <InnerBlocks />
             </div>
         </div>
@@ -55,5 +55,5 @@ if (! is_admin() ) { ?>
     <div class="top-half--continued <?php echo $scheme;?>">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-dlg-9 col-xl-8 col-3xl-7 offset-dlg-3 the-content">
+                <div class="col-12 col-dlg-9 col-xl-8 offset-dlg-3 the-content">
 <?php } ?>

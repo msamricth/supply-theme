@@ -135,6 +135,12 @@ function theFold() {
 	
 }
 theFold();
+
+function theFoldExt(){
+	theFold();
+	ScrollTrigger.refresh();
+}
+export { theFoldExt as fold };
 if(lazy_load_videos){
 	document.addEventListener("DOMContentLoaded", function() {
 		var lazyVideos = [].slice.call(document.querySelectorAll("video.selfhosted.lazy"));
@@ -302,6 +308,23 @@ if(nav_compression) {
 	  }); */
 }
 window.onresize = ScrollTrigger.refresh();
+const offeringsPage = document.querySelector('.single-service-offerings');
+if(offeringsPage){    
+    const subnavContainers = offeringsPage.querySelectorAll('.subnav');
+    function navControls(){
+      subnavContainers.forEach(function(subnavContainer){
+        const subnavItems = subnavContainer.querySelectorAll('.subnav-link');
+		subnavItems.forEach(function(subnavItem) {
+            subnavItem.addEventListener("click", (e) => {
+			
+				ScrollTrigger.refresh();
+				console.log('clikedd')
+				
+			});
+		})
+	  })
+	}
+}
 function setFold(theme, bg = null, txt = null){
 	var customOn;
 	if(scrollRoot.hasAttribute("data-custom")) {
@@ -341,9 +364,20 @@ function setFold(theme, bg = null, txt = null){
 				}
 				break;
 			case 'bg-play-animation':
-				Wrapper.classList = 'bg-dark ' + theme;
+				Wrapper.classList = bodyOG + ' bg-header';
 				let lottieInstance = document.querySelector('.lottiedottie'); 
-				lottieInstance.play();
+				let lottieInstanceContainer = document.querySelector('.non-autoplay');
+				if(lottieInstance){
+					//lottieInstance.addEventListener("ready", () => { //doesnt seem to work
+					
+				//	lottieInstance.addEventListener("ready", () => {
+						lottieInstance.play();
+						if(lottieInstanceContainer) lottieInstanceContainer.classList.add('show');
+				//	});
+		
+						
+					//});
+				}
 				break;
 			case 'bg-footer':
 				if(bodyOG == 'bg-custom ') {

@@ -54,6 +54,24 @@ a:not(.nolink), .nav-link {
     font-family: $link_font;
     font-size: 14px;
 }
+
+figcaption {
+    font-family: $link_font;
+    font-size: 14px;
+    display: inline-block;
+    line-height: 1.7;
+    vertical-align: text-top;
+
+    //from wordpress not from figma
+    
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    //end wordpress
+    
+    @include media-breakpoint-up(3xl) {
+        font-size: 18px;
+    }
+}
 a {
     font-size: 14px;
 }

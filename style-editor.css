@@ -250,3 +250,6 @@ a img.aligncenter {
 [data-type="acf/supply-split-block"] [data-name="column_settings"], [data-type="acf/supply-split-block"] [data-name="fold_color"], [data-type="acf/supply-split-block"] [data-name="container_color"] {
     display: none;
 }
+[data-name="left_case_study"], [data-name="right_case_study"] {
+    display: none;
+}

@@ -192,6 +192,22 @@ function register_supply_blocks() {
 			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-quotes/supply-quotes.js',
 			// 'enqueue_assets' 	=> 'supply_quotes_block_enqueue_assets',
 		));
+		acf_register_block_type( array(
+			'name' 					=> 'supply-section-title',
+			'title' 				=> __( 'Supply Section Title' ),
+			'description' 			=> __( 'A Supply Section Title block.' ),
+			'category' 				=> 'supply-blocks',
+			'icon'					=> 'editor-textcolor',
+			'keywords'				=> array( 'supply', 'section', 'title' ),
+			'post_types'			=> array( 'service-offerings'),
+			'mode'					=> 'auto',
+			// 'align'				=> 'wide',
+			'render_template'		=> 'templates/blocks/supply-section-title-block.php',
+			// 'render_callback'	=> 'supply_section-title_block_render_callback',
+			// 'enqueue_style' 		=> get_template_directory_uri() . '/template-parts/blocks/supply-section-title/supply-section-title.css',
+			// 'enqueue_script' 	=> get_template_directory_uri() . '/template-parts/blocks/supply-section-title/supply-section-title.js',
+			// 'enqueue_assets' 	=> 'supply_section-title_block_enqueue_assets',
+		));
 		// Register Supply Contact block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-contact',
