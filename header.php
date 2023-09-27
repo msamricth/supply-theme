@@ -63,17 +63,7 @@
 	else : 
 		$bodyClasses .= ' fold_on ';
 	endif; 
-	$scheme = get_field('background_color');
-	if($scheme){
-		if(strpos($scheme, 'dots') !== false){
-			$bodyClasses .= ' dots_on ';
-			$scheme = 'bg-light bg-pattern';
-		} else {
-			$scheme = 'bg-'. $scheme . ' ';
-		}
-	} else {
-		$scheme = 'bg-light';
-	}
+	$scheme = get_scheme();
 
 	if(strpos($scheme, 'bg-custom') !== false){
 		$customBG = get_field( 'custom_bg_color' ); 

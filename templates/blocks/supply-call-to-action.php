@@ -27,45 +27,13 @@ if ( ! empty( $block['className'] ) ) {
 if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
-$classes .= ' fadeNoScroll';
+$classes .= ' cp-4 fadeNoScroll';
 $ctaTitle = get_field( 'cta_title' ); 
 $cta_link = get_field( 'cta_link' ); 
 $ctaCustumLinkText = get_field( 'cta_link_text' ); 
 
 $foldUtils = '';
-
-if ( have_rows( 'fold_settings' ) ) :
-    while ( have_rows( 'fold_settings' ) ) : the_row(); 
-    
-    $foldColor = get_sub_field('fold_color');
-        if($foldColor){
-               
-            if(strpos($foldColor, 'page') !== false){
-                if($scheme){
-                    $foldColor = $scheme;
-                }
-            }
-            $classes.= ' fold';
-                $foldClass = 'bg-' . $foldColor;
-                $foldUtils .=' data-class="'. $foldClass .'"';
-        }
-        if(get_sub_field( 'custom_bg_color' )){
-                $customColor = get_sub_field( 'custom_bg_color' );
-                $customText = get_sub_field('custom_text_color');
-                if($customText) {
-                    $customText = 'data-color="'.$customText.'"';
-                } else {
-                    $customText = 'data-color="default"';
-                }
-                $classes .= ' fold-custom';
-                $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
-        }
-        
-    endwhile;
-endif; 
-
 ?>
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>"<?php echo $foldUtils; ?>>
-    <div class="spacer cp4"></div>
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo get_block_settings($classes) ?>">
     <?php get_template_part('templates/_cta', 'partials'); ?>
 </div>

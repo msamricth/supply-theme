@@ -68,6 +68,52 @@
         ul.social-nav.share-buttons > li > a {
             color:$primary;
         }
+        
+        .bg-light, .bg-pattern, .fold-text-dark, .light{
+            color: $primary;
+            --supply-fold-color:  #{$primary};
+            *{
+                --supply-fold-color:  #{$primary};
+            }
+            ul.social-nav.share-buttons > li > a {
+                color:$white;
+            }
+        }
+    }
+    &.bg-offerings {
+        color: $gray-400;
+        --supply-fold-color:  #{$gray-400} /*silver */;
+        * {
+            --supply-fold-color:  #{$gray-400} /*silver */;
+        }
+        h1, h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, .h7, .h8 {
+            --supply-fold-color:  #{$gray-200} /* offwhite */;
+        }
+        a {
+            --supply-fold-color:  white;
+        }
+        .dark-logo {
+            display: none;
+            opacity: 0;
+        }
+        .light-logo {
+            opacity: 1;
+            display: inline;
+        }
+        ul.social-nav.share-buttons > li > a {
+            color:$primary;
+        }
+        
+        .bg-light, .bg-pattern, .fold-text-dark, .light{
+            color: $primary;
+            --supply-fold-color:  #{$primary};
+            *{
+                --supply-fold-color:  #{$primary};
+            }
+            ul.social-nav.share-buttons > li > a {
+                color:$white;
+            }
+        }
     }
     &.bg-light, &.bg-pattern, &.fold-text-dark, &.light{
         color: $primary;
@@ -77,6 +123,26 @@
         }
         ul.social-nav.share-buttons > li > a {
             color:$white;
+        }
+        .bg-dark, .bg-offerings, .bg-black, .fold-text-white, .bg-dark.bg-pattern, .dark {
+            color: $white;
+            --supply-fold-color:  white;
+            * {
+                --supply-fold-color:  white;
+            }
+        }
+        .bg-offerings {
+            color: $gray-400;
+            --supply-fold-color:  #{$gray-400} /*silver */;
+            * {
+                --supply-fold-color:  #{$gray-400} /*silver */;
+            }
+            h1, h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, .h7, .h8 {
+                --supply-fold-color:  #{$gray-200} /* offwhite */;
+            }
+            a, #header * {
+                --supply-fold-color:  white;
+            }
         }
     }
     &.bg-custom {

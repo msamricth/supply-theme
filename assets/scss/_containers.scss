@@ -4,7 +4,7 @@ $offsetWidth: 14px;
 } 
 
 @include media-breakpoint-down(md) {
-    .block-supply-media, .full-width-row, .full-width-row-xs, .block-supply-carousel-block {
+    .block-supply-media, .full-width-row, .full-width-row-xs, .container .block-supply-carousel-block, .container .block-supply-carousel-fh-block {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth - 4px);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth - 4px);
     }
@@ -14,7 +14,7 @@ $offsetWidth: 14px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media, .full-width-row-md, .full-width-row, .block-supply-carousel-block{
+    .block-supply-media, .full-width-row-md, .full-width-row, .container .block-supply-carousel-block, .container .block-supply-carousel-fh-block {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
@@ -24,7 +24,7 @@ $offsetWidth: 14px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media, .full-width-row, .full-width-row-lg, .block-supply-carousel-block {
+    .block-supply-media, .full-width-row, .full-width-row-lg, .container .block-supply-carousel-block, .container .block-supply-carousel-fh-block {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
@@ -34,7 +34,7 @@ $offsetWidth: 14px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media, .full-width-row, .full-width-row-dlg, .block-supply-carousel-block {
+    .block-supply-media, .full-width-row, .full-width-row-dlg, .container .block-supply-carousel-block, .container .block-supply-carousel-fh-block {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
@@ -44,7 +44,7 @@ $offsetWidth: 14px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media, .full-width-row, .full-width-row-xl, .block-supply-carousel-block {
+    .block-supply-media, .full-width-row, .full-width-row-xl, .container .block-supply-carousel-block, .container .block-supply-carousel-fh-block  {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
@@ -54,7 +54,7 @@ $offsetWidth: 14px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media, .full-width-row, .full-width-row-xxl, .block-supply-carousel-block {
+    .block-supply-media, .full-width-row, .full-width-row-xxl, .container .block-supply-carousel-block, .container .block-supply-carousel-fh-block  {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
@@ -64,7 +64,7 @@ $offsetWidth: 14px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media, .full-width-row, .full-width-row-3xl, .block-supply-carousel-block {
+    .block-supply-media, .full-width-row, .full-width-row-3xl, .container .block-supply-carousel-block, .container .block-supply-carousel-fh-block  {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
@@ -74,8 +74,11 @@ $offsetWidth: 14px;
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl, .container-dlg, .container-3xl, .container-4xl {
         max-width: calc(100% - ($offsetWidth * 2));
     } 
-    .block-supply-media, .full-width-row, .full-width-row-4xl, .block-supply-carousel-block {
+    .block-supply-media, .full-width-row, .full-width-row-4xl, .container .block-supply-carousel-block {
         margin-left: calc(0px - $grid-gutter-width - $offsetWidth);
         margin-right: calc(0px - $grid-gutter-width - $offsetWidth);
     }
+}
+.block-supply-container > .row  {
+    overflow: hidden;
 }

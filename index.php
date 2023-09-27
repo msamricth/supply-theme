@@ -121,7 +121,7 @@ endif;
 			<div class="row">
 				<?php while ( $the_query->have_posts() ) : $postCount++; $the_query->the_post(); ?>
 					<div class="col-md-6 col-dlg-5<?php if($postCount % 2 == 0 ) { ?> offset-dlg-1<?php } ?><?php if($postCount == 2 or $postCount == 3) { ?> leaft<?php } ?>">
-						<?php $post_type = get_post_type(); get_template_part('templates/_content', $post_type); ?>
+						<?php $post_type = get_post_type(); get_template_part('templates/partials/_content', $post_type); ?>
 						<div class="sep-con"><span class="seperator"></span></div>
 					</div>  
 				<?php  endwhile; ?>
@@ -159,14 +159,14 @@ if ( $the_query->have_posts() ) : $postCount = 1; ?>
 	</section>
 <?php endif; ?>
 
-<?php $the_query = new WP_Query( array( 'posts_per_page' => 4, 'offset' => 5 ) );
+<?php $the_query = new WP_Query( array( 'posts_per_page' => 4, 'offset' => 6 ) );
 if ( $the_query->have_posts() ) : $postCount = 1; ?>
 	<section class="<?php echo $sction_class;?>" style="background-color:<?php echo $article_landing_section_background_color;?>">
 	<div class="container posts-loop-section fold fold-custom" data-class="bg-custom" data-bg="<?php echo $article_landing_section_background_color;?>">
 			<div class="row">
 				<?php while ( $the_query->have_posts() ) : $postCount++; $the_query->the_post(); ?>
 					<div class="col-md-6 col-dlg-5<?php if($postCount % 2 == 0 ) { ?> offset-dlg-1<?php } ?><?php if($postCount == 2 or $postCount == 3) { ?> leaft<?php } ?>">
-						<?php $post_type = get_post_type(); get_template_part('templates/_content', $post_type); ?>
+						<?php $post_type = get_post_type(); get_template_part('templates/partials/_content', $post_type); ?>
 						<div class="sep-con"><span class="seperator"></span></div>
 					</div>  
 				<?php  endwhile; ?>

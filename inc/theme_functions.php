@@ -3,7 +3,7 @@
 // Add to existing function.php file
 //Supply Theme functions @extends ACF Blocks
 
-function bg_pattern() {  
+function bg_images() {  
         if ( get_field( 'background_image', 'option' ) ) : ?>
             <style>
                 .bg-pattern {
@@ -11,13 +11,21 @@ function bg_pattern() {
                 }
             </style>
     <?php
+        endif; 
+        if ( get_field( 'offerings_image', 'option' ) ) : ?>
+            <style>
+                .bg-offerings {
+                    background-image: url('<?php the_field( 'offerings_image', 'option' ); ?>');
+                }
+            </style>
+    <?php
         endif;
 }
-add_action('wp_head', 'bg_pattern', 100);
+add_action('wp_head', 'bg_images', 100);
 add_filter( 'excerpt_more', '__return_empty_string' ); 
 
 //Supply Grid functions
-function supply_grid($content, $defaults = null){
+function supply_grid($content, $defaults = null, $extras = null){
     $row = 'row';
     $classes = '';
     $post_id = '';
@@ -32,6 +40,19 @@ function supply_grid($content, $defaults = null){
     $post_id = $current_post ? $current_post->ID : null;	
     $scheme = get_field('background_color', $post_id);
 	$fold = '';
+    if(empty($extras)){
+       // $extras =  get_block_settings();
+    } 
+    if(str_contains($extras,'bypass')){
+      //  $extras =  get_block_settings($extras);
+
+    } else {
+        if ( get_post_type() === 'service-offerings' ) { 
+            $defaults = 'col-md-12';
+        }
+    }
+    
+ 
     if ( have_rows( 'column_settings' ) ) { 
         while ( have_rows( 'column_settings' ) ) : the_row(); 
             if ( get_sub_field( 'full_width_content_container' ) == 1 ) : 
@@ -98,40 +119,16 @@ function supply_grid($content, $defaults = null){
                 }
             endif; 
         endwhile;
-        if(get_sub_field( 'fold_color' )){
-            $foldColorTrue = '';
-            $foldColor = get_sub_field('fold_color');
-            if(strpos($foldColor, 'page') !== false){
-                if($scheme){
-                    $foldColorTrue = $scheme;
-                }
-            } else {
-                $foldColorTrue = $foldColor;
-            }
-            $foldClass = 'bg-' . $foldColorTrue;
-            $foldUtils .=' data-class="'. $foldClass .'"';
-            $fold = 'fold';
-        }
-        if(get_sub_field( 'custom_bg_color' )){
-                $customColor = get_sub_field( 'custom_bg_color' );
-                $customText = get_sub_field('custom_text_color');
-                if($customText) {
-                    $customText = 'data-color="'.$customText.'"';
-                } else {
-                    $customText = 'data-color="default"';
-                }
-                $fold .= ' fold-custom';
-                $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
-        }
+        
         if(empty($foldClass)){
            // call ajax function that records previous fold then runs to php function that updates fold acf field
 
         }
         if($foldUtils){
-           $container .= '<div class="'.$fold.'" '.$foldUtils.'>';
+        //   $container .= '<div class="'.$fold.'" '.$foldUtils.'>'; sunlighting fold inside the container
         }
         $container .= '<div class="' . $row . '">';
-        $container .= '<div class="' . $classes . '">';
+        $container .= '<div class="' . $classes . ' ' . $extras.'">';
             if($content) {$container .= $content; } else {
                 $container .= '<h3>Something seems wrong here - this function requires the <i>"$content"</i> variable to have content</h3>';
             }
@@ -139,14 +136,16 @@ function supply_grid($content, $defaults = null){
         $container .= '</div>';
         
         if($foldUtils){
-            $container .= '</div>';
+         //   $container .= '</div>';
         }
     } else { 
         $container = supply_grid_sh($content, $defaults);
     }
     return $container;
+    
+    
 }
-function supply_grid_sh($content, $defaults=null){
+function supply_grid_sh($content, $defaults=null, $extras=null){
     $row = 'row';
     $classes = '';
     $container ='';
@@ -156,7 +155,7 @@ function supply_grid_sh($content, $defaults=null){
             $classes .= 'col-md-10 mx-auto col-dlg-12 col-xl-10';
         }
         $container .= '<div class="' . $row . '">';
-        $container .= '<div class="' . $classes . '">';
+        $container .= '<div class="' . $classes . ' '.$extras. '">';
             if($content) {$container .= $content; } else {
                 $container .= '<h3>Something seems wrong here - this function requires the <i>"$content"</i> variable to have content</h3>';
             }
@@ -186,6 +185,38 @@ function project_title_fromBlock($post_id = null) {
 	}
     echo $title;
 }
+
+if ( ! function_exists( 'the_so_excerpt' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v7.9
+	 */
+	function the_so_excerpt($post_id=null) {
+        $current_post = get_queried_object();
+        $output = '';
+        if(empty($post_id)){
+            $post_id = $current_post ? $current_post->ID : null;
+        } 
+        $i = 0;
+        $post = get_post($post_id);
+        $blocks = parse_blocks( $post->post_content );
+        foreach( $blocks as $block ) {
+            if( 'acf/supply-content-block' !== $block['blockName'] )
+                continue;
+                    if( !empty( $block['attrs']['data']['block_content_content'] ) ){
+                        $output = $block['attrs']['data']['block_content_content'];
+                    } else {
+                        $output = 'No content or cannot read any content';
+                    }
+                
+        }
+		return $output;
+    }
+
+endif;
+
+
 function customRatio($ratio) {
     if($ratio){
         $blockStyles = '';
@@ -368,8 +399,7 @@ function get_header_media(){
 
 
                         if( $header_type == 'casestudy' ) {
-                            
-$client_logo = get_field('client_logo');
+                            $client_logo = get_field('client_logo');
                             $title_of_work_performed = get_field('title_of_work_performed');
                             if (empty($title_of_work_performed)):
                                 $title_of_work_performed = get_the_title();
@@ -563,12 +593,19 @@ if ( ! function_exists( 'supply_entry_meta' ) ) :
 	 */
 	function supply_entry_meta($value = null) {
 		$author_id = get_the_author_meta( 'ID' ); 
-		$role = get_field('role__position_at_supply', $author_id);
-		$newAuthorID = 'user_'.$author_id;
-		$role = get_field('role__position_at_supply', $newAuthorID);
-		$author = get_the_author();
+        if(get_field('custom_author')){
+
+            $author = get_field('custom_author');
+
+            $role = get_field('custom_author_role');
+        } else {
+            $role = get_field('role__position_at_supply', $author_id);
+            $newAuthorID = 'user_'.$author_id;
+            $author = get_the_author();
+        }
+		
 		$permalink = get_the_permalink();
-		$output = '<div class="entry-meta mt-0">'.supply_share_buttons().'<span class="font-weight-bold h6 mb-0 author-meta vcard d-block">'.$author.'</span><span class="sep h8 text-capitalize">'.$role.'</span></div>';
+		$output = '<div class="entry-meta mt-0">'.supply_share_buttons().'<span class="font-weight-bold h6 mb-0 author-meta vcard d-block">'.$author.'</span><span class="sep h8">'.$role.'</span></div>';
 		return $output;
 	}
 	//old text 
@@ -605,3 +642,719 @@ function linkinIcon() {
     $output = '<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" rx="15" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0582 9.94574C11.0582 10.7213 10.4348 11.3497 9.66537 11.3497C8.89597 11.3497 8.27258 10.7213 8.27258 9.94574C8.27258 9.17073 8.89597 8.54175 9.66537 8.54175C10.4348 8.54175 11.0582 9.17073 11.0582 9.94574ZM11.069 12.4724H8.26099V21.4579H11.069V12.4724ZM12.7614 12.4722H15.5515V13.6825C16.7286 11.504 21.7393 11.3429 21.7393 15.7682V21.4578H18.938V16.7409C18.938 13.9037 15.552 14.1183 15.552 16.7409V21.4578H12.7614V12.4722Z" fill="white"/></svg>';
     return $output;
 }
+
+if ( ! function_exists( 'get_fold_classes' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v9.0
+	 */
+	function get_fold_classes($foldColor = null, $customColor = null) {
+        
+        $post_id = ''; 
+        $output = '';
+        $current_post = get_queried_object();
+        $post_id = $current_post ? $current_post->ID : null;
+        $classes = '';	
+        $fold_off = get_field('fold_on', $post_id);
+        if($foldColor){
+            $classes .= 'fold'; 
+        }else {
+            if(empty($fold_off)) {
+               // $classes .='fold';
+            }
+        }
+        if($customColor){
+            $classes .= ' fold-custom';
+        }
+		return $classes;
+    }
+
+endif;
+if ( ! function_exists( 'get_fold_utilities' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v9.0
+	 */
+	function get_fold_utilities($foldColor = null, $customColor=null, $customText = null) {
+        $foldUtils = '';
+        $foldClass = '';
+        $post_id = ''; 
+        $output = '';
+        $current_post = get_queried_object();
+        $post_id = $current_post ? $current_post->ID : null;
+        $scheme = get_field('background_color', $post_id);
+        $fold_off = get_field('fold_on', $post_id);
+
+        if($foldColor){
+                
+            if(strpos($foldColor, 'page') !== false){
+                if($scheme){
+                    $foldColor = $scheme;
+                }
+            }
+            $foldClass = 'bg-' . $foldColor;
+        }else {
+            if(empty($fold_off)) {
+                if($scheme){
+              //      $foldClass ='bg-'. $scheme;
+                } else {
+                  //  $foldClass .='bg-light';
+                }
+            }
+        }
+        if($customColor){
+            $foldUtils .= get_custom_fold($customColor, $customText);
+        }
+        $foldUtils .=' data-class="'. $foldClass;
+
+		return $foldUtils;
+    }
+
+endif;
+if ( ! function_exists( 'get_custom_fold' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v9.0
+	 */
+	function get_custom_fold($customColor=null, $customText = null) {
+        if (str_contains($customColor, "#")) {
+            $customColor = $customColor;
+        } else {
+            $customColor = '#'. $customColor;
+        }
+        if($customText) {
+            $customText = 'data-color="'.$customText.'"';
+        } else {
+            $rgb = HTMLToRGB($customColor);
+            $hsl = RGBToHSL($rgb);
+            if($hsl->lightness > 200) {
+            // this is light colour!
+                $customText = 'data-color="#111512"';
+            } else {
+                $customText = 'data-color="#ffffff"';
+            }
+        }
+        $output=' data-bg="'.$customColor.'" '. $customText;
+		return $output;
+    }
+
+endif;
+if ( ! function_exists( 'get_fold' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v1.0
+	 */
+	function get_fold($foldColor = null, $foldOnly = null, $utilityOnly = null) {
+        $foldUtils = '';
+        $classes = '';
+        $foldColor = get_field( 'fold_color' );
+        $customColor = get_field( 'custom_bg_color' );
+        $customText = get_field('custom_text_color');
+
+        //container settings fieldgroup
+        $container_settings = get_field('container_settings');
+        if((empty($foldColor)) && ($container_settings)){
+            $foldColor = get_field('container_settings_fold_color');
+            $customColor = get_field('container_settings_custom_bg_color');
+            $customText = get_field('container_settings_custom_text_color');
+        }
+
+        //fold_settings field group
+        $fold_settings = get_field('fold_settings');
+        if((empty($foldColor)) && ($fold_settings)){
+            $foldColor = get_field('fold_settings_fold_color');
+            $customColor = get_field('fold_settings_custom_bg_color');
+            $customText = get_field('fold_settings_custom_text_color');
+        }
+
+        //column_placement field group
+        $column_placement = get_field('column_placement');
+        if((empty($containerColor)) && ($column_placement)){
+            $foldColor = get_field('column_placement_fold_color');
+            $customColor = get_field('column_placement_custom_bg_color');
+            $customText = get_field('column_placement_custom_text_color');
+        }
+
+        //in aa row SUB field group
+        if(empty($foldColor)){
+            $foldColor = get_sub_field( 'fold_color' );
+            $customColor = get_sub_field( 'custom_bg_color' );
+            $customText = get_sub_field('custom_text_color');
+        }
+        $classes = get_fold_classes($foldColor, $customColor);
+        $foldUtils =  get_fold_utilities($foldColor, $customColor, $customText);
+        if($foldOnly){
+            $output = $classes;
+        }
+        if($utilityOnly){
+            $output = $foldUtils;
+        }
+        if(empty($foldOnly) && empty($utilityOnly)) {
+            $output = $classes .'" '.$foldUtils;
+        }
+		return $output;
+    }
+
+endif;
+
+if ( ! function_exists( 'get_container_scheme_function' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v8.0
+	 */
+	function get_container_scheme_function($containerColor, $text_color = null, $background_color = null) {
+        $output = '';
+        if($containerColor == "custom"){
+            if (str_contains($background_color, "#")) {
+                $background_color = $background_color;
+            } else {
+                $background_color = '#'. $background_color;
+            }
+            $output = randClassName();
+            $styles = '.'.$output.'{background-color:'.$background_color.';';
+            $output .= ' bg-custom';
+            if(empty($text_color)){
+                $rgb = HTMLToRGB($background_color);
+                $hsl = RGBToHSL($rgb);
+                if($hsl->lightness > 200) {
+                // this is light colour!
+                    $output .= ' text-primary';
+                } else {
+                    $output .= ' text-white';
+                }
+            } else {
+                $styles .=' color:'.$text_color.';';
+            }
+            $styles .='}';
+            enqueue_footer_styles($styles);
+        } else {
+            $output .= ' bg-' . $containerColor;
+        }
+		return $output;
+    }
+
+endif;
+
+if ( ! function_exists( 'get_container_scheme' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v1.0
+	 */
+	function get_container_scheme() {
+        $output = "";
+
+
+        $containerColor = get_field( 'container_color' );
+        $background_color = get_field( 'container_color_bg_color' );
+        $text_color = get_field('container_color_custom_text_color');
+
+        //container settings fieldgroup
+        $container_settings = get_field('container_settings');
+        if((empty($containerColor)) && ($container_settings)){
+            $containerColor = get_field('container_settings_container_color');
+            $background_color = get_field('container_settings_container_color_bg_color');
+            $text_color = get_field('container_settings_container_color_custom_text_color');
+        }
+        
+        //column_placement field group
+        $column_placement = get_field('column_placement');
+        if((empty($containerColor)) && ($column_placement)){
+            $containerColor = get_field('column_placement_container_color');
+            $background_color = get_field('column_placement_container_color_bg_color');
+            $text_color = get_field('column_placement_container_color_custom_text_color');
+        }
+
+        //in aa row SUB field group
+        if(empty($containerColor)){
+            $containerColor = get_sub_field( 'container_color' );
+            $background_color = get_sub_field( 'container_color_bg_color' );
+            $text_color = get_sub_field('container_color_custom_text_color');
+        }
+
+        
+        if($containerColor){$output = get_container_scheme_function($containerColor, $text_color, $background_color);}
+		return $output;
+    }
+
+endif;
+
+if ( ! function_exists( 'get_padding_function' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v8.5
+	 */
+	function get_padding_function($blockID = null) {
+        $style = '';
+        $style_output = '';
+        $output = '';
+        
+        $identifer = '.' . $blockID;
+        if ( have_rows( 'custom_top' ) ) : 
+            while ( have_rows( 'custom_top' ) ) : the_row(); 
+                if ( have_rows( 'breakpoint_overrides' ) ) : 
+                    while ( have_rows( 'breakpoint_overrides' ) ) : the_row(); 
+                        $style_output.= '@media (min-width:  '.get_sub_field( 'breakpoint' ).' ){';
+                        $style_output.= $identifer . '.cp-t-custom {--supply-padding-custom: '.get_sub_field( 'custom_size' ).'px;}';
+                        $style_output.= '}';
+                    endwhile; 
+                endif; 
+            endwhile; 
+        endif; 
+        if ( have_rows( 'custom_bottom' ) ) :  
+            while ( have_rows( 'custom_bottom' ) ) : the_row(); 
+                if ( have_rows( 'breakpoint_overrides' ) ) : 
+                    while ( have_rows( 'breakpoint_overrides' ) ) : the_row(); 
+                        $style_output.= '@media (min-width:  '.get_sub_field( 'breakpoint' ).' ){';
+                        $style_output.= $identifer . '.cp-b-custom {--supply-padding-custom: '.get_sub_field( 'custom_size' ).'px;}';
+                        $style_output.= '}';
+                    endwhile; 
+                endif; 
+            endwhile;  
+        endif;
+        return $style_output;
+        
+    }
+
+endif;
+if ( ! function_exists( 'get_padding' ) ) :
+
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v6.5
+	 */
+	function get_padding($blockID = null) {
+        $output = '';
+      //  $padding_size = get_field( 'padding_size' ); 
+        $padding_top = get_field('padding_top');
+        $padding_bottom = get_field('padding_bottom');
+
+        //container settings fieldgroup
+        $container_settings = get_field('container_settings');
+        if((empty($padding_top)) && ($container_settings)){
+            $padding_top = get_field('container_settings_padding_top');
+        }
+        if((empty($padding_bottom)) && ($container_settings)){
+            $padding_bottom = get_field('container_settings_padding_bottom');
+        }
+
+
+        //fold_settings field group
+        $fold_settings = get_field('fold_settings');
+        if((empty($padding_top)) && ($fold_settings)){
+            $padding_top = get_field('fold_settings_padding_top');
+        }
+        if((empty($padding_bottom)) && ($fold_settings)){
+            $padding_bottom = get_field('fold_settings_padding_bottom');
+        }
+
+        //column_placement field group
+        $column_placement = get_field('column_placement');
+        if((empty($padding_top)) && ($column_placement)){
+            $padding_top = get_field('column_placement_padding_top');
+        }
+        if((empty($padding_bottom)) && ($column_placement)){
+            $padding_bottom = get_field('column_placement_padding_bottom');
+        }
+
+
+
+        if((empty($padding_top)) && (empty($padding_bottom))){
+            
+            if ( have_rows( 'container_settings' ) ):
+                while ( have_rows( 'container_settings' ) ) : the_row();
+                    $padding_top = get_sub_field('padding_top');
+                    $padding_bottom = get_sub_field('padding_bottom');
+                    if(($padding_top == 'cp-t-custom') || ($padding_bottom == 'cp-b-custom')) {
+                         if(empty($blockID)){
+                             $blockID = 'cp-'.randClassName();
+                             $output .= $blockID . ' ';
+                         }
+                    }
+                    $custom_padding = get_padding_function($blockID);
+                endwhile;
+            else:
+                if ( have_rows( 'column_placement' ) ):
+                    while ( have_rows( 'column_placement' ) ) : the_row();
+                        $padding_top = get_sub_field('padding_top');
+                        $padding_bottom = get_sub_field('padding_bottom');
+                        if(($padding_top == 'cp-t-custom') || ($padding_bottom == 'cp-b-custom')) {
+                             if(empty($blockID)){
+                                 $blockID = 'cp-'.randClassName();
+                                 $output .= $blockID . ' ';
+                             }
+                        }
+                        $custom_padding = get_padding_function($blockID);
+                    endwhile;
+                endif;
+
+                
+            endif;
+        }
+        
+        if(empty($padding_top)){
+            $padding_top = get_sub_field('padding_top');
+        }
+        if(empty($padding_bottom)){
+            $padding_bottom = get_sub_field('padding_bottom');
+        }
+        if(empty($custom_padding)){
+            if(($padding_top == 'cp-t-custom') || ($padding_bottom == 'cp-b-custom')) {
+                if(empty($blockID)){
+                     $blockID = 'cp-'.randClassName();
+                     $output .= $blockID . ' ';
+                 }
+            }
+            $custom_padding = get_padding_function($blockID);
+        }
+        if($padding_top){
+            $output .= $padding_top.' ';
+        }
+        if($padding_bottom){
+            $output .= $padding_bottom;
+        }
+        
+        if(($padding_top == 'cp-t-custom') || ($padding_bottom == 'cp-b-custom')) {
+            enqueue_footer_styles($custom_padding);
+        }
+        
+		return $output;
+    }
+
+endif;
+if ( ! function_exists( 'get_block_settings' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v1.0
+	 */
+	function get_block_settings($classes=null, $noColor = null, $noFold = null, $noPadding = null) {
+        $output = "";
+        $foldUtils = '';
+        $post_id = ''; 
+        $output = '';
+        $current_post = get_queried_object();
+        $post_id = $current_post ? $current_post->ID : null;
+        $styles = ''; 
+        if($classes) {
+            $classes .= ' ';
+        }
+        if(empty($noFold)) {     
+            $classes .= get_fold('', 1);
+            $foldUtils = get_fold('', '', 1);
+        }
+        if(empty($noColor)) {
+            $classes .= ' ';
+            $classes .= get_container_scheme();
+        }
+        if(empty($noPadding)) {
+            $classes .= get_padding();
+        }
+        $output = $classes .'" '.$foldUtils;
+		return $output;
+    }
+
+endif;
+
+if ( ! function_exists( 'get_subnav' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v7.1.5
+	 */
+	function get_subnav($post_type=null) {
+        $output = '';
+        $args = [];
+        $currentID = get_the_ID();
+        
+        
+        if (isset($post_type)) {
+            $args = array(
+                'post_type' => $post_type
+            );   
+        } else {
+            $args = array(
+                'post_type' => array('service-offerings')
+            ); 
+        }  
+        $the_query = new WP_Query( $args );
+        $output = '<ul class="nav flex-column bg-transparent nav-underline supply-underline d-none d-dlg-flex">';
+        $count = 0;
+        if ( $the_query->have_posts() ) :
+            while ( $the_query->have_posts() ) : $the_query->the_post(); $count++;
+            
+                $post_id = url_to_postid(get_the_permalink());
+                $slug = get_post_field( 'post_name', $post_id );
+                $output .= '  <li class="nav-item">';
+                $output .= '<a href="'.get_the_permalink().'" id="subnav-'.$post_id.'" data-slug="/'.$slug.'" class="d-flex ';
+                if (isset($currentID)) {
+                    $postID = get_the_ID();
+                    if($currentID == $postID) {
+                        $output .= 'active ';
+                    }
+                }
+                $output .='subnav-link nav-link" title="'.get_the_title().'" rel="bookmark" data-title="'.get_the_title().'">';
+                $output .= '<span class="chapter">0'.$count.'</span><div class="vr-line align-self-stretch"></div><span class="title">';
+                $output .= get_the_title(); 
+                $output .= '</span></a>';
+                $output .= '</li>';
+            endwhile; 
+            $output .= '</ul>';
+            wp_reset_postdata();
+         endif; 
+		return $output;
+    }
+
+endif;
+if ( ! function_exists( 'get_mobile_subnav' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v7.1.5
+	 */
+	function get_mobile_subnav($post_type=null) {
+        global $post;
+        $prevPost = get_previous_post();
+        $nextPost = get_next_post();
+        $output = '';
+        $args = [];
+        $currentID = get_the_ID();
+        
+        
+        if (isset($post_type)) {
+            $args = array(
+                'post_type' => $post_type
+            );   
+        } else {
+            $args = array(
+                'post_type' => array('service-offerings')
+            ); 
+        }  
+        $current_count = '';
+        $current_title = '';
+        $nextOffering = '';
+        $prevOffering = '';
+        $the_query = new WP_Query( $args );
+        $mobile_nav = '';
+        $count = 0;
+        $prevSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M13 19.9999L27 19.9999" stroke="#C8C9C8"/><path d="M22.3333 14L26.9999 20L22.3333 26" stroke="#C8C9C8"/></svg>';
+        $nextSVG = '<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M27 19.9999L13 19.9999" stroke="#C8C9C8"/><path d="M17.6667 26L13.0001 20L17.6667 14" stroke="#C8C9C8"/></svg>';
+        if ( $the_query->have_posts() ) :
+            while ( $the_query->have_posts() ) : $the_query->the_post(); $count++;
+            
+                $post_id = url_to_postid(get_the_permalink());
+                $slug = get_post_field( 'post_name', $post_id );
+                if (isset($currentID)) {
+                    $postID = get_the_ID();
+                    if($currentID == $postID) {
+                        $current_count = $count;
+                        $current_title = get_the_title(); 
+                    }
+                }
+            endwhile; 
+            if ( $prevPost ) : 
+                $post = $prevPost->ID; 
+                setup_postdata( $post ); 
+                    $post_id = url_to_postid(get_the_permalink());
+                    $slug = get_post_field( 'post_name', $post_id );
+                    $nextOffering .= '<a href="'.get_the_permalink().'" id="subnav-'.$post_id.'" data-slug="/'.$slug.'" class="subnav-link" title="'.get_the_title().'" rel="bookmark" data-title="'.get_the_title().'">';
+                    $nextOffering .= '<span class="title sr-only sr-only-focusable d-none">'. get_the_title().'</span>';
+                    $nextOffering .= $prevSVG;
+                    $nextOffering .= '</a>';
+                wp_reset_postdata(); 
+            else: 
+                if ( empty( $prevPost ) ) {
+                    
+                    $prevOfferingargs = array(
+                        'numberposts' => 1, 'post_type' => 'service-offerings', 'post_status' => 'publish', 'orderby' => 'post_date', 'posts_per_page' => '1'
+                    );
+                    $first_post = $last_post = null;
+                    // get first post
+                    $first_post_query = new WP_Query( $prevOfferingargs + array( 'order' => 'DESC' ) );
+                    if ( $first_posts = $first_post_query->get_posts() ) {
+                        $first_post = array_shift( $first_posts );
+                    }
+                    $post = $first_post->ID;
+                    setup_postdata( $post ); 
+                        $post_id = url_to_postid(get_the_permalink());
+                        $slug = get_post_field( 'post_name', $post_id );
+                        $nextOffering .= '<a href="'.get_the_permalink().'" id="subnav-'.$post_id.'" data-slug="/'.$slug.'" class="subnav-link" title="'.get_the_title().'" rel="bookmark" data-title="'.get_the_title().'">';
+                        $nextOffering .= '<span class="title sr-only sr-only-focusable d-none">'. get_the_title().'</span>';
+                        $nextOffering .= $prevSVG;
+                        $nextOffering .= '</a>';
+                    wp_reset_postdata(); 
+                }
+            endif;
+            if ( $nextPost ) : 
+                $post = $nextPost->ID; 
+                setup_postdata( $post ); 
+                $post_id = url_to_postid(get_the_permalink());
+                $slug = get_post_field( 'post_name', $post_id );   
+                $prevOffering .= '<a href="'.get_the_permalink().'" id="subnav-'.$post_id.'" data-slug="/'.$slug.'" class="subnav-link" title="'.get_the_title().'" rel="bookmark" data-title="'.get_the_title().'">';
+                $prevOffering .= '<span class="title sr-only sr-only-focusable d-none">'. get_the_title().'</span>';
+                $prevOffering .= $nextSVG;
+                $prevOffering .= '</a>';
+                wp_reset_postdata(); 
+            else: 
+                if ( empty( $nextPost ) ) {
+                    $nextOfferingargs = array(
+                        'numberposts' => 1, 'post_type' => 'service-offerings', 'post_status' => 'publish', 'orderby' => 'post_date', 'posts_per_page' => '1'
+                    );
+                    $first_post = $last_post = null;
+                    // last post
+                    $last_post_query = new WP_Query( $nextOfferingargs + array( 'order' => 'ASC' ) );
+                    if ( $last_posts = $last_post_query->get_posts() ) {
+                        $last_post = array_shift( $last_posts );
+                    }
+                    $post = $last_post->ID; 
+                    setup_postdata( $post ); 
+                        $post_id = url_to_postid(get_the_permalink());
+                        $slug = get_post_field( 'post_name', $post_id );   
+                        $prevOffering .= '<a href="'.get_the_permalink().'" id="subnav-'.$post_id.'" data-slug="/'.$slug.'" class="subnav-link" title="'.get_the_title().'" rel="bookmark" data-title="'.get_the_title().'">';
+                        $prevOffering .= '<span class="title sr-only sr-only-focusable d-none">'. get_the_title().'</span>';
+                        $prevOffering .= $nextSVG;
+                        $prevOffering .= '</a>';
+                    wp_reset_postdata(); 
+                }
+            endif;
+            $mobile_nav .= '<div class="nav subnav flex-column bg-transparent nav-underline d-dlg-none">';
+            $mobile_nav .= '<div class="d-flex chapter align-items-center">';
+            $mobile_nav .= $prevOffering;
+            $mobile_nav .= '<span class="iso-reg h8">';
+            $mobile_nav .= $current_count .'&nbsp;of&nbsp;'. $count;
+            $mobile_nav .= '</span>';
+            $mobile_nav .= $nextOffering;
+            $mobile_nav .= '</div>';
+            $mobile_nav .= '<h5 class="title">' . get_the_title() . '</h5>';
+            $mobile_nav .= '</div>';
+            $output .= $mobile_nav;
+            wp_reset_postdata();
+         endif; 
+		return $output;
+    }
+
+endif;
+
+if ( ! function_exists( 'get_scheme' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v7.6
+	 */
+	function get_scheme($custom=null) {
+        $output = '';
+        if (isset($custom)) {
+            $scheme = $custom;
+        } else {
+            $scheme = get_field('background_color');
+        }
+        if($scheme){
+            if(strpos($scheme, 'dots') !== false){
+                $bodyClasses .= ' dots_on ';
+                $scheme = 'bg-light bg-pattern';
+           // }elseif(strpos($scheme, 'offerings') !== false){
+             //   $scheme = 'bg-dark bg-offerings';
+            } else {
+                $scheme = 'bg-'. $scheme . ' ';
+            }
+        } else {
+            $scheme = 'bg-light';
+        }
+		return $scheme;
+    }
+
+endif;
+
+
+if ( ! function_exists( 'get_background_lines' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v7.7
+	 */
+	function get_background_lines($custom=null) {
+        $output ='<div class="offering-specific-elements container">';
+        $output .='<div class="overlay position-fixed row vr-line-group">';
+        $output .='<div class="col col-dlg-3"><div class="vr-line"></div></div>';
+        $output .='<div class="col col-dlg-4"><div class="vr-line mx-auto mx-dlg-0"></div></div>';
+        $output .='<div class="col  col-dlg-4 d-none d-dlg-block"><div class="vr-line"></div></div>';
+        $output .='<div class="col d-none d-dlg-block"><div class="vr-line"></div></div>';
+        $output .='<div class="col"><div class="ms-auto vr-line"></div></div>';
+        $output .='</div>';
+        $output .='</div>';
+		return $output;
+    }
+
+endif;
+
+
+if ( ! function_exists( 'get_supply_link' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v7.8
+	 */
+	function get_supply_link($custom=null) {
+        $output ='';
+        $classes ='';
+        $link = '';
+        $linkClass = 'internal-link';
+        $linkTitle = get_field( 'link_text' );
+        if(empty($linkTitle)){
+            $linkTitle = get_sub_field('link_text');
+        }
+        $page_lookup = get_field( 'page_lookup' ); 
+        if(empty($page_lookup)){
+            $page_lookup = get_sub_field('page_lookup');
+        }
+        $linkURL = get_field( 'url' );
+        if(empty($linkURL)){
+            $linkURL = get_sub_field('url');
+        }
+        if ( have_rows( 'link_options' ) ) :
+            while ( have_rows( 'link_options' ) ) : the_row(); 
+                $padding_block = get_sub_field( 'padding_bottom' ); 
+
+                if (isset($padding_block)) {
+                    $classes .= ' '.$padding_block;
+                }
+                if ( get_sub_field( 'use_url' ) == 1 ) {
+                    if (isset($linkURL)) {
+                        $link = $linkURL;
+                    }
+                    if(empty($linkTitle)){
+                        $linkTitle = 'Let’s talk about your project';
+                    }
+                } else {
+                    if ( $page_lookup ) : 
+                        $link = get_permalink( $page_lookup );
+                        if(empty($linkTitle)){
+                            $linkTitle = get_the_title( $page_lookup );
+                        }
+                    endif; 
+                }
+                if ( get_sub_field( 'external_url' ) == 1 ) :
+                    $linkClass = 'link-up';
+                endif;
+            endwhile;
+        endif;
+        if(!empty($link)){
+            $output .='<a class="'.esc_html($linkClass).'" '; 
+            if($linkClass){
+                $output .='target="_blank" '; 
+            } 
+            $output .='href="'.esc_url( $link).'">'.esc_html( $linkTitle ).'</a>';
+        }
+
+
+		return $output;
+    }
+
+endif;

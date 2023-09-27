@@ -26,20 +26,28 @@ if ( ! empty( $block['align'] ) ) {
 }
 $blockContent = '';
 $type = '';
+$post_type = get_post_type();
 $listTitle = '';
 $list_items = ''; 
 $classes .= ' fadeNoScroll';
-$classes .= ' justify-content-between justify-content-4xl-start';
+$rowClass = '';
 $subClass = 'supply-list cp2';
 $i = 0;
 if ( get_field( 'vertical' ) == 1 ) : 
-    $classes .= ' vertical-stack';
+    $rowClass .= ' vertical-stack';
 else : 
-    $classes .= ' row g-4xl-8';
-    $subClass .= ' col-11 col-md-4 col-dlg-3 pe-4xl-5';
+    $rowClass .= ' row';
+    if (get_post_type() === 'service-offerings' ) { 
+    // if (( get_post_type() === 'service-offerings' ) || (is_page('services'))) { 
+        $subClass .= ' col-12 col-md-6';
+    } else {
+        $rowClass .= '  g-4xl-8';
+        $rowClass .= ' justify-content-between justify-content-4xl-start';
+        $subClass .= ' col-11 col-md-4 col-dlg-3 pe-4xl-5';
+    }
 endif; 
-$blockContent .= '<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $classes ) .'">';
-
+$blockContent .= '<div id="'. esc_attr( $id ) .'" class="'. esc_attr( $rowClass ) .'">';
+$extras = 'bypass ';
 
 if ( have_rows( 'lists' ) ) : 
     while ( have_rows( 'lists' ) ) : the_row(); $i++;   
@@ -52,7 +60,12 @@ if ( have_rows( 'lists' ) ) :
                 }
                 $listTitle = get_sub_field('title');
                 if($listTitle){
-                    $listTitle = '<'.$type.' class="pe-dlg-4">'.$listTitle.'</'.$type.'> ';
+                    if ($type !== '' && str_contains($type, 'image')) {
+                        $listImage = get_sub_field('image');
+                        $listTitle = '<img src='.$listImage.' class="pe-dlg-4 " alt="'.$listTitle.' logo"/>';
+                    } else {
+                        $listTitle = '<'.$type.' class="pe-dlg-4">'.$listTitle.'</'.$type.'> ';
+                    }
                     $blockContent .= $listTitle;
                 }
             endwhile; 
@@ -61,18 +74,24 @@ if ( have_rows( 'lists' ) ) :
         if($listContent){
             $blockContent .= '<p>' . $listContent . '</p>';
         }
+        $link = get_supply_link();
+        if(!empty($link)){
+            $blockContent .= $link;
+        }
         $blockContent .='</div>';
-        if ($i % 3 == 0) {
-           $blockContent .= '<span class="w-100 d-none d-dlg-block d-4xl-none"></span>';
+        if (($i % 3 == 0) && ($post_type == 'page' )) {
+                $blockContent .= '<span class="w-100 d-none d-dlg-block d-4xl-none"></span>';
         }
     endwhile; 
 else : 
 endif;
-$blockContent .='</div>'; 
-if ( have_rows( 'container_settings' ) ) : 
-    while ( have_rows( 'container_settings' ) ) : the_row(); 
-        echo supply_grid($blockContent, 'col-dlg-12');
-    endwhile;
-else:
-    echo supply_grid_sh($blockContent, 'col-dlg-12');
-endif;
+$blockContent .='</div>'; ?>
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo get_block_settings( $classes ); ?>">
+    <?php if ( have_rows( 'container_settings' ) ) : 
+            while ( have_rows( 'container_settings' ) ) : the_row(); 
+                echo supply_grid($blockContent, 'col-dlg-11 col-xl-12', $extras);
+            endwhile;
+        else:
+            echo supply_grid_sh($blockContent, 'col-dlg-11 col-xl-12', $extras);
+        endif; ?>
+</div>

@@ -308,4 +308,3 @@ wp.domReady( () => {
         "./spacing-control": "0/j4"
     }]
 }, {}, ["KQUp"], null)
-//# sourceMappingURL=/extend-block-example.js.map

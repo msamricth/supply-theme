@@ -42,7 +42,16 @@ $blockContent = '';
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
     <?php
-    $blockContent .= '<div class="'.$INTLclasses.'">'.media_block_main().'</div>';
+    $blockContent .= '<div class="'.$INTLclasses.'">'.media_block_main();
+    if(get_field('caption')){
+        $fig_classes = "";
+        if(get_field('caption_placement')){
+            $fig_classes = 'class="' . get_field('caption_placement').'"';
+        }
+
+        $blockContent .= '<figcaption '.$fig_classes.'>'.get_field('caption').'</figcaption>';
+    }
+    $blockContent .= '</div>';
 
 
     if ( have_rows( 'column_placement' ) ) :

@@ -135,6 +135,12 @@ function theFold() {
 	
 }
 theFold();
+
+function theFoldExt(){
+	theFold();
+	ScrollTrigger.refresh();
+}
+export { theFoldExt as fold };
 if(lazy_load_videos){
 	document.addEventListener("DOMContentLoaded", function() {
 		var lazyVideos = [].slice.call(document.querySelectorAll("video.selfhosted.lazy"));
@@ -302,12 +308,14 @@ if(nav_compression) {
 	  }); */
 }
 window.onresize = ScrollTrigger.refresh();
+
 function setFold(theme, bg = null, txt = null){
 	var customOn;
 	if(scrollRoot.hasAttribute("data-custom")) {
 		customOn = true;
 	}
 	if(theme){
+		clearchemes();
 		if (Wrapper.style.background) {
 		//	Wrapper.style.background = '';		
 		}
@@ -334,6 +342,33 @@ function setFold(theme, bg = null, txt = null){
 						function() {
 							Wrapper.classList = 'bg-light ' + theme;
 					}, 400);
+				}
+				if(bodyOG == 'bg-offerings ') {
+					Wrapper.classList = 'bg-dark ' + theme;
+				}
+				break;
+			case 'bg-play-animation':
+				Wrapper.classList = bodyOG + ' bg-header';
+				let lottieInstance = document.querySelector('.lottiedottie'); 
+				let lottieInstanceContainer = document.querySelector('.non-autoplay');
+				if(lottieInstance){
+					//lottieInstance.addEventListener("ready", () => { //doesnt seem to work
+					lottieInstance.addEventListener("rendered", () => {
+						lottieInstance.play();
+						if(lottieInstanceContainer) lottieInstanceContainer.classList.add('show');
+					});
+					setTimeout(
+						function() {
+							
+							if(lottieInstanceContainer && !lottieInstanceContainer.classList.contains('show')) lottieInstance.play(),lottieInstanceContainer.classList.add('show'),console.log("lottie is having a error on the fold load - timeout");
+					}, 400);
+					lottieInstance.addEventListener("error", (error) => {
+					  console.log("lottie is having a error on the fold load  "+error);
+					  if(lottieInstanceContainer) lottieInstance.play(),lottieInstanceContainer.classList.add('show');
+					});
+		// lotter eventListenrs are inconsitent - need to dive deeper into this or open up github issue
+						
+					//});
 				}
 				break;
 			case 'bg-footer':
@@ -417,6 +452,7 @@ function setFold(theme, bg = null, txt = null){
 	}
 }
 function customFold(foldBG = null, foldColor = null){
+	
 	if(foldBG){
 		if(foldBG == 'undefined'){
 			ogFold();
@@ -480,10 +516,37 @@ function checkFoldColor(color){
 	  0.114 * (b * b)
 	);
 	if (hsp>127.5) {
-		document.body.style.setProperty('--supply-fold-color', '#111512') ;
+		document.body.style.setProperty('--supply-fold-color', '#111512');
+		if(document.body.classList.contains('page-scheme-dark')){
+			document.body.classList.remove('page-scheme-dark');
+		}
+		document.body.classList.add('page-scheme-light');
+
 	} 
 	else {
-		document.body.style.setProperty('--supply-fold-color', '#fff')
+		document.body.style.setProperty('--supply-fold-color', '#fff');
+		if(document.body.classList.contains('page-scheme-light')){
+			document.body.classList.remove('page-scheme-light');
+		}
+		document.body.classList.add('page-scheme-dark');
+	}
+}
+function clearchemes(){
+	
+	document.body.style.removeProperty('--supply-fold-color');
+	document.body.style.removeProperty('--bgcustom');
+	
+	
+	if(document.body.classList.contains('page-scheme-dark')){
+		document.body.classList.remove('page-scheme-dark');
+	}
+
+	if(document.body.classList.contains('page-scheme-light')){
+		document.body.classList.remove('page-scheme-light');
+	}
+	if(document.body.classList.contains('customScheme')){
+		document.body.style.setProperty('--bgcustom', OGbg);
+		checkFoldColor(OGbg);
 	}
 }
 const ifWork = document.body.classList.contains('page-template-careers');

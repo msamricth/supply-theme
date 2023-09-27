@@ -1,13 +1,13 @@
 /*!
 Theme Name: Supply Theme
-Theme URI: https://them.es/starter
+Theme URI: https://github.com/work-with-supply/supply-theme
 Author: Supply
 Author URI: https://workwithsupply.com
 Description: Bootstrap wordpress theme for workwithsupply.com
-Version: 4.6.4
-Requires at least: 6.0
-Tested up to: 6.2
-Requires PHP: 7.2
+Version: 8.5
+Requires at least: 6.2
+Tested up to: 6.2.2
+Requires PHP: 8
 License: GPL version 2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0
 Tags: custom-background, custom-colors, featured-images, flexible-header, microformats, post-formats, rtl-language-support, theme-options, translation-ready, accessibility-ready
@@ -32,6 +32,30 @@ Text Domain: supply
 	font-style: normal;
 	font-weight: normal;
 	src: url('assets/fonts/ISOv0.6-Regular.woff') format('woff');
+}
+@font-face {
+	font-display: swap;
+	font-family: 'Calibre';
+	font-style: normal;
+	font-weight: 600;
+	src: url('assets/fonts/calibre-web-semibold.woff2') format('woff2'),
+	  url('assets/fonts/calibre-web-semibold.woff') format('woff');
+}
+@font-face {
+	font-display: swap;
+	font-family: 'Calibre';
+	font-style: normal;
+	font-weight: normal;
+	src: url('assets/fonts/calibre-web-regular.woff2') format('woff2'),
+	  url('assets/fonts/calibre-web-regular.woff') format('woff');
+}  
+@font-face {
+	font-display: swap;
+	font-family: 'Calibre';
+	font-style: normal;
+	font-weight: 500;
+	src: url('assets/fonts/calibre-web-medium.woff2') format('woff2'),
+	  url('assets/fonts/calibre-web-medium.woff') format('woff');
 }
 :root {
     --bs-font-sans-serif: "TiemposText-Regular";

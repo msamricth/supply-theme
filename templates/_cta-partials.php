@@ -6,7 +6,7 @@ $ctaCustumLinkText = get_field( 'cta_link_text' );
 ?>
 <div class="container-fluid fadeNoScroll call-to-action-section">
     <div class="row">
-        <div class="col-md-10 col-dlg-8 col-xl-6 col-xxl-5 col-3xl-4 mx-auto text-center cp4">
+        <div class="col-md-10 col-dlg-8 col-xl-6 col-xxl-5 col-3xl-4 mx-auto text-center">
             <?php if ( $ctaTitle ) : 
                 echo '<h1 class="cp1">' . $ctaTitle . '</h1>';
              endif; ?>

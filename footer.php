@@ -1,14 +1,54 @@
 <?php 
 	$scheme = get_field('background_color');
+	$footerScheme = get_field('footer_color');
+	$classes = "bg-dark text-white";
+	$utilities = '';
+	switch ( $footerScheme ) {
+		case 'light':
+			$classes = "bg-light text-dark";
+			break;
+		case 'pattern':
+			$classes = "bg-pattern bg-light text-dark";
+			break;
+		case 'scheme':
+			$classes = "bg-'. $scheme .' scheme";
+			break;
+		case 'custom':
+			$classes = '';
+			
+			$custom_footer_color = get_field('custom_footer_color');
+			$custom_footer_text_color = get_field('custom_footer_text_color');
+			if(!empty($custom_footer_color)) {
+				$utilities = 'style="background-color: ' . $custom_footer_color .';';
+				if(empty($custom_footer_text_color)) {
+					$rgb = HTMLToRGB($background_color);
+					$hsl = RGBToHSL($rgb);
+					if($hsl->lightness > 200) {
+					// this is light colour!
+						$classes = 'text-primary';
+					} else {
+						$classes = 'text-white';
+					}
+				} else {
+					$utilities .= ' color: ' . $custom_footer_color .';';
+				}
+				$utilities .= '"';
+			}
+			break;
+		default:
+	}
+	if(!empty($footerScheme)){
+		$classes .= " override";
+	}
 
 	$foldUtils = '';
 	if($scheme){
-	$foldUtils .=' data-class="bg-'. $scheme .'"';
+		$foldUtils .=' data-class="bg-'. $scheme .'"';
 	} else {
-	$foldUtils .=' data-class="bg-light"';
+		$foldUtils .=' data-class="bg-light"';
 	}
 	if ( get_field( 'make_block_container_fold' ) == 1 ) : 
-	echo '<div class="fold"'.$foldUtils.'></div>';
+		echo '<div class="fold"'.$foldUtils.'></div>';
 	endif;
 	if ( is_single() && 'post' == get_post_type() ) {
 		echo '<div class="fold"'.$foldUtils.'></div>';
@@ -16,7 +56,7 @@
 	echo supply_page_ending();
 	?>
 	</main><!-- /#main -->
-	<footer id="footer" class="bg-black footer text-white pt-6 pt-md-8 fadeNoScroll">
+	<footer id="footer" class="<?php echo $classes;?> footer pt-6 pt-md-8 fadeNoScroll" <?php echo $utilities;?>>
 		<div class="container">
 			<div class="row">
 				<?php
@@ -87,7 +127,7 @@
 								<p><?php printf( esc_html__( '&copy; %1$s %2$s. All rights reserved.', 'supply' ), date_i18n( 'Y' ), get_bloginfo( 'name', 'display' ) ); ?></p>
 						<?php
 							endif;?>
-						<div class="footer-cta my-5 mt-md-6">
+						<div class="footer-cta my-5 mt-md-6" id="130">
 							<?php echo do_shortcode('[contact-form-7 id="130" title="Stay in touch - FooterCTA"]'); ?>
 						</div>
 					</div>

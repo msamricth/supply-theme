@@ -2,6 +2,10 @@
 /**
  * Block template file: template-parts/blocks/supply-media.php
  *
+ * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED * SUNSETTED
+ * 
+ * USE ONLY FOR REFERENCE
+ * 
  * Supply Media Block Template.
  *
  * @param   array $block The block settings and attributes.
@@ -44,6 +48,8 @@ else:
     if($video_ratio){echo customRatio($video_ratio);}
 endif;
 
+$extras = '';
+$extras .= get_container_scheme();
 
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
@@ -63,7 +69,7 @@ endif;
     endif;
     if ( have_rows( 'column_placement' ) ) :
         while ( have_rows( 'column_placement' ) ) : the_row();
-            echo supply_grid($blockContent, 'col-dlg-12');
+            echo supply_grid($blockContent, 'col-dlg-12', $extras);
         endwhile;
     endif;
     if ( is_admin() ) {

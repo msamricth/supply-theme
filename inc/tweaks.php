@@ -56,29 +56,53 @@ function be_gutenberg_scripts() {
 	wp_enqueue_script( 'theme-editor', get_template_directory_uri() . '/assets/js/editor.js', array( 'wp-blocks', 'wp-dom' ), filemtime( get_template_directory() . '/assets/js/editor.js' ), true );
 }
 add_action( 'enqueue_block_editor_assets', 'be_gutenberg_scripts' );
+add_action('enqueue_block_editor_assets', function() {
+	wp_enqueue_script('awp-gutenberg-filters', get_template_directory_uri() . '/assets/js/gutenberg-filters.js', array( 'wp-blocks', 'wp-dom', 'wp-edit-post','acf' ));
+});
 /**
  * Enqueue footer markup in WP at lowest priority.
  * Convenience function!
  *
  * @param $markup
  */
+
+ function enqueue_footer_styles($markup){
+    $markup = '<style>'.$markup.'</style>';
+	add_action('wp_footer', function () use ($markup){
+		echo $markup;
+	}, 99, 1);
+}
 function enqueue_footer_markup($markup){
 	add_action('wp_footer', function () use ($markup){
 		echo $markup;
 	}, 99, 1);
 }
-
+function randClassName($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[random_int(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
 /**
  * Enqueue footer markup in WP at lowest priority.
  * Convenience function!
  *
  * @param $markup
+*
+*function enqueue_header_markup($markup){
+*	add_action('wp_head', function () use ($markup){
+*		echo $markup;
+*	}, 10, 1);
+*}
  */
 function enqueue_header_markup($markup){
-	add_action('wp_head', function () use ($markup){
-		echo $markup;
-	}, 10, 1);
+  
+  add_action( 'wp_head', function() {echo $markup;} );
 }
+//add_action('wp_head', 'enqueue_header_markup', 9);
 function my_acf_admin_head() {
     ?>
 
@@ -134,3 +158,60 @@ function hide_search_widget() {
     unregister_widget('WP_Widget_Search');
 }
 add_action( 'widgets_init', 'hide_search_widget' );
+
+add_filter('acf/upload_prefilter/name=images_optional', 'images_optional_upload_prefilter');
+function images_optional_upload_prefilter($errors) {
+  // in this filter we add a WP filter that alters the upload path
+  add_filter('upload_dir', 'images_optional_upload_dir');
+  return $errors;
+}
+// second filter
+function images_optional_upload_dir($uploads) {
+  // here is where we later the path
+  $uploads['path'] = $uploads['path'].'/images';
+  $uploads['url'] = $uploads['url'].'/images';
+  $uploads['subdir'] = '';
+  return $uploads;
+}
+function enable_svg_upload( $upload_mimes ) {
+    $upload_mimes['svg'] = 'image/svg+xml';
+    $upload_mimes['svgz'] = 'image/svg+xml';
+    $upload_mimes['json'] = 'application/json';
+    return $upload_mimes;
+}
+add_filter( 'upload_mimes', 'enable_svg_upload', 10, 1 );
+
+if ( ! function_exists( 'slugify' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v7.7
+	 */
+	function slugify($text, string $divider = '-')
+    {
+      // replace non letter or digits by divider
+      $text = preg_replace('~[^\pL\d]+~u', $divider, $text);
+    
+      // transliterate
+      $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    
+      // remove unwanted characters
+      $text = preg_replace('~[^-\w]+~', '', $text);
+    
+      // trim
+      $text = trim($text, $divider);
+    
+      // remove duplicate divider
+      $text = preg_replace('~-+~', $divider, $text);
+    
+      // lowercase
+      $text = strtolower($text);
+    
+      if (empty($text)) {
+        return 'n-a';
+      }
+    
+      return $text;
+    }
+
+endif;

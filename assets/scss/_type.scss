@@ -29,7 +29,7 @@ h4, .h4 {
     line-height: 1.22;
 }
 h3, .h3, h4, .h4, h5, .h5, h6, .h6 {
-    font-family: 'Calibre';
+    font-family: $font-family-headings;
     font-weight: 600;
 }
 h6, .h6, .h7 {
@@ -53,6 +53,24 @@ a:not(.nolink), .nav-link {
 .h8 {
     font-family: $link_font;
     font-size: 14px;
+}
+
+figcaption {
+    font-family: $link_font;
+    font-size: 14px;
+    display: inline-block;
+    line-height: 1.7;
+    vertical-align: text-top;
+
+    //from wordpress not from figma
+    
+    margin-bottom: 1em;
+    margin-top: 0.5em;
+    //end wordpress
+    
+    @include media-breakpoint-up(3xl) {
+        font-size: 18px;
+    }
 }
 a {
     font-size: 14px;

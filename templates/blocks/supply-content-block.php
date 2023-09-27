@@ -36,11 +36,20 @@ if ( have_rows( 'block_content' ) ) :
         endif;
     endwhile; 
 endif;
+
+$link = get_supply_link();
+if(!empty($link)){
+    $blockContent .= $link;
+}
+
+$extras = '';
+
+
 ?>
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>">
 
 <?php if ( have_rows( 'block_header' ) ) : ?>
 		<?php while ( have_rows( 'block_header' ) ) : the_row(); 
+            $classes = get_block_settings($classes);
             $type = get_sub_field( 'type' ); 
             if(empty($type)) {
                 $type = 'h5';
@@ -51,21 +60,36 @@ endif;
                 if (empty( $sepContainers ) ) {
                     $blockTitle .= $blockContent;
                 }
-            }
-            if($blockTitle){
-                echo supply_grid($blockTitle, 'col-md-10 col-dlg-8 col-xl-6 offset-md-1 offset-dlg-2 offset-xl-3');
+                $column_defaults = "col-md-10 col-dlg-8 col-xl-6 offset-md-1 offset-dlg-2 offset-xl-3";
+                if ( get_post_type() === 'service-offerings' ) { 
+                    $column_defaults = "col-12 col-3xl-10";
+                }
+                $blockTitle = supply_grid($blockTitle, $column_defaults,'bypass');
+                
             }  
         endwhile; 
        endif;
        if($sepContainers){
+        $column_defaults = "col-md-10 col-dlg-8 col-xl-6 offset-md-1 offset-dlg-2 offset-xl-3";
+        if ( get_post_type() === 'service-offerings' ) { 
+            $column_defaults = "col-xl-11 col-xxl-9";
+        } 
+        if($blockContent){
+            $extras = 'bypass ';
         if ( have_rows( 'block_content' ) ) : 
             while ( have_rows( 'block_content' ) ) : the_row(); 
-            $blockContent = get_sub_field('content'); 
-            if($blockContent){
-                echo supply_grid($blockContent, 'col-md-10 col-dlg-8 col-xl-6 offset-md-1 offset-dlg-2 offset-xl-3');
-            } 
-		 endwhile; 
+                $extras .= get_fold();
+                $blockContent = supply_grid($blockContent, $column_defaults, $extras);
+            endwhile; 
         endif;
+        } 
+    } else {
+        $blockContent = '';
     }
+
     ?>
+    
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo $classes; ?>">
+    <?php echo $blockTitle; ?>
+    <?php echo $blockContent; ?>
 </div>

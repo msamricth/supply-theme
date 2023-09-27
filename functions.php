@@ -417,7 +417,7 @@ function check_if_block_exist($block_handle) {
 		}
 	}
   }
-function supply_scripts_loader() {
+function supply_styles_loader() {
 	$theme_version = wp_get_theme()->get( 'Version' );
 
 	// 1. Styles.
@@ -437,14 +437,24 @@ function supply_scripts_loader() {
 		wp_enqueue_style( 'rtl', get_theme_file_uri( 'assets/css/rtl.css' ), array(), $theme_version, 'all' );
 	}
 
+	
+}
+add_action( 'wp_enqueue_scripts', 'supply_styles_loader' );
+function supply_scripts_loader() {
+	$theme_version = wp_get_theme()->get( 'Version' );
+	//if ( get_post_type() === 'service-offerings' ) { }
+	if(check_if_block_exist('acf/supply-lottie-block')) {
+		wp_enqueue_script( 'lottie-player', "https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js", array(), $theme_version, true );
+	}
 	// 2. Scripts.
 	wp_enqueue_script( 'mainjs', get_theme_file_uri( 'assets/js/main.bundle.js' ), array(), $theme_version, true );
 	if(check_if_block_exist('acf/supply-carousel-block')) {
 //		wp_enqueue_script( 'splide', "https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js", array(), $theme_version, true );
 	}
 
+	
 }
-add_action( 'wp_enqueue_scripts', 'supply_scripts_loader' );
+add_action( 'wp_enqueue_scripts', 'supply_scripts_loader', 100);
 
 add_filter( 'script_loader_tag', 'my_scripts_modifier', 10, 3 );
 function my_scripts_modifier( $tag, $handle, $src ) {
@@ -461,10 +471,14 @@ function my_scripts_modifier( $tag, $handle, $src ) {
 $theme_ACFPro = __DIR__ . '/inc/acf.php';
 
 $theme_ACFProFields = __DIR__ . '/inc/acf_fields.php';
+$theme_ACFProBlocks = __DIR__ . '/inc/acf_blocks.php';
+$theme_ACFProCPTs = __DIR__ . '/inc/acf_cpts.php';
 $theme_ACFProDIR  = __DIR__ . '/inc/acf/';
 if ( is_readable( $theme_ACFPro ) ) {
 	require_once $theme_ACFPro;
 	require_once $theme_ACFProFields;
+	require_once $theme_ACFProBlocks;
+	require_once $theme_ACFProCPTs;
 }
 $theme_videoEmbeds = __DIR__ . '/inc/video_embeds.php';
 if ( is_readable( $theme_videoEmbeds ) ) {
@@ -474,11 +488,5 @@ $theme_tweaks = __DIR__ . '/inc/tweaks.php';
 if ( is_readable( $theme_tweaks ) ) {
 	require_once $theme_tweaks;
 }
-function enable_svg_upload( $upload_mimes ) {
-    $upload_mimes['svg'] = 'image/svg+xml';
-    $upload_mimes['svgz'] = 'image/svg+xml';
-    return $upload_mimes;
-}
-add_filter( 'upload_mimes', 'enable_svg_upload', 10, 1 );
 
 

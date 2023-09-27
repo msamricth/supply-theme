@@ -27,7 +27,7 @@ if ( ! empty( $block['align'] ) ) {
 $i = 0;
 $classes .= ' fadeNoScroll';
 ?>
-<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ); ?>" style="background-color:<?php the_field( 'background_color' ); ?>;">
+<div id="<?php echo esc_attr( $id ); ?>" class="<?php echo get_block_settings( $classes ); ?>">
 
     <?php 
         if ( is_admin() ) {

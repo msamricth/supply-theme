@@ -16,7 +16,7 @@ $current_post = get_queried_object();
 $post_id = $current_post ? $current_post->ID : null;	
 $scheme = get_field('background_color', $post_id);
 // Create id attribute allowing for custom "anchor" value.
-$id = 'supply-carousel-block-' . $block['id'];
+$id = 'supply-carousel-fh-block-' . $block['id'];
 if ( ! empty($block['anchor'] ) ) {
     $id = $block['anchor'];
 }
@@ -26,7 +26,7 @@ if ( is_admin() ) {
 } 
 
 // Create class attribute allowing for custom "className" and "align" values.
-$classes = 'block-supply-carousel-block';
+$classes = 'block-supply-carousel-fh-block';
 if ( ! empty( $block['className'] ) ) {
     $classes .= ' ' . $block['className'];
 }
@@ -46,13 +46,6 @@ $caption='';
 $video = '';
 $foldUtils = '';
 $captiontitle = '';
-if ( have_rows( 'options' ) ) :
-	while ( have_rows( 'options' ) ) : the_row(); 
-		if ( get_sub_field( 'captions' ) == 1 ) : 
-			$options_captions = 'on';
-		endif; 
-	endwhile;
-endif;
 if ( have_rows( 'slides' ) ): 
 	while ( have_rows( 'slides' ) ) : the_row(); 
 	$slides .='<li class="splide__slide">';		
@@ -78,24 +71,7 @@ if ( have_rows( 'slides' ) ):
 			$video_placeholder = get_sub_field( 'video_placeholder' ); 
 			$slides .= video_containers($video, '', $videoRatio, $videoRatio, $video_placeholder);
 		}
-		if($options_captions){
-			if ( have_rows( 'captions' ) ) : 
-				while ( have_rows( 'captions' ) ) : the_row(); 
-					$captiontitle = get_sub_field( 'title' ); 
-					$type = get_sub_field( 'type' ); 
-					if($options_captions){
-						$slides .= '<div class="splide__slide__caption">';
-						
-						if(empty($type)) {
-							$type = 'h8';
-						}
-						$slides .= '<span class="'.$type.'">'.$captiontitle.'</span> ';
-						
-						$slides .=  '</div>';
-					}
-				endwhile; 
-			endif; 
-		}
+
 		$slides .= '</li>';
 	endwhile; 
 else: 
@@ -137,7 +113,7 @@ if ( have_rows( 'options' ) ) :
 		$options_type = get_sub_field( 'type' );
 		$options_position = get_sub_field( 'positioning' ); 
 		$options_interval = get_sub_field( 'interval' ); 
-		$options_same_height = get_sub_field('same_height');
+		//$options_same_height = get_sub_field('same_height');
 		$options_custom_height = get_sub_field('custom_height');
 		$options_scroll__drag = get_sub_field('scroll__drag');
 		$options_per_move = get_sub_field('per_move');
@@ -155,19 +131,21 @@ if ( have_rows( 'options' ) ) :
 		}
 		if(empty($options_arrows)) {
 			$options_arrows = 'false';
+		} else {
+			
+			$options_arrows = 'true';
 		}
 		if(empty($options_type)) {
 			$options_type = 'slide';
 		}
-
-		if(empty($options_same_height)) {
-			$options_same_height = '';
-			if(empty($options_position)) {
-				$classes .=' middle';
-			}
-		} else {
-			$options_same_height = 'data-same-height="'.$options_same_height.'"';
+		if(!empty($options_custom_height)){
+			$classes .=" custom-height-set";
 		}
+
+
+	
+		$options_same_height = 'data-same-height="1"';
+	
 
 		if(empty($options_per_move)) {
 			$options_per_move = 1;
@@ -175,20 +153,9 @@ if ( have_rows( 'options' ) ) :
 		if(empty($options_scroll__drag)) {
 			$options_scroll__drag = 'free';
 		}
-
+		
 		// block content here
 		$blockContent .= '<div id="'. esc_attr( $id ).'" class="'.get_block_settings($classes).'"';
-		if ( have_rows( 'slide_count_per_breakpoint' ) ) :
-			while ( have_rows( 'slide_count_per_breakpoint' ) ) : the_row(); 
-				$blockContent .= ' data-s320="'.get_sub_field('320').'"';
-				$blockContent .= ' data-s768="'.get_sub_field('768').'"';
-				$blockContent .= ' data-s1024="'.get_sub_field('1024').'"';
-				$blockContent .= ' data-s1290="'.get_sub_field('1290').'"';
-				$blockContent .= ' data-s1440="'.get_sub_field('1440').'"';
-				$blockContent .= ' data-s1920="'.get_sub_field('1920').'"';
-				$blockContent .= ' data-s2400="'.get_sub_field('2400').'"';
-			endwhile;
-		endif;
 		$blockContent .= ' data-type="'.$options_type.'"';	
 		$blockContent .= ' data-drag="'.$options_scroll__drag.'"';
 		$blockContent .= ' '.$options_same_height;
