@@ -28,11 +28,16 @@ if ( ! empty( $block['align'] ) ) {
 ?>
 
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo get_block_settings($classes) ?>">
-<?php  if ( get_post_type() === 'service-offerings' ) {
+<?php  if (( get_post_type() === 'service-offerings' ) || (is_page( 'services' ))) {
         get_template_part('templates/blocks/_service-offerings-pagination');
     } else {
         get_template_part('templates/blocks/_case-study-pagination');
     
     } 
+    if ( is_admin() ) {
+        // Runs only if this PHP code is in a file that displays outside the admin panels, like the theme template.
+        echo '<div style="text-align: center">Edit Pagination Block</div>';
+    } 
+
     ?>
 </div>

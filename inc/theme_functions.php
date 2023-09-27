@@ -41,10 +41,11 @@ function supply_grid($content, $defaults = null, $extras = null){
     $scheme = get_field('background_color', $post_id);
 	$fold = '';
     if(empty($extras)){
-        $extras =  get_container_scheme();
+       // $extras =  get_block_settings();
     } 
     if(str_contains($extras,'bypass')){
-        $extras =  get_container_scheme();
+      //  $extras =  get_block_settings($extras);
+
     } else {
         if ( get_post_type() === 'service-offerings' ) { 
             $defaults = 'col-md-12';
@@ -118,37 +119,13 @@ function supply_grid($content, $defaults = null, $extras = null){
                 }
             endif; 
         endwhile;
-        if(get_sub_field( 'fold_color' )){
-            $foldColorTrue = '';
-            $foldColor = get_sub_field('fold_color');
-            if(strpos($foldColor, 'page') !== false){
-                if($scheme){
-                    $foldColorTrue = $scheme;
-                }
-            } else {
-                $foldColorTrue = $foldColor;
-            }
-            $foldClass = 'bg-' . $foldColorTrue;
-            $foldUtils .=' data-class="'. $foldClass .'"';
-            $fold = 'fold';
-        }
-        if(get_sub_field( 'custom_bg_color' )){
-                $customColor = get_sub_field( 'custom_bg_color' );
-                $customText = get_sub_field('custom_text_color');
-                if($customText) {
-                    $customText = 'data-color="'.$customText.'"';
-                } else {
-                    $customText = 'data-color="default"';
-                }
-                $fold .= ' fold-custom';
-                $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
-        }
+        
         if(empty($foldClass)){
            // call ajax function that records previous fold then runs to php function that updates fold acf field
 
         }
         if($foldUtils){
-           $container .= '<div class="'.$fold.'" '.$foldUtils.'>';
+        //   $container .= '<div class="'.$fold.'" '.$foldUtils.'>'; sunlighting fold inside the container
         }
         $container .= '<div class="' . $row . '">';
         $container .= '<div class="' . $classes . ' ' . $extras.'">';
@@ -159,7 +136,7 @@ function supply_grid($content, $defaults = null, $extras = null){
         $container .= '</div>';
         
         if($foldUtils){
-            $container .= '</div>';
+         //   $container .= '</div>';
         }
     } else { 
         $container = supply_grid_sh($content, $defaults);
@@ -628,7 +605,7 @@ if ( ! function_exists( 'supply_entry_meta' ) ) :
         }
 		
 		$permalink = get_the_permalink();
-		$output = '<div class="entry-meta mt-0">'.supply_share_buttons().'<span class="font-weight-bold h6 mb-0 author-meta vcard d-block">'.$author.'</span><span class="sep h8 text-capitalize">'.$role.'</span></div>';
+		$output = '<div class="entry-meta mt-0">'.supply_share_buttons().'<span class="font-weight-bold h6 mb-0 author-meta vcard d-block">'.$author.'</span><span class="sep h8">'.$role.'</span></div>';
 		return $output;
 	}
 	//old text 
@@ -666,103 +643,202 @@ function linkinIcon() {
     return $output;
 }
 
+if ( ! function_exists( 'get_fold_classes' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v9.0
+	 */
+	function get_fold_classes($foldColor = null, $customColor = null) {
+        
+        $post_id = ''; 
+        $output = '';
+        $current_post = get_queried_object();
+        $post_id = $current_post ? $current_post->ID : null;
+        $classes = '';	
+        $fold_off = get_field('fold_on', $post_id);
+        if($foldColor){
+            $classes .= 'fold'; 
+        }else {
+            if(empty($fold_off)) {
+               // $classes .='fold';
+            }
+        }
+        if($customColor){
+            $classes .= ' fold-custom';
+        }
+		return $classes;
+    }
+
+endif;
+if ( ! function_exists( 'get_fold_utilities' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v9.0
+	 */
+	function get_fold_utilities($foldColor = null, $customColor=null, $customText = null) {
+        $foldUtils = '';
+        $foldClass = '';
+        $post_id = ''; 
+        $output = '';
+        $current_post = get_queried_object();
+        $post_id = $current_post ? $current_post->ID : null;
+        $scheme = get_field('background_color', $post_id);
+        $fold_off = get_field('fold_on', $post_id);
+
+        if($foldColor){
+                
+            if(strpos($foldColor, 'page') !== false){
+                if($scheme){
+                    $foldColor = $scheme;
+                }
+            }
+            $foldClass = 'bg-' . $foldColor;
+        }else {
+            if(empty($fold_off)) {
+                if($scheme){
+              //      $foldClass ='bg-'. $scheme;
+                } else {
+                  //  $foldClass .='bg-light';
+                }
+            }
+        }
+        if($customColor){
+            $foldUtils .= get_custom_fold($customColor, $customText);
+        }
+        $foldUtils .=' data-class="'. $foldClass;
+
+		return $foldUtils;
+    }
+
+endif;
+if ( ! function_exists( 'get_custom_fold' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v9.0
+	 */
+	function get_custom_fold($customColor=null, $customText = null) {
+        if (str_contains($customColor, "#")) {
+            $customColor = $customColor;
+        } else {
+            $customColor = '#'. $customColor;
+        }
+        if($customText) {
+            $customText = 'data-color="'.$customText.'"';
+        } else {
+            $rgb = HTMLToRGB($customColor);
+            $hsl = RGBToHSL($rgb);
+            if($hsl->lightness > 200) {
+            // this is light colour!
+                $customText = 'data-color="#111512"';
+            } else {
+                $customText = 'data-color="#ffffff"';
+            }
+        }
+        $output=' data-bg="'.$customColor.'" '. $customText;
+		return $output;
+    }
+
+endif;
 if ( ! function_exists( 'get_fold' ) ) :
 	/**
 	 * "Theme posted on" pattern.
 	 *
 	 * @since v1.0
 	 */
-	function get_fold($fold_color = null) {
+	function get_fold($foldColor = null, $foldOnly = null, $utilityOnly = null) {
         $foldUtils = '';
-        $post_id = ''; 
-        $output = '';
-        $current_post = get_queried_object();
-        $post_id = $current_post ? $current_post->ID : null;
-        $classes = '';	
-        $scheme = get_field('background_color', $post_id);
+        $classes = '';
+        $foldColor = get_field( 'fold_color' );
+        $customColor = get_field( 'custom_bg_color' );
+        $customText = get_field('custom_text_color');
 
-        // If in side a group type field Called 'fold_settings'
-            if ( have_rows( 'fold_settings' ) ) :
-                while ( have_rows( 'fold_settings' ) ) : the_row(); 
-                    if(get_sub_field( 'custom_bg_color' )){
-                            $customColor = get_sub_field( 'custom_bg_color' );
-                            $customText = get_sub_field('custom_text_color');
-                            if (str_contains($customColor, "#")) {
-                                $customColor = $customColor;
-                            } else {
-                                $customColor = '#'. $customColor;
-                            }
-                            if($customText) {
-                                $customText = 'data-color="'.$customText.'"';
-                            } else {
-                                $customText = 'data-color="default"';
-                            }
-                            $classes .= ' fold-custom';
-                            $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
-                    }
-                    if(get_sub_field( 'fold_color' )){
-                        
-                            $classes .= ' fold';
-                            $foldColor = get_sub_field('fold_color');        
-                            if(strpos($foldColor, 'page') !== false){
-                                if($scheme){
-                                    $foldColor = $scheme;
-                                }
-                            }
-                            $foldClass = 'bg-' . $foldColor;
-                            $foldUtils .=' data-class="'. $foldClass;
-                    }
-                    
-                endwhile;
+        //container settings fieldgroup
+        $container_settings = get_field('container_settings');
+        if((empty($foldColor)) && ($container_settings)){
+            $foldColor = get_field('container_settings_fold_color');
+            $customColor = get_field('container_settings_custom_bg_color');
+            $customText = get_field('container_settings_custom_text_color');
+        }
 
-        else:
+        //fold_settings field group
+        $fold_settings = get_field('fold_settings');
+        if((empty($foldColor)) && ($fold_settings)){
+            $foldColor = get_field('fold_settings_fold_color');
+            $customColor = get_field('fold_settings_custom_bg_color');
+            $customText = get_field('fold_settings_custom_text_color');
+        }
 
-            // If is standalone fields
-            if(get_field( 'fold_color' )){
-                if(get_field( 'custom_bg_color' )){
-                    $customColor = get_field( 'custom_bg_color' );
-                    $customText = get_field('custom_text_color');
-                    
-                    if (str_contains($customColor, "#")) {
-                        $customColor = $customColor;
-                    } else {
-                        $customColor = '#'. $customColor;
-                    }
-                    if($customText) {
-                        $customText = 'data-color="'.$customText.'"';
-                    } else {
-                        $customText = 'data-color="default"';
-                    }
-                    $classes .= ' fold-custom';
-                    $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
-                }
-            
-                $classes .= ' fold';
-                $foldColor = get_field('fold_color');        
-                if(strpos($foldColor, 'page') !== false){
-                    if($scheme){
-                        $foldColor = $scheme;
-                    }
-                }
-                $foldClass = 'bg-' . $foldColor;
-                $foldUtils .=' data-class="'. $foldClass;
-            } else {
-                if($scheme){
-                    $foldUtils .=' data-class="bg-'. $scheme;
-                } else {
-                    $foldUtils .=' data-class="bg-light';
-                }
-            }
-           
-        endif; 
-        $output = $classes .'" '.$foldUtils;
+        //column_placement field group
+        $column_placement = get_field('column_placement');
+        if((empty($containerColor)) && ($column_placement)){
+            $foldColor = get_field('column_placement_fold_color');
+            $customColor = get_field('column_placement_custom_bg_color');
+            $customText = get_field('column_placement_custom_text_color');
+        }
+
+        //in aa row SUB field group
+        if(empty($foldColor)){
+            $foldColor = get_sub_field( 'fold_color' );
+            $customColor = get_sub_field( 'custom_bg_color' );
+            $customText = get_sub_field('custom_text_color');
+        }
+        $classes = get_fold_classes($foldColor, $customColor);
+        $foldUtils =  get_fold_utilities($foldColor, $customColor, $customText);
+        if($foldOnly){
+            $output = $classes;
+        }
+        if($utilityOnly){
+            $output = $foldUtils;
+        }
+        if(empty($foldOnly) && empty($utilityOnly)) {
+            $output = $classes .'" '.$foldUtils;
+        }
 		return $output;
     }
 
 endif;
 
+if ( ! function_exists( 'get_container_scheme_function' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v8.0
+	 */
+	function get_container_scheme_function($containerColor, $text_color = null, $background_color = null) {
+        $output = '';
+        if($containerColor == "custom"){
+            if (str_contains($background_color, "#")) {
+                $background_color = $background_color;
+            } else {
+                $background_color = '#'. $background_color;
+            }
+            $output = randClassName();
+            $styles = '.'.$output.'{background-color:'.$background_color.';';
+            $output .= ' bg-custom';
+            if(empty($text_color)){
+                $rgb = HTMLToRGB($background_color);
+                $hsl = RGBToHSL($rgb);
+                if($hsl->lightness > 200) {
+                // this is light colour!
+                    $output .= ' text-primary';
+                } else {
+                    $output .= ' text-white';
+                }
+            } else {
+                $styles .=' color:'.$text_color.';';
+            }
+            $styles .='}';
+            enqueue_footer_styles($styles);
+        } else {
+            $output .= ' bg-' . $containerColor;
+        }
+		return $output;
+    }
 
-
+endif;
 
 if ( ! function_exists( 'get_container_scheme' ) ) :
 	/**
@@ -772,242 +848,216 @@ if ( ! function_exists( 'get_container_scheme' ) ) :
 	 */
 	function get_container_scheme() {
         $output = "";
-        if ( have_rows( 'container_color_scheme' ) ) :
-            while ( have_rows( 'container_color_scheme' ) ) : the_row(); 
-                $containerColor = get_sub_field('container_color'); 
-                if($containerColor){
-                    
-                    if($containerColor == "custom"){
-                        $background_color = get_sub_field('container_color_bg_color');
-                        if (str_contains($background_color, "#")) {
-                            $background_color = $background_color;
-                        } else {
-                            $background_color = '#'. $background_color;
-                        }
-                        $text_color = get_sub_field('container_color_custom_text_color');
-                        $output .= ' bg-custom';
-                        $styles = '" style="background-color:'.$background_color.';';
-                        if(empty($text_color)){
-                            $rgb = HTMLToRGB($background_color);
-                            $hsl = RGBToHSL($rgb);
-                            if($hsl->lightness > 200) {
-                            // this is light colour!
-                                $output .= ' text-primary';
-                            } else {
-                                $output .= ' text-white';
-                            }
-                        } else {
-                            $styles .=' color:'.$text_color.';';
-                        }
-                        //$styles .='"';
-                        $output .= $styles.'"';
-                    } else {
-                        $output .= ' bg-' . $containerColor;
-                    }
-                }
 
-            endwhile; 
-        endif; 
+
+        $containerColor = get_field( 'container_color' );
+        $background_color = get_field( 'container_color_bg_color' );
+        $text_color = get_field('container_color_custom_text_color');
+
+        //container settings fieldgroup
+        $container_settings = get_field('container_settings');
+        if((empty($containerColor)) && ($container_settings)){
+            $containerColor = get_field('container_settings_container_color');
+            $background_color = get_field('container_settings_container_color_bg_color');
+            $text_color = get_field('container_settings_container_color_custom_text_color');
+        }
+        
+        //column_placement field group
+        $column_placement = get_field('column_placement');
+        if((empty($containerColor)) && ($column_placement)){
+            $containerColor = get_field('column_placement_container_color');
+            $background_color = get_field('column_placement_container_color_bg_color');
+            $text_color = get_field('column_placement_container_color_custom_text_color');
+        }
+
+        //in aa row SUB field group
+        if(empty($containerColor)){
+            $containerColor = get_sub_field( 'container_color' );
+            $background_color = get_sub_field( 'container_color_bg_color' );
+            $text_color = get_sub_field('container_color_custom_text_color');
+        }
+
+        
+        if($containerColor){$output = get_container_scheme_function($containerColor, $text_color, $background_color);}
 		return $output;
     }
 
 endif;
 
+if ( ! function_exists( 'get_padding_function' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v8.5
+	 */
+	function get_padding_function($blockID = null) {
+        $style = '';
+        $style_output = '';
+        $output = '';
+        
+        $identifer = '.' . $blockID;
+        if ( have_rows( 'custom_top' ) ) : 
+            while ( have_rows( 'custom_top' ) ) : the_row(); 
+                if ( have_rows( 'breakpoint_overrides' ) ) : 
+                    while ( have_rows( 'breakpoint_overrides' ) ) : the_row(); 
+                        $style_output.= '@media (min-width:  '.get_sub_field( 'breakpoint' ).' ){';
+                        $style_output.= $identifer . '.cp-t-custom {--supply-padding-custom: '.get_sub_field( 'custom_size' ).'px;}';
+                        $style_output.= '}';
+                    endwhile; 
+                endif; 
+            endwhile; 
+        endif; 
+        if ( have_rows( 'custom_bottom' ) ) :  
+            while ( have_rows( 'custom_bottom' ) ) : the_row(); 
+                if ( have_rows( 'breakpoint_overrides' ) ) : 
+                    while ( have_rows( 'breakpoint_overrides' ) ) : the_row(); 
+                        $style_output.= '@media (min-width:  '.get_sub_field( 'breakpoint' ).' ){';
+                        $style_output.= $identifer . '.cp-b-custom {--supply-padding-custom: '.get_sub_field( 'custom_size' ).'px;}';
+                        $style_output.= '}';
+                    endwhile; 
+                endif; 
+            endwhile;  
+        endif;
+        return $style_output;
+        
+    }
+
+endif;
+if ( ! function_exists( 'get_padding' ) ) :
+
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v6.5
+	 */
+	function get_padding($blockID = null) {
+        $output = '';
+      //  $padding_size = get_field( 'padding_size' ); 
+        $padding_top = get_field('padding_top');
+        $padding_bottom = get_field('padding_bottom');
+
+        //container settings fieldgroup
+        $container_settings = get_field('container_settings');
+        if((empty($padding_top)) && ($container_settings)){
+            $padding_top = get_field('container_settings_padding_top');
+        }
+        if((empty($padding_bottom)) && ($container_settings)){
+            $padding_bottom = get_field('container_settings_padding_bottom');
+        }
+
+
+        //fold_settings field group
+        $fold_settings = get_field('fold_settings');
+        if((empty($padding_top)) && ($fold_settings)){
+            $padding_top = get_field('fold_settings_padding_top');
+        }
+        if((empty($padding_bottom)) && ($fold_settings)){
+            $padding_bottom = get_field('fold_settings_padding_bottom');
+        }
+
+        //column_placement field group
+        $column_placement = get_field('column_placement');
+        if((empty($padding_top)) && ($column_placement)){
+            $padding_top = get_field('column_placement_padding_top');
+        }
+        if((empty($padding_bottom)) && ($column_placement)){
+            $padding_bottom = get_field('column_placement_padding_bottom');
+        }
 
 
 
+        if((empty($padding_top)) && (empty($padding_bottom))){
+            
+            if ( have_rows( 'container_settings' ) ):
+                while ( have_rows( 'container_settings' ) ) : the_row();
+                    $padding_top = get_sub_field('padding_top');
+                    $padding_bottom = get_sub_field('padding_bottom');
+                    if(($padding_top == 'cp-t-custom') || ($padding_bottom == 'cp-b-custom')) {
+                         if(empty($blockID)){
+                             $blockID = 'cp-'.randClassName();
+                             $output .= $blockID . ' ';
+                         }
+                    }
+                    $custom_padding = get_padding_function($blockID);
+                endwhile;
+            else:
+                if ( have_rows( 'column_placement' ) ):
+                    while ( have_rows( 'column_placement' ) ) : the_row();
+                        $padding_top = get_sub_field('padding_top');
+                        $padding_bottom = get_sub_field('padding_bottom');
+                        if(($padding_top == 'cp-t-custom') || ($padding_bottom == 'cp-b-custom')) {
+                             if(empty($blockID)){
+                                 $blockID = 'cp-'.randClassName();
+                                 $output .= $blockID . ' ';
+                             }
+                        }
+                        $custom_padding = get_padding_function($blockID);
+                    endwhile;
+                endif;
+
+                
+            endif;
+        }
+        
+        if(empty($padding_top)){
+            $padding_top = get_sub_field('padding_top');
+        }
+        if(empty($padding_bottom)){
+            $padding_bottom = get_sub_field('padding_bottom');
+        }
+        if(empty($custom_padding)){
+            if(($padding_top == 'cp-t-custom') || ($padding_bottom == 'cp-b-custom')) {
+                if(empty($blockID)){
+                     $blockID = 'cp-'.randClassName();
+                     $output .= $blockID . ' ';
+                 }
+            }
+            $custom_padding = get_padding_function($blockID);
+        }
+        if($padding_top){
+            $output .= $padding_top.' ';
+        }
+        if($padding_bottom){
+            $output .= $padding_bottom;
+        }
+        
+        if(($padding_top == 'cp-t-custom') || ($padding_bottom == 'cp-b-custom')) {
+            enqueue_footer_styles($custom_padding);
+        }
+        
+		return $output;
+    }
+
+endif;
 if ( ! function_exists( 'get_block_settings' ) ) :
 	/**
 	 * "Theme posted on" pattern.
 	 *
 	 * @since v1.0
 	 */
-	function get_block_settings($classes=null) {
+	function get_block_settings($classes=null, $noColor = null, $noFold = null, $noPadding = null) {
         $output = "";
         $foldUtils = '';
         $post_id = ''; 
         $output = '';
         $current_post = get_queried_object();
         $post_id = $current_post ? $current_post->ID : null;
-        $styles = '';
-        if(empty($classes)){
-            $classes = '';	
-        } else {
-            $classes = esc_attr($classes) . ' ';
+        $styles = ''; 
+        if($classes) {
+            $classes .= ' ';
         }
-        $scheme = get_field('background_color', $post_id);
-
-        // If in side a group type field Called 'fold_settings'
-            if ( have_rows( 'fold_settings' ) ) :
-                while ( have_rows( 'fold_settings' ) ) : the_row(); 
-                    if(get_sub_field( 'custom_bg_color' )){
-                            $customColor = get_sub_field( 'custom_bg_color' );
-                            $customText = get_sub_field('custom_text_color');
-                            if (str_contains($customColor, "#")) {
-                                $customColor = $customColor;
-                            } else {
-                                $customColor = '#'. $customColor;
-                            }
-                            if($customText) {
-                                $customText = 'data-color="'.$customText.'"';
-                            } else {
-                                $customText = 'data-color="default"';
-                            }
-                            $classes .= 'fold-custom';
-                            $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
-                    }
-                    if(get_sub_field( 'fold_color' )){
-                        
-                            $classes .= ' fold';
-                            $foldColor = get_sub_field('fold_color');        
-                            if(strpos($foldColor, 'page') !== false){
-                                if($scheme){
-                                    $foldColor = $scheme;
-                                }
-                            }
-                            $foldClass = 'bg-' . $foldColor;
-                            $foldUtils .=' data-class="'. $foldClass;
-                    }
-                    
-                endwhile;
-
-            else:
-
-                // If is standalone fields
-                if(get_field( 'fold_color' )){
-                    if(get_field( 'custom_bg_color' )){
-                        $customColor = get_field( 'custom_bg_color' );
-                        $customText = get_field('custom_text_color');
-                        
-                        if (str_contains($customColor, "#")) {
-                            $customColor = $customColor;
-                        } else {
-                            $customColor = '#'. $customColor;
-                        }
-                        if($customText) {
-                            $customText = 'data-color="'.$customText.'"';
-                        } else {
-                            $customText = 'data-color="default"';
-                        }
-                        $classes .= ' fold-custom';
-                        $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
-                    }
-                
-                    $classes .= ' fold';
-                    $foldColor = get_field('fold_color');        
-                    if(strpos($foldColor, 'page') !== false){
-                        if($scheme){
-                            $foldColor = $scheme;
-                        }
-                    }
-                    $foldClass = 'bg-' . $foldColor;
-                    $foldUtils .=' data-class="'. $foldClass;
-                } else {
-                    if($scheme){
-                        $foldUtils .=' data-class="bg-'. $scheme;
-                    } else {
-                        $foldUtils .=' data-class="bg-light';
-                    }
-                }
-            
-            endif; 
-        if ( have_rows( 'container_color_scheme' ) ) :
-            while ( have_rows( 'container_color_scheme' ) ) : the_row(); 
-                $containerColor = get_sub_field('container_color'); 
-                if($containerColor){
-                    
-                    if($containerColor == "custom"){
-                        $background_color = get_sub_field('container_color_bg_color');
-                        if (str_contains($background_color, "#")) {
-                            $background_color = $background_color;
-                        } else {
-                            $background_color = '#'. $background_color;
-                        }
-                        $text_color = get_sub_field('container_color_custom_text_color');
-                        $classes .= ' bg-custom';
-                        $styles = '" style="background-color:'.$background_color.';';
-                        if(empty($text_color)){
-                            $rgb = HTMLToRGB($background_color);
-                            $hsl = RGBToHSL($rgb);
-                            if($hsl->lightness > 200) {
-                            // this is light colour!
-                                $classes .= ' text-primary';
-                            } else {
-                                $classes .= ' text-white';
-                            }
-                        } else {
-                            $styles .=' color:'.$text_color.';';
-                        }
-                        //$styles .='"';
-                        $styles .= $styles.'"';
-                    } else {
-                        $classes .= ' bg-' . $containerColor;
-                    }
-                }
-
-            endwhile; 
-        endif; 
-
-        
-        $output = $classes .'" '.$foldUtils .'" '.$styles;
-		return $output;
-    }
-
-endif;
-if ( ! function_exists( 'get_padding' ) ) :
-	/**
-	 * "Theme posted on" pattern.
-	 *
-	 * @since v6.5
-	 */
-	function get_padding($blockID) {
-        $output = '';
-        $style = '';
-        $style_output = '';
-        $padding_size = get_field( 'padding_size' ); 
-        
-        if(get_field('padding_size')){
-            $output .= $padding_size.' ';
+        if(empty($noFold)) {     
+            $classes .= get_fold('', 1);
+            $foldUtils = get_fold('', '', 1);
         }
-        if ( have_rows( 'custom_padding' ) ) : 
-            $style_output = '<style type="text/css">';
-            $style ="Test";
-            $output .= 'padding-block ';
-            while ( have_rows( 'custom_padding' ) ) : the_row(); 
-                if ( have_rows( 'top' ) ) : 
-                    while ( have_rows( 'top' ) ) : the_row(); 
-                        if(get_sub_field( 'custom_size' )){
-                            $style_output.= '#' . $blockID.' .padding-block {padding-top:'. get_sub_field( 'custom_size' ).'px;} ';
-                        }
-                        if ( have_rows( 'breakpoint_overrides' ) ) : 
-                                while ( have_rows( 'breakpoint_overrides' ) ) : the_row(); 
-                                    $style_output.= '@media (min-width:  '.get_sub_field( 'breakpoint' ).' ){#' . $blockID .' .padding-block {padding-top: '.get_sub_field( 'custom_size' ).'px;}} ';
-                                endwhile; 
-                            else : 
-                                // No rows found 
-                            endif; 
-                    endwhile; 
-                endif; 
-                if ( have_rows( 'bottom' ) ) :  
-                    while ( have_rows( 'bottom' ) ) : the_row(); 
-                        if(get_sub_field( 'custom_size' )){
-                            $style_output.= '#' . $blockID.' .padding-block {padding-bottom:'. get_sub_field( 'custom_size' ).'px;}';
-                        }
-                        
-                        if ( have_rows( 'breakpoint_overrides' ) ) : 
-                            while ( have_rows( 'breakpoint_overrides' ) ) : the_row(); 
-                                $style_output.= '@media (min-width:  '.get_sub_field( 'breakpoint' ).' ){#' . $blockID .' .padding-block {padding-bottom: '.get_sub_field( 'custom_size' ).'px;}}';
-                            endwhile; 
-                        else : 
-                            // No rows found 
-                        endif; 
-                    endwhile;  
-                endif;
-            endwhile; 
-            $style_output .='</style>';
-        endif; 
-        enqueue_footer_markup($style_output);
-        
+        if(empty($noColor)) {
+            $classes .= ' ';
+            $classes .= get_container_scheme();
+        }
+        if(empty($noPadding)) {
+            $classes .= get_padding();
+        }
+        $output = $classes .'" '.$foldUtils;
 		return $output;
     }
 
@@ -1035,7 +1085,7 @@ if ( ! function_exists( 'get_subnav' ) ) :
             ); 
         }  
         $the_query = new WP_Query( $args );
-        $output = '<ul class="nav flex-column bg-transparent nav-underline d-none d-dlg-flex">';
+        $output = '<ul class="nav flex-column bg-transparent nav-underline supply-underline d-none d-dlg-flex">';
         $count = 0;
         if ( $the_query->have_posts() ) :
             while ( $the_query->have_posts() ) : $the_query->the_post(); $count++;
@@ -1175,9 +1225,9 @@ if ( ! function_exists( 'get_mobile_subnav' ) ) :
                 }
             endif;
             $mobile_nav .= '<div class="nav subnav flex-column bg-transparent nav-underline d-dlg-none">';
-            $mobile_nav .= '<div class="d-flex chapter">';
+            $mobile_nav .= '<div class="d-flex chapter align-items-center">';
             $mobile_nav .= $prevOffering;
-            $mobile_nav .= '<span>';
+            $mobile_nav .= '<span class="iso-reg h8">';
             $mobile_nav .= $current_count .'&nbsp;of&nbsp;'. $count;
             $mobile_nav .= '</span>';
             $mobile_nav .= $nextOffering;
@@ -1255,6 +1305,7 @@ if ( ! function_exists( 'get_supply_link' ) ) :
         $output ='';
         $classes ='';
         $link = '';
+        $linkClass = 'internal-link';
         $linkTitle = get_field( 'link_text' );
         if(empty($linkTitle)){
             $linkTitle = get_sub_field('link_text');
@@ -1263,7 +1314,6 @@ if ( ! function_exists( 'get_supply_link' ) ) :
         if(empty($page_lookup)){
             $page_lookup = get_sub_field('page_lookup');
         }
-        $linkClass = '';
         $linkURL = get_field( 'url' );
         if(empty($linkURL)){
             $linkURL = get_sub_field('url');

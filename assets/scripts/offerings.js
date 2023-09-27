@@ -1,5 +1,6 @@
-
 import { fold as fold } from "./thefold.js";
+import { forms as form } from "./forms.js";
+
 const offeringsPage = document.querySelector('.single-service-offerings');
 if(offeringsPage){    
   function navControls(){
@@ -59,7 +60,17 @@ if(offeringsPage){
 
       });
     }
-  
+    const paginationAccordion = document.querySelector('.pagination-accordion'),
+    paginationAccordionItems = paginationAccordion.querySelectorAll('.collapse');
+    
+    paginationAccordionItems.forEach(function(paginationAccordionItem) {
+      paginationAccordionItem.addEventListener('shown.bs.collapse', event => {
+        paginationAccordion.classList.add('open');
+      })
+      paginationAccordionItem.addEventListener('hidden.bs.collapse', event => {
+        paginationAccordion.classList.remove('open');
+      })
+    });
     //window.onresize = lottieHeight; 
     function lottieHeight(){
       let lottieInstanceHeight = lottieInstance.offsetHeight + 28+'px';
@@ -69,7 +80,7 @@ if(offeringsPage){
     }
     function jediMindTricks($pageURL, $pageTitle, $pageID){
         (function($) {
-            $('#streamload').html("<h5 class='text-center'>Loading...</h5>");
+           // $('#streamload').html("<h5 class='text-center'>Loading...</h5>");
             $(".entry").load($pageURL+" #streamload", function( response, status, xhr ) {
                 if ( status == "error" ) {
                   var msg = "Sorry but there was an error: ";
@@ -92,7 +103,8 @@ if(offeringsPage){
               function() {
                 navControls();
                 fold();
-            }, 1400);
+                form();
+            }, 1400)
         })( jQuery );
     }
 

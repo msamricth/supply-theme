@@ -308,23 +308,7 @@ if(nav_compression) {
 	  }); */
 }
 window.onresize = ScrollTrigger.refresh();
-const offeringsPage = document.querySelector('.single-service-offerings');
-if(offeringsPage){    
-    const subnavContainers = offeringsPage.querySelectorAll('.subnav');
-    function navControls(){
-      subnavContainers.forEach(function(subnavContainer){
-        const subnavItems = subnavContainer.querySelectorAll('.subnav-link');
-		subnavItems.forEach(function(subnavItem) {
-            subnavItem.addEventListener("click", (e) => {
-			
-				ScrollTrigger.refresh();
-				console.log('clikedd')
-				
-			});
-		})
-	  })
-	}
-}
+
 function setFold(theme, bg = null, txt = null){
 	var customOn;
 	if(scrollRoot.hasAttribute("data-custom")) {
@@ -369,12 +353,20 @@ function setFold(theme, bg = null, txt = null){
 				let lottieInstanceContainer = document.querySelector('.non-autoplay');
 				if(lottieInstance){
 					//lottieInstance.addEventListener("ready", () => { //doesnt seem to work
-					
-				//	lottieInstance.addEventListener("ready", () => {
+					lottieInstance.addEventListener("rendered", () => {
 						lottieInstance.play();
 						if(lottieInstanceContainer) lottieInstanceContainer.classList.add('show');
-				//	});
-		
+					});
+					setTimeout(
+						function() {
+							
+							if(lottieInstanceContainer && !lottieInstanceContainer.classList.contains('show')) lottieInstance.play(),lottieInstanceContainer.classList.add('show'),console.log("lottie is having a error on the fold load - timeout");
+					}, 400);
+					lottieInstance.addEventListener("error", (error) => {
+					  console.log("lottie is having a error on the fold load  "+error);
+					  if(lottieInstanceContainer) lottieInstance.play(),lottieInstanceContainer.classList.add('show');
+					});
+		// lotter eventListenrs are inconsitent - need to dive deeper into this or open up github issue
 						
 					//});
 				}

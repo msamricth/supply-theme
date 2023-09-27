@@ -16,26 +16,7 @@
 	} );
 
 
-	function calcHeight(value) {
-		let numberOfLineBreaks = (value.match(/\n/g) || []).length;
-		// min-height + lines x line-height + padding + border
-		let heightVar = 30;
-		let newHeight = heightVar + numberOfLineBreaks * heightVar + 12 + 2;
-		return newHeight;
-	  }
-	let textareaEX = document.querySelector("textarea.form-control");
-	if(textareaEX){
-		textareaEX.addEventListener("keyup", () => {
-			textareaEX.style.height = calcHeight(textareaEX.value) + "px";
-		});
-	}
-    function expandTextarea(id) {
-        document.querySelector(id).addEventListener('keyup', function() {
-            this.style.overflow = 'hidden';
-            this.style.height = 0;
-            this.style.height = this.scrollHeight + 'px';
-        }, false);
-    }
+
 
 
     function hideGRecaptcha() {
@@ -65,30 +46,41 @@
         }
     }
 });
-pageCheck();
-const cf7Formtextarea = document.querySelector('.wpcf7-textarea');
-if(cf7Formtextarea) {	
-    document.querySelector('.wpcf7-textarea').addEventListener('keyup', function() {
-        pageCheck();
-        this.style.overflow = 'hidden';
-        this.style.height = 0;
-        this.style.height = this.scrollHeight + 'px';
-    }, false);
-}
-(function($) {
+function formsInit(){
     $('.block-supply-contact-block .footer-btn').prop("disabled",true);
     $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",true);
-    function checkHoneyPot($class = null){
-        var honeyPot = document.getElementById("honeypot");
-        if (honeyPot && honeyPot.value) {
-            $($class).prop("disabled",true);
-        } else {
-            $($class).prop("disabled",false);
-        }
+    function calcHeight(value) {
+		let numberOfLineBreaks = (value.match(/\n/g) || []).length;
+		// min-height + lines x line-height + padding + border
+		let heightVar = 30;
+		let newHeight = heightVar + numberOfLineBreaks * heightVar + 12 + 2;
+		return newHeight;
+	  }
+	let textareaEX = document.querySelector("textarea.form-control");
+	if(textareaEX){
+		textareaEX.addEventListener("keyup", () => {
+			textareaEX.style.height = calcHeight(textareaEX.value) + "px";
+		});
+	}
+    function expandTextarea(id) {
+        document.querySelector(id).addEventListener('keyup', function() {
+            this.style.overflow = 'hidden';
+            this.style.height = 0;
+            this.style.height = this.scrollHeight + 'px';
+        }, false);
     }
-    
+    const cf7Formtextarea = document.querySelector('.wpcf7-textarea');
+    if(cf7Formtextarea) {	
+        document.querySelector('.wpcf7-textarea').addEventListener('keyup', function() {
+            pageCheck();
+            this.style.overflow = 'hidden';
+            this.style.height = 0;
+            this.style.height = this.scrollHeight + 'px';
+        }, false);
+    }
 
-
+}
+function errorHandler(){
     document.addEventListener( 'wpcf7invalid', function( event ) {
         $('.contact-form').addClass('invalid');
       }, false );
@@ -100,8 +92,8 @@ if(cf7Formtextarea) {
         $('#'+CF7ID+' .hidden-only-if-sent').hide();
     }, false );
 
-
-    
+}
+function emailValidation(){
     if($('.block-supply-contact-block  .wpcf7-email').length){
         $('.block-supply-contact-block  .btn').prop("disabled",true);
         document.querySelector('.block-supply-contact-block  .wpcf7-email').addEventListener('input', function (evt) {
@@ -120,6 +112,21 @@ if(cf7Formtextarea) {
             else $('.wp-block-contact-form-7-contact-form-selector .btn').prop("disabled",true);
         });
     }
+}
+function checkHoneyPot($class = null){
+    var honeyPot = document.getElementById("honeypot");
+    if (honeyPot && honeyPot.value) {
+        $($class).prop("disabled",true);
+    } else {
+        $($class).prop("disabled",false);
+    }
+}
+(function($) {
+    formsInit();
+    checkHoneyPot();
+    errorHandler();
+    emailValidation();    
+    pageCheck();
 })( jQuery );
 
 function pageCheck(){
@@ -135,3 +142,11 @@ function pageCheck(){
             if(CcurrentTitle){CcurrentTitle.value = document.title;}
             }    
 }
+function formsExt(){
+    formsInit();
+	pageCheck();
+    emailValidation();
+    checkHoneyPot();
+    errorHandler();
+}
+export { formsExt as forms };

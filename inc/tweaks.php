@@ -56,29 +56,53 @@ function be_gutenberg_scripts() {
 	wp_enqueue_script( 'theme-editor', get_template_directory_uri() . '/assets/js/editor.js', array( 'wp-blocks', 'wp-dom' ), filemtime( get_template_directory() . '/assets/js/editor.js' ), true );
 }
 add_action( 'enqueue_block_editor_assets', 'be_gutenberg_scripts' );
+add_action('enqueue_block_editor_assets', function() {
+	wp_enqueue_script('awp-gutenberg-filters', get_template_directory_uri() . '/assets/js/gutenberg-filters.js', array( 'wp-blocks', 'wp-dom', 'wp-edit-post','acf' ));
+});
 /**
  * Enqueue footer markup in WP at lowest priority.
  * Convenience function!
  *
  * @param $markup
  */
+
+ function enqueue_footer_styles($markup){
+    $markup = '<style>'.$markup.'</style>';
+	add_action('wp_footer', function () use ($markup){
+		echo $markup;
+	}, 99, 1);
+}
 function enqueue_footer_markup($markup){
 	add_action('wp_footer', function () use ($markup){
 		echo $markup;
 	}, 99, 1);
 }
-
+function randClassName($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[random_int(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
 /**
  * Enqueue footer markup in WP at lowest priority.
  * Convenience function!
  *
  * @param $markup
+*
+*function enqueue_header_markup($markup){
+*	add_action('wp_head', function () use ($markup){
+*		echo $markup;
+*	}, 10, 1);
+*}
  */
 function enqueue_header_markup($markup){
-	add_action('wp_head', function () use ($markup){
-		echo $markup;
-	}, 10, 1);
+  
+  add_action( 'wp_head', function() {echo $markup;} );
 }
+//add_action('wp_head', 'enqueue_header_markup', 9);
 function my_acf_admin_head() {
     ?>
 

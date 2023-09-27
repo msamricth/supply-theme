@@ -33,6 +33,9 @@ if (isset($post_type)) {
         'post_type' => array('service-offerings')
     ); 
 }  
+$args = array(
+    'post_type' => array('service-offerings')
+); 
 $currentOffering = '';
 $the_query = new WP_Query( $args );
 ?>
@@ -42,10 +45,15 @@ $the_query = new WP_Query( $args );
     <?php if(get_field('pagination_heading')){ ?>
         <h6 class="pe-4"><?php the_field('pagination_heading'); ?></h6>
     <?php } ?>
-    <div class="accordion accordion-flush subnav bg-transparent" id="pagination">
+    <div class="accordion pagination-accordion accordion-flush subnav bg-transparent" id="pagination">
         <?php if ( $the_query->have_posts() ) :
          while ( $the_query->have_posts() ) : $the_query->the_post(); $count++;
          $post_id = url_to_postid(get_the_permalink());
+         $title = get_the_title();
+         if(is_page( 'services' )){
+            $title = '<span class="iso-reg">0'.$count.'</span>';
+            $title .= get_the_title();
+         }
              $slug = get_post_field( 'post_name', $post_id );
              if (isset($currentID)) {
                  $postID = get_the_ID();
@@ -60,14 +68,14 @@ $the_query = new WP_Query( $args );
              <div class="accordion-item">
                 <h5 class="accordion-header">
                 <button class="accordion-button collapsed justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#pagination-<?php echo $count;?>" aria-expanded="false" aria-controls="pagination-<?php echo $count;?>">
-                    <?php the_title(); ?>
+                    <div class="accordion-title"><?php echo $title; ?></div>
                     <div class="accordion-icon"></div>
                 </button>
                 </h5>
                 <div id="pagination-<?php echo $count;?>" class="accordion-collapse collapse" data-bs-parent="#pagination">
                     <div class="accordion-body">
                         <div class="accordion-body--text">
-                            <?php echo the_so_excerpt($post_id);?>
+                            <span class="h7"><?php echo the_so_excerpt($post_id);?></span>
                         </div>
                         <a href="<?php echo get_the_permalink(); ?>" id="subnav-<?php echo $post_id; ?>" data-slug="/<?php echo $slug;?>" class="d-flex  internal-link" title="<?php echo get_the_title(); ?>" rel="bookmark" data-title="<?php the_title(); ?>">
                             Learn More

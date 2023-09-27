@@ -39,7 +39,7 @@ if($cite) {
     } 
     $blockContent .= '</cite>';
 } ?>
-<blockquote id="<?php echo esc_attr( $id )?>" class="<?php echo esc_attr( $classes )?>">
+<blockquote id="<?php echo esc_attr( $id )?>" class="<?php echo get_block_settings($classes); ?>">
     <?php if ( is_single() && 'post' == get_post_type() ) {?>
         <div class="col-md-12 col-xl-10 mx-auto">
             <div class="seperator"></div>

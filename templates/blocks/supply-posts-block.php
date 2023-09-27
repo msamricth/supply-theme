@@ -29,7 +29,7 @@ if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
 $Utils = '';
-$classes .=' fadeNoScroll';
+$classes .=' cp3 fadeNoScroll';
 $row = '';
 
     if ( have_rows( 'fold_settings' ) ) :
@@ -102,7 +102,7 @@ endif;
 $the_query = new WP_Query( $args ); ?>
 
 <?php if ( $the_query->have_posts() ) : ?>
-    <div class="container home-loop-section posts-loop-section fadeNoScroll cp3">
+    <div class="container home-loop-section posts-loop-section fadeNoScroll">
         <div class="row <?php echo $row?>" <?php echo $Utils;?>>
             <div class="col-dlg-10 offset-dlg-1">
                 <?php while ( $the_query->have_posts() ) : $the_query->the_post(); 

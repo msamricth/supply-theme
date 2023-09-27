@@ -28,6 +28,13 @@
         margin-bottom: 0;
     }
 }
+.cp-t-custom {
+    padding-top: var(--supply-padding-custom) !important;
+}
+.cp-b-custom {
+    padding-bottom: var(--supply-padding-custom) !important;
+    margin-bottom: 0px !important;
+}
 .text-small-cp {
     margin-bottom: 32px;
 }

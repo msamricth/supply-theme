@@ -253,3 +253,12 @@ a img.aligncenter {
 [data-name="left_case_study"], [data-name="right_case_study"] {
     display: none;
 }
+[data-type="acf/supply-list-block"] [data-name="lists"] [data-name="padding_bottom"]{
+    display: none;
+}
+.wp-block-acf-supply-content-block [data-name="link_options"] [data-name="padding_bottom"]{
+    display:none;
+}
+[data-title="Supply Content Block"] [data-name="block_content"] [data-name="padding_top"], [data-title="Supply Content Block"] [data-name="block_content"] [data-name="padding_bottom"] {
+    display: none;
+}

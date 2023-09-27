@@ -105,6 +105,7 @@ $link_font: 'ISOv';
 $gray-900: #111512; // main
 $primary: $gray-900;
 $primary-text-emphasis-dark: $primary;
+$gray-1000: #181818; //offering
 $gray-800: #222222; // used somewhere
 $gray-700: #5E615E;  //offering
 $gray-600: #919391; // offering prev. 8D8D8D
@@ -175,7 +176,9 @@ $theme-colors: (
   "warning":    $warning,
   "danger":     $danger,
   "light":      $light,
-  "dark":       $dark
+  "dark":       $dark,
+  "dark-gray":       $gray-1000,
+  "offerings":       $gray-1000
 );
 $spacers: (
   0: 0,
@@ -246,9 +249,10 @@ html {
 	scroll-behavior: smooth;
 }
 body {
+	--bs-btn-font-family: #{$link_font};
 	-webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-	font-smoothing: antialiased;
+	//font-smoothing: antialiased;
 	div#wrapper {
 		width: 100%;
 		overflow-x: hidden;
@@ -462,6 +466,7 @@ img {
 	--bgcustom: var(--bs-white);
 	--supply-carousel-height: 400px;
 	--supply-carousel-maxheight: 177px;
+	--supply-padding-custom: 0;
 	@include media-breakpoint-up(md) { 
 		--supply-carousel-maxheight: 405px;
 	}

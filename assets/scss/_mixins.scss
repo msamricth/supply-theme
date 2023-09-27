@@ -37,3 +37,196 @@
         }
     }
   }
+
+@mixin paragraph {
+    font-size: var(--bs-body-font-size);
+    @include media-breakpoint-up(md) {
+        --bs-body-font-size: 18px;
+        margin-bottom: 30px;
+    }
+    @include media-breakpoint-up(dlg) {
+        --bs-body-font-size: 20px;
+        margin-bottom: 32px;
+    }
+    
+    @include media-breakpoint-up(3xl) {
+        --bs-body-font-size: 28px;
+        margin-bottom: 44px;
+    }
+    &:last-child {
+        margin-bottom: 0px;
+    }
+}
+@mixin h-three{
+// color: $gray-200;
+//  --supply-fold-color:#{$gray-200} !important;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.22222; /*44px;  122.222% */
+    font-feature-settings: 'clig' off, 'liga' off;
+    /* SO 1920/h3 */
+    font-family: $font-family-headings;
+    
+    @include media-breakpoint-up(md) {
+        font-size: 46px;
+    }
+    @include media-breakpoint-up(dlg) {
+        font-size: 52px;
+    }
+    @include media-breakpoint-up(3xl) {
+        font-size: 72px;
+    }
+}
+@mixin h-four {
+    font-size: 28px;
+    font-feature-settings: 'clig' off, 'liga' off;
+    line-height: 1.228;
+    @include media-breakpoint-up(md) {
+        font-size: 36px;
+    }    
+    @include media-breakpoint-up(3xl) {
+        font-size: 52px;
+        line-height: 1.23;
+    }
+
+}
+@mixin h-five {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.4; /* 140% */
+
+    @include media-breakpoint-up(md) {
+        font-size: 28px;
+        line-height: 1.28; /* 120% */
+    }
+    @include media-breakpoint-up(3xl) {
+        font-size: 40px;
+        line-height: 1.2; /* 120% */
+    }
+}
+@mixin h-six {
+    font-family: $font-family-headings;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 1.5; /* 150% */
+    
+
+    @include media-breakpoint-up(md) {
+      font-size: 20px;
+      line-height: 1.4;
+
+    }
+    @include media-breakpoint-up(3xl) {
+        font-size: 28px;
+        line-height: 1.28;
+    }
+}
+@mixin h-seven {
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: $font-family-headings;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    opacity: 0.7;
+
+    @include media-breakpoint-up(md) {
+        font-size: 20px;
+        line-height: 1.4;
+    }
+    @include media-breakpoint-up(3xl) {
+        font-size: 28px;
+        line-height: 1.57;
+    }
+}
+
+
+
+$sizeUnit: px;
+$paddingKey: 'cp';
+$separator: '-';
+$sizes: (
+    ('0', 0, 0, 0),
+    ('1', 28, 36, 52),
+    ('2', 60, 80, 100),
+    ('small', 30, 40, 50),
+    ('3', 100, 136, 180),
+    ('4', 136, 200, 370),
+    ('big', 50, 68, 90)
+);
+$positions: (
+    ('t', 'top'),
+    ('b', 'bottom')
+);
+$forced: (
+    ('f','!important'),
+    ('n','!default')
+);
+@function sizeValue($key, $value) {
+    @return if($key == 'none', 0, $value + $sizeUnit);
+}
+@each $size in $sizes { 
+    $sizeKey: nth($size, 1);
+    $sizeValue: nth($size, 2);
+    :root {
+        --supply-padding-#{$sizeKey}: #{sizeValue($sizeKey, $sizeValue)};
+    }
+}
+@include media-breakpoint-up(md) { 
+    @each $size in $sizes { 
+        $sizeKey: nth($size, 1);
+        $sizeValueMD: nth($size, 3);
+        :root {
+            --supply-padding-#{$sizeKey}: #{sizeValue($sizeKey, $sizeValueMD)};
+        }
+    }
+}
+@include media-breakpoint-up(3xl) { 
+    @each $size in $sizes { 
+        $sizeKey: nth($size, 1);
+        $sizeValue3XL: nth($size, 4);
+        :root {
+            --supply-padding-#{$sizeKey}: #{sizeValue($sizeKey, $sizeValue3XL)};
+        }
+    }
+}
+@each $size in $sizes {
+    $sizeKey: nth($size, 1);
+    .#{$paddingKey}#{$separator}#{$sizeKey} {
+        margin-bottom: 0px;
+        padding-top: var(--supply-padding-#{$sizeKey});
+        padding-bottom: var(--supply-padding-#{$sizeKey});
+    }
+    @each $force in $forced {  
+        $fKey: nth($force, 1);
+        $fValue: nth($force, 2);
+        .#{$paddingKey}#{$separator}#{$sizeKey}#{$separator}#{$fKey} {
+            margin-bottom: 0px #{$fValue};
+            padding-top: var(--supply-padding-#{$sizeKey}) #{$fValue};
+            padding-bottom: var(--supply-padding-#{$sizeKey}) #{$fValue};
+        }
+    }
+    @each $position in $positions {
+        $posKey: nth($position, 1);
+        $posValue: nth($position, 2);
+        .#{$paddingKey}#{$separator}#{$posKey}#{$separator}#{$sizeKey} {
+            padding-#{$posValue}: var(--supply-padding-#{$sizeKey});
+            @if $posKey == 'b' {
+                margin-bottom: 0px;
+            }
+        }
+        @each $force in $forced {  
+            $fKey: nth($force, 1);
+            $fValue: nth($force, 2);
+            .#{$paddingKey}#{$separator}#{$posKey}#{$separator}#{$sizeKey}#{$separator}#{$fKey} {
+                padding-#{$posValue}: var(--supply-padding-#{$sizeKey}) #{$fValue};
+                @if $posKey == 'b' {
+                    margin-bottom: 0px #{$fValue};
+                }
+            }
+        }
+    }
+}

@@ -48,30 +48,33 @@ if ($main_options !== '' && str_contains($main_options, 'autoplay')) {
 $extras = '';
 $extras .= get_container_scheme();
 $blockContent = '';
-$style_output = '<style>#lottie-'. esc_attr( $id ).'{';
-    if(get_field( 'toolbar_height' )){
-        $style_output = '--lottie-player-toolbar-height: '.get_field( 'toolbar_height' );
-    }
-    if(get_field( 'toolbar_background_color' )){
-        $style_output = '--lottie-player-toolbar-background-color: '.get_field( 'toolbar_background_color' );
-    }
-    if(get_field( 'toolbar_icon_color' )){
-        $style_output = '--lottie-player-toolbar-icon-color: '.get_field( 'toolbar_icon_color' );
-    }
-    if(get_field( 'toolbar_icon_hover_color' )){
-        $style_output = '--lottie-player-toolbar-icon-hover-color: '.get_field( 'toolbar_icon_hover_color' );
-    }
-    if(get_field( 'toolbar_icon_active_color' )){
-        $style_output = '--lottie-player-toolbar-icon-active-color: '.get_field( 'toolbar_icon_active_color' );
-    }
-    if(get_field( 'seeker_track_color' )){
-        $style_output = '--lottie-player-seeker-track-color: '.get_field( 'seeker_track_color' );
-    }
-    if(get_field( 'seeker_thumb_color' )){
-        $style_output = '--lottie-player-seeker-thumb-color: '.get_field( 'seeker_thumb_color' );
-    }
-$style_output .= '}</style>';
-enqueue_footer_markup($style_output);  
+
+if ($main_options !== '' && str_contains($main_options, 'controls')) {
+    $style_output = '<style>#lottie-'. esc_attr( $id ).'{';
+        if(get_field( 'toolbar_height' )){
+            $style_output .= '--lottie-player-toolbar-height: '.get_field( 'toolbar_height' );
+        }
+        if(get_field( 'toolbar_background_color' )){
+            $style_output .= '--lottie-player-toolbar-background-color: '.get_field( 'toolbar_background_color' );
+        }
+        if(get_field( 'toolbar_icon_color' )){
+            $style_output .= '--lottie-player-toolbar-icon-color: '.get_field( 'toolbar_icon_color' );
+        }
+        if(get_field( 'toolbar_icon_hover_color' )){
+            $style_output .= '--lottie-player-toolbar-icon-hover-color: '.get_field( 'toolbar_icon_hover_color' );
+        }
+        if(get_field( 'toolbar_icon_active_color' )){
+            $style_output .= '--lottie-player-toolbar-icon-active-color: '.get_field( 'toolbar_icon_active_color' );
+        }
+        if(get_field( 'seeker_track_color' )){
+            $style_output .= '--lottie-player-seeker-track-color: '.get_field( 'seeker_track_color' );
+        }
+        if(get_field( 'seeker_thumb_color' )){
+            $style_output .= '--lottie-player-seeker-thumb-color: '.get_field( 'seeker_thumb_color' );
+        }
+    $style_output .= '}</style>';
+    enqueue_footer_markup($style_output);  
+}
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo esc_attr( $classes ).'" '.$utils; ?>">
     <?php
@@ -101,7 +104,7 @@ enqueue_footer_markup($style_output);
     if ( is_admin() ) {
         // Runs only if this PHP code is in a file that displays outside the admin panels, like the theme template.
         //echo '<button style="position: absolute;right: 10%;padding: 2rem;top: 20%;">Click here to edit this Media Block </button>';
-        //echo '<script src="https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/lottie-player.js"></script>';
+        //echo '<script src="'https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>';
     } 
 ?>
 </div>

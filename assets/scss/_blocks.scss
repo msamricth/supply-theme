@@ -44,14 +44,24 @@
     }
 }
 .block-supply-list-block {
-    padding-bottom: 40px;
+    padding-bottom: 100px;
     
     @include media-breakpoint-up(md) {
-        padding-bottom: 56px;
+        padding-bottom: 136px;
     }
     
     @include media-breakpoint-up(3xl) {
-        padding-bottom: 128px;
+        padding-bottom: 228px;
+    }
+    .supply-list.cp2 {
+        &:last-child, &:last-of-type {
+            margin-bottom: 0px;
+        }
+        @include media-breakpoint-up(md) {
+            &:nth-child(5),&:nth-child(6){
+                margin-bottom: 0px;
+            }
+        }
     }
 }
 blockquote.wp-block-quote {
@@ -86,6 +96,9 @@ blockquote.wp-block-quote {
 .block-supply-content-block {
     padding-top: 100px;
     padding-bottom: 100px;
+    p:last-child {
+        margin-bottom: 0px;
+    }
     
     @include media-breakpoint-down(md) {
         h5 {
@@ -233,9 +246,6 @@ blockquote.wp-block-quote {
 [data-same-height] {
     height: var(--supply-carousel-maxheight);
     min-height: auto;
-    .splide__track {
-      //  height: 100%;
-    }
     .splide__slide {
         width:auto !important;max-width: max-content;
         @supports (-webkit-touch-callout: none) { //not sure this will work - got it from stack xahnge
@@ -620,7 +630,7 @@ body.error404 main {
         padding-top: 80px;
     }
     .block-supply-content-block {
-        padding-bottom: 112px;
+        padding-bottom: 136px;
         padding-top: 136px;
     }
     
@@ -631,7 +641,7 @@ body.error404 main {
 @include media-breakpoint-up(3xl) {
     
     .block-supply-content-block {
-        padding-bottom: 156px;
+        padding-bottom: 180px;
         padding-top: 180px;
     }
     blockquote.wp-block-quote {

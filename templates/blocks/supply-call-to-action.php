@@ -27,17 +27,13 @@ if ( ! empty( $block['className'] ) ) {
 if ( ! empty( $block['align'] ) ) {
     $classes .= ' align' . $block['align'];
 }
-$classes .= ' fadeNoScroll';
+$classes .= ' cp-4 fadeNoScroll';
 $ctaTitle = get_field( 'cta_title' ); 
 $cta_link = get_field( 'cta_link' ); 
 $ctaCustumLinkText = get_field( 'cta_link_text' ); 
 
 $foldUtils = '';
-
-
-
 ?>
 <div id="<?php echo esc_attr( $id ); ?>" class="<?php echo get_block_settings($classes) ?>">
-    <div class="spacer cp4"></div>
     <?php get_template_part('templates/_cta', 'partials'); ?>
 </div>

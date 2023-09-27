@@ -38,6 +38,15 @@ if ( have_posts() ) :
                         </div>
                     </div>
                 </div>
+                <div class="bottom-half bottom-half--pagination bg-dark-gray text-white fold" data-class="bg-offerings">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 offset-md-1 col-xl-8 offset-xl-2">
+                                <?php get_template_part('templates/blocks/_service-offerings-pagination');?>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
             </div>
         </div>
 <?php 

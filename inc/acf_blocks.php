@@ -74,11 +74,11 @@ function register_supply_blocks() {
 		// Register Supply Container block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-container',
-			'title' 				=> __( 'Supply Container' ),
+			'title' 				=> __( 'Supply Container (mega block)' ),
 			'description' 			=> __( 'A custom Supply Container block.' ),
 			'category' 				=> 'supply-blocks',
 			'icon'					=> 'columns',
-			'keywords'				=> array( 'supply', 'columns', 'container', 'con' ),
+			'keywords'				=> array( 'supply', 'columns', 'container', 'con', 'mega', 'mega block' ),
 			'post_types'			=> array( 'post', 'page', 'case-studies' , 'service-offerings'),
             'mode'              => 'preview',
             'supports'          => array(
@@ -93,11 +93,11 @@ function register_supply_blocks() {
 		// Register Supply Service Offering Split Block
 		acf_register_block_type( array(
 			'name' 					=> 'supply-split-block',
-			'title' 				=> __( 'Supply Split Block' ),
+			'title' 				=> __( 'Supply Split Block (mega block)' ),
 			'description' 			=> __( 'This block splits the page to white' ),
 			'category' 				=> 'supply-blocks',
 			'icon'					=> 'minus',
-			'keywords'				=> array( 'supply', 'split', 'block', 'container' ),
+			'keywords'				=> array( 'supply', 'split', 'block', 'container', 'supply', 'columns', 'container', 'con', 'mega', 'mega block' ),
 			'post_types'			=> array( 'service-offerings'),
             'mode'              => 'preview',
             'supports'          => array(
@@ -249,7 +249,7 @@ function register_supply_blocks() {
 			'description' 			=> __( 'A custom Supply Separator Block block.' ),
 			'category' 				=> 'supply-blocks',
 			'icon'					=> 'ellipsis',
-			'keywords'				=> array( 'supply', 'separator', 'block' ),
+			'keywords'				=> array( 'supply', 'separator', 'block', 'divider', 'split', 'page break' ),
 			'post_types'			=> array( 'post', 'page', 'case-studies', 'service-offerings', 'careers' ),
 			'mode'					=> 'auto',
 			// 'align'				=> 'wide',
@@ -487,7 +487,8 @@ function register_supply_blocks() {
 			'post_types'			=> array( 'post', 'page', 'case-studies', 'service-offerings', 'careers' ),
 			'mode'					=> 'auto',
 			'render_template'		=> 'templates/blocks/supply-motion.php',
-			'enqueue_script' 	=> 'https://unpkg.com/@lottiefiles/lottie-player@0.4.0/dist/lottie-player.js',
+
+			//'enqueue_script' 	=> 'https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js',
 		));
 
 	}
