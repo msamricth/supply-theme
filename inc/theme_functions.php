@@ -41,13 +41,13 @@ if ( is_readable( $theme_ACFProCPTs ) ) {	require_once $theme_ACFProCPTs;}
  *
  * @since v3
  */
-$supply_core = __DIR__ . '/misc/core.php';
+$supply_core = __DIR__ . '/core.php';
 if ( is_readable( $theme_functions ) ) {	require_once $supply_core;}
 
-$supply_block_settings = __DIR__ . '/misc/block_settings.php';
+$supply_block_settings = __DIR__ . '/block_settings.php';
 if ( is_readable( $supply_block_settings ) ) {	require_once $supply_block_settings;}
 
-$supply_media_functions = __DIR__ . '/misc/media.php';
+$supply_media_functions = __DIR__ . '/media.php';
 if ( is_readable( $supply_media_functions ) ) {	require_once $supply_media_functions;}
 
 $supply_case_studies = __DIR__ . '/misc/case_studies.php';
