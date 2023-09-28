@@ -123,6 +123,6 @@ add_action( 'customize_register', 'supply_customize' );
  * Bind JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
 function supply_customize_preview_js() {
-	wp_enqueue_script( 'customizer', get_template_directory_uri() . '/inc/customizer.js', array( 'jquery' ), null, true );
+	wp_enqueue_script( 'customizer', get_template_directory_uri() . '/inc/customizer/customizer.js', array( 'jquery' ), null, true );
 }
 add_action( 'customize_preview_init', 'supply_customize_preview_js' );
