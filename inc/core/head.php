@@ -208,3 +208,24 @@ if ( ! function_exists( 'get_wrapper' ) ) :
         return $output;
     }
 endif;
+
+if ( ! function_exists( 'get_main_classes' ) ) :
+	/**
+	 * Class and Attributes for the main page wrapper. This is where the magic happens Most settings can be accessed here : domainname.com/wp-admin/admin.php?page=theme_options
+	 *
+	 * @since v9
+	 */
+    function get_main_classes(){
+        $post_id = get_supply_postID();
+        $navbar_position = get_theme_mod( 'navbar_position', 'static' ); // Get custom meta-value.
+        $output = "";
+        if ( !get_post_type( $post_id ) === 'case-studies' ) {
+            $output = ' container'; 
+        } 
+        if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : 
+        elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : 
+            $output = ' style="padding-bottom: 100px;"'; 
+        endif;
+        return $output;
+    }
+endif;

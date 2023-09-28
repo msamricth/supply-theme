@@ -46,7 +46,7 @@ enqueue_footer_markup('<style>#post-'.get_the_ID().' .ratio-image {background-im
                             <?php echo strip_tags( get_the_excerpt() ); ?>
                         </a>
                     </p>
-                    <a href="<?php the_permalink(); ?>" class="the-permalink" title="<?php printf( esc_attr__( 'Permalink to %s', 'supply' ), the_title_attribute( 'echo=0' ) ); ?> - Read More" rel="bookmark">Read More</a>
+                    <a href="<?php the_permalink(); ?>" class="internal-link the-permalink" title="<?php printf( esc_attr__( 'Permalink to %s', 'supply' ), the_title_attribute( 'echo=0' ) ); ?> - Read More" rel="bookmark">Read More</a>
                 </div>
             </div>
         </div><!-- /.card-body -->

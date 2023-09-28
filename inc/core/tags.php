@@ -31,14 +31,14 @@ if ( ! function_exists( 'header_link' ) ) :
             while ( have_rows( 'header_link' ) ) : the_row();
                 $page_lookup = get_sub_field( 'page_lookup' ); 
                 $cta_label = get_sub_field( 'link_text' ); 
-                $ctaClasses = '';
+                $ctaClasses = 'internal-link ';
                 if ( have_rows( 'options' ) ) : 
                     while ( have_rows( 'options' ) ) : the_row(); 
                         if ( get_sub_field( 'use_url' ) == 1 ) : 
                             $useUrl = 1;         
                         endif; 
                         if ( get_sub_field( 'external_url' ) == 1 ) : 
-                            $ctaClasses .= 'link-up ';
+                            $ctaClasses = 'link-up ';
                             $cta_target = 'target="_blank"';
                         endif; 
                         $ctapadding .= get_sub_field( 'padding_bottom' );
@@ -54,7 +54,7 @@ if ( ! function_exists( 'header_link' ) ) :
                         $cta_link = get_permalink( $page_lookup );
                     endif; 
                 endif;  
-                $ctaClasses .= ' h8';
+                $ctaClasses .= 'h8';
                 $output .= '<div class="header-link '.$ctapadding.'"><a href="'.esc_attr($cta_link).'" class="'. esc_attr( $ctaClasses ).'" '.$cta_target.'>'.$cta_label.'</a></div>';
             endwhile; 
         endif; 
@@ -130,8 +130,8 @@ if ( ! function_exists( 'supply_entry_meta' ) ) :
 
             $role = get_field('custom_author_role');
         } else {
-            $role = get_field('role__position_at_supply', $author_id);
             $newAuthorID = 'user_'.$author_id;
+            $role = get_field('role__position_at_supply', $newAuthorID);
             $author = get_the_author();
         }
 		

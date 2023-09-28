@@ -52,5 +52,5 @@
 			</nav><!-- /#header -->
 		</header>
 	<?php if ( !is_front_page() ) { ?>
-		<main id="main" class=" <?php if ( !get_post_type( $post_id ) === 'case-studies' ) { echo ' container'; } ?>"<?php if ( isset( $navbar_position ) && 'fixed_top' === $navbar_position ) : elseif ( isset( $navbar_position ) && 'fixed_bottom' === $navbar_position ) : echo ' style="padding-bottom: 100px;"'; endif; ?>>
+		<main id="main" class="<?php echo get_main_classes(); ?>">
 	<?php } ?>

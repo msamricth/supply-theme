@@ -44,7 +44,7 @@ $classes .= ' ';
                     <?php echo strip_tags( get_the_excerpt() ); ?>
                 </a>
             </p>
-            <a href="<?php the_permalink(); ?>" class="the-permalink" title="<?php printf( esc_attr__( 'Permalink to %s', 'supply' ), the_title_attribute( 'echo=0' ) ); ?> - Read More" rel="bookmark">Read More</a>
+            <a href="<?php the_permalink(); ?>" class="the-permalink internal-link" title="<?php printf( esc_attr__( 'Permalink to %s', 'supply' ), the_title_attribute( 'echo=0' ) ); ?> - Read More" rel="bookmark">Read More</a>
         </div><!-- /.card-body -->
     </div><!-- /.col -->
     <?php if ( is_admin() ) { ?><style>.d-none {display:none !important} </style> <?php } ?>

@@ -345,14 +345,15 @@ opacity: 1;
     }
 }
 main {
-    a:not(.link-up):not(.stretched-link):not(.nolink):not(li a), .internal-link {
+
+
+    .article-content .entry-content p a, .internal-link {
         display: inline-block;
         position: relative;
         text-decoration: none;
         opacity: 0.65;
         line-height: 1.1;
-        -webkit-transition: .15s ease;
-        transition: opacity .15s ease-in-out, color .15s ease-in-out, border-color .15s ease-in-out;
+        transition: opacity .15s ease-in-out, color .15s ease-in-out, border-color .15s ease-in-out,background-color .4s ease,color .4s ease !important;
         border-bottom: none;
         &:hover {
             opacity: 1;

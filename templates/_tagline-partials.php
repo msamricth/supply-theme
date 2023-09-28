@@ -20,7 +20,7 @@ $cl_class = '';
                         echo '<p class="mb-4 pb-1 mb-lg-5 ">' . $tagline_content . '</p>';
                         endif; ?>
                     <?php if ( $tagline_link ) : ?>
-                        <a href="<?php echo get_permalink( $tagline_link ); ?>">Learn More</a>
+                        <a class="internal-link" href="<?php echo get_permalink( $tagline_link ); ?>">Learn More</a>
                     <?php endif; ?>
                 </div>
             </div>
