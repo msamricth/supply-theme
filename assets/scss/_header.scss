@@ -12,10 +12,6 @@ header.page-header {
     @include media-breakpoint-up(md) {
         padding-top: 160px;
     }
-    
-    .header-link a {
-        opacity: 1;
-    }
 }
 
 .post.header-container {

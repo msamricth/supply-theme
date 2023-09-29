@@ -13,7 +13,7 @@ $ctaCustumLinkText = get_field( 'cta_link_text' );
         <?php if ( $cta_link ) : 
 	    $post = $cta_link; 
 	    setup_postdata( $post );  ?>
-        <a href="<?php the_permalink(); ?>">
+        <a class="internal-link" href="<?php the_permalink(); ?>">
         <?php if ( $ctaCustumLinkText ) : 
             echo $ctaCustumLinkText; 
             else:
