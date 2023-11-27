@@ -1,7 +1,5 @@
 
 var reels = document.querySelectorAll(".video-embed.reels");
-
-
 function reelAnimation(){
     reels.forEach(function(reel) {
         var iframe = reel.querySelector('.iframe-video');
@@ -73,16 +71,6 @@ function muteAnimation(){
             muteBTN.addEventListener("mouseover", func, false);
             muteBTN.addEventListener("mouseout", func1, false);
             muteBTN.addEventListener("click", () => {
-                // toggle mute feature
-                //player.muted = !player.muted;
-                
-                // toggle mute feature
-                //player.muted = !player.muted;
-               // muteBTN.classList.add('active-on');
-              //  if(muteBTN.classList.contains('active-on')){
-               //     muteBTN.parentElement.classList.add('mute-hover-overide');
-              //      muteBTN.addEventListener("mouseover", func2, false);
-               //}
                 if(CNTR.classList.contains('unmute')) {
                     CNTR.classList.remove('unmute');
                     player.setMuted(true);
@@ -92,13 +80,6 @@ function muteAnimation(){
                 }
             });
             muteBTN.addEventListener("change", () => {
-                // toggle mute feature
-                //player.muted = !player.muted;
-               // muteBTN.classList.add('active-on');
-              //  if(muteBTN.classList.contains('active-on')){
-               //     muteBTN.parentElement.classList.add('mute-hover-overide');
-              //      muteBTN.addEventListener("mouseover", func2, false);
-               //}
                 if(CNTR.classList.contains('unmute')) {
                     CNTR.classList.remove('unmute');
                     player.setMuted(true);

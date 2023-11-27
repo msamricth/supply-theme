@@ -39,49 +39,10 @@ $intro_blurb = get_field( 'intro' );
 if ( $url_to_work ) : 
 endif;
 $classes .= ' fadeNoScroll';
-$foldUtils = '';
-$post_id = '';
-$current_post = get_queried_object();
-$post_id = $current_post ? $current_post->ID : null;	
-$scheme = get_field('background_color', $post_id);
-
-
-    if ( have_rows( 'fold_settings' ) ) :
-        while ( have_rows( 'fold_settings' ) ) : the_row(); 
-            if(get_sub_field( 'custom_bg_color' )){
-                    $customColor = get_sub_field( 'custom_bg_color' );
-                    $customText = get_sub_field('custom_text_color');
-                    if($customText) {
-                        $customText = 'data-color="'.$customText.'"';
-                    } else {
-                        $customText = 'data-color="default"';
-                    }
-                    $classes .= ' fold-custom';
-                    $foldUtils .=' data-bg="'.$customColor.'" '. $customText;
-            }
-            if(get_sub_field( 'fold_color' )){
-                    $foldColor = get_sub_field('fold_color');        
-                    if(strpos($foldColor, 'page') !== false){
-                        if($scheme){
-                            $foldColor = $scheme;
-                        }
-                    }
-                    $foldClass = 'bg-' . $foldColor;
-                    $foldUtils .=' data-class="'. $foldClass .'"';
-            }
-            
-        endwhile;
-
-else:
-    
-if($scheme){
-    $foldUtils .=' data-class="bg-'. $scheme .'"';
-} else {
-    $foldUtils .=' data-class="bg-light"';
-}
-endif; 
 $specialties = get_field( 'specialties' ); 
 $extras = get_container_scheme();
+
+$fold = get_fold();
 ?>
 
 
@@ -102,7 +63,7 @@ $extras = get_container_scheme();
                 </a>
             <?php endif; ?>
         </div>
-        <div class="col-lg-4 col-dlg-3 offset-dlg-1 col-xl-2 case-study-right fold" <?php echo $foldUtils; ?>>
+        <div class="col-lg-4 col-dlg-3 offset-dlg-1 col-xl-2 case-study-right <?php echo $fold; ?>">
             <div class="row mx-sm-0 g-1 g-sm-0">
                 <?php $i = 0; ?>
                 <?php if ( $specialties ) :

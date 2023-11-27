@@ -99,11 +99,67 @@ if ( ! function_exists( 'selfHostVideo' ) ) :
             $classes = 'videofx';
         } 
         $classes .= ' selfhosted lazy';
-        $output .= '<video  id="video'.rand(5, 15).'" class="'.$classes.'" ';
+
+        $output .= '<video data-videotitle="'.$placerholder['alt'] .'" title="'. $placerholder['alt']  .'"  id="video'.rand(5, 15).'" class="'.$classes.'" ';
         if($placerholder){
             $output .='poster="'.esc_url( $placerholder['url'] ).'"';
         }
-        $output .='  autoplay muted playsinline loop background  allow="picture-in-picture"> <source data-src="'.$videoURL.'" type="video/mp4"></video>';
+        $output .='  autoplay muted playsinline loop background  allow="picture-in-picture">';
+        $output .='<source data-src="'.$videoURL.'" type="video/mp4"></video>';
+
+        return $output;
+    }
+endif;
+
+
+if ( ! function_exists( 'videoJS' ) ) :
+	/**
+	 * selfhosting formating
+     * Self hosted video player
+     * using videoJS
+	 *
+	 * @since v5.0
+     * @modified v9.8
+	 */
+    function videoJS($videoURL, $placerholder = null, $classes = null, $id = null, $options = null){
+        $output = '';
+        $sourceTag = '';
+        if(empty($id)){ $id = 'video'.rand(5, 15); }
+        $pos = strpos($options, 'preload');
+        if(empty($options)){ $options = ''; }
+        $options .='fluid muted loop background';
+        if($placerholder){
+            $options .=' poster="'.esc_url( $placerholder['url'] ).'"';
+        }
+        if ($pos !== false) {
+            $options .=" data-setup='{}'";
+        }
+        if(empty($classes)){
+            $classes = 'videofx';
+        } 
+
+        $classes .= ' selfhosted';
+        if (str_contains($options, 'preload')) {
+            //Load and play the video right away - This is likely a header video
+            $sourceTag = 'src';
+        } else {
+            //Lazy load the video by adding class, disable preloading, move video asset from src to data-src - we will load it later via JS
+            $classes .= ' lazy';
+            $options .= ' preload="none"';
+            
+            $sourceTag = 'data-src';
+        }
+        $output .= '<video ';
+        if($placerholder['alt']){ 
+            $output .= 'data-videotitle="'.$placerholder['alt'] .'" title="'. $placerholder['alt']  .'" '; 
+        }
+        $output .= 'id="'.$id.'" class="'.$classes.'" ';
+        $output .= $options;
+
+        $output .='>';
+        $output .='<source '.$sourceTag.'="'.$videoURL.'" type="video/mp4">';
+        $output .='<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="https://videojs.com/html5-video-support" target="_blank">supports HTML5 video</a></p>';
+        $output .='</video>';
 
         return $output;
     }
@@ -166,7 +222,7 @@ if ( ! function_exists( 'reels' ) ) :
         if(strpos($videoURL, 'vimeo') !== false){
             $displayVideo = VimeoVideo($video, 'iframe-video d-none', 'vimeoFrame','true');
         } else {
-            $displayVideo = selfHostVideo($videoURL, $placerholder, 'reels--reel iframe-video d-none');
+            $displayVideo = videoJS($videoURL, $placerholder, 'reels--reel iframe-video d-none');
         }
         if(empty($PlaceholdervideoURL)){
             if($placerholder){
@@ -177,7 +233,7 @@ if ( ! function_exists( 'reels' ) ) :
                 $Placeholdervideo = VideoFM($PlaceholdervideoURL);
                 $previewVideo = VimeoVideo($Placeholdervideo);
             } else {
-                $previewVideo = selfHostVideo($PlaceholdervideoURL);
+                $previewVideo = videoJS($PlaceholdervideoURL);
             }
         }
         $embed .= '<div class="ratio '.$ratio.' video-embed reels fadeNoScroll">';
@@ -196,13 +252,13 @@ if ( ! function_exists( 'background_video' ) ) :
      * @modified v9
 	 */
 
-    function background_video($videoURL = null, $placerholder = null, $eagerLoad = null){
+    function background_video($videoURL = null, $placerholder = null, $eagerLoad = null, $options = null){
         $embed = '';
         $video = VideoFM($videoURL);
         if(strpos($videoURL, 'vimeo') !== false){
             $embed .= VimeoVideo($video);
         } else {
-            $embed .= selfHostVideo($videoURL, $placerholder);
+            $embed .= videoJS($videoURL, $placerholder,'', '', $options);
         }
         //endif; 
         return $embed;
@@ -237,7 +293,7 @@ if ( ! function_exists( 'backgroundVideo' ) ) :
         if(strpos($videoURL, 'vimeo') !== false){
             $embed .= VimeoVideo($video);
         } else {
-            $embed .= selfHostVideo($videoURL, $placerholder);
+            $embed .= videoJS($videoURL, $placerholder);
         }
         $embed .= '</div>';
     

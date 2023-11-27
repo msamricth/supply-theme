@@ -1,12 +1,9 @@
+import { theFold } from "./thefold/index.js";
 const ifWork = document.body.classList.contains('page-template-careers');
 if(ifWork) {
     // HiringThing Job Embed Widget
     //orginally from https://assets.gorgehr-ats.com/javascripts/embed.js - were using this script to get basic job posting details + the job ID. Then we make a second api call to a different api with that job id to get more advance details. Doing it this way prevents dumping unlisted job postings.
     (function () {
-        // Localize jQuery variable
-        var jQuery;
-    
-        /******** Our main function ********/
     
         function main() {
         jQuery(document).ready(function ($) {
@@ -68,7 +65,7 @@ if(ifWork) {
             .apply($, promises)
             .done(function (response) {
                 //importing here to get right block sizes
-                
+                var start = "";
                 console.log(response);
                 var jobs = [];
                 if (promises.length == 1) {
@@ -80,7 +77,6 @@ if(ifWork) {
                 }
     
                 var str = "";
-                
                 for (var i = 0; i < jobs.length; i++) {
                 //make changes to job description
                 if (jobs[i].distribution_status == "none") {
@@ -119,28 +115,20 @@ if(ifWork) {
                 str += start;
                 
                 str += '<div class="entry-summary cp2">' + jobsDescription + "</div>";
-                str += '<a href="'+ jobs[i].joblink+'" target="_blank">Learn more</a>';
+                str += '<a href="'+ jobs[i].joblink+'" class="link-up" target="_blank">Learn more</a>';
                 str += '</div>';
                 str += '</div>';
                 str += '</article>';
             
                 }
-                if(str){
-                    var hideNoJobsht = document.querySelector('.ht-no-positions'),
-                    hideNoJobshtLinks = document.querySelectorAll('.ht-no-positions--link');
-                    hideNoJobsht.style.display = "none";
-                    hideNoJobshtLinks.forEach(function(hideNoJobshtLink) {
-                        hideNoJobshtLink.style.display = "none";
-                      });
-                    
-                }
+    
                 if (str == "") {
                 str =
-                    '<h4 class="ht-no-positions">We have no open positions at this time.</h4>';
+                    '<h5 class="ht-no-positions">We have no open positions at this time.</h5>';
                 }
     
                 container.html(str);
-                ch.refresh()
+                theFold();
             })
             .fail(function () {
                 container.html(
@@ -149,42 +137,7 @@ if(ifWork) {
             });
         });
         }
-    
-        /******** Load jQuery if not present *********/
-        if (window.jQuery === undefined || window.jQuery.fn.jquery !== "3.3.1") {
-        /******** Called once jQuery has loaded ******/
-        var onloadHandler = function () {
-            // Restore $ and window.jQuery to their previous values and store the
-            // new jQuery in our local jQuery variable
-            jQuery = window.jQuery.noConflict(true);
-            // Call our main function
-            main();
-        };
-        var script_tag = document.createElement("script");
-        script_tag.setAttribute("type", "text/javascript");
-        script_tag.setAttribute(
-            "src",
-            "https://code.jquery.com/jquery-3.3.1.min.js"
-        );
-        if (script_tag.readyState) {
-            script_tag.onreadystatechange = function () {
-            // For old versions of IE
-            if (this.readyState === "complete" || this.readyState === "loaded") {
-                onloadHandler();
-            }
-            };
-        } else {
-            // Other browsers
-            script_tag.onload = onloadHandler;
-        }
-        // Try to find the head, otherwise default to the documentElement
-        (
-            document.getElementsByTagName("head")[0] || document.documentElement
-        ).appendChild(script_tag);
-        } else {
-        // The jQuery version on the window is the one we want to use
-        jQuery = window.jQuery;
-        main();
-        }
+		main();
+
     })();
 }

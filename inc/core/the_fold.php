@@ -54,26 +54,41 @@ if ( ! function_exists( 'get_fold_utilities' ) ) :
         $fold_off = get_field('fold_on', $post_id);
 
         if($foldColor){
-                
             if(strpos($foldColor, 'page') !== false){
                 if($scheme){
                     $foldColor = $scheme;
+                    if(strpos($scheme, 'custom') !== false){
+                        //get custom color scheme variables from head
+                        $customBG = get_field( 'custom_bg_color', $post_id); 
+                        $customColorVar = get_field( 'custom_text_color', $post_id); 
+                        $foldUtils .= get_custom_fold($customBG, $customColorVar);
+                    }
                 }
             }
             $foldClass = 'bg-' . $foldColor;
         }else {
             if(empty($fold_off)) {
+                /* will revisit but this would render setting fold as null as a way to skip it on a block useless
                 if($scheme){
-              //      $foldClass ='bg-'. $scheme;
+                   $foldClass ='bg-'. $scheme;
+                   if(strpos($scheme, 'custom') !== false){
+                        //get custom color scheme variables from head
+                        $customBG = get_field( 'custom_bg_color', $post_id); 
+                        $customColorVar = get_field( 'custom_text_color', $post_id); 
+                        $foldUtils .= get_custom_fold($customBG, $customColorVar);
+                    }
                 } else {
-                  //  $foldClass .='bg-light';
+                  $foldClass .='bg-light';
                 }
+                */
             }
         }
         if($customColor){
             $foldUtils .= get_custom_fold($customColor, $customText);
         }
-        $foldUtils .=' data-class="'. $foldClass;
+        if($foldClass){
+            $foldUtils .=' data-class="'. $foldClass;
+        }
 
 		return $foldUtils;
     }
@@ -96,7 +111,7 @@ if ( ! function_exists( 'get_custom_fold' ) ) :
         } else {
             $rgb = HTMLToRGB($customColor);
             $hsl = RGBToHSL($rgb);
-            if($hsl->lightness > 200) {
+            if($hsl->lightness > 150) {
             // this is light colour!
                 $customText = 'data-color="#111512"';
             } else {
@@ -129,6 +144,25 @@ if ( ! function_exists( 'get_fold' ) ) :
             $customText = get_field('container_settings_custom_text_color');
         }
 
+        //column_placement field group
+        $column_placement = get_field('column_placement');
+        if((empty($foldColor)) && ($column_placement)){
+            $foldColor = get_field('column_placement_fold_color');
+            $customColor = get_field('column_placement_custom_bg_color');
+            $customText = get_field('column_placement_custom_text_color');
+        }
+        
+        
+        // case study legacy field
+        if (empty($foldColor) && have_rows( 'fold' ) ) :
+            while ( have_rows( 'fold' ) ) : the_row(); 
+                $foldColor = get_field('fold_settings_fold_color');
+                $customColor = get_field('fold_settings_custom_bg_color');
+                $customText = get_field('fold_settings_custom_text_color');
+            endwhile;
+        endif;
+
+
         //fold_settings field group
         $fold_settings = get_field('fold_settings');
         if((empty($foldColor)) && ($fold_settings)){
@@ -137,13 +171,6 @@ if ( ! function_exists( 'get_fold' ) ) :
             $customText = get_field('fold_settings_custom_text_color');
         }
 
-        //column_placement field group
-        $column_placement = get_field('column_placement');
-        if((empty($containerColor)) && ($column_placement)){
-            $foldColor = get_field('column_placement_fold_color');
-            $customColor = get_field('column_placement_custom_bg_color');
-            $customText = get_field('column_placement_custom_text_color');
-        }
 
         //in aa row SUB field group
         if(empty($foldColor)){
@@ -162,6 +189,42 @@ if ( ! function_exists( 'get_fold' ) ) :
         if(empty($foldOnly) && empty($utilityOnly)) {
             $output = $classes .'" '.$foldUtils;
         }
+		return $output;
+    }
+
+endif;
+if ( ! function_exists( 'get_fold_debug' ) ) :
+	/**
+	 * "Theme posted on" pattern.
+	 *
+	 * @since v1.0
+	 */
+	function get_fold_debug() {
+        $foldUtils = '';
+        $classes = '';
+        $foldColor = '';
+        $customColor = '';
+        $customText = '';
+
+       
+        // case study legacy field
+        $fold_group = get_field('fold');
+        if((empty($foldColor)) && ($fold_group)){
+            
+            if ( have_rows( 'fold' ) ) :
+                while ( have_rows( 'fold' ) ) : the_row(); 
+                    $foldColor = get_field('fold_settings_fold_color');
+                    $customColor = get_field('fold_settings_custom_bg_color');
+                    $customText = get_field('fold_settings_custom_text_color');
+                endwhile;
+            endif;
+        }
+        $classes .= $foldColor;
+        $classes .= get_fold_classes($foldColor, $customColor);
+        $foldUtils .=  get_fold_utilities($foldColor, $customColor, $customText);
+
+       
+        $output = "debugging" . $classes .'" '.$foldUtils;
 		return $output;
     }
 
