@@ -15,9 +15,17 @@ var paths = {
 		src: './assets/*.scss',
 		dest: './assets/css'
 	},
-	scripts: {
+	script: {
 		src: './assets/*.js',
 		dest: './assets/js'
+	},
+	scripts: {
+		src: './assets/scripts/*.js',
+		dest: './assets/js'
+	},
+	theFold: {
+		src: './assets/scripts/thefold/*.js',
+		inc: './assets/scripts/thefold/src/*.js'
 	}
 
 };
@@ -33,7 +41,7 @@ function build_js() {
 	const compiler = require( 'webpack' ),
 		webpackStream = require( 'webpack-stream' );
 
-	return gulp.src( paths.scripts.src )
+	return gulp.src( paths.script.src )
 		.pipe(
 			webpackStream( {
 				config: require( './webpack.config.js' )
@@ -43,7 +51,7 @@ function build_js() {
 		)
 		/* lets not minify it in development .pipe(minify()) */
 		.pipe(
-			gulp.dest( paths.scripts.dest )
+			gulp.dest( paths.script.dest )
 		)
 		/*.pipe(
 			server.stream() // Browser Reload
@@ -102,7 +110,7 @@ gulp.task( 'watch',
 	server.init({
 			proxy: dev_url,
 		} );
-		gulp.watch( [ paths.scripts.src, './assets/scripts/*.js'], build_js );
+		gulp.watch( [ paths.script.src, paths.scripts.src, paths.theFold.src, paths.theFold.inc], build_js );
 		gulp.watch( [ paths.styles.src, './assets/scss/*.scss' ], build_css );
 	}
 );

@@ -1,4 +1,4 @@
-import { fold as fold } from "./thefold.js";
+import { theFold as fold } from "./thefold/index.js";
 import { forms as form } from "./forms.js";
 
 const offeringsPage = document.querySelector('.single-service-offerings');

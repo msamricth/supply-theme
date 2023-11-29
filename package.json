@@ -38,6 +38,7 @@
     "gulp-sourcemaps": "^3.0.0",
     "postcss": "^8.4.25",
     "sass": "^1.57.1",
+    "video.js": "^8.6.1",
     "webpack": "^5.88.1",
     "webpack-stream": "^7.0.0"
   }

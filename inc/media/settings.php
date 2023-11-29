@@ -8,14 +8,15 @@
  */
 
 
-if ( ! function_exists( 'media_block_main' ) ) :
-	/**
-	 * Media Block Frame work
-	 *
-	 * @since v7.0
+if (!function_exists('media_block_main')):
+    /**
+     * Media Block Frame work
+     *
+     * @since v7.0
      * @modified v9
-	 */
-    function media_block_main(){
+     */
+    function media_block_main()
+    {
         $output = '';
         $media_block_video = '';
         $media_block_video_mobile = '';
@@ -44,15 +45,15 @@ if ( ! function_exists( 'media_block_main' ) ) :
                     $video_ratio = 'fullw';
                     $mobile_ratio = 'fullw';
                 endif;
-                if ( get_sub_field( 'play_button' ) == 1 ) : 
+                if (get_sub_field('play_button') == 1):
                     $IsReels = 1;
-                endif; 
+                endif;
 
-                if ( get_sub_field( 'mute_settings' ) == 1 ) : 
+                if (get_sub_field('mute_settings') == 1):
                     $IsMute = 1;
-                endif; 
-                
-                if ( get_sub_field( 'dark_layout' ) == 1 ) : 
+                endif;
+
+                if (get_sub_field('dark_layout') == 1):
                     $darkMode = 1;
                 endif;
                 if (have_rows('video_desktop')):
@@ -76,23 +77,23 @@ if ( ! function_exists( 'media_block_main' ) ) :
                         else:
                             $media_block_video = get_sub_field('video');
                         endif;
-                        
-                        $PlaceholdervideoURL = get_sub_field( 'placeholder_video' );
-                        
-                        if(empty($PlaceholdervideoURL)){
-                            $PlaceholdervideoURL = get_sub_field( 'placeholder_video_url');
+
+                        $PlaceholdervideoURL = get_sub_field('placeholder_video');
+
+                        if (empty($PlaceholdervideoURL)) {
+                            $PlaceholdervideoURL = get_sub_field('placeholder_video_url');
                         }
                         $placerholder = get_sub_field('video_placeholder');
-                    
-                        if($IsReels){
+
+                        if ($IsReels) {
                             $mainVideo = reels($media_block_video, $placerholder, $video_ratio, $PlaceholdervideoURL, $darkMode);
                         } else {
                             $mainVideo = backgroundVideo($media_block_video, $placerholder, $video_ratio, $IsMute, $darkMode);
                         }
-                        
+
                     endwhile;
                 endif;
-                
+
                 if (have_rows('video_mobile')):
                     while (have_rows('video_mobile')):
                         the_row();
@@ -107,54 +108,55 @@ if ( ! function_exists( 'media_block_main' ) ) :
                                     $mobile_ratio = get_sub_field('video_ratio');
                                 }
 
-                                
+
                             endwhile;
                         endif;
-                        $PlaceholdervideoURL = get_sub_field( 'placeholder_video' );
+                        $PlaceholdervideoURL = get_sub_field('placeholder_video');
                         if ($self_host_video):
                             $media_block_video_mobile = get_sub_field('video_mobile_uploaded');
                         else:
                             $media_block_video_mobile = get_sub_field('video_mobile');
                         endif;
                         $mobileplaceholder = get_sub_field('video_placeholder');
-                        if($IsReels){
+                        if ($IsReels) {
                             $mobileVideo = reels($media_block_video_mobile, $mobileplaceholder, $mobile_ratio, $PlaceholdervideoURL, $darkMode);
                         } else {
                             $mobileVideo = backgroundVideo($media_block_video_mobile, $mobileplaceholder, $mobile_ratio, $IsMute, $darkMode);
                         }
                     endwhile;
                 endif;
-                if ($media_block_video): 
+                if ($media_block_video):
                     $output .= customRatio($mobile_ratio);
                     $output .= customRatio($video_ratio);
                     $output .= video_containersNR($mainVideo, $mobileVideo);
-                else: 
-                    if ($placerholder): 
-                        if($video_ratio == 'fullw'){
-                            $output .= image_containers($placerholder, $mobileplaceholder, $video_ratio, $mobile_ratio); 
+                else:
+                    if ($placerholder):
+                        if ($video_ratio == 'fullw') {
+                            $output .= image_containers($placerholder, $mobileplaceholder, $video_ratio, $mobile_ratio);
                         } else {
-                            $output .= image_containersNR($placerholder, $mobileplaceholder); 
+                            $output .= image_containersNR($placerholder, $mobileplaceholder);
                         }
-                    endif; 
-                endif; 
+                    endif;
+                endif;
             endwhile;
         endif;
 
-    return $output;
+        return $output;
 
     }
 endif;
 
 
 
-if ( ! function_exists( 'get_header_media' ) ) :
-	/**
-	 * Header Media Frame work
-	 *
-	 * @since v7.0
+if (!function_exists('get_header_media')):
+    /**
+     * Header Media Frame work
+     *
+     * @since v7.0
      * @modified v9
-	 */
-    function get_header_media(){
+     */
+    function get_header_media()
+    {
         $post_id = '';
         $current_post = get_queried_object();
         $post_id = $current_post ? $current_post->ID : null;
@@ -168,16 +170,16 @@ if ( ! function_exists( 'get_header_media' ) ) :
         $placerholder = '';
         $mobile_ratio = '';
         $header_video_mobile = '';
-        $mobileplaceholder	 = '';
-        $video_lg ='';
-        $video_lg_ratio ='';
+        $mobileplaceholder = '';
+        $video_lg = '';
+        $video_lg_ratio = '';
         $video_lg_class = '';
         if (have_rows('header_media')):
             while (have_rows('header_media')):
                 the_row();
                 if (get_sub_field('make_full_screen') == 1):
                     $classes .= "fullscreen_media";
-                    $video_lg_class ='fullscreen_media';
+                    $video_lg_class = 'fullscreen_media';
                     $video_ratio = 'fullw';
                     $mobile_ratio = 'fullw';
                     $video_lg_ratio = 'fullw';
@@ -217,20 +219,20 @@ if ( ! function_exists( 'get_header_media' ) ) :
                                 if (get_sub_field('self_host_video') == 1):
                                     $self_host_video = 'true';
                                 endif;
-        
+
                                 if (empty($mobile_ratio)) {
                                     $mobile_ratio = get_sub_field('video_ratio');
                                 }
                             endwhile;
                         endif;
-        
+
                         if ($self_host_video):
                             $header_video_mobile = get_sub_field('video_mobile_uploaded');
                         else:
                             $header_video_mobile = get_sub_field('video_mobile');
                         endif;
                         $mobileplaceholder = get_sub_field('video_placeholder');
-        
+
                     endwhile;
                 endif;
                 if (have_rows('video_lg')):
@@ -244,28 +246,28 @@ if ( ! function_exists( 'get_header_media' ) ) :
                                 if (get_sub_field('self_host_video') == 1):
                                     $self_host_video = 'true';
                                 endif;
-        
+
                                 if (empty($video_lg_ratio)) {
                                     $video_lg_ratio = get_sub_field('video_ratio');
                                 }
-                                
+
                             endwhile;
                         endif;
-                        
-                        
+
+
                         if ($self_host_video):
                             $video_lg = get_sub_field('video_mobile_uploaded');
                         else:
                             $video_lg = get_sub_field('video_mobile');
                         endif;
-                        if($video_lg){
-                            
+                        if ($video_lg) {
+
                             $classes .= " d-3xl-none";
                             $header_media .= customRatio($video_lg_ratio);
-                            $header_media .='<div class="header-container__media '.$video_lg_class.' d-none d-3xl-block fold" data-class="header">';
-                            
+                            $header_media .= '<div class="header-container__media ' . $video_lg_class . ' d-none d-3xl-block fold" data-class="header">';
+
                             $video_lg_placeholder = get_sub_field('video_placeholder');
-                            $header_media .= video_containers($video_lg, '', $video_lg_ratio, '', $video_lg_placeholder); 
+                            $header_media .= get_header_assets($video_lg, '', $video_lg_ratio, '', $video_lg_placeholder);
                             $header_media .= '</div>';
                         }
 
@@ -274,46 +276,40 @@ if ( ! function_exists( 'get_header_media' ) ) :
             endwhile;
         endif;
 
-        $header_media .='<div class="header-container__media '.$classes.' fold" data-class="header">';
-        if(get_field('turn_on_overlay')){
-            $headerOverlayBG = "background-color: ". get_field('overlay_color');
+        $header_media .= '<div class="header-container__media ' . $classes . ' fold" data-class="header">';
+        if (get_field('turn_on_overlay')) {
+            $headerOverlayBG = "background-color: " . get_field('overlay_color');
             $headerOverlayOpacity = get_field('opacity_level');
-            if(empty($headerOverlayOpacity)){$headerOverlayOpacity = '0';} else {
-                $headerOverlayOpacity = '.'.$headerOverlayOpacity;
+            if (empty($headerOverlayOpacity)) {
+                $headerOverlayOpacity = '0';
+            } else {
+                $headerOverlayOpacity = '.' . $headerOverlayOpacity;
             }
-            $header_media .='<div class="header-overlay" style="opacity: '.$headerOverlayOpacity.'; '.$headerOverlayBG.'"></div>';
+            $header_media .= '<div class="header-overlay" style="opacity: ' . $headerOverlayOpacity . '; ' . $headerOverlayBG . '"></div>';
         }
-        if(empty($header_video)){ 
-            if($placerholder){
-                $header_media .= image_containers($placerholder, $mobileplaceholder, $video_ratio, $mobile_ratio); 
-            }
-        } else {   
-            
-            $header_media .= customRatio($video_ratio);
-            $header_media .= customRatio($mobile_ratio); 
-            $header_media .= video_containers($header_video, $header_video_mobile, $video_ratio, $mobile_ratio, $placerholder, $mobileplaceholder);
-        }
-        $header_type =  get_field( 'header_type' );
+
+        $header_media .= get_header_assets($header_video, $header_video_mobile, $video_ratio, $mobile_ratio, $placerholder, $mobileplaceholder);
+        $header_type = get_field('header_type');
 
 
-                            if( $header_type == 'casestudy' ) {
-                                $client_logo = get_field('client_logo');
-                                $title_of_work_performed = get_field('title_of_work_performed');
-                                if (empty($title_of_work_performed)):
-                                    $title_of_work_performed = get_the_title();
-                                endif;
-                                $header_media .= '<header class="page-header fold" data-class="header">';
-                            
-                                $header_media .= '<div class="container">';
-                                if ($client_logo):
-                                    $header_media .= '<img class="img-responsive client-logo" src="' . esc_url($client_logo['url']) . '" alt="' . esc_attr($client_logo['alt']) . '" />';
-                                    $header_media .= '<h3 class="card-title cp1">' . $title_of_work_performed . '</h3>';
-                                endif;
-                                $header_media .= '</div></header>';
-                                }
-        $header_media .='</div>';    
+        if ($header_type == 'casestudy') {
+            $client_logo = get_field('client_logo');
+            $title_of_work_performed = get_field('title_of_work_performed');
+            if (empty($title_of_work_performed)):
+                $title_of_work_performed = get_the_title();
+            endif;
+            $header_media .= '<header class="page-header fold" data-class="header">';
+
+            $header_media .= '<div class="container">';
+            if ($client_logo):
+                $header_media .= '<img class="img-responsive client-logo" src="' . esc_url($client_logo['url']) . '" alt="' . esc_attr($client_logo['alt']) . '" />';
+                $header_media .= '<h3 class="card-title cp1">' . $title_of_work_performed . '</h3>';
+            endif;
+            $header_media .= '</div></header>';
+        }
+        $header_media .= '</div>';
 
         return $header_media;
-                
+
     }
 endif;
